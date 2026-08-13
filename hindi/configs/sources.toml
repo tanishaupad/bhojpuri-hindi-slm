@@ -1,0 +1,31 @@
+language = "hi"
+language_name = "Hindi"
+
+[[sources]]
+name = "hindi_wikipedia"
+kind = "mediawiki"
+collection_type = "manual"
+api_url = "https://hi.wikipedia.org/w/api.php"
+license = "CC-BY-SA-4.0"
+namespace = 0
+enabled = true
+[[sources]]
+name = "hindi_wikisource"
+kind = "mediawiki"
+collection_type = "manual"
+api_url = "https://hi.wikisource.org/w/api.php"
+license = "CC-BY-SA-4.0"
+namespace = 0
+enabled = true
+
+[[sources]]
+name = "indiccorp_v2_hindi"
+kind = "huggingface"
+collection_type = "downloaded"
+dataset = "ai4bharat/IndicCorpV2"
+subset = "indiccorp_v2"
+data_dir = "data/hin_Deva"
+split = "hin_Deva"
+text_field = "text"
+license = "CC0-1.0"
+enabled = true

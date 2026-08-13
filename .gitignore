@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Local secrets and credentials
+.env
+*.token
+credentials*.json
+
+# Large and generated corpus artifacts (never commit these)
+/data/
+hindi/data/raw/
+hindi/data/interim/
+hindi/data/processed/
+hindi/data/splits/
+hindi/data/checkpoints/
+bhojpuri/data/raw/
+bhojpuri/data/interim/
+bhojpuri/data/processed/
+bhojpuri/data/splits/
+bhojpuri/data/checkpoints/
+*.jsonl
+*.jsonl.gz
+*.parquet
+*.arrow
+*.sqlite
+*.sqlite3
+*.db
+
+# Generated tokenizer experiments and plots. Final selected .model/.vocab
+# files are intentionally not ignored.
+**/tokenizer/runs/
+report/figures/generated/
+report/tables/generated/

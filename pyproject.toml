@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lma-individual-project"
+version = "0.1.0"
+description = "Reproducible Phase 1 corpus and tokenizer pipelines for Hindi and Bhojpuri"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "beautifulsoup4>=4.12,<5",
+  "datasets>=3.0,<5",
+  "matplotlib>=3.8,<4",
+  "requests>=2.32,<3",
+  "sentencepiece>=0.2,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<9",
+  "ruff>=0.9,<1",
+]
+
+[project.scripts]
+lma-collect-mediawiki = "lma_phase1.collectors.mediawiki:main"
+lma-collect-hf = "lma_phase1.collectors.huggingface:main"
+lma-collect-web = "lma_phase1.collectors.web:main"
+lma-preprocess = "lma_phase1.preprocess:main"
+lma-deduplicate = "lma_phase1.deduplicate:main"
+lma-split = "lma_phase1.split:main"
+lma-corpus-stats = "lma_phase1.stats:main"
+lma-create-audit-sample = "lma_phase1.audit:main"
+lma-train-tokenizers = "lma_phase1.tokenizer.train:main"
+lma-evaluate-tokenizer = "lma_phase1.tokenizer.evaluate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

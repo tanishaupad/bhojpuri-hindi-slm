@@ -1,0 +1,49 @@
+language = "bho"
+language_name = "Bhojpuri"
+
+[[sources]]
+name = "bhojpuri_wikipedia"
+kind = "mediawiki"
+collection_type = "manual"
+api_url = "https://bh.wikipedia.org/w/api.php"
+license = "CC-BY-SA-4.0"
+namespace = 0
+enabled = true
+
+[[sources]]
+name = "bhojpuri_corpus"
+kind = "huggingface"
+collection_type = "downloaded"
+dataset = "Satyam810/BhojpuriCorpus"
+split = "train"
+text_field = "text"
+id_field = "id"
+source_field = "source"
+license_field = "license"
+url_field = "url"
+license = "mixed-see-record"
+enabled = true
+
+# Pilot these sources and record permission/terms before enabling full crawls.
+[[sources]]
+name = "anjoria"
+kind = "web"
+collection_type = "manual"
+start_url = "https://anjoria.com/"
+license = "permission-to-be-recorded"
+enabled = false
+[[sources]]
+name = "sirijan"
+kind = "web"
+collection_type = "manual"
+start_url = "https://sirijan.com/"
+license = "permission-to-be-recorded"
+enabled = false
+
+[[sources]]
+name = "khabar_bhojpuri"
+kind = "web"
+collection_type = "manual"
+start_url = "https://khabarbhojpuri.com/"
+license = "permission-to-be-recorded"
+enabled = false
