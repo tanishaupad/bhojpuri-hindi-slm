@@ -1,0 +1,4 @@
+source_name,collection_type,permission_or_license_checked,pilot_documents,auditor,decision,notes
+hindi_wikipedia,manual,yes,5,automated technical pilot,pending student language audit,5/5 passed automatic preprocessing; revision and URL metadata preserved
+hindi_wikisource,manual,yes,0,,pending,avoid Page/main-namespace duplication
+indiccorp_v2_hindi,downloaded,yes,0,,pending,CC0; globally deduplicate against manual sources

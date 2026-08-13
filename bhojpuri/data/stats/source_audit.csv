@@ -1,0 +1,6 @@
+source_name,collection_type,permission_or_license_checked,pilot_documents,auditor,decision,notes
+bhojpuri_wikipedia,manual,yes,5,automated technical pilot,pending student language audit,3/5 passed automatic preprocessing; inspect accepted text for Hindi contamination
+bhojpuri_corpus,downloaded,yes,0,,pending,mixed per-record licences; preserve metadata
+anjoria,manual,no,0,,pending,check terms robots and sample language quality
+sirijan,manual,no,0,,pending,check terms robots and sample language quality
+khabar_bhojpuri,manual,no,0,,pending,check terms robots and sample language quality
