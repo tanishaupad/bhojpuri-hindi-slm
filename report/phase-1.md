@@ -15,26 +15,68 @@ The two corpora, tokenizers, vocabularies, and later model weights are completel
 
 | Language | Source | Collection type | Method | Licence | Clean training tokens |
 |---|---|---|---|---|---:|
-| Hindi | Hindi Wikipedia | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
-| Hindi | Hindi Wikisource | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
-| Hindi | IndicCorp v2 (`hin_Deva`) | Downloaded | HF streaming | CC0 | TBD |
+| Hindi | PIB Hindi | Manual | Polite release crawl | Reproduction with attribution | TBD |
+| Hindi | IndicCorp v2 (`data/hi-{1,2,3}.txt`) | Downloaded | HF streaming | CC0 | TBD |
+| Bhojpuri | Bhojpuri Wikisource | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
 | Bhojpuri | Bhojpuri Wikipedia | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
-| Bhojpuri | Approved web sources | Manual | Rate-limited HTML crawl | Per-source | TBD |
-| Bhojpuri | BhojpuriCorpus | Downloaded | HF streaming | Mixed per record | TBD |
+| Bhojpuri | Filtered BhojpuriCorpus | Downloaded | HF streaming | Mixed per record | TBD |
 
 ### 2.2 Collection process
 
-TBD: explain checkpoints, rate limits, source auditing, and provenance schema.
+All collectors write the common document schema and preserve source URL, source document ID,
+collection method, collection type, licence, collection date, and source-specific metadata. The
+MediaWiki collector is rate-limited and resumable from a continuation checkpoint. Hugging Face
+datasets are streamed directly into compressed JSONL rather than materialized in the Git working
+tree. Four deterministic audit worksheets were reviewed manually: 20 PIB releases, 100 IndicCorp
+documents, 100 Bhojpuri Wikisource pages, and 20 examples from each of the 13 BhojpuriCorpus
+partitions (260 rows).
+
+PIB rejected ordinary scripted requests in the collection environment, so direct article pages were
+opened through a normal browser session and then imported into the common schema. The importer
+validates the page body rather than trusting navigation success: in the August 2026 attempt, 635 of
+1,013 PRIDs returned an Akamai access-denied body and were quarantined. The clean partial raw set
+contains 378 genuine articles; their failed PRIDs are retained in the import report for a slower,
+rate-limited retry.
 
 ### 2.3 Cleaning and quality filtering
 
-TBD: report Unicode NFC normalization, boilerplate removal, script ratios, Hindi/Bhojpuri
-contamination filtering, and manually audited samples.
+Text is normalized to Unicode NFC, control and zero-width characters are removed, whitespace is
+normalized, and repeated within-document lines are removed. Documents are then filtered using
+minimum length, Devanagari-letter share, Latin-letter share, and digit-share thresholds. The PIB
+pilot was accepted subject to paragraph-level removal of standard PIB metadata/footer text and
+embedded English social-media blocks.
+
+The current PIB partial preprocessing pass accepted 370 releases and 333,161 whitespace words. It
+removed 1,100 standard metadata/separator/signature lines and 204 English-dominant embedded
+paragraphs. The accepted output contains 99.13% Devanagari and 0.87% Latin letters; eight unusual
+releases were quarantined by the script/digit filters for inspection.
+
+The BhojpuriCorpus partitions `eng_bho`, `google_smol`, and `fleurs_bhojpuri` are excluded by
+provenance because they originate in parallel or translation benchmark material. Fluency alone was
+not treated as evidence of native authorship. In the current pre-deduplication pass, 30,461 records
+were removed by this rule. Conservative low-resource length floors of 30 characters and five words
+retained 304,634 documents and 19,174,263 whitespace words after adding the manual Wikipedia crawl;
+final SentencePiece token counts will replace these diagnostic word counts. A deterministic
+20-document sample of automatically rejected records was exported for manual false-rejection
+review.
+
+The first Wikisource crawl supplied only 33,694 retained words, so it cannot meet the 20%
+manual-token requirement alone. A complete Bhojpuri Wikipedia crawl supplied 9,149 raw articles, of
+which 8,233 passed preprocessing and contributed 1,177,217 words. A manual-first exact-deduplication
+measurement removed 824 documents and retained 303,810 documents / 19,134,337 words. The retained
+manual portion is 1,210,851 words (6.328%); the downloaded portion is 17,923,486 words. Using words
+as a planning proxy, another 3.27 million manual words are needed to keep the whole downloaded
+portion. With no additional manual sources, downloaded text would need to be capped near 4.84
+million words, giving a roughly 6.05-million-word corpus before near deduplication. The final 20%
+decision will use tokenizer tokens rather than whitespace words.
 
 ### 2.4 Deduplication
 
-TBD: report exact SHA-256 and near-duplicate SimHash settings, removals by source, and the policy
-of retaining the manually collected copy when manual and downloaded sources overlap.
+Exact duplicate comparison uses a SHA-256 hash of NFC-normalized, case-folded, whitespace-collapsed
+text. Manual records are indexed before downloaded records, so an identical downloaded copy is
+removed. The exact-only measurement removed 824 of 304,634 examined documents. Near-duplicate
+SimHash deletion has not yet been applied: its threshold will first be validated on manually reviewed
+duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
 
 ### 2.5 Dataset statistics
 

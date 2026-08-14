@@ -1,10 +1,15 @@
 language = "bho"
-minimum_characters = 120
-minimum_words = 20
+minimum_characters = 30
+minimum_words = 5
 minimum_devanagari_ratio = 0.70
 maximum_latin_ratio = 0.20
 maximum_digit_ratio = 0.25
 remove_repeated_lines = true
+excluded_source_names = [
+  "bhojpuri_corpus:eng_bho",
+  "bhojpuri_corpus:fleurs_bhojpuri",
+  "bhojpuri_corpus:google_smol",
+]
 
 [split]
 train = 0.98

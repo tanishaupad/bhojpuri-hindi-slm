@@ -12,6 +12,10 @@ from dataclasses import dataclass
 _HORIZONTAL_SPACE = re.compile(r"[\t\f\v\u00a0\u2000-\u200b\u202f\u205f\u3000]+")
 _MULTIPLE_BLANK_LINES = re.compile(r"\n{3,}")
 _MULTIPLE_SPACES = re.compile(r" {2,}")
+_PIB_DATE_LINE = re.compile(r"^प्रविष्टि तिथि:")
+_PIB_FOOTER_LINE = re.compile(r"^\((?:रिलीज़|रिलीज) आईडी:")
+_PIB_SEPARATOR_LINE = re.compile(r"^\*{3,}$")
+_PIB_SIGNATURE_LINE = re.compile(r"^[^\s/]{1,8}(?:/[^\s/]{1,8}){1,10}$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -64,6 +68,45 @@ def remove_repeated_lines(text: str, minimum_repeats: int = 3) -> str:
     counts = Counter(line for line in lines if len(line) >= 20)
     repeated = {line for line, count in counts.items() if count >= minimum_repeats}
     return "\n".join(line for line in lines if line not in repeated).strip()
+
+
+def clean_pib_article(text: str) -> tuple[str, dict[str, int]]:
+    """Remove standard PIB metadata, footer text, and English-only embedded blocks."""
+
+    kept_paragraphs = []
+    removed_lines = 0
+    removed_english_paragraphs = 0
+    reached_footer = False
+    for paragraph in re.split(r"\n\s*\n", text):
+        kept_lines = []
+        for line in paragraph.splitlines():
+            line = line.strip()
+            if _PIB_FOOTER_LINE.match(line) or line.startswith("इस विज्ञप्ति को इन भाषाओं में"):
+                reached_footer = True
+                break
+            if (
+                not line
+                or _PIB_DATE_LINE.match(line)
+                or _PIB_SEPARATOR_LINE.fullmatch(line)
+                or _PIB_SIGNATURE_LINE.fullmatch(line)
+            ):
+                removed_lines += 1
+                continue
+            kept_lines.append(line)
+        if reached_footer:
+            break
+        cleaned_paragraph = "\n".join(kept_lines).strip()
+        if not cleaned_paragraph:
+            continue
+        metrics = text_metrics(cleaned_paragraph)
+        if metrics.letters >= 20 and metrics.latin_ratio > 0.50 and metrics.devanagari_ratio < 0.40:
+            removed_english_paragraphs += 1
+            continue
+        kept_paragraphs.append(cleaned_paragraph)
+    return "\n\n".join(kept_paragraphs).strip(), {
+        "removed_lines": removed_lines,
+        "removed_english_paragraphs": removed_english_paragraphs,
+    }
 
 
 def text_metrics(text: str) -> TextMetrics:

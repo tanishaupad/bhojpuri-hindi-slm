@@ -12,7 +12,12 @@ from typing import Any
 
 from lma_phase1.io import atomic_write_json, iter_jsonl, write_jsonl
 from lma_phase1.schema import Document
-from lma_phase1.text import normalize_unicode, remove_repeated_lines, text_metrics
+from lma_phase1.text import (
+    clean_pib_article,
+    normalize_unicode,
+    remove_repeated_lines,
+    text_metrics,
+)
 
 DEFAULTS: dict[str, Any] = {
     "minimum_characters": 200,
@@ -21,6 +26,8 @@ DEFAULTS: dict[str, Any] = {
     "maximum_latin_ratio": 0.20,
     "maximum_digit_ratio": 0.25,
     "remove_repeated_lines": True,
+    "excluded_source_names": [],
+    "clean_pib_boilerplate": False,
 }
 
 
@@ -74,16 +81,29 @@ def iter_processed(
     """Yield accepted normalized records and optionally persist rejected ones."""
 
     rejected_batch: list[Document] = []
+    excluded_source_names = {
+        str(source_name) for source_name in config.get("excluded_source_names", [])
+    }
     for input_path in input_paths:
         for document in iter_jsonl(input_path):
             counters["raw_documents"] += 1
             if document.language != expected_language:
                 counters["rejected_language_mismatch"] += 1
                 continue
+            if document.source_name in excluded_source_names:
+                counters["rejected_source_excluded"] += 1
+                counters[f"rejected_source_excluded:{document.source_name}"] += 1
+                continue
             original_hash = hashlib.sha256(document.text.encode("utf-8")).hexdigest()
             text = normalize_unicode(document.text)
             if config.get("remove_repeated_lines", True):
                 text = remove_repeated_lines(text)
+            source_cleaning: dict[str, Any] = {}
+            if document.source_name == "pib_hindi" and config.get("clean_pib_boilerplate", False):
+                text, pib_cleaning = clean_pib_article(text)
+                source_cleaning["pib"] = pib_cleaning
+                for key, value in pib_cleaning.items():
+                    counters[f"pib_{key}"] += value
             document.text = text
             reasons, metrics = rejection_reasons(document, config)
             document.metadata = {
@@ -92,6 +112,7 @@ def iter_processed(
                     "unicode_normalization": "NFC",
                     "original_text_sha256": original_hash,
                     "metrics": metrics,
+                    "source_cleaning": source_cleaning,
                 },
             }
             if reasons:

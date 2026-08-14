@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+from collections import defaultdict
 from pathlib import Path
 
 from lma_phase1.io import iter_jsonl
@@ -20,9 +21,26 @@ def create_sample(args: argparse.Namespace) -> int:
     """Choose the lowest stable hash scores and write a review worksheet."""
 
     candidates = []
+    by_source = defaultdict(list)
+    seen_document_ids = set()
     for document in iter_jsonl(Path(args.input)):
-        candidates.append((sample_score(args.seed, document.document_id), document))
-    chosen = [document for _, document in sorted(candidates, key=lambda item: item[0])[: args.size]]
+        if document.document_id in seen_document_ids:
+            continue
+        seen_document_ids.add(document.document_id)
+        candidate = (sample_score(args.seed, document.document_id), document)
+        if args.per_source:
+            by_source[document.source_name].append(candidate)
+        else:
+            candidates.append(candidate)
+    if args.per_source:
+        chosen = []
+        for source_name in sorted(by_source):
+            ranked = sorted(by_source[source_name], key=lambda item: item[0])
+            chosen.extend(document for _, document in ranked[: args.per_source])
+    else:
+        chosen = [
+            document for _, document in sorted(candidates, key=lambda item: item[0])[: args.size]
+        ]
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -34,7 +52,9 @@ def create_sample(args: argparse.Namespace) -> int:
         "collection_type",
         "source_url",
         "text_sample",
+        "automatic_rejection_reasons",
         "language_label",
+        "translation_label",
         "quality_label",
         "duplicate_label",
         "reviewer",
@@ -51,7 +71,11 @@ def create_sample(args: argparse.Namespace) -> int:
                     "collection_type": document.collection_type,
                     "source_url": document.source_url or "",
                     "text_sample": " ".join(document.text.split())[: args.sample_characters],
+                    "automatic_rejection_reasons": ";".join(
+                        document.metadata.get("preprocessing", {}).get("rejection_reasons", [])
+                    ),
                     "language_label": "",
+                    "translation_label": "",
                     "quality_label": "",
                     "duplicate_label": "",
                     "reviewer": "",
@@ -68,6 +92,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--size", type=int, default=100)
+    parser.add_argument(
+        "--per-source",
+        type=int,
+        default=0,
+        help="Choose this many records from every source_name instead of one global sample",
+    )
     parser.add_argument("--sample-characters", type=int, default=500)
     parser.add_argument("--seed", default="lma-phase-1-audit-2026")
     return parser
@@ -77,8 +107,10 @@ def main() -> None:
     """Run the audit worksheet generator."""
 
     args = build_parser().parse_args()
-    if args.size <= 0 or args.sample_characters <= 0:
-        raise SystemExit("--size and --sample-characters must be positive")
+    if args.size <= 0 or args.per_source < 0 or args.sample_characters <= 0:
+        raise SystemExit(
+            "--size and --sample-characters must be positive; --per-source non-negative"
+        )
     count = create_sample(args)
     print(f"wrote {count} audit rows to {args.output}")
 

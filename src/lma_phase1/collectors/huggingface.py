@@ -50,6 +50,9 @@ def collect(args: argparse.Namespace) -> int:
         load_kwargs["name"] = args.subset
     if args.data_dir:
         load_kwargs["data_dir"] = args.data_dir
+    data_files = getattr(args, "data_file", None)
+    if data_files:
+        load_kwargs["data_files"] = data_files
     dataset = load_dataset(**load_kwargs)
     if already_written:
         dataset = dataset.skip(already_written)
@@ -98,6 +101,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dataset", required=True)
     parser.add_argument("--subset")
     parser.add_argument("--data-dir")
+    parser.add_argument(
+        "--data-file",
+        action="append",
+        help="Repository-relative data file; repeat to pin multiple files",
+    )
     parser.add_argument("--split", default="train")
     parser.add_argument("--language", required=True)
     parser.add_argument("--source-name", required=True)

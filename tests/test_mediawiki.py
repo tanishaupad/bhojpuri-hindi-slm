@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from lma_phase1.collectors.mediawiki import fetch_page_details, page_to_document
+from lma_phase1.collectors.mediawiki import enumerate_pages, fetch_page_details, page_to_document
 
 
 class FakeResponse:
@@ -75,3 +75,68 @@ def test_property_continuations_are_merged_into_complete_pages():
     )
     assert [page["extract"] for page in pages] == ["एक", "दो"]
     assert session.calls[1]["excontinue"] == 1
+
+
+def test_category_enumeration_uses_categorymembers_continuation():
+    session = FakeSession(
+        [
+            {
+                "query": {
+                    "categorymembers": [
+                        {"pageid": 11, "ns": 0, "title": "बटोहीया"},
+                    ]
+                },
+                "continue": {"cmcontinue": "page|next", "continue": "-||"},
+            }
+        ]
+    )
+
+    pages, continuation = enumerate_pages(
+        session,
+        "https://wikisource.org/w/api.php",
+        namespace=0,
+        batch_size=50,
+        continuation=None,
+        category="Category:भोजपुरी",
+    )
+
+    assert pages[0]["pageid"] == 11
+    assert continuation == {"cmcontinue": "page|next"}
+    assert session.calls[0]["list"] == "categorymembers"
+    assert session.calls[0]["cmtitle"] == "Category:भोजपुरी"
+
+
+def test_missing_extract_falls_back_to_parsed_html():
+    session = FakeSession(
+        [
+            {
+                "query": {
+                    "pages": [
+                        {
+                            "pageid": 5,
+                            "title": "बटोहीया",
+                            "fullurl": "https://wikisource.org/wiki/test",
+                        }
+                    ]
+                }
+            },
+            {
+                "parse": {
+                    "text": (
+                        "<div><p>सुन्दर सुभूमि भइया भारत के देसवा से</p>"
+                        '<sup class="reference">[1]</sup></div>'
+                    )
+                }
+            },
+        ]
+    )
+
+    pages = fetch_page_details(
+        session,
+        "https://wikisource.org/w/api.php",
+        [{"pageid": 5, "title": "बटोहीया"}],
+    )
+
+    assert pages[0]["extract"] == "सुन्दर सुभूमि भइया भारत के देसवा से"
+    assert pages[0]["extraction_method"] == "mediawiki_parse_html"
+    assert session.calls[1]["action"] == "parse"
