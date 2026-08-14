@@ -11,6 +11,17 @@ namespace = 0
 enabled = true
 
 [[sources]]
+name = "bhojpuri_wikisource"
+kind = "mediawiki"
+collection_type = "manual"
+api_url = "https://wikisource.org/w/api.php"
+category = "Category:भोजपुरी"
+license = "CC-BY-SA-4.0"
+namespace = 0
+translation_review_required = true
+enabled = true
+
+[[sources]]
 name = "bhojpuri_corpus"
 kind = "huggingface"
 collection_type = "downloaded"

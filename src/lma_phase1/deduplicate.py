@@ -173,7 +173,9 @@ def deduplicate(args: argparse.Namespace) -> Counter[str]:
                     index.reject(document.document_id, "exact_duplicate")
                     continue
                 fingerprint = simhash(document.text, args.shingle_size, args.maximum_shingles)
-                near_document = index.near_match(fingerprint, args.hamming_threshold)
+                near_document = None
+                if not args.exact_only:
+                    near_document = index.near_match(fingerprint, args.hamming_threshold)
                 if near_document:
                     counters["near_duplicates"] += 1
                     index.reject(document.document_id, "near_duplicate")
@@ -201,6 +203,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--database", required=True)
     parser.add_argument("--report", required=True)
     parser.add_argument("--hamming-threshold", type=int, default=3)
+    parser.add_argument(
+        "--exact-only",
+        action="store_true",
+        help="Skip near-duplicate rejection while measuring exact overlap",
+    )
     parser.add_argument("--bands", type=int, default=4)
     parser.add_argument("--shingle-size", type=int, default=5)
     parser.add_argument("--maximum-shingles", type=int, default=2048)
@@ -222,6 +229,7 @@ def main() -> None:
             "output": args.output,
             "settings": {
                 "manual_records_processed_first": True,
+                "exact_only": args.exact_only,
                 "hamming_threshold": args.hamming_threshold,
                 "bands": args.bands,
                 "shingle_size": args.shingle_size,

@@ -44,3 +44,4 @@ bhojpuri/data/checkpoints/
 **/tokenizer/runs/
 report/figures/generated/
 report/tables/generated/
+tmp/

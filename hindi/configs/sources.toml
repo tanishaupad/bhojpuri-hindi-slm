@@ -19,13 +19,22 @@ namespace = 0
 enabled = true
 
 [[sources]]
+name = "pib_hindi"
+kind = "pib"
+collection_type = "manual"
+start_url = "https://www.pib.gov.in/allrelease.aspx?lang=2&menuid=30&reg=3"
+license = "PIB-reproduction-with-attribution"
+copyright_policy = "https://www.pib.gov.in/ContentPage.aspx?lang=2&menuid=3604&reg=48"
+translation_review_required = true
+enabled = true
+
+[[sources]]
 name = "indiccorp_v2_hindi"
 kind = "huggingface"
 collection_type = "downloaded"
 dataset = "ai4bharat/IndicCorpV2"
-subset = "indiccorp_v2"
-data_dir = "data/hin_Deva"
-split = "hin_Deva"
+data_files = ["data/hi-1.txt", "data/hi-2.txt", "data/hi-3.txt"]
+split = "train"
 text_field = "text"
 license = "CC0-1.0"
 enabled = true

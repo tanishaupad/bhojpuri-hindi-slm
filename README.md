@@ -106,8 +106,9 @@ lma-create-audit-sample \
   --size 100
 ```
 
-Fill in `language_label`, `quality_label`, reviewer, and notes. Keep this completed worksheet in
-Git as evidence of manual auditing; do not paste private or sensitive text into it.
+Fill in `language_label`, `translation_label`, `quality_label`, reviewer, and notes. Keep the
+completed worksheet with the corpus manifests as evidence of manual auditing; do not paste private
+or sensitive text into it.
 
 ### Approved-domain HTML pilot
 
@@ -128,6 +129,24 @@ lma-collect-web \
   --delay 1.0
 ```
 
+### PIB browser import
+
+PIB currently returns access-denied responses to the command-line collector in this environment.
+After collecting direct article text through a normal browser session, import the append-only browser
+JSONL attempts into the canonical schema with:
+
+```bash
+lma-import-pib-browser \
+  --input pib_browser_attempts.jsonl \
+  --input pib_browser_retries.jsonl \
+  --output hindi/data/raw/manual/pib_hindi.jsonl.gz \
+  --report hindi/data/stats/pib_import.json
+```
+
+The importer keeps the last successful attempt for each PRID and explicitly rejects Akamai
+`Access Denied` bodies; a successful browser navigation is not by itself considered a successful
+article collection.
+
 ## 2. Downloaded collection
 
 BhojpuriCorpus, preserving its per-row source, URL, and licence:
@@ -147,16 +166,21 @@ lma-collect-hf \
   --output bhojpuri/data/raw/downloaded/bhojpuri_corpus.jsonl.gz
 ```
 
-IndicCorp v2 Hindi will be streamed from its `hin_Deva` partition. Its exact Hub configuration
-is recorded in `hindi/configs/sources.toml`; run a small pilot before the full sample because Hub
-dataset layouts may change.
+The Bhojpuri preprocessing configuration excludes `eng_bho`, `google_smol`, and
+`fleurs_bhojpuri`: all three originate from parallel/translation material even when the retained
+Bhojpuri strings are fluent. Source-level exclusions are counted in the preprocessing report.
+
+IndicCorp v2 Hindi will be streamed from its three pinned Hindi text files. Their exact current
+Hub paths are recorded in `hindi/configs/sources.toml`; run a small pilot before the full sample
+because Hub dataset layouts may change.
 
 ```bash
 lma-collect-hf \
   --dataset ai4bharat/IndicCorpV2 \
-  --subset indiccorp_v2 \
-  --data-dir data/hin_Deva \
-  --split hin_Deva \
+  --data-file data/hi-1.txt \
+  --data-file data/hi-2.txt \
+  --data-file data/hi-3.txt \
+  --split train \
   --language hi \
   --source-name indiccorp_v2_hindi \
   --license CC0-1.0 \
@@ -167,7 +191,8 @@ lma-collect-hf \
 ## 3. Preprocessing
 
 Preprocessing applies NFC normalization, removes repeated boilerplate lines, computes script
-ratios, and rejects low-quality records. It does not overwrite its input.
+ratios, rejects configured source partitions and low-quality records. It does not overwrite its
+input.
 
 ```bash
 lma-preprocess \
@@ -198,6 +223,8 @@ lma-deduplicate \
 
 The default near-duplicate rule uses word 5-gram SimHash with Hamming distance at most 3. This
 threshold must be validated on a manually inspected duplicate/non-duplicate sample and reported.
+Use `--exact-only` for a safe overlap measurement before that manual threshold validation; do not
+reuse its output/database pair as the final near-deduplicated run.
 
 ## 5. Train/validation/test splits
 

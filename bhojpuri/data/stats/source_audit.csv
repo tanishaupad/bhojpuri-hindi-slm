@@ -1,5 +1,7 @@
 source_name,collection_type,permission_or_license_checked,pilot_documents,auditor,decision,notes
-bhojpuri_wikipedia,manual,yes,5,automated technical pilot,pending student language audit,3/5 passed automatic preprocessing; inspect accepted text for Hindi contamination
+bhojpuri_wikisource,manual,yes,100,Tanisha Upadhyay,accepted,Native grammatical Bhojpuri in reviewed pilot
+bhojpuri_wikipedia,manual,yes,100,pending,pending_audit,Full CC BY-SA crawl complete; 100-row review worksheet generated
+bhojpuri_corpus,downloaded,yes,260,Tanisha Upadhyay,accepted_with_exclusions,Native-looking partitions retained; eng_bho google_smol and fleurs_bhojpuri excluded by translation provenance
 bhojpuri_corpus,downloaded,yes,0,,pending,mixed per-record licences; preserve metadata
 anjoria,manual,no,0,,pending,check terms robots and sample language quality
 sirijan,manual,no,0,,pending,check terms robots and sample language quality
