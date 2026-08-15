@@ -23,7 +23,10 @@ def create_sample(args: argparse.Namespace) -> int:
     candidates = []
     by_source = defaultdict(list)
     seen_document_ids = set()
+    source_names = set(getattr(args, "source_name", []) or [])
     for document in iter_jsonl(Path(args.input)):
+        if source_names and document.source_name not in source_names:
+            continue
         if document.document_id in seen_document_ids:
             continue
         seen_document_ids.add(document.document_id)
@@ -91,6 +94,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument(
+        "--source-name",
+        action="append",
+        help="Only sample this exact source_name; repeat to include multiple sources",
+    )
     parser.add_argument("--size", type=int, default=100)
     parser.add_argument(
         "--per-source",

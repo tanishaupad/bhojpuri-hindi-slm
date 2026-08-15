@@ -194,6 +194,11 @@ Preprocessing applies NFC normalization, removes repeated boilerplate lines, com
 ratios, rejects configured source partitions and low-quality records. It does not overwrite its
 input.
 
+For Bhojpuri Wikipedia, preprocessing drops English-dominant paragraphs and truncates trailing
+reference/external-link sections while retaining the Bhojpuri article body. Fully English pages are
+rejected by the document-level script thresholds. For PIB, standard entry-date/byline, signature,
+release-ID/footer, and English-dominant embedded blocks are removed.
+
 ```bash
 lma-preprocess \
   --input hindi/data/raw/manual/hindi_wikipedia.jsonl.gz \
