@@ -49,32 +49,36 @@ embedded English social-media blocks.
 The current PIB partial preprocessing pass accepted 370 releases and 333,161 whitespace words. It
 removed 1,100 standard metadata/separator/signature lines and 204 English-dominant embedded
 paragraphs. The accepted output contains 99.13% Devanagari and 0.87% Latin letters; eight unusual
-releases were quarantined by the script/digit filters for inspection.
+releases were quarantined by the script/digit filters for inspection. The metadata rule includes
+the standard `DD MON YYYY HH:MMPM by PIB Delhi` entry-date/byline line; a regenerated 100-document
+audit contains no remaining instances.
 
 The BhojpuriCorpus partitions `eng_bho`, `google_smol`, and `fleurs_bhojpuri` are excluded by
 provenance because they originate in parallel or translation benchmark material. Fluency alone was
 not treated as evidence of native authorship. In the current pre-deduplication pass, 30,461 records
-were removed by this rule. Conservative low-resource length floors of 30 characters and five words
-retained 304,634 documents and 19,174,263 whitespace words after adding the manual Wikipedia crawl;
-final SentencePiece token counts will replace these diagnostic word counts. A deterministic
-20-document sample of automatically rejected records was exported for manual false-rejection
-review.
+were removed by this rule. Bhojpuri Wikipedia cleaning removed 599 English-dominant paragraphs,
+truncated 6,721 trailing reference/external-link sections, and identified 82 pages with no usable
+Bhojpuri content. Conservative low-resource length floors of 30 characters and five words retained
+305,012 documents and 19,201,154 whitespace words after adding the manual Wikipedia crawl; final
+SentencePiece token counts will replace these diagnostic word counts. A regenerated 100-document
+Wikipedia audit contained no sample above 20% Latin letters. A deterministic 20-document sample of
+automatically rejected records was exported for manual false-rejection review.
 
 The first Wikisource crawl supplied only 33,694 retained words, so it cannot meet the 20%
 manual-token requirement alone. A complete Bhojpuri Wikipedia crawl supplied 9,149 raw articles, of
-which 8,233 passed preprocessing and contributed 1,177,217 words. A manual-first exact-deduplication
-measurement removed 824 documents and retained 303,810 documents / 19,134,337 words. The retained
-manual portion is 1,210,851 words (6.328%); the downloaded portion is 17,923,486 words. Using words
-as a planning proxy, another 3.27 million manual words are needed to keep the whole downloaded
-portion. With no additional manual sources, downloaded text would need to be capped near 4.84
-million words, giving a roughly 6.05-million-word corpus before near deduplication. The final 20%
-decision will use tokenizer tokens rather than whitespace words.
+which 8,611 passed the v4 preprocessing pass and contributed 1,204,108 words. A manual-first
+exact-deduplication measurement removed 1,308 documents and retained 303,704 documents / 19,156,459
+words. The retained manual portion is 1,237,718 words (6.461%); the downloaded portion is 17,918,741
+words. Using words as a planning proxy, another 3.24 million manual words are needed to keep the
+whole downloaded portion. With no additional manual sources, downloaded text would need to be
+capped near 4.95 million words, giving a roughly 6.19-million-word corpus before near
+deduplication. The final 20% decision will use tokenizer tokens rather than whitespace words.
 
 ### 2.4 Deduplication
 
 Exact duplicate comparison uses a SHA-256 hash of NFC-normalized, case-folded, whitespace-collapsed
 text. Manual records are indexed before downloaded records, so an identical downloaded copy is
-removed. The exact-only measurement removed 824 of 304,634 examined documents. Near-duplicate
+removed. The v4 exact-only measurement removed 1,308 of 305,012 examined documents. Near-duplicate
 SimHash deletion has not yet been applied: its threshold will first be validated on manually reviewed
 duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
 

@@ -13,6 +13,7 @@ from typing import Any
 from lma_phase1.io import atomic_write_json, iter_jsonl, write_jsonl
 from lma_phase1.schema import Document
 from lma_phase1.text import (
+    clean_bhojpuri_wikipedia_article,
     clean_pib_article,
     normalize_unicode,
     remove_repeated_lines,
@@ -28,6 +29,7 @@ DEFAULTS: dict[str, Any] = {
     "remove_repeated_lines": True,
     "excluded_source_names": [],
     "clean_pib_boilerplate": False,
+    "clean_bhojpuri_wikipedia": False,
 }
 
 
@@ -104,6 +106,18 @@ def iter_processed(
                 source_cleaning["pib"] = pib_cleaning
                 for key, value in pib_cleaning.items():
                     counters[f"pib_{key}"] += value
+            if document.source_name in {
+                "bhojpuri_wikipedia",
+                "bhojpuri_corpus:wikipedia",
+            } and config.get("clean_bhojpuri_wikipedia", False):
+                cleaned_wikipedia_text, wikipedia_cleaning = clean_bhojpuri_wikipedia_article(text)
+                if cleaned_wikipedia_text:
+                    text = cleaned_wikipedia_text
+                else:
+                    wikipedia_cleaning["cleaned_to_empty"] = 1
+                source_cleaning["bhojpuri_wikipedia"] = wikipedia_cleaning
+                for key, value in wikipedia_cleaning.items():
+                    counters[f"bhojpuri_wikipedia_{key}"] += value
             document.text = text
             reasons, metrics = rejection_reasons(document, config)
             document.metadata = {

@@ -16,6 +16,17 @@ _PIB_DATE_LINE = re.compile(r"^प्रविष्टि तिथि:")
 _PIB_FOOTER_LINE = re.compile(r"^\((?:रिलीज़|रिलीज) आईडी:")
 _PIB_SEPARATOR_LINE = re.compile(r"^\*{3,}$")
 _PIB_SIGNATURE_LINE = re.compile(r"^[^\s/]{1,8}(?:/[^\s/]{1,8}){1,10}$")
+_WIKIPEDIA_TRAILING_HEADINGS = {
+    "references",
+    "external links",
+    "further reading",
+    "notes",
+    "इहो देखल जाय",
+    "बाहरी कड़ी",
+    "बाहरी कड़ियाँ",
+    "संदर्भ",
+    "स्रोत",
+}
 
 
 @dataclass(frozen=True, slots=True)
@@ -106,6 +117,31 @@ def clean_pib_article(text: str) -> tuple[str, dict[str, int]]:
     return "\n\n".join(kept_paragraphs).strip(), {
         "removed_lines": removed_lines,
         "removed_english_paragraphs": removed_english_paragraphs,
+    }
+
+
+def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
+    """Remove reference/link tails and English-dominant blocks from Bhojpuri Wikipedia."""
+
+    kept_paragraphs = []
+    removed_english_paragraphs = 0
+    truncated_trailing_sections = 0
+    for paragraph in re.split(r"\n\s*\n", text):
+        paragraph = paragraph.strip()
+        if not paragraph:
+            continue
+        lines = [line.strip() for line in paragraph.splitlines() if line.strip()]
+        if any(line.casefold() in _WIKIPEDIA_TRAILING_HEADINGS for line in lines):
+            truncated_trailing_sections += 1
+            break
+        metrics = text_metrics(paragraph)
+        if metrics.letters >= 20 and metrics.latin_ratio > 0.50:
+            removed_english_paragraphs += 1
+            continue
+        kept_paragraphs.append(paragraph)
+    return "\n\n".join(kept_paragraphs).strip(), {
+        "removed_english_paragraphs": removed_english_paragraphs,
+        "truncated_trailing_sections": truncated_trailing_sections,
     }
 
 
