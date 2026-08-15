@@ -5,11 +5,14 @@ from __future__ import annotations
 import argparse
 import random
 import re
+import time
 from datetime import date, datetime
+from pathlib import Path
 from xml.etree import ElementTree
 
 from lma_phase1.collectors.mediawiki import DEFAULT_USER_AGENT, build_session
 from lma_phase1.collectors.web import collect as collect_web
+from lma_phase1.io import atomic_write_json, read_json
 
 
 def parse_timestamp(value: str) -> date:
@@ -51,7 +54,9 @@ def discover_urls(args: argparse.Namespace) -> list[str]:
 
     cutoff = date.fromisoformat(args.before_date) if args.before_date else None
     discovered = []
-    for sitemap_url in sitemap_urls:
+    for sitemap_index, sitemap_url in enumerate(sitemap_urls):
+        if sitemap_index:
+            time.sleep(args.discovery_delay)
         sitemap_response = session.get(sitemap_url, timeout=(10, 90))
         sitemap_response.raise_for_status()
         child_kind, child_entries = sitemap_entries(sitemap_response.text)
@@ -62,6 +67,16 @@ def discover_urls(args: argparse.Namespace) -> list[str]:
                 continue
             discovered.append(location)
     return sorted(set(discovered))
+
+
+def partition_urls(urls: list[str], count: int, index: int) -> list[str]:
+    """Return one deterministic, disjoint URL partition."""
+
+    if count < 1:
+        raise ValueError("partition count must be positive")
+    if not 0 <= index < count:
+        raise ValueError("partition index must be in [0, count)")
+    return [url for position, url in enumerate(urls) if position % count == index]
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -81,6 +96,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-pages", type=int, default=0)
     parser.add_argument("--sample-size", type=int, default=0)
     parser.add_argument("--sample-seed", default="lma-sitemap-pilot")
+    parser.add_argument(
+        "--url-cache",
+        help="Optional JSON file that avoids re-fetching the sitemap on resumed runs",
+    )
+    parser.add_argument("--discovery-delay", type=float, default=2.0)
+    parser.add_argument("--partition-count", type=int, default=1)
+    parser.add_argument("--partition-index", type=int, default=0)
+    parser.add_argument("--retry-errors", action="store_true")
     parser.add_argument("--delay", type=float, default=1.0)
     parser.add_argument("--user-agent", default=DEFAULT_USER_AGENT)
     return parser
@@ -90,11 +113,36 @@ def main() -> None:
     """Run sitemap discovery and the polite HTML collector."""
 
     args = build_parser().parse_args()
-    args.start_url = discover_urls(args)
+    cache_path = Path(args.url_cache) if args.url_cache else None
+    if cache_path and cache_path.exists():
+        cached = read_json(cache_path)
+        if (
+            cached.get("sitemap_index") != args.sitemap_index
+            or cached.get("before_date") != args.before_date
+        ):
+            raise SystemExit("URL cache metadata does not match this sitemap request")
+        args.start_url = cached["urls"]
+    else:
+        args.start_url = discover_urls(args)
+        if cache_path:
+            atomic_write_json(
+                cache_path,
+                {
+                    "sitemap_index": args.sitemap_index,
+                    "before_date": args.before_date,
+                    "urls": args.start_url,
+                },
+            )
     if args.sample_size and len(args.start_url) > args.sample_size:
         args.start_url = sorted(
             random.Random(args.sample_seed).sample(args.start_url, args.sample_size)
         )
+    try:
+        args.start_url = partition_urls(
+            args.start_url, args.partition_count, args.partition_index
+        )
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
     args.max_depth = 0
     args.include_regex = None
     args.exclude_regex = None

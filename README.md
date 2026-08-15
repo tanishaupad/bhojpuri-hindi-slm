@@ -171,6 +171,33 @@ lma-collect-sitemap \
   --delay 1.0
 ```
 
+For the current collection, use the checked-in wrapper below. It draws one reproducible 6,000-page
+sample from the 12,920 eligible URLs, caches the complete eligible URL list, and processes four
+durable partitions sequentially at a three-second interval. Sequential execution avoids the `429`
+responses observed when four workers contacted the same host at once.
+
+```bash
+scripts/collect_anjoria_sample6000.sh "/path/to/LMA_Individual_Project"
+```
+
+After collection, a character four-gram discriminator trained on separately held-out Bhojpuri and
+Hindi seed text separates high-confidence Bhojpuri from obvious Hindi. The default acceptance
+cutoff is the stricter of the Bhojpuri holdout's fifth percentile and the Hindi holdout's 99.5th
+percentile. Ambiguous documents are written to a separate audit set; they are not automatically
+included.
+
+```bash
+lma-filter-language \
+  --bhojpuri-seed bhojpuri/data/interim/cleaned.jsonl.gz \
+  --hindi-seed hindi/data/raw/downloaded/indiccorp_v2_hindi.jsonl.gz \
+  --hindi-seed hindi/data/interim/pib_hindi_cleaned.jsonl.gz \
+  --input bhojpuri/data/raw/manual/anjoria_pre2023.jsonl.gz \
+  --accepted bhojpuri/data/interim/anjoria_accepted.jsonl.gz \
+  --borderline bhojpuri/data/interim/anjoria_borderline.jsonl.gz \
+  --rejected bhojpuri/data/interim/anjoria_rejected.jsonl.gz \
+  --report bhojpuri/data/stats/anjoria_language_filter.json
+```
+
 ### PIB browser import
 
 PIB currently returns access-denied responses to the command-line collector in this environment.
