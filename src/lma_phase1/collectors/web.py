@@ -81,6 +81,9 @@ def collect(args: argparse.Namespace) -> dict[str, int]:
         {document.document_id for document in iter_jsonl(output)} if output.exists() else set()
     )
     connection = initialize_state(Path(args.state_db), start_urls)
+    if getattr(args, "retry_errors", False):
+        connection.execute("UPDATE frontier SET status='pending', error=NULL WHERE status='error'")
+        connection.commit()
     session = build_session(args.user_agent)
     robots: dict[str, RobotFileParser] = {}
     collected_at = datetime.now(UTC).date().isoformat()
@@ -188,6 +191,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-depth", type=int, default=5)
     parser.add_argument("--max-pages", type=int, default=0)
     parser.add_argument("--delay", type=float, default=1.0)
+    parser.add_argument(
+        "--retry-errors",
+        action="store_true",
+        help="Retry URLs marked as transient errors by a previous run",
+    )
     parser.add_argument("--user-agent", default=DEFAULT_USER_AGENT)
     return parser
 

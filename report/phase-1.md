@@ -49,7 +49,12 @@ PDF-scale ingestion is deferred unless OCR output receives its own quality audit
 Anjoria exposes 12,920 sitemap-listed public article URLs last modified before 2023. Its
 `robots.txt` disallows the WordPress API, so only the allowed sitemap and public article pages are
 used. An initial sample shows substantial native Bhojpuri alongside some Hindi promotional copy;
-the source will require stronger Hindi-versus-Bhojpuri filtering before inclusion.
+the source therefore receives stronger Hindi-versus-Bhojpuri filtering before inclusion. A
+deterministic 6,000-page sample is being extracted in four resumable partitions, processed
+sequentially with a three-second request interval. The sitemap URL list is cached after one polite
+enumeration. The 38-document pilot averaged 443.5 whitespace words per retained page, so this
+sample is expected to close the current manual-data gap even after conservative language filtering
+and deduplication; final counts will replace this estimate.
 
 PIB rejected ordinary scripted requests in the collection environment, so direct article pages were
 opened through a normal browser session and then imported into the common schema. The importer
@@ -65,6 +70,13 @@ normalized, and repeated within-document lines are removed. Documents are then f
 minimum length, Devanagari-letter share, Latin-letter share, and digit-share thresholds. The PIB
 pilot was accepted subject to paragraph-level removal of standard PIB metadata/footer text and
 embedded English social-media blocks.
+
+For Anjoria, a balanced character four-gram log-likelihood-ratio model is trained from independently
+held-out Bhojpuri and Hindi seed corpora. Automatic acceptance requires a score above the stricter
+of the Bhojpuri holdout fifth percentile and Hindi holdout 99.5th percentile; a lower audit boundary
+uses the corresponding first and 95th percentiles. On the initial 38-page source sample, this rule
+accepted 32 pages, rejected four visibly Hindi promotional articles, and routed two uncertain pages
+to manual review. This pilot is a validation of the screening rule, not the final corpus count.
 
 The current PIB partial preprocessing pass accepted 370 releases and 333,161 whitespace words. It
 removed 1,100 standard metadata/separator/signature lines and 204 English-dominant embedded
