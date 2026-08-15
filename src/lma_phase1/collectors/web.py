@@ -52,9 +52,15 @@ def extract_text_and_links(
     """Extract main prose, title, and links from one HTML page."""
 
     soup = BeautifulSoup(html_text, "html.parser")
-    for node in soup.select("script, style, nav, footer, header, aside, form, noscript"):
+    for node in soup.select(
+        "script, style, nav, footer, header, aside, form, noscript, iframe, svg, "
+        ".twitter-tweet, .instagram-media, .sharedaddy, .jp-relatedposts, .post-tags"
+    ):
         node.decompose()
-    content = soup.select_one(content_selector)
+    content = None
+    for selector in (item.strip() for item in content_selector.split(",")):
+        if selector and (content := soup.select_one(selector)) is not None:
+            break
     if content is None:
         content = soup.body
     text = content.get_text("\n", strip=True) if content else ""

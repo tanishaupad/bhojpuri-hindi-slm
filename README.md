@@ -129,6 +129,48 @@ lma-collect-web \
   --delay 1.0
 ```
 
+### Blogger archives
+
+For approved Blogger sources, use the structured feed rather than crawling navigation pages. The
+collector is resumable, stores post labels and dates, and can exclude an explicit translation
+label before writing the raw corpus.
+
+```bash
+lma-collect-blogger \
+  --feed-url https://www.blogger.com/feeds/5766880049298620909/posts/default \
+  --language bho \
+  --source-name maina_bhojpuri \
+  --license source-rights-retained-course-research \
+  --exclude-label अनुवाद \
+  --output bhojpuri/data/raw/manual/maina_bhojpuri.jsonl.gz \
+  --checkpoint bhojpuri/data/checkpoints/maina_bhojpuri.json
+```
+
+The current full snapshots contain 1,504 Maina posts and 3,066 Bhojpuri News posts before the
+common preprocessing pass. After script/length filtering, 4,566 documents and 1,183,589
+whitespace words remain. A deterministic 200-row worksheet samples 100 documents from each source
+for native-language and translation review.
+
+### Sitemap-enumerated archives
+
+When a site disallows its API but publishes an allowed XML sitemap, the sitemap collector fetches
+only public article pages, checks `robots.txt`, rate-limits requests, and stores crawl state in
+SQLite. Anjoria is restricted to pages last modified before 2023 to avoid recent AI-assisted
+material; Hindi-only and translated items still require filtering and audit.
+
+```bash
+lma-collect-sitemap \
+  --sitemap-index https://anjoria.com/sitemap_index.xml \
+  --before-date 2023-01-01 \
+  --language bho \
+  --source-name anjoria_pre2023 \
+  --license source-rights-retained-course-research \
+  --content-selector '.entry-content, article' \
+  --output bhojpuri/data/raw/manual/anjoria_pre2023.jsonl.gz \
+  --state-db bhojpuri/data/checkpoints/anjoria_pre2023.sqlite \
+  --delay 1.0
+```
+
 ### PIB browser import
 
 PIB currently returns access-denied responses to the command-line collector in this environment.

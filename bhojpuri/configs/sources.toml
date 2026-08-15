@@ -35,20 +35,47 @@ url_field = "url"
 license = "mixed-see-record"
 enabled = true
 
-# Pilot these sources and record permission/terms before enabling full crawls.
+# Pilot non-Wikimedia sources, record terms/robots decisions, and audit before final inclusion.
 [[sources]]
 name = "anjoria"
-kind = "web"
+kind = "sitemap_web"
 collection_type = "manual"
-start_url = "https://anjoria.com/"
-license = "permission-to-be-recorded"
-enabled = false
+sitemap_index = "https://anjoria.com/sitemap_index.xml"
+license = "source-rights-retained-course-research"
+before_date = "2023-01-01"
+enabled = true
 [[sources]]
 name = "sirijan"
-kind = "web"
+kind = "wordpress_pdf_index"
 collection_type = "manual"
 start_url = "https://sirijan.com/"
-license = "permission-to-be-recorded"
+license = "source-rights-retained-course-research"
+enabled = false
+
+[[sources]]
+name = "maina_bhojpuri"
+kind = "blogger"
+collection_type = "manual"
+feed_url = "https://www.blogger.com/feeds/5766880049298620909/posts/default"
+license = "source-rights-retained-course-research"
+excluded_labels = ["अनुवाद"]
+enabled = true
+
+[[sources]]
+name = "bhojpuri_news"
+kind = "blogger"
+collection_type = "manual"
+feed_url = "https://www.blogger.com/feeds/694843270873119337/posts/default"
+license = "source-rights-retained-course-research"
+translation_review_required = true
+enabled = true
+
+[[sources]]
+name = "paati_bhojpuri"
+kind = "pdf_index"
+collection_type = "manual"
+start_url = "https://bhojpuripaati.com/download.htm"
+license = "source-rights-retained-course-research"
 enabled = false
 
 [[sources]]

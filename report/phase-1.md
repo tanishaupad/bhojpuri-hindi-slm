@@ -19,6 +19,9 @@ The two corpora, tokenizers, vocabularies, and later model weights are completel
 | Hindi | IndicCorp v2 (`data/hi-{1,2,3}.txt`) | Downloaded | HF streaming | CC0 | TBD |
 | Bhojpuri | Bhojpuri Wikisource | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
 | Bhojpuri | Bhojpuri Wikipedia | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
+| Bhojpuri | Maina Bhojpuri | Manual | Blogger JSON feed | Source rights retained; course research | TBD |
+| Bhojpuri | Bhojpuri News | Manual | Blogger JSON feed | Source rights retained; course research | TBD |
+| Bhojpuri | Anjoria (pre-2023 pilot) | Manual | Sitemap-enumerated public HTML | Source rights retained; course research | TBD |
 | Bhojpuri | Filtered BhojpuriCorpus | Downloaded | HF streaming | Mixed per record | TBD |
 
 ### 2.2 Collection process
@@ -30,6 +33,23 @@ datasets are streamed directly into compressed JSONL rather than materialized in
 tree. Four deterministic audit worksheets were reviewed manually: 20 PIB releases, 100 IndicCorp
 documents, 100 Bhojpuri Wikisource pages, and 20 examples from each of the 13 BhojpuriCorpus
 partitions (260 rows).
+
+Two additional public Blogger archives were extracted through their structured feeds. Maina
+contributed 1,504 raw posts after excluding eight posts explicitly labelled `अनुवाद`; Bhojpuri
+News contributed 3,066 raw posts. Embedded social-media blocks and raw URLs were removed during
+extraction. The common quality pass accepted 4,566 documents and 1,183,589 whitespace words (Maina:
+527,045; Bhojpuri News: 656,544). A new 200-row worksheet, stratified as 100 documents per source,
+awaits manual review for Hindi-only or translation-derived text.
+
+Magazine PDF pilots were not added directly. Visually correct Sirijan pages produced scrambled
+Devanagari combining-mark order through ordinary PDF text extraction, while an older Sirijan issue
+and the tested Diya Bati issue were image-based. Hindi OCR produced readable but imperfect text, so
+PDF-scale ingestion is deferred unless OCR output receives its own quality audit.
+
+Anjoria exposes 12,920 sitemap-listed public article URLs last modified before 2023. Its
+`robots.txt` disallows the WordPress API, so only the allowed sitemap and public article pages are
+used. An initial sample shows substantial native Bhojpuri alongside some Hindi promotional copy;
+the source will require stronger Hindi-versus-Bhojpuri filtering before inclusion.
 
 PIB rejected ordinary scripted requests in the collection environment, so direct article pages were
 opened through a normal browser session and then imported into the common schema. The importer
@@ -69,16 +89,21 @@ manual-token requirement alone. A complete Bhojpuri Wikipedia crawl supplied 9,1
 which 8,611 passed the v4 preprocessing pass and contributed 1,204,108 words. A manual-first
 exact-deduplication measurement removed 1,308 documents and retained 303,704 documents / 19,156,459
 words. The retained manual portion is 1,237,718 words (6.461%); the downloaded portion is 17,918,741
-words. Using words as a planning proxy, another 3.24 million manual words are needed to keep the
-whole downloaded portion. With no additional manual sources, downloaded text would need to be
-capped near 4.95 million words, giving a roughly 6.19-million-word corpus before near
-deduplication. The final 20% decision will use tokenizer tokens rather than whitespace words.
+words. The two newly cleaned Blogger archives supplied 1,183,589 words before cross-source
+deduplication. The updated exact-only, manual-first v3 pass examined 309,578 documents, removed
+1,312 exact duplicates, and retained 308,266 documents / 20,339,284 words. Of those, 13,438 manual
+documents contain 2,420,814 words and 294,828 downloaded documents contain 17,918,470 words, giving
+an 11.902% manual word proxy. Keeping the full downloaded portion therefore requires approximately
+2.059 million additional manual words to reach 20%. These figures will be recomputed after the
+web-source audit and near-duplicate handling. The final 20% decision will use tokenizer tokens
+rather than whitespace words.
 
 ### 2.4 Deduplication
 
 Exact duplicate comparison uses a SHA-256 hash of NFC-normalized, case-folded, whitespace-collapsed
 text. Manual records are indexed before downloaded records, so an identical downloaded copy is
-removed. The v4 exact-only measurement removed 1,308 of 305,012 examined documents. Near-duplicate
+removed. The updated v3 exact-only measurement removed 1,312 of 309,578 examined documents.
+Near-duplicate
 SimHash deletion has not yet been applied: its threshold will first be validated on manually reviewed
 duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
 
