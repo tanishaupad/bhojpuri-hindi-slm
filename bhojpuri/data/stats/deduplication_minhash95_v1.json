@@ -1,0 +1,28 @@
+{
+  "input": "bhojpuri/processed/deduplicated_paragraph_v1.jsonl.gz",
+  "output": "bhojpuri/processed/deduplicated_minhash95_v1.jsonl.gz",
+  "output_sha256": "2d7dcdfdf1a9076f87adc34e857d3232c588afb1347ff958ca8d50ac717263f4",
+  "pair_audit": "manifests/bhojpuri_minhash95_pairs_v1.csv",
+  "pair_audit_sha256": "8e8648ca76342f355c733d2de6636cbefe274cd5d7d6a4aa7ccded86aa73685d",
+  "mode": "apply",
+  "counts": {
+    "documents_examined": 304137,
+    "documents_kept": 299674,
+    "documents_below_minimum_shingles": 191400,
+    "near_duplicate_candidates": 4463,
+    "near_duplicates_removed": 4463
+  },
+  "settings": {
+    "method": "bottom_k_minhash_with_inverted_prefix_candidates",
+    "shingle_size": 5,
+    "sketch_size": 64,
+    "index_size": 16,
+    "minimum_shared_index_hashes": 2,
+    "minimum_shingles": 20,
+    "maximum_shingles": 2048,
+    "maximum_candidates": 200,
+    "similarity_threshold": 0.95,
+    "input_priority_preserved": true
+  },
+  "threshold_validation": "A 50,000-document pilot showed false positives among distinct templated articles below 0.95. The reviewed 0.95 sample consisted of reposts or copies with minor spelling, metadata, or formatting differences."
+}

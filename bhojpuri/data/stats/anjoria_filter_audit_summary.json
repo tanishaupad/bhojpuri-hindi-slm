@@ -1,0 +1,33 @@
+{
+  "audit_file": "manifests/bhojpuri_filter_compact_audit_v1.xlsx",
+  "audit_date": "2026-08-16",
+  "documents_reviewed": 60,
+  "labels": {
+    "keep": 30,
+    "remove": 30
+  },
+  "filter_buckets": {
+    "accepted": {
+      "keep": 16,
+      "remove": 4
+    },
+    "borderline": {
+      "keep": 14,
+      "remove": 6
+    },
+    "rejected": {
+      "keep": 0,
+      "remove": 20
+    }
+  },
+  "removal_reasons": {
+    "hindi": 22,
+    "english": 3,
+    "bilingual_or_mixed": 2,
+    "romanized_bhojpuri": 2,
+    "romanized_mixed_language": 1
+  },
+  "policy": "Retain native Bhojpuri written in Devanagari. Remove Hindi, English, mixed-language, translated, and Roman-script documents. Grammatical fluency alone is not evidence that a document is Bhojpuri.",
+  "review_note": "Rows 8, 9, 10, 13, 28, 59, 60, and 61 were explicitly rejected by the reviewer; the remaining labels apply the same language-and-script policy consistently.",
+  "workbook_sha256": "9cc50fd6663b44f3839a6de20d1935897b4280c6662c9852c4b25c177c8323"
+}

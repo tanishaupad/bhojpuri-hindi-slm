@@ -6,6 +6,8 @@ maximum_latin_ratio = 0.20
 maximum_digit_ratio = 0.25
 remove_repeated_lines = true
 clean_pib_boilerplate = true
+clean_hindi_wikipedia = true
+exclude_translation_marked_sources = ["hindi_wikisource", "hindi_wikibooks"]
 
 [split]
 train = 0.98

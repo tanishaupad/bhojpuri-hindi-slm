@@ -50,6 +50,8 @@ def collect(args: argparse.Namespace) -> int:
         load_kwargs["name"] = args.subset
     if args.data_dir:
         load_kwargs["data_dir"] = args.data_dir
+    if args.encoding_errors:
+        load_kwargs["encoding_errors"] = args.encoding_errors
     data_files = getattr(args, "data_file", None)
     if data_files:
         load_kwargs["data_files"] = data_files
@@ -115,6 +117,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--source-field")
     parser.add_argument("--license-field")
     parser.add_argument("--url-field")
+    parser.add_argument(
+        "--encoding-errors",
+        choices=("strict", "ignore", "replace"),
+        default="strict",
+        help="How text-backed datasets handle malformed byte sequences",
+    )
     parser.add_argument("--output", required=True)
     parser.add_argument("--max-documents", type=int, default=0)
     parser.add_argument("--write-batch-size", type=int, default=1000)

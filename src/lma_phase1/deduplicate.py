@@ -105,20 +105,23 @@ class DuplicateIndex:
                     return document_id
         return None
 
-    def add(self, document: Document, text_hash: str, fingerprint: int) -> None:
+    def add(self, document: Document, text_hash: str, fingerprint: int | None) -> None:
         """Add one retained record to exact, near, and processed indexes."""
 
         self.connection.execute(
             "INSERT INTO exact_hashes(text_hash, document_id) VALUES (?, ?)",
             (text_hash, document.document_id),
         )
-        for band in range(self.bands):
-            band_value = (fingerprint >> (band * self.band_width)) & ((1 << self.band_width) - 1)
-            self.connection.execute(
-                "INSERT INTO near_hashes(band, band_value, fingerprint, document_id) "
-                "VALUES (?, ?, ?, ?)",
-                (band, band_value, f"{fingerprint:016x}", document.document_id),
-            )
+        if fingerprint is not None:
+            for band in range(self.bands):
+                band_value = (fingerprint >> (band * self.band_width)) & (
+                    (1 << self.band_width) - 1
+                )
+                self.connection.execute(
+                    "INSERT INTO near_hashes(band, band_value, fingerprint, document_id) "
+                    "VALUES (?, ?, ?, ?)",
+                    (band, band_value, f"{fingerprint:016x}", document.document_id),
+                )
         self.connection.execute(
             "INSERT INTO processed_ids(document_id, status) VALUES (?, 'kept')",
             (document.document_id,),
@@ -172,9 +175,12 @@ def deduplicate(args: argparse.Namespace) -> Counter[str]:
                     counters["exact_duplicates"] += 1
                     index.reject(document.document_id, "exact_duplicate")
                     continue
-                fingerprint = simhash(document.text, args.shingle_size, args.maximum_shingles)
+                fingerprint = None
                 near_document = None
                 if not args.exact_only:
+                    fingerprint = simhash(
+                        document.text, args.shingle_size, args.maximum_shingles
+                    )
                     near_document = index.near_match(fingerprint, args.hamming_threshold)
                 if near_document:
                     counters["near_duplicates"] += 1

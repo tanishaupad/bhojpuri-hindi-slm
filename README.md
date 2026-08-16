@@ -45,7 +45,8 @@ Large data is deliberately excluded from Git. Every pipeline record uses the sch
 `src/lma_phase1/schema.py` and retains its source URL, source identifier, collection method,
 licence, date, and `manual`/`downloaded` classification.
 
-Generated data is stored locally as:
+Generated data is stored outside Git using this logical layout (currently under the course Google
+Drive folder, with temporary local staging only while a large streaming job is active):
 
 ```text
 <language>/data/
@@ -59,6 +60,19 @@ Generated data is stored locally as:
 ```
 
 Final large artifacts and checksums will be uploaded to Google Drive; links will be added here.
+
+### Current safe Hindi checkpoint (2026-08-17)
+
+The latest fully validated Hindi checkpoint is
+`hindi/processed/balanced_preparagraph_20pct_v1.jsonl.gz` in the project Google Drive folder. It is
+not the final training corpus. It contains 98,330 manual documents / 58,497,224 whitespace words
+and 2,503,883 downloaded documents / 233,988,884 words after common quality filtering, exact
+document deduplication, and deterministic preliminary balancing. Its manual word proxy is exactly
+20%; a final 22% buffer will be recomputed after paragraph and strict MinHash deduplication.
+
+The matching reports are `manifests/hindi_deduplication_exact_v2.json` and
+`manifests/downsampling_preparagraph_20pct_v1.json`. Paragraph deduplication was deliberately
+stopped at this checkpoint and must restart from the balanced artifact.
 
 ## 1. Manual collection
 
@@ -272,8 +286,10 @@ input.
 
 For Bhojpuri Wikipedia, preprocessing drops English-dominant paragraphs and truncates trailing
 reference/external-link sections while retaining the Bhojpuri article body. Fully English pages are
-rejected by the document-level script thresholds. For PIB, standard entry-date/byline, signature,
-release-ID/footer, and English-dominant embedded blocks are removed.
+rejected by the document-level script thresholds. For Anjoria, source-specific cleanup truncates
+the repeated comment/recent-post/category tail before the quality metrics are calculated. For PIB,
+standard entry-date/byline, signature, release-ID/footer, and English-dominant embedded blocks are
+removed.
 
 ```bash
 lma-preprocess \
@@ -288,7 +304,7 @@ lma-preprocess \
 
 Use the analogous Bhojpuri paths and `bhojpuri/configs/preprocessing.toml` for Model L.
 
-## 4. Exact and near deduplication
+## 4. Exact, paragraph, and near deduplication
 
 Manual records are always indexed before downloaded records. Therefore, if a manually scraped
 page overlaps a downloaded corpus, the manual copy is retained and the downloaded copy is
@@ -302,10 +318,34 @@ lma-deduplicate \
   --report hindi/data/stats/deduplication.json
 ```
 
-The default near-duplicate rule uses word 5-gram SimHash with Hamming distance at most 3. This
-threshold must be validated on a manually inspected duplicate/non-duplicate sample and reported.
-Use `--exact-only` for a safe overlap measurement before that manual threshold validation; do not
-reuse its output/database pair as the final near-deduplicated run.
+For the current Bhojpuri corpus, the exact-only pass is followed by corpus-wide exact paragraph
+deduplication. Only lines of at least 100 characters and 15 words are eligible, protecting short
+headings, quotations, and poetic refrains. If removing repeated material makes a document shorter
+than the quality floor, that document is removed.
+
+```bash
+lma-deduplicate-paragraphs \
+  --input bhojpuri/data/processed/deduplicated_exact_v5.jsonl.gz \
+  --output bhojpuri/data/processed/deduplicated_paragraph_v1.jsonl.gz \
+  --database bhojpuri/data/checkpoints/deduplicated_paragraph_v1.sqlite \
+  --report bhojpuri/data/stats/deduplication_paragraph_v1.json
+```
+
+The final near-duplicate stage uses bottom-k MinHash over word five-grams. A pilot compared
+thresholds from 0.75 upward: values below 0.95 incorrectly grouped distinct articles sharing a
+template, while a manually inspected sample at 0.95 contained reposts and copies with only small
+formatting or metadata changes. Documents with fewer than 20 word five-grams are protected.
+
+```bash
+lma-deduplicate-minhash \
+  --input bhojpuri/data/processed/deduplicated_paragraph_v1.jsonl.gz \
+  --output bhojpuri/data/processed/deduplicated_minhash95_v1.jsonl.gz \
+  --database bhojpuri/data/checkpoints/deduplicated_minhash95_v1.sqlite \
+  --audit-output bhojpuri/data/stats/minhash95_pairs_v1.csv \
+  --report bhojpuri/data/stats/deduplication_minhash95_v1.json \
+  --mode apply \
+  --similarity-threshold 0.95
+```
 
 If the retained manual portion is below the assignment minimum, preserve every manual document and
 deterministically sample only downloaded records. A target above 20% provides a margin before the
@@ -313,11 +353,11 @@ final SentencePiece-token measurement:
 
 ```bash
 lma-downsample \
-  --input bhojpuri/data/processed/deduplicated.jsonl.gz \
-  --output bhojpuri/data/processed/deduplicated_downsampled.jsonl.gz \
+  --input bhojpuri/data/processed/deduplicated_minhash95_v1.jsonl.gz \
+  --output bhojpuri/data/processed/deduplicated_minhash95_downsampled22_v1.jsonl.gz \
   --target-manual-word-fraction 0.22 \
-  --seed bhojpuri-downsample-22pct-v1 \
-  --report bhojpuri/data/stats/downsampling.json
+  --seed bhojpuri-minhash95-downsample-22pct-v1 \
+  --report bhojpuri/data/stats/downsampling_minhash95_22pct_v1.json
 ```
 
 ## 5. Train/validation/test splits

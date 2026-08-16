@@ -12,6 +12,7 @@ dependencies = [
   "beautifulsoup4>=4.12,<5",
   "datasets>=3.0,<5",
   "matplotlib>=3.8,<4",
+  "mwparserfromhell>=0.7,<1",
   "requests>=2.32,<3",
   "sentencepiece>=0.2,<1",
 ]
@@ -32,6 +33,8 @@ lma-import-pib-browser = "lma_phase1.collectors.pib:main"
 lma-preprocess = "lma_phase1.preprocess:main"
 lma-filter-language = "lma_phase1.language_filter:main"
 lma-deduplicate = "lma_phase1.deduplicate:main"
+lma-deduplicate-paragraphs = "lma_phase1.paragraph_deduplicate:main"
+lma-deduplicate-minhash = "lma_phase1.minhash_deduplicate:main"
 lma-downsample = "lma_phase1.downsample:main"
 lma-split = "lma_phase1.split:main"
 lma-corpus-stats = "lma_phase1.stats:main"

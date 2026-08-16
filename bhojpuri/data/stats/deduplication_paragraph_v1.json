@@ -1,0 +1,27 @@
+{
+  "input": "bhojpuri/processed/deduplicated_exact_v5.jsonl.gz",
+  "output": "bhojpuri/processed/deduplicated_paragraph_v1.jsonl.gz",
+  "output_sha256": "5b47d2f16b306ba45e46f61e59b55d0c4cc40498ab19c20a7f4d5ff93b896802",
+  "counts": {
+    "documents_examined": 310964,
+    "documents_kept": 304137,
+    "documents_kept_downloaded": 288001,
+    "documents_kept_manual": 16136,
+    "documents_removed_after_paragraph_deduplication": 6826,
+    "exact_duplicates_after_paragraph_cleanup": 1,
+    "paragraphs_examined": 446773,
+    "paragraphs_eligible": 163959,
+    "paragraphs_ineligible_short": 282814,
+    "paragraph_duplicates_removed": 7488,
+    "duplicate_characters_removed": 2218991,
+    "duplicate_words_removed": 442355
+  },
+  "settings": {
+    "minimum_paragraph_characters": 100,
+    "minimum_paragraph_words": 15,
+    "minimum_document_characters": 30,
+    "minimum_document_words": 5,
+    "exact_document_deduplication_after_paragraph_cleanup": true,
+    "input_priority_preserved": true
+  }
+}

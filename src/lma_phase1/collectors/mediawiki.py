@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
@@ -10,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 import requests
+import mwparserfromhell
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -132,13 +134,71 @@ def fetch_page_chunk(
     return detailed_pages
 
 
+def wikitext_to_plaintext(source: str) -> str:
+    """Convert revision wikitext to readable text without rendering page templates."""
+
+    if not source.strip():
+        return ""
+    parsed = mwparserfromhell.parse(source)
+    return parsed.strip_code(normalize=True, collapse=True).strip()
+
+
+def fetch_revision_chunk(
+    session: requests.Session,
+    api_url: str,
+    chunk: list[dict[str, Any]],
+    render_empty_revisions: bool = False,
+) -> list[dict[str, Any]]:
+    """Fetch one revision-content chunk and strip its wikitext locally."""
+
+    parameters: dict[str, Any] = {
+        "action": "query",
+        "format": "json",
+        "formatversion": "2",
+        "pageids": "|".join(str(page["pageid"]) for page in chunk),
+        "prop": "info|revisions|pageprops",
+        "inprop": "url",
+        "rvprop": "ids|timestamp|content",
+        "rvslots": "main",
+        "ppprop": "disambiguation",
+    }
+    response = session.get(api_url, params=parameters, timeout=(10, 90))
+    response.raise_for_status()
+    payload = response.json()
+    if "error" in payload:
+        raise RuntimeError(f"MediaWiki API error: {payload['error']}")
+    detailed_pages = []
+    for page in payload.get("query", {}).get("pages", []):
+        revisions = page.get("revisions") or []
+        revision = revisions[0] if revisions else {}
+        slot = (revision.get("slots") or {}).get("main", {})
+        source = str(slot.get("content", revision.get("content", "")))
+        page["extract"] = wikitext_to_plaintext(source)
+        page["extraction_method"] = "mediawiki_revision_wikitext"
+        needs_render = not page["extract"] or bool(
+            re.search(r"<(?:pages|section)\b", source, flags=re.IGNORECASE)
+        )
+        if needs_render and render_empty_revisions:
+            page["extract"] = fetch_parsed_text(session, api_url, int(page["pageid"]))
+            page["extraction_method"] = "mediawiki_parse_html"
+        detailed_pages.append(page)
+    by_id = {int(page["pageid"]): page for page in detailed_pages}
+    return [by_id[int(stub["pageid"])] for stub in chunk if int(stub["pageid"]) in by_id]
+
+
 def fetch_page_chunk_in_new_session(
-    api_url: str, chunk: list[dict[str, Any]], user_agent: str
+    api_url: str,
+    chunk: list[dict[str, Any]],
+    user_agent: str,
+    content_mode: str = "extracts",
+    render_empty_revisions: bool = False,
 ) -> list[dict[str, Any]]:
     """Fetch one chunk in a worker-owned HTTP session."""
 
     session = build_session(user_agent)
     try:
+        if content_mode == "revision":
+            return fetch_revision_chunk(session, api_url, chunk, render_empty_revisions)
         return fetch_page_chunk(session, api_url, chunk)
     finally:
         session.close()
@@ -150,6 +210,8 @@ def fetch_page_details(
     pages: list[dict[str, Any]],
     workers: int = 1,
     user_agent: str = DEFAULT_USER_AGENT,
+    content_mode: str = "extracts",
+    render_empty_revisions: bool = False,
 ) -> list[dict[str, Any]]:
     """Fetch complete text and provenance for enumerated page IDs.
 
@@ -157,12 +219,26 @@ def fetch_page_details(
     return partial records with missing extracts or URLs.
     """
 
-    chunks = [pages[offset : offset + 20] for offset in range(0, len(pages), 20)]
+    chunk_size = 10 if content_mode == "revision" and render_empty_revisions else 50
+    if content_mode == "extracts":
+        chunk_size = 20
+    chunks = [pages[offset : offset + chunk_size] for offset in range(0, len(pages), chunk_size)]
     if workers == 1 or len(chunks) <= 1:
-        return [page for chunk in chunks for page in fetch_page_chunk(session, api_url, chunk)]
+        fetcher = fetch_revision_chunk if content_mode == "revision" else fetch_page_chunk
+        return [
+            page
+            for chunk in chunks
+            for page in (
+                fetcher(session, api_url, chunk, render_empty_revisions)
+                if content_mode == "revision"
+                else fetcher(session, api_url, chunk)
+            )
+        ]
     with ThreadPoolExecutor(max_workers=workers) as executor:
         chunk_results = executor.map(
-            lambda chunk: fetch_page_chunk_in_new_session(api_url, chunk, user_agent),
+            lambda chunk: fetch_page_chunk_in_new_session(
+                api_url, chunk, user_agent, content_mode, render_empty_revisions
+            ),
             chunks,
         )
         return [page for chunk_result in chunk_results for page in chunk_result]
@@ -205,6 +281,8 @@ def fetch_batch(
     category: str | None = None,
     workers: int = 1,
     user_agent: str = DEFAULT_USER_AGENT,
+    content_mode: str = "extracts",
+    render_empty_revisions: bool = False,
 ) -> tuple[list[dict[str, Any]], dict[str, Any] | None]:
     """Enumerate pages and fetch complete details without mixed continuations."""
 
@@ -212,7 +290,15 @@ def fetch_batch(
         session, api_url, namespace, batch_size, continuation, category
     )
     return (
-        fetch_page_details(session, api_url, page_stubs, workers, user_agent),
+        fetch_page_details(
+            session,
+            api_url,
+            page_stubs,
+            workers,
+            user_agent,
+            content_mode,
+            render_empty_revisions,
+        ),
         next_continuation,
     )
 
@@ -288,6 +374,8 @@ def collect(args: argparse.Namespace) -> dict[str, Any]:
             category=category,
             workers=args.workers,
             user_agent=args.user_agent,
+            content_mode=args.content_mode,
+            render_empty_revisions=args.render_empty_revisions,
         )
         documents = []
         for page in pages:
@@ -357,6 +445,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Concurrent detail requests (1-8); use small values on public wikis",
     )
     parser.add_argument("--max-pages", type=int, default=0, help="0 collects until exhaustion")
+    parser.add_argument(
+        "--content-mode",
+        choices=("extracts", "revision"),
+        default="extracts",
+        help="Use fast batched revision wikitext when TextExtracts requires per-page continuation",
+    )
+    parser.add_argument(
+        "--render-empty-revisions",
+        action="store_true",
+        help="Render empty or explicitly transcluded revision pages (useful for Wikisource works)",
+    )
     parser.add_argument("--user-agent", default=DEFAULT_USER_AGENT)
     return parser
 
