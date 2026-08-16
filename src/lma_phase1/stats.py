@@ -10,6 +10,7 @@ from typing import Any
 
 from lma_phase1.io import atomic_write_json, iter_jsonl
 from lma_phase1.text import text_metrics
+from lma_phase1.tokenizer.common import normalize_tokenizer_input
 
 
 def empty_counts() -> dict[str, int]:
@@ -39,7 +40,11 @@ def calculate(args: argparse.Namespace) -> dict[str, Any]:
         split_name, raw_path = item.split("=", 1)
         for document in iter_jsonl(Path(raw_path)):
             metrics = text_metrics(document.text)
-            token_count = len(processor.encode(document.text, out_type=int)) if processor else 0
+            token_count = (
+                len(processor.encode(normalize_tokenizer_input(document.text), out_type=int))
+                if processor
+                else 0
+            )
             values = {
                 "documents": 1,
                 "characters": metrics.characters,

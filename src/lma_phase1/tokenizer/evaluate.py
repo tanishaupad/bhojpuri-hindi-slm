@@ -11,6 +11,7 @@ from typing import Any
 
 from lma_phase1.io import atomic_write_json, iter_jsonl
 from lma_phase1.text import text_metrics
+from lma_phase1.tokenizer.common import normalize_tokenizer_input
 
 
 def evaluate_model(model_path: str, input_path: Path, maximum_examples: int) -> dict[str, Any]:
@@ -25,17 +26,18 @@ def evaluate_model(model_path: str, input_path: Path, maximum_examples: int) -> 
     examples = []
 
     for document in iter_jsonl(input_path):
-        token_ids = processor.encode(document.text, out_type=int)
-        metrics = text_metrics(document.text)
+        tokenizer_text = normalize_tokenizer_input(document.text)
+        token_ids = processor.encode(tokenizer_text, out_type=int)
+        metrics = text_metrics(tokenizer_text)
         frequencies.update(token_ids)
         total_documents += 1
         total_tokens += len(token_ids)
         total_words += metrics.words
         total_characters += metrics.characters
-        total_nonspace += sum(not character.isspace() for character in document.text)
+        total_nonspace += sum(not character.isspace() for character in tokenizer_text)
         total_unknown += sum(token_id == processor.unk_id() for token_id in token_ids)
         if len(examples) < maximum_examples:
-            sample = " ".join(document.text.split())[:300]
+            sample = tokenizer_text[:300]
             examples.append(
                 {
                     "document_id": document.document_id,

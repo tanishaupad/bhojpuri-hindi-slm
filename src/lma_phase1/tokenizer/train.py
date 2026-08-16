@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 
 from lma_phase1.io import atomic_write_json, iter_jsonl
+from lma_phase1.tokenizer.common import normalize_tokenizer_input
 
 
 def prepare_training_text(input_path: Path, output_path: Path, minimum_characters: int) -> int:
@@ -16,7 +17,7 @@ def prepare_training_text(input_path: Path, output_path: Path, minimum_character
     with output_path.open("w", encoding="utf-8") as output:
         for document in iter_jsonl(input_path):
             for paragraph in document.text.splitlines():
-                paragraph = " ".join(paragraph.split())
+                paragraph = normalize_tokenizer_input(paragraph)
                 if len(paragraph) < minimum_characters:
                     continue
                 output.write(paragraph)
@@ -65,7 +66,7 @@ def train_candidates(args: argparse.Namespace) -> dict[str, object]:
             input_sentence_size=input_sentence_size,
             shuffle_input_sentence=True,
             normalization_rule_name="identity",
-            remove_extra_whitespaces=False,
+            remove_extra_whitespaces=True,
             split_digits=True,
             byte_fallback=False,
             hard_vocab_limit=False,
@@ -95,7 +96,9 @@ def train_candidates(args: argparse.Namespace) -> dict[str, object]:
         "input": args.input,
         "model_type": args.model_type,
         "character_coverage": args.character_coverage,
-        "normalization_rule": "identity (corpus is pre-normalized to NFC)",
+        "normalization_rule": (
+            "identity for characters; SentencePiece collapses whitespace boundaries"
+        ),
         "training_paragraphs_available": paragraph_count,
         "input_sentence_size": input_sentence_size,
         "models": models,
