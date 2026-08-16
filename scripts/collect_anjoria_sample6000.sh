@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -ne 1 ]]; then
-  echo "usage: $0 ARTIFACT_ROOT" >&2
+if [[ $# -lt 1 || $# -gt 2 ]]; then
+  echo "usage: $0 ARTIFACT_ROOT [REQUEST_DELAY_SECONDS]" >&2
   exit 2
 fi
 
 artifact_root=$1
+request_delay=${2:-10.0}
 raw_dir="$artifact_root/bhojpuri/raw/manual_anjoria"
 checkpoint_dir="$artifact_root/bhojpuri/checkpoints"
 url_cache="$checkpoint_dir/anjoria_pre2023_urls_before2023_v1.json"
@@ -32,5 +33,5 @@ for partition in 2 0 1 3; do
     --partition-count 4 \
     --partition-index "$partition" \
     --retry-errors \
-    --delay 3.0
+    --delay "$request_delay"
 done
