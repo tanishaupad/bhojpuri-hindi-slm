@@ -16,6 +16,9 @@ The two corpora, tokenizers, vocabularies, and later model weights are completel
 | Language | Source | Collection type | Method | Licence | Clean training tokens |
 |---|---|---|---|---|---:|
 | Hindi | PIB Hindi | Manual | Polite release crawl | Reproduction with attribution | TBD |
+| Hindi | Hindi Wikipedia | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
+| Hindi | Hindi Wikisource | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
+| Hindi | Hindi Wikibooks | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
 | Hindi | IndicCorp v2 (`data/hi-{1,2,3}.txt`) | Downloaded | HF streaming | CC0 | TBD |
 | Bhojpuri | Bhojpuri Wikisource | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
 | Bhojpuri | Bhojpuri Wikipedia | Manual | MediaWiki Action API | CC BY-SA 4.0 | TBD |
@@ -38,8 +41,7 @@ Two additional public Blogger archives were extracted through their structured f
 contributed 1,504 raw posts after excluding eight posts explicitly labelled `अनुवाद`; Bhojpuri
 News contributed 3,066 raw posts. Embedded social-media blocks and raw URLs were removed during
 extraction. The common quality pass accepted 4,566 documents and 1,183,589 whitespace words (Maina:
-527,045; Bhojpuri News: 656,544). A new 200-row worksheet, stratified as 100 documents per source,
-awaits manual review for Hindi-only or translation-derived text.
+527,045; Bhojpuri News: 656,544).
 
 Magazine PDF pilots were not added directly. Visually correct Sirijan pages produced scrambled
 Devanagari combining-mark order through ordinary PDF text extraction, while an older Sirijan issue
@@ -76,9 +78,18 @@ of the Bhojpuri holdout fifth percentile and Hindi holdout 99.5th percentile; a 
 uses the corresponding first and 95th percentiles. On the initial 38-page source sample, this rule
 accepted 32 pages, rejected four visibly Hindi promotional articles, and routed two uncertain pages
 to manual review. Applied to the frozen snapshot, the rule accepted 3,089 articles, routed 230 to
-the ambiguous audit set, and rejected 344 as likely Hindi. The common quality pass subsequently
-retained 2,706 accepted articles and 1,306,145 whitespace words. Audit worksheets contain 100
-accepted pages, all 230 ambiguous pages, and 100 rejected pages.
+the ambiguous audit set, and rejected 344 as likely Hindi. A compact stratified audit then reviewed
+60 documents: 30 were kept and 30 removed. The removals comprised 22 Hindi, three English, two
+bilingual/mixed, two Romanized Bhojpuri, and one Romanized mixed-language document. Importantly,
+four automatic accepts were rejected, so grammatical fluency was not treated as evidence of
+Bhojpuri. The final inclusion policy retains native Bhojpuri written in Devanagari and excludes
+Hindi, English, mixed-language, translated, and Roman-script documents.
+
+Source-specific cleanup also found a long repeated Anjoria site tail containing comments, recent
+posts, and category navigation. It truncated this tail in 3,026 documents and removed 265,778
+boilerplate lines / 3,103,775 characters before applying the common quality thresholds. The v2 pass
+retained 2,698 of 3,089 accepted-filter documents, containing 756,712 whitespace words; 391 were
+quarantined, chiefly for excessive Latin script or insufficient Devanagari.
 
 The current PIB partial preprocessing pass accepted 370 releases and 333,161 whitespace words. It
 removed 1,100 standard metadata/separator/signature lines and 204 English-dominant embedded
@@ -86,6 +97,15 @@ paragraphs. The accepted output contains 99.13% Devanagari and 0.87% Latin lette
 releases were quarantined by the script/digit filters for inspection. The metadata rule includes
 the standard `DD MON YYYY HH:MMPM by PIB Delhi` entry-date/byline line; a regenerated 100-document
 audit contains no remaining instances.
+
+The Hindi manual collection also includes complete namespace-0 snapshots from Hindi Wikipedia,
+Hindi Wikisource, and Hindi Wikibooks. Explicit translation credits are rejected for Wikisource
+and Wikibooks. The frozen Wikipedia v6 cleanup accepted 91,543 articles after removing reference
+tails, English-dominant blocks, templates, HTML, broken wiki-link markup, and table attributes; an
+automated residual-markup scan found zero instances of those patterns. The cleaned manual sources
+contributed 58,497,224 whitespace words after exact document deduplication. IndicCorp was sampled
+as three independently streamed two-million-record raw shards; the common quality pass accepted
+3,139,385 documents / 293,226,648 words before exact deduplication and balancing.
 
 The BhojpuriCorpus partitions `eng_bho`, `google_smol`, and `fleurs_bhojpuri` are excluded by
 provenance because they originate in parallel or translation benchmark material. Fluency alone was
@@ -100,27 +120,43 @@ automatically rejected records was exported for manual false-rejection review.
 
 The first Wikisource crawl supplied only 33,694 retained words, so it cannot meet the 20%
 manual-token requirement alone. A complete Bhojpuri Wikipedia crawl supplied 9,149 raw articles, of
-which 8,611 passed the v4 preprocessing pass and contributed 1,204,108 words. A manual-first
-exact-deduplication measurement removed 1,308 documents and retained 303,704 documents / 19,156,459
-words. The retained manual portion is 1,237,718 words (6.461%); the downloaded portion is 17,918,741
-words. The two newly cleaned Blogger archives supplied 1,183,589 words before cross-source
-deduplication. The updated exact-only, manual-first v3 pass examined 309,578 documents, removed
-1,312 exact duplicates, and retained 308,266 documents / 20,339,284 words. After adding the cleaned
-Anjoria snapshot, the v4 exact pass examined 312,284 documents and retained 310,972. Its 16,144
-manual documents contain 3,726,959 words, while 294,828 downloaded documents contain 17,918,470
-words, giving a 17.218% manual word proxy. A stable hash sample then removed only downloaded
-records: 80,285 documents / 4,704,707 words. The resulting 230,687-document corpus contains
-16,940,722 words and has a 22.000% manual word proxy. The final 20% decision uses tokenizer tokens
-rather than whitespace words.
+which 8,611 passed the v4 preprocessing pass and contributed 1,204,108 words. The two cleaned
+Blogger archives and the cleaned Anjoria snapshot substantially increase the manual share. The
+current v5 exact pass examined 312,276 documents, removed 1,312 exact duplicates, and retained
+310,964 documents: 16,136 manual and 294,828 downloaded.
+
+After all deduplication stages, 299,674 documents and 18,685,024 whitespace words remained. The
+manual portion contained 16,135 documents / 3,147,135 words; the downloaded portion contained
+283,539 documents / 15,537,889 words. A stable hash sample then removed only downloaded records,
+retaining all manual material. The resulting pre-split corpus contains 221,200 documents and
+14,305,159 words: 3,147,135 manual and 11,158,024 downloaded, giving a 22.000% manual word proxy.
+The final assignment check will use tokens from the newly trained tokenizer rather than whitespace
+words.
 
 ### 2.4 Deduplication
 
-Exact duplicate comparison uses a SHA-256 hash of NFC-normalized, case-folded, whitespace-collapsed
-text. Manual records are indexed before downloaded records, so an identical downloaded copy is
-removed. The updated v4 exact-only measurement removed 1,312 of 312,284 examined documents.
-Near-duplicate
-SimHash deletion has not yet been applied: its threshold will first be validated on manually reviewed
-duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
+Exact duplicate comparison uses a SHA-256 hash of NFC-normalized, case-folded,
+whitespace-collapsed text. Manual records are indexed before downloaded records, so an identical
+downloaded copy is removed. The v5 exact-only pass removed 1,312 of 312,276 examined documents.
+
+Corpus-wide exact paragraph deduplication then considered only lines with at least 100 characters
+and 15 words, protecting short headings and poetic refrains. It removed 7,488 repeated long
+paragraphs (442,355 words) and 6,826 documents that became empty or too short; one additional exact
+document duplicate appeared after paragraph removal. A deterministic 40-pair audit included clear
+reuse across manual sites and downloaded BhojpuriCorpus partitions.
+
+Finally, bottom-k MinHash compared word five-gram sketches. A 50,000-document pilot showed that
+thresholds from 0.75 through 0.90 merged distinct but similarly templated pages, whereas a reviewed
+sample at 0.95 consisted of reposts or copies with minor spelling, metadata, or formatting changes.
+The strict 0.95 application removed 4,463 near duplicates and protected 191,400 short documents
+with fewer than 20 five-grams. The resulting pair audit is retained with the corpus manifests.
+
+For Hindi, the completed exact-only pass examined 3,237,873 quality-filtered documents, removed
+3,028 exact duplicates, and retained 3,234,845 documents: 98,330 manual and 3,136,515 downloaded.
+A deterministic preliminary balance then retained all 58,497,224 manual words and selected
+233,988,884 downloaded words, giving a 20.0000008% manual word proxy across 2,602,213 documents.
+This is the current safe checkpoint, not the final corpus. Paragraph deduplication, a reviewed
+strict MinHash pass, final 22% balancing, splitting, and tokenizer-based token accounting remain.
 
 ### 2.5 Dataset statistics
 
@@ -129,9 +165,9 @@ duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
 | Hindi | Train | TBD | TBD | TBD | TBD | TBD |
 | Hindi | Validation | TBD | TBD | TBD | TBD | TBD |
 | Hindi | Test | TBD | TBD | TBD | TBD | TBD |
-| Bhojpuri | Train | 225,992 | 22,577,763 | 5,078,086 | 17,499,677 | 22.492% |
-| Bhojpuri | Validation | 2,344 | 227,239 | 50,949 | 176,290 | 22.421% |
-| Bhojpuri | Test | 2,351 | 214,399 | 52,302 | 162,097 | 24.395% |
+| Bhojpuri | Train | TBD | TBD | TBD | TBD | TBD |
+| Bhojpuri | Validation | TBD | TBD | TBD | TBD | TBD |
+| Bhojpuri | Test | TBD | TBD | TBD | TBD | TBD |
 
 TBD: justify any Bhojpuri shortfall from the approximately 500M-token target.
 
@@ -152,13 +188,15 @@ training split. Candidate vocabulary sizes were evaluated on held-out validation
 ### 3.1 Selected tokenizers
 
 - Hindi: TBD
-- Bhojpuri: 16,000-piece Unigram candidate. It has the highest held-out vocabulary utilization
+- Bhojpuri: provisional 16,000-piece Unigram candidate from the earlier corpus version. It had the highest held-out vocabulary utilization
   (78.79%) and the lowest rare-type rate while retaining low fertility and a negligible unknown
   rate. The 24K and 32K candidates reduce fertility by only 3.99% and 5.96% relative to 16K, while
   using only 66.40% and 56.29% of their vocabularies. Their additional embedding rows would also
   consume a material share of the approximately 25M-parameter model budget.
 
-Tokenizer input collapses Unicode whitespace before encoding, matching the one-paragraph-per-line
+The candidates will be retrained and re-evaluated after splitting the finalized v1 corpus; the
+figures above are retained only as pilot evidence and must not be reported as final. Tokenizer input
+collapses Unicode whitespace before encoding, matching the one-paragraph-per-line
 training representation. Without this shared preprocessing, literal held-out newlines appeared as
 unknown spans under SentencePiece's identity character normalizer. After applying the consistent
 input rule, the 16K candidate emitted four unknown tokens among 227,239 validation tokens.

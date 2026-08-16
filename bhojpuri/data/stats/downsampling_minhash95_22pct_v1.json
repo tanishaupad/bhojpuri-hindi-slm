@@ -1,0 +1,20 @@
+{
+  "input": "bhojpuri/processed/deduplicated_minhash95_v1.jsonl.gz",
+  "output": "bhojpuri/processed/deduplicated_minhash95_downsampled22_v1.jsonl.gz",
+  "output_sha256": "7409bce452a3eaf4785c64c27bbd7a394539236856d7d8152e480539b5ec1503",
+  "seed": "bhojpuri-minhash95-downsample-22pct-v1",
+  "target_manual_word_fraction": 0.22,
+  "actual_manual_word_fraction": 0.220000001398097,
+  "downloaded_word_budget": 11158024,
+  "counts": {
+    "kept_manual_documents": 16135,
+    "kept_manual_words": 3147135,
+    "kept_downloaded_documents": 205065,
+    "kept_downloaded_words": 11158024,
+    "dropped_downloaded_documents": 78474,
+    "dropped_downloaded_words": 4379865,
+    "final_documents": 221200,
+    "final_words": 14305159,
+    "final_characters": 72066029
+  }
+}

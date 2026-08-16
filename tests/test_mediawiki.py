@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from lma_phase1.collectors.mediawiki import enumerate_pages, fetch_page_details, page_to_document
+from lma_phase1.collectors.mediawiki import (
+    enumerate_pages,
+    fetch_page_details,
+    page_to_document,
+    wikitext_to_plaintext,
+)
 
 
 class FakeResponse:
@@ -138,5 +143,86 @@ def test_missing_extract_falls_back_to_parsed_html():
     )
 
     assert pages[0]["extract"] == "सुन्दर सुभूमि भइया भारत के देसवा से"
+    assert pages[0]["extraction_method"] == "mediawiki_parse_html"
+    assert session.calls[1]["action"] == "parse"
+
+
+def test_wikitext_to_plaintext_keeps_prose_and_link_labels():
+    source = "'''भारत''' [[दक्षिण एशिया]] में एक देश है। {{स्रोतहीन}}"
+
+    assert wikitext_to_plaintext(source) == "भारत दक्षिण एशिया में एक देश है।"
+
+
+def test_revision_mode_fetches_content_in_one_batched_request():
+    session = FakeSession(
+        [
+            {
+                "query": {
+                    "pages": [
+                        {
+                            "pageid": 1,
+                            "title": "भारत",
+                            "fullurl": "https://example/1",
+                            "revisions": [
+                                {
+                                    "revid": 9,
+                                    "timestamp": "2026-08-16T00:00:00Z",
+                                    "slots": {"main": {"content": "'''भारत''' एक देश है।"}},
+                                }
+                            ],
+                        }
+                    ]
+                }
+            }
+        ]
+    )
+
+    pages = fetch_page_details(
+        session,
+        "https://example/api.php",
+        [{"pageid": 1, "title": "भारत"}],
+        content_mode="revision",
+    )
+
+    assert pages[0]["extract"] == "भारत एक देश है।"
+    assert pages[0]["extraction_method"] == "mediawiki_revision_wikitext"
+    assert session.calls[0]["rvprop"] == "ids|timestamp|content"
+
+
+def test_revision_mode_renders_wikisource_pages_transclusion():
+    session = FakeSession(
+        [
+            {
+                "query": {
+                    "pages": [
+                        {
+                            "pageid": 5,
+                            "title": "उपन्यास",
+                            "revisions": [
+                                {
+                                    "slots": {
+                                        "main": {
+                                            "content": '<pages index="उपन्यास.djvu" from=1 to=3 />'
+                                        }
+                                    }
+                                }
+                            ],
+                        }
+                    ]
+                }
+            },
+            {"parse": {"text": "<div><p>यह पुस्तक का पूरा पाठ है।</p></div>"}},
+        ]
+    )
+
+    pages = fetch_page_details(
+        session,
+        "https://example/api.php",
+        [{"pageid": 5, "title": "उपन्यास"}],
+        content_mode="revision",
+        render_empty_revisions=True,
+    )
+
+    assert pages[0]["extract"] == "यह पुस्तक का पूरा पाठ है।"
     assert pages[0]["extraction_method"] == "mediawiki_parse_html"
     assert session.calls[1]["action"] == "parse"

@@ -36,6 +36,7 @@ def test_rejection_reasons_accepts_clean_devanagari_text() -> None:
 
 def test_iter_processed_excludes_configured_source(tmp_path) -> None:
     input_path = tmp_path / "input.jsonl.gz"
+    rejected_path = tmp_path / "rejected.jsonl.gz"
     write_jsonl(input_path, [make_document("translated_partition")])
     counters = Counter()
     config = {
@@ -53,7 +54,7 @@ def test_iter_processed_excludes_configured_source(tmp_path) -> None:
             [input_path],
             expected_language="bho",
             config=config,
-            rejected_path=None,
+            rejected_path=rejected_path,
             counters=counters,
         )
     )
@@ -62,3 +63,208 @@ def test_iter_processed_excludes_configured_source(tmp_path) -> None:
     assert counters["raw_documents"] == 1
     assert counters["rejected_source_excluded"] == 1
     assert counters["rejected_source_excluded:translated_partition"] == 1
+
+
+def test_iter_processed_applies_anjoria_tail_cleaning(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    output_document = make_document("anjoria_pre2023")
+    output_document.text = (
+        "समाचार\n" + "ई भोजपुरी के साफ उपयोगी लेख हवे। " * 10 + "\n0 Comments\nRecent Posts\nकचरा"
+    )
+    write_jsonl(input_path, [output_document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+        "clean_anjoria": True,
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="bho",
+            config=config,
+            rejected_path=None,
+            counters=counters,
+        )
+    )
+
+    assert len(accepted) == 1
+    assert "Recent Posts" not in accepted[0].text
+    assert counters["anjoria_truncated_tail"] == 1
+
+
+def test_iter_processed_applies_hindi_wikipedia_cleaning(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    document = make_document("hindi_wikipedia")
+    document.language = "hi"
+    document.text = "यह साफ हिन्दी लेख है। " * 20 + "\n\nसन्दर्भ\n\nEnglish reference"
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+        "clean_hindi_wikipedia": True,
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="hi",
+            config=config,
+            rejected_path=None,
+            counters=counters,
+        )
+    )
+
+    assert len(accepted) == 1
+    assert "English reference" not in accepted[0].text
+    assert counters["hindi_wikipedia_truncated_trailing_sections"] == 1
+
+
+def test_iter_processed_removes_residual_wikipedia_markup(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    document = make_document("hindi_wikipedia")
+    document.language = "hi"
+    document.text = (
+        "यह साफ हिन्दी लेख है। " * 20
+        + '\n<div class="center">पाठ</div> colspan="3" '
+        + "{{cite web |title=English citation}}"
+    )
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+        "clean_hindi_wikipedia": True,
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="hi",
+            config=config,
+            rejected_path=None,
+            counters=counters,
+        )
+    )
+
+    assert len(accepted) == 1
+    assert "<div" not in accepted[0].text
+    assert "colspan" not in accepted[0].text
+    assert "{{cite" not in accepted[0].text
+    assert counters["hindi_wikipedia_removed_residual_templates"] == 1
+
+
+def test_iter_processed_rejects_wikipedia_cleaned_to_empty(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    rejected_path = tmp_path / "rejected.jsonl.gz"
+    document = make_document("hindi_wikipedia")
+    document.language = "hi"
+    document.text = "{{अपूर्ण साँचा\n" + "यह कच्चा पाठ वापस नहीं रखा जाना चाहिए। " * 20
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+        "clean_hindi_wikipedia": True,
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="hi",
+            config=config,
+            rejected_path=rejected_path,
+            counters=counters,
+        )
+    )
+
+    assert accepted == []
+    assert counters["hindi_wikipedia_cleaned_to_empty"] == 1
+    assert counters["rejected_empty_not_persisted"] == 1
+
+
+def test_iter_processed_rejects_explicitly_translated_source_document(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    document = make_document("hindi_wikisource")
+    document.language = "hi"
+    document.text = "अनुवादक: परीक्षण लेखक\n" + "यह हिन्दी पुस्तक का पाठ है। " * 20
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+        "exclude_translation_marked_sources": ["hindi_wikisource"],
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="hi",
+            config=config,
+            rejected_path=None,
+            counters=counters,
+        )
+    )
+
+    assert accepted == []
+    assert counters["rejected_translation_marker"] == 1
+
+
+def test_iter_processed_counts_empty_rejection_without_serializing_it(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    rejected_path = tmp_path / "rejected.jsonl.gz"
+    document = make_document("hindi_wikipedia")
+    document.language = "hi"
+    document.text = ("यह पंक्ति पूरी तरह दोहराई गई है और हटेगी।\n" * 3).strip()
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="hi",
+            config=config,
+            rejected_path=rejected_path,
+            counters=counters,
+        )
+    )
+
+    assert accepted == []
+    assert counters["rejected_empty_not_persisted"] == 1
+    assert not rejected_path.exists()

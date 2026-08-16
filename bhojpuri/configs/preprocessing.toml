@@ -6,6 +6,7 @@ maximum_latin_ratio = 0.20
 maximum_digit_ratio = 0.25
 remove_repeated_lines = true
 clean_bhojpuri_wikipedia = true
+clean_anjoria = true
 excluded_source_names = [
   "bhojpuri_corpus:eng_bho",
   "bhojpuri_corpus:fleurs_bhojpuri",

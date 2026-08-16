@@ -21,12 +21,53 @@ _WIKIPEDIA_TRAILING_HEADINGS = {
     "external links",
     "further reading",
     "notes",
+    "इन्हें भी देखें",
+    "इन्हें भी देखिये",
+    "इसे भी देखें",
+    "सन्दर्भ",
+    "सन्दर्भ सूची",
+    "टिप्पणी",
+    "टिप्पणियाँ",
+    "बाहरी कड़ियाँ",
+    "बाहरी सूत्र",
     "इहो देखल जाय",
     "बाहरी कड़ी",
     "बाहरी कड़ियाँ",
     "संदर्भ",
     "स्रोत",
 }
+_ANJORIA_TAIL_MARKERS = {
+    "submit a comment",
+    "cancel reply",
+    "login",
+    "अंजोरिया फेसबुक पर",
+    "recent posts",
+    "श्रेणी-सूची",
+    "अंजोरिया पर खोजीं -",
+}
+_ANJORIA_COMMENT_COUNT = re.compile(r"^\d+\s+comments?$", re.IGNORECASE)
+_WIKIPEDIA_METADATA_LINE = re.compile(
+    r"^(?:श्रेणी|category)\s*:|^__[A-Z]+__$", re.IGNORECASE
+)
+_WIKIPEDIA_MEDIA_LINE = re.compile(
+    r"^(?:(?:left|right|center|none)\|)?thumb\|", re.IGNORECASE
+)
+_WIKIPEDIA_SOCIAL_HANDLE = re.compile(
+    r"\b(?:instagram|facebook|twitter|youtube)\s+(?:id|handle)\s*=\s*\S+",
+    re.IGNORECASE,
+)
+_HTML_COMMENT = re.compile(r"<!--[\s\S]*?-->")
+_HTML_TAG = re.compile(r"</?[A-Za-z][^>]{0,500}>")
+_WIKIPEDIA_TABLE_ATTRIBUTE = re.compile(
+    r"\b(?:colspan|rowspan|class|style|scope|align|width|height)\s*=\s*"
+    r'(?:"[^"]*"|\'[^\']*\'|[^\s|]*)',
+    re.IGNORECASE,
+)
+_WIKIPEDIA_TABLE_MARKER_LINE = re.compile(r"^(?:\{\||\|\}|\|-|[!|]\s*[|!])")
+_TRANSLATION_CREDIT = re.compile(
+    r"(?:अनुवादक|अनूदित|अनुवादित|अनुवाद\s*[:：-]|translated\s+by|translation\s*[:：-])",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -123,17 +164,45 @@ def clean_pib_article(text: str) -> tuple[str, dict[str, int]]:
 def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
     """Remove reference/link tails and English-dominant blocks from Bhojpuri Wikipedia."""
 
+    text, removed_leading_templates = remove_leading_wikitext_templates(text)
+    text, removed_residual_templates = remove_wikitext_templates(text)
+    text = _HTML_COMMENT.sub("", text)
+    text = _HTML_TAG.sub("", text)
+    text = _WIKIPEDIA_TABLE_ATTRIBUTE.sub("", text)
     kept_paragraphs = []
     removed_english_paragraphs = 0
+    removed_metadata_lines = 0
     truncated_trailing_sections = 0
     for paragraph in re.split(r"\n\s*\n", text):
         paragraph = paragraph.strip()
         if not paragraph:
             continue
-        lines = [line.strip() for line in paragraph.splitlines() if line.strip()]
+        lines = []
+        for raw_line in paragraph.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if _WIKIPEDIA_METADATA_LINE.search(line):
+                removed_metadata_lines += 1
+                continue
+            if _WIKIPEDIA_MEDIA_LINE.search(line):
+                removed_metadata_lines += 1
+                continue
+            if _WIKIPEDIA_TABLE_MARKER_LINE.search(line):
+                removed_metadata_lines += 1
+                continue
+            line = _WIKIPEDIA_SOCIAL_HANDLE.sub("", line).strip()
+            line = line.replace("[[", "").replace("]]", "")
+            if not line:
+                removed_metadata_lines += 1
+                continue
+            lines.append(line)
+        if not lines:
+            continue
         if any(line.casefold() in _WIKIPEDIA_TRAILING_HEADINGS for line in lines):
             truncated_trailing_sections += 1
             break
+        paragraph = "\n".join(lines)
         metrics = text_metrics(paragraph)
         if metrics.letters >= 20 and metrics.latin_ratio > 0.50:
             removed_english_paragraphs += 1
@@ -141,8 +210,99 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
         kept_paragraphs.append(paragraph)
     return "\n\n".join(kept_paragraphs).strip(), {
         "removed_english_paragraphs": removed_english_paragraphs,
+        "removed_leading_templates": removed_leading_templates,
+        "removed_residual_templates": removed_residual_templates,
+        "removed_metadata_lines": removed_metadata_lines,
         "truncated_trailing_sections": truncated_trailing_sections,
     }
+
+
+def remove_leading_wikitext_templates(text: str) -> tuple[str, int]:
+    """Remove balanced template blocks leaked at the start of rendered Wikipedia text."""
+
+    remaining = text.lstrip()
+    removed = 0
+    while remaining.startswith("{{"):
+        depth = 0
+        index = 0
+        while index < len(remaining) - 1:
+            pair = remaining[index : index + 2]
+            if pair == "{{":
+                depth += 1
+                index += 2
+                continue
+            if pair == "}}":
+                depth -= 1
+                index += 2
+                if depth == 0:
+                    remaining = remaining[index:].lstrip()
+                    removed += 1
+                    break
+                continue
+            index += 1
+        else:
+            break
+    return remaining, removed
+
+
+def remove_wikitext_templates(text: str) -> tuple[str, int]:
+    """Remove balanced templates anywhere and truncate an unmatched template tail."""
+
+    pieces: list[str] = []
+    cursor = 0
+    removed = 0
+    while True:
+        start = text.find("{{", cursor)
+        if start < 0:
+            pieces.append(text[cursor:])
+            break
+        pieces.append(text[cursor:start])
+        depth = 1
+        index = start + 2
+        while index < len(text) - 1 and depth:
+            pair = text[index : index + 2]
+            if pair == "{{":
+                depth += 1
+                index += 2
+            elif pair == "}}":
+                depth -= 1
+                index += 2
+            else:
+                index += 1
+        removed += 1
+        if depth:
+            break
+        cursor = index
+    return "".join(pieces).strip(), removed
+
+
+def clean_anjoria_article(text: str) -> tuple[str, dict[str, int | str | None]]:
+    """Keep the Anjoria article body and drop its repeated navigation/comment tail."""
+
+    lines = text.splitlines()
+    cutoff = len(lines)
+    marker = None
+    for index, line in enumerate(lines):
+        normalized = line.strip().casefold()
+        if normalized in _ANJORIA_TAIL_MARKERS or _ANJORIA_COMMENT_COUNT.fullmatch(normalized):
+            cutoff = index
+            marker = line.strip()
+            break
+    kept = "\n".join(lines[:cutoff]).strip()
+    removed = "\n".join(lines[cutoff:])
+    return kept, {
+        "truncated_tail": int(cutoff < len(lines)),
+        "removed_lines": len(lines) - cutoff,
+        "removed_characters": len(removed),
+        "cutoff_marker": marker,
+    }
+
+
+def has_translation_credit(text: str, title: str | None = None) -> bool:
+    """Detect explicit translation credits without guessing from fluency alone."""
+
+    haystack = f"{title or ''}\n{text}"
+    return bool(_TRANSLATION_CREDIT.search(haystack))
 
 
 def text_metrics(text: str) -> TextMetrics:
