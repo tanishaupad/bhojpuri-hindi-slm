@@ -45,7 +45,8 @@ license = "source-rights-retained-course-research"
 before_date = "2023-01-01"
 sample_size = 6000
 sample_seed = "anjoria-pre2023-sample6000-v1"
-request_delay_seconds = 3.0
+initial_request_delay_seconds = 3.0
+resume_request_delay_seconds = 10.0
 language_filter = "character-4gram-bho-vs-hi-with-audit-band"
 enabled = true
 [[sources]]

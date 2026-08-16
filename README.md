@@ -180,6 +180,13 @@ responses observed when four workers contacted the same host at once.
 scripts/collect_anjoria_sample6000.sh "/path/to/LMA_Individual_Project"
 ```
 
+The wrapper accepts an optional second argument for resumed runs. After Anjoria began returning
+`429` responses during a sustained crawl, the conservative resume setting became ten seconds:
+
+```bash
+scripts/collect_anjoria_sample6000.sh "/path/to/LMA_Individual_Project" 10.0
+```
+
 After collection, a character four-gram discriminator trained on separately held-out Bhojpuri and
 Hindi seed text separates high-confidence Bhojpuri from obvious Hindi. The default acceptance
 cutoff is the stricter of the Bhojpuri holdout's fifth percentile and the Hindi holdout's 99.5th
