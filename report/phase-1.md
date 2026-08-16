@@ -50,11 +50,10 @@ Anjoria exposes 12,920 sitemap-listed public article URLs last modified before 2
 `robots.txt` disallows the WordPress API, so only the allowed sitemap and public article pages are
 used. An initial sample shows substantial native Bhojpuri alongside some Hindi promotional copy;
 the source therefore receives stronger Hindi-versus-Bhojpuri filtering before inclusion. A
-deterministic 6,000-page sample is being extracted in four resumable partitions, processed
-sequentially with a three-second request interval. The sitemap URL list is cached after one polite
-enumeration. The 38-document pilot averaged 443.5 whitespace words per retained page, so this
-sample is expected to close the current manual-data gap even after conservative language filtering
-and deduplication; final counts will replace this estimate.
+deterministic 6,000-page target was partitioned into four resumable crawl states. Collection was
+paused after repeated `429` responses, leaving a frozen snapshot of 3,663 retained raw articles and
+1,712,641 whitespace words. The sitemap URL list was cached after one polite enumeration, and the
+unfinished checkpoints were preserved in case further manual data becomes necessary.
 
 PIB rejected ordinary scripted requests in the collection environment, so direct article pages were
 opened through a normal browser session and then imported into the common schema. The importer
@@ -76,7 +75,10 @@ held-out Bhojpuri and Hindi seed corpora. Automatic acceptance requires a score 
 of the Bhojpuri holdout fifth percentile and Hindi holdout 99.5th percentile; a lower audit boundary
 uses the corresponding first and 95th percentiles. On the initial 38-page source sample, this rule
 accepted 32 pages, rejected four visibly Hindi promotional articles, and routed two uncertain pages
-to manual review. This pilot is a validation of the screening rule, not the final corpus count.
+to manual review. Applied to the frozen snapshot, the rule accepted 3,089 articles, routed 230 to
+the ambiguous audit set, and rejected 344 as likely Hindi. The common quality pass subsequently
+retained 2,706 accepted articles and 1,306,145 whitespace words. Audit worksheets contain 100
+accepted pages, all 230 ambiguous pages, and 100 rejected pages.
 
 The current PIB partial preprocessing pass accepted 370 releases and 333,161 whitespace words. It
 removed 1,100 standard metadata/separator/signature lines and 204 English-dominant embedded
@@ -103,18 +105,19 @@ exact-deduplication measurement removed 1,308 documents and retained 303,704 doc
 words. The retained manual portion is 1,237,718 words (6.461%); the downloaded portion is 17,918,741
 words. The two newly cleaned Blogger archives supplied 1,183,589 words before cross-source
 deduplication. The updated exact-only, manual-first v3 pass examined 309,578 documents, removed
-1,312 exact duplicates, and retained 308,266 documents / 20,339,284 words. Of those, 13,438 manual
-documents contain 2,420,814 words and 294,828 downloaded documents contain 17,918,470 words, giving
-an 11.902% manual word proxy. Keeping the full downloaded portion therefore requires approximately
-2.059 million additional manual words to reach 20%. These figures will be recomputed after the
-web-source audit and near-duplicate handling. The final 20% decision will use tokenizer tokens
+1,312 exact duplicates, and retained 308,266 documents / 20,339,284 words. After adding the cleaned
+Anjoria snapshot, the v4 exact pass examined 312,284 documents and retained 310,972. Its 16,144
+manual documents contain 3,726,959 words, while 294,828 downloaded documents contain 17,918,470
+words, giving a 17.218% manual word proxy. A stable hash sample then removed only downloaded
+records: 80,285 documents / 4,704,707 words. The resulting 230,687-document corpus contains
+16,940,722 words and has a 22.000% manual word proxy. The final 20% decision uses tokenizer tokens
 rather than whitespace words.
 
 ### 2.4 Deduplication
 
 Exact duplicate comparison uses a SHA-256 hash of NFC-normalized, case-folded, whitespace-collapsed
 text. Manual records are indexed before downloaded records, so an identical downloaded copy is
-removed. The updated v3 exact-only measurement removed 1,312 of 309,578 examined documents.
+removed. The updated v4 exact-only measurement removed 1,312 of 312,284 examined documents.
 Near-duplicate
 SimHash deletion has not yet been applied: its threshold will first be validated on manually reviewed
 duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
@@ -126,9 +129,9 @@ duplicate/non-duplicate pairs to avoid false removal of short low-resource text.
 | Hindi | Train | TBD | TBD | TBD | TBD | TBD |
 | Hindi | Validation | TBD | TBD | TBD | TBD | TBD |
 | Hindi | Test | TBD | TBD | TBD | TBD | TBD |
-| Bhojpuri | Train | TBD | TBD | TBD | TBD | TBD |
-| Bhojpuri | Validation | TBD | TBD | TBD | TBD | TBD |
-| Bhojpuri | Test | TBD | TBD | TBD | TBD | TBD |
+| Bhojpuri | Train | 225,992 | 22,577,763 | 5,078,086 | 17,499,677 | 22.492% |
+| Bhojpuri | Validation | 2,344 | 227,239 | 50,949 | 176,290 | 22.421% |
+| Bhojpuri | Test | 2,351 | 214,399 | 52,302 | 162,097 | 24.395% |
 
 TBD: justify any Bhojpuri shortfall from the approximately 500M-token target.
 
@@ -142,17 +145,23 @@ training split. Candidate vocabulary sizes were evaluated on held-out validation
 | Hindi | 16,000 | TBD | TBD | TBD | TBD |
 | Hindi | 24,000 | TBD | TBD | TBD | TBD |
 | Hindi | 32,000 | TBD | TBD | TBD | TBD |
-| Bhojpuri | 16,000 | TBD | TBD | TBD | TBD |
-| Bhojpuri | 24,000 | TBD | TBD | TBD | TBD |
-| Bhojpuri | 32,000 | TBD | TBD | TBD | TBD |
+| Bhojpuri | 16,000 | 1.3341 | 3.7644 | 0.001760% | 59.250% |
+| Bhojpuri | 24,000 | 1.2809 | 3.9206 | 0.001833% | 69.752% |
+| Bhojpuri | 32,000 | 1.2546 | 4.0028 | 0.001872% | 74.681% |
 
 ### 3.1 Selected tokenizers
 
 - Hindi: TBD
-- Bhojpuri: TBD
+- Bhojpuri: 16,000-piece Unigram candidate. It has the highest held-out vocabulary utilization
+  (78.79%) and the lowest rare-type rate while retaining low fertility and a negligible unknown
+  rate. The 24K and 32K candidates reduce fertility by only 3.99% and 5.96% relative to 16K, while
+  using only 66.40% and 56.29% of their vocabularies. Their additional embedding rows would also
+  consume a material share of the approximately 25M-parameter model budget.
 
-TBD: justify each choice using held-out fertility, unknown rate, vocabulary utilization, and the
-approximately 25M-parameter model budget.
+Tokenizer input collapses Unicode whitespace before encoding, matching the one-paragraph-per-line
+training representation. Without this shared preprocessing, literal held-out newlines appeared as
+unknown spans under SentencePiece's identity character normalizer. After applying the consistent
+input rule, the 16K candidate emitted four unknown tokens among 227,239 validation tokens.
 
 ### 3.2 Tokenization examples
 

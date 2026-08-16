@@ -307,6 +307,19 @@ threshold must be validated on a manually inspected duplicate/non-duplicate samp
 Use `--exact-only` for a safe overlap measurement before that manual threshold validation; do not
 reuse its output/database pair as the final near-deduplicated run.
 
+If the retained manual portion is below the assignment minimum, preserve every manual document and
+deterministically sample only downloaded records. A target above 20% provides a margin before the
+final SentencePiece-token measurement:
+
+```bash
+lma-downsample \
+  --input bhojpuri/data/processed/deduplicated.jsonl.gz \
+  --output bhojpuri/data/processed/deduplicated_downsampled.jsonl.gz \
+  --target-manual-word-fraction 0.22 \
+  --seed bhojpuri-downsample-22pct-v1 \
+  --report bhojpuri/data/stats/downsampling.json
+```
+
 ## 5. Train/validation/test splits
 
 The deterministic splitter uses a 98/1/1 ratio. Pages carrying the same `book_id`, `work_id`, or
@@ -344,6 +357,11 @@ lma-evaluate-tokenizer \
   --output hindi/data/stats/tokenizer_evaluation.json \
   --figure report/figures/generated/hindi_token_frequency.png
 ```
+
+Training, evaluation, corpus-statistics, and later model-input code must all call the shared
+`normalize_tokenizer_input` helper. It collapses Unicode whitespace to match SentencePiece's
+one-paragraph-per-line training representation; character normalization itself remains identity
+because corpus text has already been normalized to NFC.
 
 Select the vocabulary using fertility, characters per token, unknown-token rate, vocabulary
 utilization, and the later approximately 25M-parameter budget. Copy only the selected `.model`
