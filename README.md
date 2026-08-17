@@ -435,7 +435,7 @@ entire workflow independently under `bhojpuri/`.
 - **Token Frequency Plot (Bhojpuri)**: [`report/figures/generated/bhojpuri_token_frequency.png`](report/figures/generated/bhojpuri_token_frequency.png)
 - **Hindi Source Statistics Table**: [`report/tables/generated/hindi_sources.csv`](report/tables/generated/hindi_sources.csv)
 - **Bhojpuri Source Statistics Table**: [`report/tables/generated/bhojpuri_sources.csv`](report/tables/generated/bhojpuri_sources.csv)
-- **Google Drive Root Folder**: `LMA_Individual_Project/` (contains `hindi/splits/`, `hindi/tokenizers/`, `bhojpuri/splits/`, `bhojpuri/tokenized/`, `manifests/`)
+- **Google Drive Root Folder**: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (contains `hindi/splits/`, `hindi/tokenizers/`, `bhojpuri/splits/`, `bhojpuri/tokenized/`, `manifests/`)
 
 ### Dataset and Split Checksums (SHA-256)
 

@@ -203,6 +203,18 @@ python -m lma_phase1.stats \
   --source-csv report/tables/generated/hindi_sources.csv
 ```
 
+### Artifact Storage & Google Drive Reference
+
+All large corpus splits (`train.jsonl.gz`, `validation.jsonl.gz`, `test.jsonl.gz`), trained tokenizer models (`16k`, `24k`, `32k`), deduplicated checkpoints, and audit manifests are stored in the project's Google Drive:
+
+- **Google Drive Project Root**: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link)
+  - `hindi/splits/` — Finalized Hindi train, validation, and test splits
+  - `hindi/tokenizers/` — Hindi SentencePiece Unigram candidate models and vocabs
+  - `hindi/processed/` — Deduplicated and balanced intermediate checkpoints
+  - `bhojpuri/splits/downsampled22_v1/` — Finalized Bhojpuri splits
+  - `bhojpuri/tokenized/` — Bhojpuri candidate models and vocabs
+  - `manifests/` — Deduplication, audit, and tokenizer evaluation reports
+
 ---
 
 ## 5. Limitations and discussion
