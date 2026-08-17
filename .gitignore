@@ -39,9 +39,8 @@ bhojpuri/data/checkpoints/
 *.sqlite3
 *.db
 
-# Generated tokenizer experiments and plots. Final selected .model/.vocab
-# files are intentionally not ignored.
+# Generated tokenizer experiments. Final selected .model/.vocab
+# files and report figures/tables are intentionally tracked.
 **/tokenizer/runs/
-report/figures/generated/
-report/tables/generated/
 tmp/
+
