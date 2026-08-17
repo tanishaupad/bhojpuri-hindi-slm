@@ -1,0 +1,16 @@
+source,documents,characters,words,tokens
+anjoria_pre2023,2706,6528562,1306145,1729568
+bhojpuri_corpus:bhojpuri_lr_v3,15692,1691610,321167,379102
+bhojpuri_corpus:fish_food,122046,15682274,3187756,4288806
+bhojpuri_corpus:glotcc,410,869968,164971,246910
+bhojpuri_corpus:hplt,12929,34134877,6815608,9268322
+bhojpuri_corpus:iit_bhu,2998,225422,50790,63978
+bhojpuri_corpus:jnu_bhltr,50112,4991565,1010857,1307559
+bhojpuri_corpus:kumar_bhojpuri,4795,4748148,935042,1269800
+bhojpuri_corpus:rural_women,140,14310,3227,3844
+bhojpuri_corpus:ud_bhtb,55,5414,1218,1442
+bhojpuri_corpus:wikipedia,5366,3768547,723127,1008301
+bhojpuri_news,3064,3475241,656544,889379
+bhojpuri_wikipedia,8609,6286892,1204024,1724259
+bhojpuri_wikisource,266,168893,33694,54291
+maina_bhojpuri,1499,2661703,526552,783840

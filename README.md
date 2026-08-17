@@ -61,18 +61,21 @@ Drive folder, with temporary local staging only while a large streaming job is a
 
 Final large artifacts and checksums will be uploaded to Google Drive; links will be added here.
 
-### Current safe Hindi checkpoint (2026-08-17)
+### Final Phase 1 Datasets and Splits
 
-The latest fully validated Hindi checkpoint is
-`hindi/processed/balanced_preparagraph_20pct_v1.jsonl.gz` in the project Google Drive folder. It is
-not the final training corpus. It contains 98,330 manual documents / 58,497,224 whitespace words
-and 2,503,883 downloaded documents / 233,988,884 words after common quality filtering, exact
-document deduplication, and deterministic preliminary balancing. Its manual word proxy is exactly
-20%; a final 22% buffer will be recomputed after paragraph and strict MinHash deduplication.
+- **Hindi (Model H)**:
+  - Total Corpus: 2,283,757 documents / 339,048,510 tokens (with 24k Unigram tokenizer)
+  - Train split: 2,237,951 documents / 332,246,742 tokens (**25.06% manual tokens**)
+  - Validation split: 23,033 documents / 3,428,944 tokens
+  - Test split: 22,773 documents / 3,372,824 tokens
+  - Tokenizer: `hindi/tokenizer/hindi.model` (24,000 Unigram, character coverage 1.0)
 
-The matching reports are `manifests/hindi_deduplication_exact_v2.json` and
-`manifests/downsampling_preparagraph_20pct_v1.json`. Paragraph deduplication was deliberately
-stopped at this checkpoint and must restart from the balanced artifact.
+- **Bhojpuri (Model L)**:
+  - Total Corpus: 230,687 documents / 23,019,401 tokens (with 16k Unigram tokenizer)
+  - Train split: 225,992 documents / 22,577,763 tokens (**22.49% manual tokens**)
+  - Validation split: 2,344 documents / 227,239 tokens
+  - Test split: 2,351 documents / 214,399 tokens
+  - Tokenizer: `bhojpuri/tokenizer/bhojpuri.model` (16,000 Unigram, character coverage 1.0)
 
 ## 1. Manual collection
 
@@ -427,7 +430,21 @@ entire workflow independently under `bhojpuri/`.
 
 ## Reports and artifact links
 
-- Phase 1 report: [`report/phase-1.md`](report/phase-1.md)
-- Hindi dataset: TBD
-- Bhojpuri dataset: TBD
-- Dataset checksums: TBD
+- **Phase 1 Report**: [`report/phase-1.md`](report/phase-1.md)
+- **Token Frequency Plot (Hindi)**: [`report/figures/generated/hindi_token_frequency.png`](report/figures/generated/hindi_token_frequency.png)
+- **Token Frequency Plot (Bhojpuri)**: [`report/figures/generated/bhojpuri_token_frequency.png`](report/figures/generated/bhojpuri_token_frequency.png)
+- **Hindi Source Statistics Table**: [`report/tables/generated/hindi_sources.csv`](report/tables/generated/hindi_sources.csv)
+- **Bhojpuri Source Statistics Table**: [`report/tables/generated/bhojpuri_sources.csv`](report/tables/generated/bhojpuri_sources.csv)
+- **Google Drive Root Folder**: `LMA_Individual_Project/` (contains `hindi/splits/`, `hindi/tokenizers/`, `bhojpuri/splits/`, `bhojpuri/tokenized/`, `manifests/`)
+
+### Dataset and Split Checksums (SHA-256)
+
+| Artifact | Language | SHA-256 Checksum |
+|---|---|---|
+| `hindi/splits/train.jsonl.gz` | Hindi | `35e4a4689e40b70868ec9065bbeb036eb677e219867f60c20b0fb2341d700a8a` |
+| `hindi/splits/validation.jsonl.gz` | Hindi | `71d1b9940011ac7998e444380dd82f0037bb65eb3a0a12818684c7066e9594b5` |
+| `hindi/splits/test.jsonl.gz` | Hindi | `ef94dde8713b0e7a5d8ff7cbad54ff869c51b6336ec7f23cf24ec6915ebfad12` |
+| `hindi/processed/balanced_22pct_v1.jsonl.gz` | Hindi | `8da68dd00742d094a55e1bc987e66264590c14867e2411f298983d7f65834c14` |
+| `hindi/tokenizer/hindi.model` (24k) | Hindi | `7cf0b4bf5d70b741ef03c6218d6a858ff43675038ec7493a7e3d740eb76b6680` |
+| `bhojpuri/splits/downsampled22_v1/train.jsonl.gz` | Bhojpuri | `d690a2cf757b1cb7a60216ae9cb0f19c968f9b9f939eecdf590ad5ec1dbf6311` |
+| `bhojpuri/tokenizer/bhojpuri.model` (16k) | Bhojpuri | `5a703d1592ca07b667825d1945a6c38a2e1d743a6d7aa19c8fcb5cfdccefa9ba` |
