@@ -20,6 +20,7 @@ from lma_phase2.training import (
     evaluate_loss,
     load_checkpoint,
     precision_context,
+    prune_checkpoints,
     resolve_latest_checkpoint,
     save_checkpoint,
     seed_everything,
@@ -201,6 +202,7 @@ def train(args: argparse.Namespace) -> None:
                 experiment,
                 data_generator,
             )
+            prune_checkpoints(output_dir, training.checkpoint_keep_last)
 
 
 def build_parser() -> argparse.ArgumentParser:

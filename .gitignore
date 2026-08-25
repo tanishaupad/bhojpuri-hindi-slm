@@ -47,3 +47,4 @@ bhojpuri/data/checkpoints/
 # files and report figures/tables are intentionally tracked.
 **/tokenizer/runs/
 tmp/
+output/kaggle/

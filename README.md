@@ -93,6 +93,7 @@ lma-train-lm \
 
 Use `bhojpuri/configs/phase2.toml` and separate Bhojpuri manifests/output for Model L. Checkpoints
 contain model, optimizer, scheduler, mixed-precision scaler, step/configuration, and all RNG states.
+To stay within hosted-notebook disk limits, each run retains its three newest complete checkpoints.
 Evaluation writes its small JSON/CSV/PNG results into `report/`; large checkpoints and packed token
 streams remain in Google Drive.
 

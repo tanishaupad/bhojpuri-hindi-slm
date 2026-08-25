@@ -130,7 +130,8 @@ Training uses AdamW (`betas=(0.9, 0.95)`, weight decay 0.1), linear warmup, cosi
 precision on CUDA, gradient clipping at 1.0, and validation throughout training. Each atomic
 checkpoint contains model weights, optimizer state, scheduler state, gradient-scaler state,
 completed step, tokens seen, best validation loss, full resolved configuration, Python/NumPy/
-PyTorch/CUDA random states, and the packed-data sampling generator state.
+PyTorch/CUDA random states, and the packed-data sampling generator state. Hosted runs retain the
+three newest atomic checkpoints, which bounds disk usage while preserving multiple recovery points.
 
 ## 4. Evaluation implementation
 
