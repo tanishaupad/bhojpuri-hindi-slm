@@ -7,9 +7,94 @@ This repository builds two fully independent decoder-only language models from s
 - **Model H:** Hindi (`hi`, Devanagari), the higher-resource language.
 - **Model L:** Bhojpuri (`bho`, Devanagari), the approved lower-resource language.
 
-The current `phase-1` branch contains reproducible corpus collection, preprocessing,
-deduplication, split creation, tokenizer training, and tokenizer evaluation code. The two
-languages never share documents, tokenizers, vocabularies, checkpoints, or weights.
+The `phase-1` branch contains reproducible corpus collection, preprocessing, deduplication,
+split creation, tokenizer training, and tokenizer evaluation code. The current `phase-2` branch
+builds on that finalized work with pre-training data-integrity checks and a from-scratch PyTorch
+Transformer, training, checkpoint, evaluation, and attention-analysis pipeline. The two languages
+never share documents, tokenizers, vocabularies, checkpoints, or weights.
+
+## Phase 2 status
+
+Before model training, validation and test are treated as protected data. The training split is
+audited asymmetrically for canonical exact-document matches, exact paragraph reuse, and
+word-5-gram Bottom-k MinHash candidates at the same conservative 0.95 threshold used in Phase 1.
+The audit is resumable, preserves provenance in a review CSV, and never edits the official splits.
+
+| Language | Training documents checked | Exact documents | Exact paragraphs | Near documents | Flagged training documents |
+|---|---:|---:|---:|---:|---:|
+| Hindi | 2,237,951 | 0 | 0 | 75 | 75 |
+| Bhojpuri | 225,992 | 0 | 253 | 107 | 360 |
+
+These candidates were reviewed on 25 August 2026 using a recorded, user-directed policy. Hindi
+near-document matches with estimated similarity at least 0.97 were marked `remove` (9), and the
+remaining 66 were marked `keep`. For Bhojpuri, all 253 exact-paragraph matches and the 50
+near-document matches with similarity at least 0.98 were marked `remove`; the remaining 57 were
+marked `keep`. Every CSV row records its decision, reviewer policy, and rationale. Full settings,
+counts, and sampled pairs are in
+[`report/audits/generated`](report/audits/generated), with interpretation in
+[`report/phase-2.md`](report/phase-2.md). Versioned decontaminated training splits have now been
+generated in Google Drive: 2,237,942 Hindi documents after 9 removals and 225,689 Bhojpuri
+documents after 303 removals. Validation and test remain byte-for-byte unchanged.
+
+The from-scratch Phase 2 model, training, evaluation, and attention code is under
+`src/lma_phase2/`, with independent configurations at `hindi/configs/phase2.toml` and
+`bhojpuri/configs/phase2.toml`. The exact model sizes are 25,285,248 Hindi parameters and
+24,870,912 Bhojpuri parameters. Packed Phase 2 streams contain 336,995,217 Hindi and 23,142,975
+Bhojpuri training tokens. Both full-size models have passed a one-step CPU training, validation,
+checkpoint, and resume smoke test against these manifests. GPU pretraining has not started yet.
+
+```bash
+python -m lma_phase2.decontaminate \
+  --train /path/to/train.jsonl.gz \
+  --validation /path/to/validation.jsonl.gz \
+  --test /path/to/test.jsonl.gz \
+  --database tmp/decontamination.sqlite \
+  --audit-output report/audits/generated/matches.csv \
+  --report report/audits/generated/report.json \
+  --workers 4
+```
+
+### Phase 2 reproduction
+
+The final versioned splits and compact token streams are stored under each language's
+`phase2/tokenized_v1` Drive directory. Input, tokenizer, and packed-stream checksums are recorded
+in `report/audits/generated/phase2_data_manifest.json`; rerunning an interrupted packing job
+resumes at its last durable document boundary.
+
+```bash
+lma-tokenize-corpus \
+  --input train=/path/to/final/train.jsonl.gz \
+  --input validation=/path/to/final/validation.jsonl.gz \
+  --input test=/path/to/final/test.jsonl.gz \
+  --tokenizer-model hindi/tokenizer/hindi.model \
+  --output-dir /path/to/drive/hindi/phase2/tokenized \
+  --language hi
+```
+
+The equivalent Bhojpuri command uses `bhojpuri/tokenizer/bhojpuri.model`, language code `bho`,
+and its own output directory. The two streams and runs must never be mixed.
+
+Start Hindi pretraining, or resume it from the last complete checkpoint:
+
+```bash
+lma-train-lm \
+  --config hindi/configs/phase2.toml \
+  --train-manifest /path/to/hindi/phase2/tokenized/train.manifest.json \
+  --validation-manifest /path/to/hindi/phase2/tokenized/validation.manifest.json \
+  --output-dir /path/to/drive/hindi/phase2/runs/pretrain_v1
+
+lma-train-lm \
+  --config hindi/configs/phase2.toml \
+  --train-manifest /path/to/hindi/phase2/tokenized/train.manifest.json \
+  --validation-manifest /path/to/hindi/phase2/tokenized/validation.manifest.json \
+  --output-dir /path/to/drive/hindi/phase2/runs/pretrain_v1 \
+  --resume latest
+```
+
+Use `bhojpuri/configs/phase2.toml` and separate Bhojpuri manifests/output for Model L. Checkpoints
+contain model, optimizer, scheduler, mixed-precision scaler, step/configuration, and all RNG states.
+Evaluation writes its small JSON/CSV/PNG results into `report/`; large checkpoints and packed token
+streams remain in Google Drive.
 
 ## Phase 1 requirements tracked here
 

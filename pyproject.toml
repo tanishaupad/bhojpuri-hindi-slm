@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "lma-individual-project"
 version = "0.1.0"
-description = "Reproducible Phase 1 corpus and tokenizer pipelines for Hindi and Bhojpuri"
+description = "Independent Hindi and Bhojpuri corpus, tokenizer, and language-model pipelines"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -13,8 +13,11 @@ dependencies = [
   "datasets>=3.0,<5",
   "matplotlib>=3.8,<4",
   "mwparserfromhell>=0.7,<1",
+  "numpy>=1.26,<3",
   "requests>=2.32,<3",
+  "sacrebleu>=2.4,<3",
   "sentencepiece>=0.2,<1",
+  "torch>=2.4,<3",
 ]
 
 [project.optional-dependencies]
@@ -41,6 +44,11 @@ lma-corpus-stats = "lma_phase1.stats:main"
 lma-create-audit-sample = "lma_phase1.audit:main"
 lma-train-tokenizers = "lma_phase1.tokenizer.train:main"
 lma-evaluate-tokenizer = "lma_phase1.tokenizer.evaluate:main"
+lma-audit-decontamination = "lma_phase2.decontaminate:main"
+lma-tokenize-corpus = "lma_phase2.prepare_data:main"
+lma-train-lm = "lma_phase2.train:main"
+lma-evaluate-lm = "lma_phase2.evaluate:main"
+lma-plot-training = "lma_phase2.plot_training:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

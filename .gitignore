@@ -38,9 +38,12 @@ bhojpuri/data/checkpoints/
 *.sqlite
 *.sqlite3
 *.db
+*.tokens.bin
+*.pt
+*.pth
+**/runs/
 
 # Generated tokenizer experiments. Final selected .model/.vocab
 # files and report figures/tables are intentionally tracked.
 **/tokenizer/runs/
 tmp/
-

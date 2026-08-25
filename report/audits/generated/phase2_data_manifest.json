@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "generated_date": "2026-08-25",
+  "packing": {
+    "dtype": "<u2",
+    "document_boundary": "eos_token",
+    "eos_id": 3
+  },
+  "languages": {
+    "hindi": {
+      "language": "hi",
+      "vocabulary_size": 24000,
+      "tokenizer_sha256": "5a88ca1d2519429e518b104684a59ca62a17ef5015e60ec0bad3a755b156bbb8",
+      "removed_training_documents": 9,
+      "splits": {
+        "train": {
+          "documents": 2237942,
+          "tokens": 336995217,
+          "utf8_bytes": 3390650854,
+          "input_sha256": "20e873c2489030b4d50415754f410b36176e99912bdeda215cd4af2363ccca6b",
+          "token_file_sha256": "6a3a2e414a8e690e970f8611b53989ea38a19b02de8926b5c2f9401b98ebdcfc"
+        },
+        "validation": {
+          "documents": 23033,
+          "tokens": 3479648,
+          "utf8_bytes": 34973965,
+          "input_sha256": "71d1b9940011ac7998e444380dd82f0037bb65eb3a0a12818684c7066e9594b5",
+          "token_file_sha256": "1d932cc1a31de026733613712119567671f457f4826e691ca9815863d0b89713"
+        },
+        "test": {
+          "documents": 22773,
+          "tokens": 3521023,
+          "utf8_bytes": 35374088,
+          "input_sha256": "ef94dde8713b0e7a5d8ff7cbad54ff869c51b6336ec7f23cf24ec6915ebfad12",
+          "token_file_sha256": "c89599bab15c8a96eb6108f81c186dc796c9385128f3464a8a282a6cacb61224"
+        }
+      }
+    },
+    "bhojpuri": {
+      "language": "bho",
+      "vocabulary_size": 16000,
+      "tokenizer_sha256": "5d50ad313682cabe0f17b63f7829cecf0512ca563630322a1809c0c958741cec",
+      "removed_training_documents": 303,
+      "splits": {
+        "train": {
+          "documents": 225689,
+          "tokens": 23142975,
+          "utf8_bytes": 210038522,
+          "input_sha256": "11ad20143c7a856672b5c7044f435b471386b0f156d317af6a44157299b4aa94",
+          "token_file_sha256": "49d83e8a360cce8cbf41da526f962ccb8aab18196d6250ac71340c12e2838a66"
+        },
+        "validation": {
+          "documents": 2344,
+          "tokens": 234882,
+          "utf8_bytes": 2176729,
+          "input_sha256": "da51b42c38b3451ae30d5438a2a171318189863a6eaeb797a8d6ebde735d352d",
+          "token_file_sha256": "aee1752731e167ca015200a670ec4b7934977a87990de3e54b6bce13ab7253d9"
+        },
+        "test": {
+          "documents": 2351,
+          "tokens": 222585,
+          "utf8_bytes": 2045282,
+          "input_sha256": "c21f470f9f8fd6ddb7dc1ac3f9080579a8de1fd5ba537e0e2537d0aad2656f26",
+          "token_file_sha256": "52ea76b676a57bc6752d3f7a91c5528e575e3d599e4ec025b8ee8ae3ea49aed9"
+        }
+      }
+    }
+  }
+}
