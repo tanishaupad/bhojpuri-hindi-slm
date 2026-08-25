@@ -97,6 +97,7 @@ class TrainingConfig:
     checkpoint_interval: int
     log_interval: int
     precision: str = "auto"
+    checkpoint_keep_last: int = 3
 
     def validate(self) -> None:
         positive = {
@@ -110,6 +111,7 @@ class TrainingConfig:
             "validation_batches": self.validation_batches,
             "checkpoint_interval": self.checkpoint_interval,
             "log_interval": self.log_interval,
+            "checkpoint_keep_last": self.checkpoint_keep_last,
         }
         invalid = [name for name, value in positive.items() if value <= 0]
         if invalid:

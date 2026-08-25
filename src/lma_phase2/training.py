@@ -229,6 +229,18 @@ def resolve_latest_checkpoint(directory: Path) -> Path:
     return directory / value["checkpoint"]
 
 
+def prune_checkpoints(directory: Path, keep_last: int) -> list[Path]:
+    """Remove older periodic checkpoints while retaining the newest recovery points."""
+
+    if keep_last <= 0:
+        raise ValueError("keep_last must be positive")
+    checkpoints = sorted(directory.glob("checkpoint_step_*.pt"))
+    removed = checkpoints[:-keep_last]
+    for path in removed:
+        path.unlink()
+    return removed
+
+
 def append_log(path: Path, row: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     exists = path.exists()

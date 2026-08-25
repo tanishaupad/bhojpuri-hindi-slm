@@ -17,6 +17,7 @@ from lma_phase2.training import (
     configure_optimizer,
     configure_scheduler,
     load_checkpoint,
+    prune_checkpoints,
     save_checkpoint,
 )
 
@@ -114,3 +115,14 @@ def test_checkpoint_round_trip_restores_all_training_state(tmp_path) -> None:
         expected_next_random,
     )
     assert restored_scheduler.state_dict() == scheduler.state_dict()
+
+
+def test_prune_checkpoints_keeps_newest_recovery_points(tmp_path) -> None:
+    paths = [tmp_path / f"checkpoint_step_{step:07d}.pt" for step in range(1, 6)]
+    for path in paths:
+        path.write_bytes(b"checkpoint")
+
+    removed = prune_checkpoints(tmp_path, keep_last=3)
+
+    assert removed == paths[:2]
+    assert [path.exists() for path in paths] == [False, False, True, True, True]
