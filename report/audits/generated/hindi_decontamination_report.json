@@ -1,0 +1,84 @@
+{
+  "audit_output": "report/audits/generated/hindi_train_heldout_matches.csv",
+  "audit_output_sha256": "26c3ba575c56e38227e7d626805a9496b5dbc28e960fea8c6e66b1bd5dfbcaff",
+  "clean_train_documents_written": 2237942,
+  "clean_train_output": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/phase2_decontaminated_v1/train.jsonl.gz",
+  "clean_train_output_sha256": "20e873c2489030b4d50415754f410b36176e99912bdeda215cd4af2363ccca6b",
+  "counts_cumulative": {
+    "matches_exact_document": 0,
+    "matches_exact_paragraph": 0,
+    "matches_near_document": 75,
+    "protected_documents": 45806,
+    "train_documents_clear": 2237876,
+    "train_documents_flagged": 75,
+    "train_documents_processed": 2237951
+  },
+  "counts_this_run": {},
+  "database": "tmp/decontamination-full-hi-v1.sqlite",
+  "execution": {
+    "commit_interval": 1000,
+    "feature_batch_size": 1000,
+    "workers": 4
+  },
+  "inputs": {
+    "test": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/test.jsonl.gz",
+    "train": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/train.jsonl.gz",
+    "validation": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/validation.jsonl.gz"
+  },
+  "policy": {
+    "manual_review_required_before_replacing_training_split": true,
+    "match_precedence": [
+      "exact_document",
+      "near_document",
+      "exact_paragraph"
+    ],
+    "official_inputs_modified": false,
+    "only_training_documents_are_flagged": true,
+    "protected_splits": [
+      "validation",
+      "test"
+    ]
+  },
+  "protected_counts": {
+    "protected_documents_below_minimum_shingles": 2,
+    "protected_documents_near_indexed": 45804,
+    "protected_documents_total": 45806,
+    "protected_paragraphs_eligible": 58695,
+    "protected_paragraphs_examined": 87526,
+    "protected_test_documents": 22773,
+    "protected_validation_documents": 23033
+  },
+  "settings": {
+    "checks": [
+      "exact_document",
+      "exact_paragraph",
+      "near_document"
+    ],
+    "index_size": 16,
+    "maximum_candidates": 200,
+    "maximum_shingles": 2048,
+    "minimum_paragraph_characters": 100,
+    "minimum_paragraph_words": 15,
+    "minimum_shared_index_hashes": 2,
+    "minimum_shingles": 20,
+    "shingle_size": 5,
+    "similarity_threshold": 0.95,
+    "sketch_size": 64,
+    "test": {
+      "modified_ns": 1786994034494078397,
+      "path": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/test.jsonl.gz",
+      "size_bytes": 10548747
+    },
+    "train": {
+      "modified_ns": 1786994035399157285,
+      "path": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/train.jsonl.gz",
+      "size_bytes": 1009708587
+    },
+    "validation": {
+      "modified_ns": 1786994035410172462,
+      "path": "/Users/tanishaupadhyay/Library/CloudStorage/GoogleDrive-upad.tanisha@gmail.com/My Drive/LMA_Individual_Project/hindi/splits/validation.jsonl.gz",
+      "size_bytes": 10489334
+    }
+  },
+  "status": "complete"
+}
