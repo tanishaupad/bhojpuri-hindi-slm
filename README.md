@@ -40,8 +40,20 @@ The from-scratch Phase 2 model, training, evaluation, and attention code is unde
 `src/lma_phase2/`, with independent configurations at `hindi/configs/phase2.toml` and
 `bhojpuri/configs/phase2.toml`. The exact model sizes are 25,285,248 Hindi parameters and
 24,870,912 Bhojpuri parameters. Packed Phase 2 streams contain 336,995,217 Hindi and 23,142,975
-Bhojpuri training tokens. Both full-size models have passed a one-step CPU training, validation,
-checkpoint, and resume smoke test against these manifests. GPU pretraining has not started yet.
+Bhojpuri training tokens. Both independent GPU pretraining runs are complete: Hindi reached
+20,300 steps / 332,595,200 processed tokens, and Bhojpuri reached 4,150 steps / 67,993,600 tokens.
+The final checkpoints, optimizer state, logs, and resume metadata are saved in Google Drive and
+their SHA-256 hashes are recorded below.
+
+| Full-test result | Hindi | Bhojpuri |
+|---|---:|---:|
+| Cross-entropy (nats/token) | 3.6782 | 4.1420 |
+| Perplexity | 39.57 | 62.93 |
+| Bits per UTF-8 byte | **0.5282** | **0.6503** |
+
+The complete comparison—including all four decoding modes, qualitative sample review, training
+curves, and early/late multi-head attention analysis—is in
+[`report/phase-2.md`](report/phase-2.md).
 
 ```bash
 python -m lma_phase2.decontaminate \
@@ -97,6 +109,11 @@ To stay within hosted-notebook disk limits, each run retains its three newest co
 Evaluation writes its small JSON/CSV/PNG results into `report/`; large checkpoints and packed token
 streams remain in Google Drive.
 
+The final run folders are [Hindi Model H](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
+and [Bhojpuri Model L](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN).
+To reproduce attention labels on a system whose default font lacks Devanagari glyphs, pass a font
+file to evaluation with `--attention-font /path/to/Devanagari-font.ttf`.
+
 ## Phase 1 requirements tracked here
 
 - Approximately 500M training tokens per language where feasible.
@@ -145,7 +162,8 @@ Drive folder, with temporary local staging only while a large streaming job is a
   stats/
 ```
 
-Final large artifacts and checksums will be uploaded to Google Drive; links will be added here.
+Final large corpus artifacts, packed streams, and model checkpoints are stored in Google Drive;
+small audit and evaluation artifacts are versioned in this repository.
 
 ### Final Phase 1 Datasets and Splits
 
@@ -517,6 +535,11 @@ entire workflow independently under `bhojpuri/`.
 ## Reports and artifact links
 
 - **Phase 1 Report**: [`report/phase-1.md`](report/phase-1.md)
+- **Phase 2 Final Report**: [`report/phase-2.md`](report/phase-2.md)
+- **Phase 2 Training Curves**: [`report/figures/generated/phase2/pretraining_curves.png`](report/figures/generated/phase2/pretraining_curves.png)
+- **Phase 2 Evaluation and Samples**: [`report/results/generated/phase2`](report/results/generated/phase2), [`report/samples/generated/phase2`](report/samples/generated/phase2)
+- **Hindi Final Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
+- **Bhojpuri Final Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN)
 - **Token Frequency Plot (Hindi)**: [`report/figures/generated/hindi_token_frequency.png`](report/figures/generated/hindi_token_frequency.png)
 - **Token Frequency Plot (Bhojpuri)**: [`report/figures/generated/bhojpuri_token_frequency.png`](report/figures/generated/bhojpuri_token_frequency.png)
 - **Hindi Source Statistics Table**: [`report/tables/generated/hindi_sources.csv`](report/tables/generated/hindi_sources.csv)
@@ -534,3 +557,5 @@ entire workflow independently under `bhojpuri/`.
 | `hindi/tokenizer/hindi.model` (24k) | Hindi | `7cf0b4bf5d70b741ef03c6218d6a858ff43675038ec7493a7e3d740eb76b6680` |
 | `bhojpuri/splits/downsampled22_v1/train.jsonl.gz` | Bhojpuri | `d690a2cf757b1cb7a60216ae9cb0f19c968f9b9f939eecdf590ad5ec1dbf6311` |
 | `bhojpuri/tokenizer/bhojpuri.model` (16k) | Bhojpuri | `5a703d1592ca07b667825d1945a6c38a2e1d743a6d7aa19c8fcb5cfdccefa9ba` |
+| `hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt` | Hindi | `575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42` |
+| `bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt` | Bhojpuri | `69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133` |

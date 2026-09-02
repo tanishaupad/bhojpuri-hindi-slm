@@ -1,0 +1,58 @@
+{
+  "attention_csv": "/kaggle/working/phase2_report/bhojpuri_attention_summary.csv",
+  "attention_figure_dir": "/kaggle/working/phase2_report/attention/bhojpuri",
+  "checkpoint": "/kaggle/working/phase2_runs/bhojpuri/checkpoint_step_0004150.pt",
+  "generation": {
+    "greedy": {
+      "bleu_4": 4.560644235193285,
+      "chrf_plus_plus": 13.850052496497653,
+      "distinct_1": 0.11580336522599802,
+      "distinct_2": 0.2358269037235827,
+      "repeated_4gram_rate": 0.6497743838944811,
+      "rouge_l_f1": 0.150162861270863
+    },
+    "temperature_0.5": {
+      "bleu_4": 4.545895577169201,
+      "chrf_plus_plus": 17.143259658394523,
+      "distinct_1": 0.2150313152400835,
+      "distinct_2": 0.5184135977337111,
+      "repeated_4gram_rate": 0.2143906020558003,
+      "rouge_l_f1": 0.16565657914798962
+    },
+    "temperature_1.0": {
+      "bleu_4": 4.244203246920136,
+      "chrf_plus_plus": 18.360320775999003,
+      "distinct_1": 0.4856198347107438,
+      "distinct_2": 0.9163025210084034,
+      "repeated_4gram_rate": 0.011478260869565217,
+      "rouge_l_f1": 0.15348349227083147
+    },
+    "temperature_1.5": {
+      "bleu_4": 0.11163207278924255,
+      "chrf_plus_plus": 13.608665843629192,
+      "distinct_1": 0.7302674494455317,
+      "distinct_2": 0.9960212201591512,
+      "repeated_4gram_rate": 0.0,
+      "rouge_l_f1": 0.045605097648132926
+    }
+  },
+  "generation_protocol": {
+    "bleu": "corpus BLEU-4, whitespace tokenization",
+    "chrf": "chrF++ with character order 6 and word order 2",
+    "continuation_tokens": 64,
+    "example_selection": "smallest SHA-256(seed, document_id) scores",
+    "examples": 50,
+    "prefix_tokens": 32,
+    "rouge": "mean whitespace-token ROUGE-L F1",
+    "sampling_seed": 20260823
+  },
+  "intrinsic": {
+    "bits_per_byte": 0.6503188993471966,
+    "cross_entropy": 4.142009494514429,
+    "perplexity": 62.92915026041073,
+    "tokens_scored": 222584,
+    "utf8_bytes": 2045282
+  },
+  "model_name": "model_l_bhojpuri",
+  "samples_output": "/kaggle/working/phase2_report/bhojpuri_samples.jsonl"
+}

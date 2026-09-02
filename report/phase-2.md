@@ -93,52 +93,168 @@ Pre-norm keeps the residual path direct and is more stable than post-norm for op
 
 ## 3. Packed data and pretraining protocol
 
-The Phase 2 tokenizer pass streams canonical Phase 1 JSONL, appends the language tokenizer's EOS
-ID after every document, and writes little-endian `uint16` token streams. This avoids repeatedly
-tokenizing hundreds of millions of tokens during Colab training. The pass checkpoints at document
-boundaries and records input, tokenizer, and binary SHA-256 checksums. Random training windows come
-from a dedicated PyTorch generator whose state is checkpointed; validation windows are sequential
-and deterministic.
+The Phase 2 packing pass streams canonical JSONL, appends the language tokenizer's EOS ID after
+every document, and writes little-endian `uint16` token streams. This avoids repeatedly tokenizing
+hundreds of millions of tokens during training. It checkpoints at document boundaries and records
+input, tokenizer, and binary SHA-256 checksums. Random training windows use a dedicated PyTorch
+generator whose state is checkpointed; validation windows are sequential and deterministic.
 
-The completed packed artifacts are summarized in
-`report/audits/generated/phase2_data_manifest.json`:
+The completed artifacts are recorded in
+[`phase2_data_manifest.json`](audits/generated/phase2_data_manifest.json):
 
 | Language | Train documents | Train tokens | Validation tokens | Test tokens | Removed train documents |
 |---|---:|---:|---:|---:|---:|
 | Hindi | 2,237,942 | 336,995,217 | 3,479,648 | 3,521,023 | 9 |
 | Bhojpuri | 225,689 | 23,142,975 | 234,882 | 222,585 | 303 |
 
-Both full-size models completed a one-step CPU training and validation smoke test using these
-manifests. Each wrote a complete checkpoint and successfully reloaded it through `--resume latest`.
-This validates the final data/model identity checks and recovery path; it is not reported as a
-pretraining result.
+Both independent models completed their scheduled Kaggle GPU runs in bfloat16 with PyTorch
+2.10.0 and CUDA 12.8. Before those runs, each full-size model also passed a one-step CPU train,
+validation, checkpoint, and `--resume latest` smoke test.
 
-| Setting | Hindi | Bhojpuri |
+| Setting/result | Hindi | Bhojpuri |
 |---|---:|---:|
 | Micro-batch sequences | 8 | 8 |
 | Gradient accumulation | 8 | 8 |
 | Effective tokens/step | 16,384 | 16,384 |
-| Optimizer steps | 20,300 | 4,150 |
-| Approx. sampled training tokens | 332.6M | 68.0M |
-| Intended corpus passes | about 1 | about 3 |
-| Peak learning rate | 3e-4 | 3e-4 |
-| LR floor | 3e-5 | 3e-5 |
-| Warmup | 500 steps | 200 steps |
-| Validation/checkpoint interval | 500 | 250 |
+| Completed optimizer steps | 20,300 | 4,150 |
+| Tokens processed | 332,595,200 | 67,993,600 |
+| Approximate corpus passes | 0.99 | 2.94 |
+| Peak / final learning rate | 3e-4 / 3e-5 | 3e-4 / 3e-5 |
+| Warmup steps | 500 | 200 |
+| Final logged train loss | 3.7794 | 4.0329 |
+| Final validation loss | **4.0954** | **4.0676** |
+| Final validation perplexity | **60.06** | **58.41** |
 
-Training uses AdamW (`betas=(0.9, 0.95)`, weight decay 0.1), linear warmup, cosine decay, mixed
-precision on CUDA, gradient clipping at 1.0, and validation throughout training. Each atomic
-checkpoint contains model weights, optimizer state, scheduler state, gradient-scaler state,
-completed step, tokens seen, best validation loss, full resolved configuration, Python/NumPy/
-PyTorch/CUDA random states, and the packed-data sampling generator state. Hosted runs retain the
-three newest atomic checkpoints, which bounds disk usage while preserving multiple recovery points.
+Training uses AdamW (`betas=(0.9, 0.95)`, weight decay 0.1), linear warmup, cosine decay,
+gradient clipping at 1.0, and periodic validation. The final validation point is the best logged
+validation loss for both runs. The noisier train lines are individual mini-evaluations, while the
+dashed validation lines are deterministic multi-batch estimates.
 
-## 4. Evaluation implementation
+![Hindi and Bhojpuri pretraining curves](figures/generated/phase2/pretraining_curves.png)
 
-The evaluation path computes full held-out cross-entropy, perplexity, and bits per UTF-8 byte. It
-generates continuations using greedy decoding and seeded sampling at temperatures 0.5, 1.0, and
-1.5, then calculates corpus BLEU-4, chrF++, mean ROUGE-L F1, Distinct-1/2, and repeated 4-gram
-rate. Attention probabilities can be returned from every custom attention block. The report tools
-produce early/late-layer heatmaps for multiple heads and per-head mean entropy and mean causal
-attention distance. Numerical results, curves, samples, and plots will be added after independent
-GPU pretraining completes.
+Each atomic checkpoint contains model weights, optimizer and scheduler state, mixed-precision
+scaler state, completed step, tokens seen, best validation loss, resolved configuration, all RNG
+states, and the packed-data sampling-generator state. Final checkpoints are stored outside Git:
+
+| Model | Checkpoint folder | SHA-256 | Size |
+|---|---|---|---:|
+| Hindi | [Google Drive](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF) | `575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42` | 303,590,517 bytes |
+| Bhojpuri | [Google Drive](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN) | `69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133` | 298,618,485 bytes |
+
+The repository retains the compact training logs, resolved configurations, environments, and
+latest-checkpoint metadata under [`report/`](.).
+
+## 4. Held-out evaluation
+
+The evaluator scores the complete decontaminated test streams. Bits per UTF-8 byte (BPB) is the
+fairest direct comparison because the tokenizers have different vocabulary sizes; perplexity is
+still reported, but is tokenizer-dependent.
+
+| Test metric | Hindi | Bhojpuri |
+|---|---:|---:|
+| Tokens scored | 3,521,022 | 222,584 |
+| UTF-8 bytes | 35,374,088 | 2,045,282 |
+| Cross-entropy (nats/token) | **3.6782** | **4.1420** |
+| Perplexity | **39.57** | **62.93** |
+| Bits per UTF-8 byte | **0.5282** | **0.6503** |
+
+Hindi performs better on the tokenizer-neutral BPB measure. The likely explanation is its much
+larger unique training corpus: about 337M tokens versus 23M. Bhojpuri receives nearly three passes
+through its smaller corpus, but repeated exposure cannot replace breadth. Test perplexity is lower
+than the periodic validation perplexity because the former is an exact full-test calculation and
+the latter is the training loop's fixed validation-window estimate.
+
+Generation uses 50 deterministic corpus-wide examples selected by SHA-256 of document ID, a
+32-token prefix, a 64-token continuation, and seed 20260823. BLEU is corpus BLEU-4; chrF is chrF++;
+ROUGE is mean token-level ROUGE-L F1. Distinct-1/2 are corpus unigram/bigram diversity, and lower
+repeated 4-gram rate is better.
+
+| Language / decoding | BLEU-4 | chrF++ | ROUGE-L | Distinct-1 | Distinct-2 | Repeated 4-gram |
+|---|---:|---:|---:|---:|---:|---:|
+| Hindi greedy | 1.02 | 9.34 | 0.102 | 0.153 | 0.283 | 0.636 |
+| Hindi temperature 0.5 | **1.42** | 12.44 | **0.115** | 0.235 | 0.536 | 0.215 |
+| Hindi temperature 1.0 | 0.42 | 13.35 | 0.092 | 0.493 | 0.897 | 0.002 |
+| Hindi temperature 1.5 | 0.11 | **14.15** | 0.042 | **0.767** | **0.998** | **0.000** |
+| Bhojpuri greedy | **4.56** | 13.85 | 0.150 | 0.116 | 0.236 | 0.650 |
+| Bhojpuri temperature 0.5 | 4.55 | 17.14 | **0.166** | 0.215 | 0.518 | 0.214 |
+| Bhojpuri temperature 1.0 | 4.24 | **18.36** | 0.153 | 0.486 | 0.916 | 0.011 |
+| Bhojpuri temperature 1.5 | 0.11 | 13.61 | 0.046 | **0.730** | **0.996** | **0.000** |
+
+These overlap metrics should not be interpreted as general text quality scores: there is only one
+valid held-out continuation for each open-ended prompt. Bhojpuri's higher overlap can coexist with
+its worse intrinsic score because its smaller corpus contains more formulaic news and blog phrasing.
+
+## 5. Qualitative generation analysis
+
+Greedy decoding is visibly degenerate for both models. In one Hindi example it repeats “एक साथ”
+through almost the entire continuation; a Bhojpuri example repeatedly emits “फिल्म के निर्देशक
+हउवें अशोक कुमार”. This matches repeated 4-gram rates near 0.64–0.65. Temperature 0.5 is the best
+observed coherence/diversity compromise: repetition falls to about 0.21 while ROUGE-L is highest
+for both languages. It can still hallucinate facts and preserve corpus artefacts—for example, one
+Bhojpuri continuation emits a page-view counter.
+
+Temperature 1.0 almost eliminates repeated 4-grams and substantially increases diversity, but
+names and topics drift away from the prefix. At 1.5, Distinct scores approach 1.0 because output is
+largely disconnected fragments, sometimes mixing scripts or English tokens; its low repetition is
+therefore not evidence of quality. The model is useful as a small from-scratch experimental LM,
+not as a factual or production text generator. All 200 continuations per language are preserved in
+[`hindi_samples.jsonl`](samples/generated/phase2/hindi_samples.jsonl) and
+[`bhojpuri_samples.jsonl`](samples/generated/phase2/bhojpuri_samples.jsonl).
+
+## 6. Attention analysis
+
+Attention was extracted from the first deterministic evaluation prefix for all 9 layers and 6
+heads. The CSV summaries contain mean attention entropy and mean backward attention distance for
+all 54 heads per model. The blank upper-right triangle in every heatmap verifies causal masking.
+Early layers distribute mass broadly; later heads are generally sharper and specialize into local
+or long-range patterns.
+
+| Summary | Hindi | Bhojpuri |
+|---|---:|---:|
+| Layer 0 mean entropy | 2.360 | 2.367 |
+| Layer 8 mean entropy | 1.821 | 1.819 |
+| Layer 0 mean attention distance | 6.839 | 7.183 |
+| Layer 8 mean attention distance | 6.914 | 5.828 |
+| Most local head | L4H1, distance 1.202 | L3H3, distance 2.197 |
+| Most long-range head | L6H4, distance 14.105 | L7H2, distance 7.548 |
+
+Hindi develops a particularly sharp local head at L4H1 (entropy 0.164) and a distinct long-range
+head at L6H4. Bhojpuri's heads occupy a narrower distance range, and its final layer shifts toward
+more local attention on this prefix. These are descriptive observations from a fixed 32-token
+example, not claims about all inputs.
+
+| Hindi early head | Hindi late head |
+|---|---|
+| ![Hindi layer 0 head 0](figures/generated/phase2/attention/hindi/hi_layer0_head0.png) | ![Hindi layer 8 head 1](figures/generated/phase2/attention/hindi/hi_layer8_head1.png) |
+
+| Bhojpuri early head | Bhojpuri late head |
+|---|---|
+| ![Bhojpuri layer 0 head 0](figures/generated/phase2/attention/bhojpuri/bho_layer0_head0.png) | ![Bhojpuri layer 8 head 1](figures/generated/phase2/attention/bhojpuri/bho_layer8_head1.png) |
+
+All 12 heatmaps have explicit layer/head labels and a shared 0–1 probability scale. Devanagari
+token labels were regenerated with an explicit compatible font after Kaggle's default font rendered
+them as boxes. Complete head summaries are in
+[`report/tables/generated/phase2`](tables/generated/phase2).
+
+## 7. Reproducibility and conclusions
+
+The two models use the same depth, width, heads, context, optimizer family, effective batch, and
+decoding protocol. They differ only where the independent corpora and tokenizers require it:
+vocabulary size, feed-forward width (to keep parameter counts comparable), schedule length, and
+data volume. The higher-resource Hindi model wins on full-test BPB by 0.1221 bits/byte, supporting
+the central resource-level hypothesis. Extra epochs over Bhojpuri improve exposure to its limited
+data but also strengthen formulaic repetition, which appears in both greedy samples and overlap
+metrics.
+
+Small artifacts needed to audit the result are versioned in Git:
+
+- evaluation JSON: [`report/results/generated/phase2`](results/generated/phase2)
+- raw generation samples: [`report/samples/generated/phase2`](samples/generated/phase2)
+- training logs: [`report/logs/generated/phase2`](logs/generated/phase2)
+- configurations and run environments: [`report/runs/generated/phase2`](runs/generated/phase2)
+- attention tables and figures: [`report/tables/generated/phase2`](tables/generated/phase2) and
+  [`report/figures/generated/phase2`](figures/generated/phase2)
+
+The final checkpoint locations, sizes, hashes, and terminal states are duplicated in
+[`checkpoint_manifest.json`](results/generated/phase2/checkpoint_manifest.json). Large packed
+streams and checkpoints remain in Google Drive and are deliberately excluded from Git.
