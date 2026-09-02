@@ -49,7 +49,8 @@ def plot_training_curves(logs: list[tuple[str, Path]], output: Path) -> None:
     axes[0].set_ylabel("Cross-entropy loss (nats/token)")
     axes[1].set_title("Language-model perplexity during pretraining")
     axes[1].set_xlabel("Optimizer step")
-    axes[1].set_ylabel("Perplexity")
+    axes[1].set_ylabel("Perplexity (log scale)")
+    axes[1].set_yscale("log")
     for axis in axes:
         axis.grid(alpha=0.25)
         axis.legend()

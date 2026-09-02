@@ -1,0 +1,20 @@
+{
+  "checkpoints": {
+    "hindi": {
+      "file": "checkpoint_step_0020300.pt",
+      "drive_folder": "https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF",
+      "sha256": "575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42",
+      "size_bytes": 303590517,
+      "completed_step": 20300,
+      "tokens_seen": 332595200
+    },
+    "bhojpuri": {
+      "file": "checkpoint_step_0004150.pt",
+      "drive_folder": "https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN",
+      "sha256": "69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133",
+      "size_bytes": 298618485,
+      "completed_step": 4150,
+      "tokens_seen": 67993600
+    }
+  }
+}

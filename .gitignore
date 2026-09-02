@@ -48,3 +48,12 @@ bhojpuri/data/checkpoints/
 **/tokenizer/runs/
 tmp/
 output/kaggle/
+lma_phase2_outputs/
+
+# Compact Phase 2 evidence is intentionally versioned under report/.
+!report/runs/
+!report/runs/**
+!report/samples/
+!report/samples/generated/
+!report/samples/generated/phase2/
+!report/samples/generated/phase2/*.jsonl

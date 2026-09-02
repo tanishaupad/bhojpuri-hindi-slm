@@ -12,6 +12,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import sentencepiece as spm
 import torch
+from matplotlib.font_manager import FontProperties
 
 from lma_phase1.io import atomic_write_json, iter_jsonl
 from lma_phase2.config import load_experiment_config
@@ -81,14 +82,22 @@ def plot_attention(
     head: int,
     language_name: str,
     output: Path,
+    font_path: Path | None = None,
 ) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     figure, axis = plt.subplots(figsize=(10, 8))
     image = axis.imshow(matrix, aspect="auto", cmap="viridis", vmin=0.0)
     step = max(1, len(labels) // 20)
     positions = list(range(0, len(labels), step))
-    axis.set_xticks(positions, [labels[index] for index in positions], rotation=90)
-    axis.set_yticks(positions, [labels[index] for index in positions])
+    font = FontProperties(fname=str(font_path)) if font_path is not None else None
+    tick_options = {"fontproperties": font} if font is not None else {}
+    axis.set_xticks(
+        positions,
+        [labels[index] for index in positions],
+        rotation=90,
+        **tick_options,
+    )
+    axis.set_yticks(positions, [labels[index] for index in positions], **tick_options)
     axis.set_xlabel("Key token position")
     axis.set_ylabel("Query token position")
     axis.set_title(f"{language_name} attention: layer {layer}, head {head}")
@@ -168,6 +177,7 @@ def run(args: argparse.Namespace) -> dict[str, object]:
                 head,
                 experiment.identity.language_name,
                 figure_dir / f"{experiment.identity.language}_layer{layer}_head{head}.png",
+                Path(args.attention_font) if args.attention_font else None,
             )
     attention_csv = Path(args.attention_csv)
     attention_csv.parent.mkdir(parents=True, exist_ok=True)
@@ -214,6 +224,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--samples-output", required=True)
     parser.add_argument("--attention-csv", required=True)
     parser.add_argument("--figure-dir", required=True)
+    parser.add_argument(
+        "--attention-font",
+        help="Optional font file with glyphs for the tokenizer labels (for example Devanagari)",
+    )
     parser.add_argument("--generation-examples", type=int, default=50)
     parser.add_argument("--prefix-tokens", type=int, default=32)
     parser.add_argument("--continuation-tokens", type=int, default=64)
