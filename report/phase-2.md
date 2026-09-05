@@ -89,7 +89,21 @@ For an input `(B, T, 384)`, one linear layer produces Q/K/V and each is reshaped
 `(B, T, 6, 64)` and transposed to `(B, 6, T, 64)`. Attention scores have shape
 `(B, 6, T, T)` and are divided by `sqrt(64)` before an explicit upper-triangular future mask and
 softmax. Heads are transposed and concatenated back to `(B, T, 384)` before the output projection.
-Pre-norm keeps the residual path direct and is more stable than post-norm for optimization.
+The scaling is needed because the variance of an unscaled query-key dot product grows with the
+head dimension. Without it, large logits push softmax toward saturation, producing very small
+gradients and unstable, overly sharp attention. Pre-norm keeps the residual path direct and is more
+stable than post-norm for optimization.
+
+Each component has a distinct role. Without token embeddings, discrete IDs have no learned vector
+representation; without positional embeddings, attention cannot distinguish token order; without
+the causal mask, training leaks future targets. Removing multiple heads eliminates parallel
+attention subspaces, while removing the output projection prevents the concatenated heads from
+being remixed. Residual paths and pre-normalization preserve gradient flow and control activation
+scale; the feed-forward network supplies per-position nonlinear feature transformation. Dropout is
+the principal regularizer. The final normalization stabilizes the scale presented to the language
+model head, and without that head the model cannot produce vocabulary logits. Weight tying is not
+mathematically required, but untying it would add 9,216,000 Hindi or 6,144,000 Bhojpuri parameters
+and move both models far beyond the intended budget.
 
 ## 3. Packed data and pretraining protocol
 
@@ -124,6 +138,17 @@ validation, checkpoint, and `--resume latest` smoke test.
 | Final logged train loss | 3.7794 | 4.0329 |
 | Final validation loss | **4.0954** | **4.0676** |
 | Final validation perplexity | **60.06** | **58.41** |
+
+The requested approximately 500M-token scale is a target rather than a claim made by these runs.
+After quality filtering, manual-source balancing, deduplication, and held-out decontamination, the
+available unique streams contain about 337M Hindi and 23M Bhojpuri tokens. Hindi was trained for
+one nearly complete corpus pass (332.6M processed tokens) to fit the student Kaggle compute budget.
+Bhojpuri was trained for 2.94 passes (68.0M processed tokens) so that optimization was not cut off
+after only a very short run; repeated passes do not turn its 23M-token corpus into 68M unique data.
+The Bhojpuri collection shortfall and the deliberate exclusion of mistranslated, Hindi-dominant,
+and damaged OCR sources are documented in the Phase 1 report. Thus neither run reaches 500M
+processed tokens, and the comparison reports the actual counts rather than presenting repetition as
+new data.
 
 Training uses AdamW (`betas=(0.9, 0.95)`, weight decay 0.1), linear warmup, cosine decay,
 gradient clipping at 1.0, and periodic validation. The final validation point is the best logged
@@ -164,10 +189,26 @@ through its smaller corpus, but repeated exposure cannot replace breadth. Test p
 than the periodic validation perplexity because the former is an exact full-test calculation and
 the latter is the training loop's fixed validation-window estimate.
 
+Script is not a confound here because both corpora primarily use Devanagari. Tokenization differs
+only modestly on held-out text: Hindi's selected 24k tokenizer has 1.2928 tokens/word and 3.986
+characters/token, while Bhojpuri's selected 16k tokenizer has 1.3341 tokens/word and 3.764
+characters/token. Bhojpuri is therefore slightly more fragmented, but the gap is small relative to
+the roughly 14.6-fold difference in unique training tokens. Corpus scale, source diversity, and
+formulaic repetition are the more plausible drivers of the BPB gap.
+
 Generation uses 50 deterministic corpus-wide examples selected by SHA-256 of document ID, a
 32-token prefix, a 64-token continuation, and seed 20260823. BLEU is corpus BLEU-4; chrF is chrF++;
 ROUGE is mean token-level ROUGE-L F1. Distinct-1/2 are corpus unigram/bigram diversity, and lower
 repeated 4-gram rate is better.
+
+BLEU-4 measures exact word n-gram precision and rewards locally reference-like phrasing, but is
+especially harsh when an open-ended prompt has many valid continuations. chrF++ compares character
+n-grams plus word bigrams, making it more tolerant of inflection and spelling variation in Hindi
+and Bhojpuri, although it still cannot judge truth or discourse coherence. ROUGE-L measures the
+longest in-order token overlap, so it can recognize a reference-like phrase sequence even when all
+4-grams do not match; it likewise misses factuality and penalizes valid alternative continuations.
+For that reason, the three overlap scores are interpreted together with repetition, diversity, and
+manual sample inspection rather than as standalone fluency scores.
 
 | Language / decoding | BLEU-4 | chrF++ | ROUGE-L | Distinct-1 | Distinct-2 | Repeated 4-gram |
 |---|---:|---:|---:|---:|---:|---:|
@@ -209,6 +250,11 @@ all 54 heads per model. The blank upper-right triangle in every heatmap verifies
 Early layers distribute mass broadly; later heads are generally sharper and specialize into local
 or long-range patterns.
 
+The exact prefixes plotted in the heatmaps are:
+
+- **Hindi:** “प्रोदुनोवा () कलात्मक जिम्नास्टिक्स वॉल्ट का एक रूप है जिसमें वॉल्टिंग हॉर्स पर एक फ्रंट हैंडस्प्रिंग के साथ”
+- **Bhojpuri:** “गोर गोर देहिया प धानी रे चुनरिया.... पिछला दिने कमालिस्तान स्टूडियो के पार्क पूरा सजल रहुवे. चारो ओर फूल के पौधा आ माला आपन खूबसूरती बिखेरत”
+
 | Summary | Hindi | Bhojpuri |
 |---|---:|---:|
 | Layer 0 mean entropy | 2.360 | 2.367 |
@@ -220,8 +266,13 @@ or long-range patterns.
 
 Hindi develops a particularly sharp local head at L4H1 (entropy 0.164) and a distinct long-range
 head at L6H4. Bhojpuri's heads occupy a narrower distance range, and its final layer shifts toward
-more local attention on this prefix. These are descriptive observations from a fixed 32-token
-example, not claims about all inputs.
+more local attention on this prefix. Diagonal and near-diagonal bands are positional/local patterns
+because their selected key moves with the query position. In contrast, late-layer examples such as
+Hindi L8H0 and Bhojpuri L8H0 show sparse off-diagonal peaks and repeated attention to selected
+earlier token columns rather than one fixed offset; this is consistent with content-sensitive
+retrieval. It is not proof of a linguistic function, because these are descriptive observations
+from one fixed 32-token example. Establishing content-based specialization would require controlled
+token substitutions across many examples.
 
 | Hindi early head | Hindi late head |
 |---|---|

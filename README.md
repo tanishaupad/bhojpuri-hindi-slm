@@ -109,6 +109,33 @@ To stay within hosted-notebook disk limits, each run retains its three newest co
 Evaluation writes its small JSON/CSV/PNG results into `report/`; large checkpoints and packed token
 streams remain in Google Drive.
 
+Evaluate the final Hindi checkpoint on its complete held-out test stream:
+
+```bash
+lma-evaluate-lm \
+  --config hindi/configs/phase2.toml \
+  --checkpoint /path/to/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --test-manifest /path/to/hindi/phase2/tokenized_v1/test.manifest.json \
+  --test-jsonl /path/to/hindi/splits/phase2_decontaminated_v1/test.jsonl.gz \
+  --tokenizer-model hindi/tokenizer/hindi.model \
+  --output report/results/generated/phase2/hindi_evaluation.json \
+  --samples-output report/samples/generated/phase2/hindi_samples.jsonl \
+  --attention-csv report/tables/generated/phase2/hindi_attention_summary.csv \
+  --figure-dir report/figures/generated/phase2/attention/hindi \
+  --generation-examples 50 \
+  --prefix-tokens 32 \
+  --continuation-tokens 64 \
+  --seed 20260823 \
+  --device cuda
+```
+
+For Bhojpuri, use its config, checkpoint, test data, tokenizer, and language-specific output paths.
+The Kaggle bundle can reproduce both evaluations in one command:
+
+```bash
+python /path/to/bundle/kaggle/run_phase2_kaggle.py --language both --mode evaluate
+```
+
 The final run folders are [Hindi Model H](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
 and [Bhojpuri Model L](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN).
 To reproduce attention labels on a system whose default font lacks Devanagari glyphs, pass a font
