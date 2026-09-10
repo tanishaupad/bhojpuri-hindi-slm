@@ -1,0 +1,32 @@
+{
+  "language": "bho",
+  "seed": 2026090902,
+  "names": ["बबलू", "पप्पू", "गुड्डू", "बिट्टू", "मुन्ना", "चंदन", "ललन", "भोला", "बिरजू", "किशुन", "नंदू", "बनवारी"],
+  "answer_cue": "जवाब:",
+  "yes": "हँ",
+  "no": "ना",
+  "domains": {
+    "age": {
+      "range": [5, 80],
+      "fact": "{name} के उमिर {value} बरिस बा।",
+      "relation": "{left} के उमिर {right} से ढेर बा।",
+      "questions": {
+        "greater": ["{choices} में केकर उमिर सबसे ढेर बा?", "{choices} में से सबसे ढेर उमिर केकर बा?"],
+        "smaller": ["{choices} में केकर उमिर सबसे कम बा?", "{choices} में से सबसे कम उमिर केकर बा?"],
+        "equality": ["का {left} आ {right} के उमिर बराबर बा?", "का {left} के उमिर {right} के उमिर के बराबर बा?"]
+      }
+    },
+    "height": {
+      "range": [80, 200],
+      "fact": "{name} के लंबाई {value} सेंटीमीटर बा।",
+      "relation": "{left} के लंबाई {right} से ढेर बा।",
+      "questions": {
+        "greater": ["{choices} में सबसे लमहर के बा?", "{choices} में केकर लंबाई सबसे ढेर बा?"],
+        "smaller": ["{choices} में केकर लंबाई सबसे कम बा?", "{choices} में से सबसे कम लंबाई केकर बा?"],
+        "equality": ["का {left} आ {right} के लंबाई बराबर बा?", "का {left} के लंबाई {right} के लंबाई के बराबर बा?"]
+      }
+    }
+  },
+  "join_two": " आ ",
+  "review_status": "Draft; native Bhojpuri wording and yes/no spelling need human review"
+}

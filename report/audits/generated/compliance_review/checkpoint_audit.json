@@ -1,0 +1,64 @@
+{
+  "hindi": {
+    "sha256": "8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062",
+    "hash_matches_manifest": true,
+    "keys": [
+      "format_version",
+      "phase",
+      "model_name",
+      "model_state",
+      "optimizer_state",
+      "scheduler_state",
+      "scaler_state",
+      "training_step",
+      "tokens_seen",
+      "best_validation_loss",
+      "config",
+      "rng_state"
+    ],
+    "step": 2500,
+    "tokens_seen": 1401948,
+    "best_validation_loss": 0.004073801182221059,
+    "config_matches": true,
+    "optimizer_states": 112,
+    "scheduler_last_epoch": 2500,
+    "rng_keys": [
+      "python",
+      "numpy",
+      "torch_cpu",
+      "torch_cuda",
+      "torch_mps"
+    ]
+  },
+  "bhojpuri": {
+    "sha256": "cccd2ed6ce9c776972a4589ec18e9aa5198e2f81b04da2213902b4babda421b0",
+    "hash_matches_manifest": true,
+    "keys": [
+      "format_version",
+      "phase",
+      "model_name",
+      "model_state",
+      "optimizer_state",
+      "scheduler_state",
+      "scaler_state",
+      "training_step",
+      "tokens_seen",
+      "best_validation_loss",
+      "config",
+      "rng_state"
+    ],
+    "step": 2500,
+    "tokens_seen": 1488580,
+    "best_validation_loss": 0.016785722101568278,
+    "config_matches": true,
+    "optimizer_states": 112,
+    "scheduler_last_epoch": 2500,
+    "rng_keys": [
+      "python",
+      "numpy",
+      "torch_cpu",
+      "torch_cuda",
+      "torch_mps"
+    ]
+  }
+}

@@ -1,0 +1,667 @@
+[
+  {
+    "cell": 2,
+    "code": "I001",
+    "end_location": {
+      "column": 18,
+      "row": 1
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/kaggle/phase2_kaggle.ipynb",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import subprocess\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 2
+          },
+          "location": {
+            "column": 1,
+            "row": 1
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 1
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 1,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": 3,
+    "code": "I001",
+    "end_location": {
+      "column": 14,
+      "row": 2
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/kaggle/phase2_kaggle.ipynb",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import shutil\nfrom pathlib import Path\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 1
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 1
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 1,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": 7,
+    "code": "I001",
+    "end_location": {
+      "column": 22,
+      "row": 1
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/kaggle/phase2_kaggle.ipynb",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import importlib.util\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 2
+          },
+          "location": {
+            "column": 1,
+            "row": 1
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 1
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 1,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": 9,
+    "code": "I001",
+    "end_location": {
+      "column": 15,
+      "row": 1
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/kaggle/phase2_kaggle.ipynb",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "import zipfile\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 2
+          },
+          "location": {
+            "column": 1,
+            "row": 1
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 1
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 1,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 11
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/attention_compare.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 12
+          },
+          "location": {
+            "column": 1,
+            "row": 11
+          }
+        }
+      ],
+      "message": "Remove unused import: `json`"
+    },
+    "location": {
+      "column": 8,
+      "row": 11
+    },
+    "message": "`json` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 11,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 8,
+      "row": 45
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/attention_compare.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 11,
+            "row": 45
+          },
+          "location": {
+            "column": 5,
+            "row": 45
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `im1`"
+    },
+    "location": {
+      "column": 5,
+      "row": 45
+    },
+    "message": "Local variable `im1` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 45,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 32,
+      "row": 15
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/evaluate_finetuned.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from collections import defaultdict",
+          "end_location": {
+            "column": 45,
+            "row": 15
+          },
+          "location": {
+            "column": 1,
+            "row": 15
+          }
+        }
+      ],
+      "message": "Remove unused import: `collections.Counter`"
+    },
+    "location": {
+      "column": 25,
+      "row": 15
+    },
+    "message": "`collections.Counter` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 15,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 29
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/evaluate_finetuned.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from lma_phase3.evaluate_proofs import explanation_prompt",
+          "end_location": {
+            "column": 72,
+            "row": 29
+          },
+          "location": {
+            "column": 1,
+            "row": 29
+          }
+        }
+      ],
+      "message": "Remove unused import: `lma_phase3.evaluate_proofs.INSTRUCTIONS`"
+    },
+    "location": {
+      "column": 40,
+      "row": 29
+    },
+    "message": "`lma_phase3.evaluate_proofs.INSTRUCTIONS` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 29,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 61,
+      "row": 30
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/evaluate_finetuned.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from lma_phase3.score_answer_presence import score_row",
+          "end_location": {
+            "column": 72,
+            "row": 30
+          },
+          "location": {
+            "column": 1,
+            "row": 30
+          }
+        }
+      ],
+      "message": "Remove unused import: `lma_phase3.score_answer_presence.contains_answer`"
+    },
+    "location": {
+      "column": 46,
+      "row": 30
+    },
+    "message": "`lma_phase3.score_answer_presence.contains_answer` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 30,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 8,
+      "row": 47
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/evaluate_finetuned.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 11,
+            "row": 47
+          },
+          "location": {
+            "column": 5,
+            "row": 47
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `cue`"
+    },
+    "location": {
+      "column": 5,
+      "row": 47
+    },
+    "message": "Local variable `cue` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 47,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 23,
+      "row": 65
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/evaluate_finetuned.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 26,
+            "row": 65
+          },
+          "location": {
+            "column": 9,
+            "row": 65
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `max_prompt_len`"
+    },
+    "location": {
+      "column": 9,
+      "row": 65
+    },
+    "message": "Local variable `max_prompt_len` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 65,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "I001",
+    "end_location": {
+      "column": 87,
+      "row": 24
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/finetune.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from __future__ import annotations\n\nimport argparse\nimport csv\nimport json\nimport math\nimport os\nimport random\nimport time\nfrom pathlib import Path\nfrom typing import Any\n\nimport numpy as np\nimport torch\nfrom torch.nn.utils import clip_grad_norm_\nfrom torch.utils.data import DataLoader\n\nfrom lma_phase1.io import atomic_write_json\nfrom lma_phase2.config import ExperimentConfig, load_experiment_config\nfrom lma_phase2.model import DecoderOnlyTransformer\nfrom lma_phase2.training import (\n    configure_optimizer,\n    configure_scheduler,\n    precision_context,\n    select_device,\n)\nfrom lma_phase3.finetune_data import ReasoningFinetuneDataset, collate_reasoning_batch\n\n\n",
+          "end_location": {
+            "column": 1,
+            "row": 27
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Organize imports"
+    },
+    "location": {
+      "column": 1,
+      "row": 3
+    },
+    "message": "Import block is un-sorted or un-formatted",
+    "name": "unsorted-imports",
+    "noqa_row": 3,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 10,
+      "row": 9
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/finetune.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import: `os`"
+    },
+    "location": {
+      "column": 8,
+      "row": 9
+    },
+    "message": "`os` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 9,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 24,
+      "row": 336
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/finetune.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 27,
+            "row": 336
+          },
+          "location": {
+            "column": 13,
+            "row": 336
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `val_ppl_str`"
+    },
+    "location": {
+      "column": 13,
+      "row": 336
+    },
+    "message": "Local variable `val_ppl_str` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 336,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 25,
+      "row": 16
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/finetune_data.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 17
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import: `torch.Tensor`"
+    },
+    "location": {
+      "column": 19,
+      "row": 16
+    },
+    "message": "`torch.Tensor` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 16,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 19
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/src/lma_phase3/finetune_data.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from lma_phase3.evaluate_proofs import explanation_prompt",
+          "end_location": {
+            "column": 72,
+            "row": 19
+          },
+          "location": {
+            "column": 1,
+            "row": 19
+          }
+        }
+      ],
+      "message": "Remove unused import: `lma_phase3.evaluate_proofs.INSTRUCTIONS`"
+    },
+    "location": {
+      "column": 40,
+      "row": 19
+    },
+    "message": "`lma_phase3.evaluate_proofs.INSTRUCTIONS` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 19,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 1
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/tests/test_phase3_finetune.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 2
+          },
+          "location": {
+            "column": 1,
+            "row": 1
+          }
+        }
+      ],
+      "message": "Remove unused import: `json`"
+    },
+    "location": {
+      "column": 8,
+      "row": 1
+    },
+    "message": "`json` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 1,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 50,
+      "row": 11
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/tests/test_phase3_finetune.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from lma_phase3.finetune import restore_rng_state, save_finetune_checkpoint",
+          "end_location": {
+            "column": 95,
+            "row": 11
+          },
+          "location": {
+            "column": 1,
+            "row": 11
+          }
+        }
+      ],
+      "message": "Remove unused import: `lma_phase3.finetune.capture_rng_state`"
+    },
+    "location": {
+      "column": 33,
+      "row": 11
+    },
+    "message": "`lma_phase3.finetune.capture_rng_state` imported but unused",
+    "name": "unused-import",
+    "noqa_row": 11,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 16,
+      "row": 19
+    },
+    "filename": "/Users/tanishaupadhyay/Documents/ChatGPT/LMA_Assignment1/tests/test_phase3_finetune.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 19,
+            "row": 19
+          },
+          "location": {
+            "column": 5,
+            "row": 19
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `config_path`"
+    },
+    "location": {
+      "column": 5,
+      "row": 19
+    },
+    "message": "Local variable `config_path` is assigned to but never used",
+    "name": "unused-variable",
+    "noqa_row": 19,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  }
+]

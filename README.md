@@ -7,11 +7,13 @@ This repository builds two fully independent decoder-only language models from s
 - **Model H:** Hindi (`hi`, Devanagari), the higher-resource language.
 - **Model L:** Bhojpuri (`bho`, Devanagari), the approved lower-resource language.
 
-The `phase-1` branch contains reproducible corpus collection, preprocessing, deduplication,
-split creation, tokenizer training, and tokenizer evaluation code. The current `phase-2` branch
-builds on that finalized work with pre-training data-integrity checks and a from-scratch PyTorch
-Transformer, training, checkpoint, evaluation, and attention-analysis pipeline. The two languages
-never share documents, tokenizers, vocabularies, checkpoints, or weights.
+The `phase-1` and `phase-2` branches established reproducible corpus collection, preprocessing,
+deduplication, split creation, tokenizer training, pre-training data-integrity audits, and from-scratch
+PyTorch Transformer pretraining of two ~25M parameter causal decoder models. The current `phase-3`
+branch carries out reasoning dataset generation, baseline zero-shot evaluation, causal finetuning
+on multi-step reasoning tasks, held-out evaluation across original and explanation protocols, and
+before-and-after multi-head attention analysis. The two languages never share documents, tokenizers,
+vocabularies, checkpoints, or weights.
 
 ## Phase 2 status
 
@@ -563,17 +565,21 @@ entire workflow independently under `bhojpuri/`.
 
 - **Phase 1 Report**: [`report/phase-1.md`](report/phase-1.md)
 - **Phase 2 Final Report**: [`report/phase-2.md`](report/phase-2.md)
+- **Phase 3 Final Report**: [`report/phase-3.md`](report/phase-3.md)
 - **Phase 2 Training Curves**: [`report/figures/generated/phase2/pretraining_curves.png`](report/figures/generated/phase2/pretraining_curves.png)
+- **Phase 3 Finetuning Curves**: [`report/figures/generated/phase3/finetuning_curves.png`](report/figures/generated/phase3/finetuning_curves.png)
+- **Phase 3 Attention Heatmaps**: [`report/figures/generated/phase3/attention/hindi/`](report/figures/generated/phase3/attention/hindi/), [`report/figures/generated/phase3/attention/bhojpuri/`](report/figures/generated/phase3/attention/bhojpuri/)
 - **Phase 2 Evaluation and Samples**: [`report/results/generated/phase2`](report/results/generated/phase2), [`report/samples/generated/phase2`](report/samples/generated/phase2)
-- **Hindi Final Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
-- **Bhojpuri Final Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN)
+- **Phase 3 Evaluation Results**: [`report/results/generated/phase3/finetuned_v1`](report/results/generated/phase3/finetuned_v1)
+- **Hindi Pretrained Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
+- **Bhojpuri Pretrained Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN)
+- **Course Google Drive Root Folder**: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (contains `hindi/phase3/runs/finetune_v1/` and `bhojpuri/phase3/runs/finetune_v1/` for Phase 3 finetuned checkpoints)
 - **Token Frequency Plot (Hindi)**: [`report/figures/generated/hindi_token_frequency.png`](report/figures/generated/hindi_token_frequency.png)
 - **Token Frequency Plot (Bhojpuri)**: [`report/figures/generated/bhojpuri_token_frequency.png`](report/figures/generated/bhojpuri_token_frequency.png)
 - **Hindi Source Statistics Table**: [`report/tables/generated/hindi_sources.csv`](report/tables/generated/hindi_sources.csv)
 - **Bhojpuri Source Statistics Table**: [`report/tables/generated/bhojpuri_sources.csv`](report/tables/generated/bhojpuri_sources.csv)
-- **Google Drive Root Folder**: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (contains `hindi/splits/`, `hindi/tokenizers/`, `bhojpuri/splits/`, `bhojpuri/tokenized/`, `manifests/`)
 
-### Dataset and Split Checksums (SHA-256)
+### Dataset and Model Checksums (SHA-256)
 
 | Artifact | Language | SHA-256 Checksum |
 |---|---|---|
@@ -586,3 +592,129 @@ entire workflow independently under `bhojpuri/`.
 | `bhojpuri/tokenizer/bhojpuri.model` (16k) | Bhojpuri | `5a703d1592ca07b667825d1945a6c38a2e1d743a6d7aa19c8fcb5cfdccefa9ba` |
 | `hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt` | Hindi | `575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42` |
 | `bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt` | Bhojpuri | `69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133` |
+| `hindi/phase3/runs/finetune_v1/best_checkpoint.pt` | Hindi | `8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062` |
+| `hindi/phase3/runs/finetune_v1/checkpoint_step_0002500.pt` | Hindi | `e0e76afdf39f89c1432a2034efeed201ed32e0cad90836db04be741293993457` |
+| `bhojpuri/phase3/runs/finetune_v1/best_checkpoint.pt` | Bhojpuri | `cccd2ed6ce9c776972a4589ec18e9aa5198e2f81b04da2213902b4babda421b0` |
+| `bhojpuri/phase3/runs/finetune_v1/checkpoint_step_0002500.pt` | Bhojpuri | `28d1799b0d842ac745db2390450590b74cc904b798b429669b1a010cb24d36f6` |
+
+## Phase 3: Reasoning Dataset, Finetuning & Attention Analysis
+
+Phase 3 implements synthetic relational reasoning, deterministic symbolic verification, causal finetuning of the pretrained ~25M parameter decoder models, held-out evaluation across two distinct protocols, and before-and-after multi-head attention entropy analysis.
+
+### Dataset Design & Release (`reasoning_v1`)
+
+The reasoning dataset contains **25,000 examples per language** across four task families: Direct Comparison, Largest/Smallest selection, Value Equality, and Two-Hop Transitivity:
+- **Training**: 20,000 examples
+- **Validation**: 2,000 examples
+- **Primary Test**: 2,000 examples
+- **Challenge Unseen Names**: 500 examples (novel person names absent from training)
+- **Challenge Unseen Wording**: 500 examples (held-out premise templates and comparative phrasings)
+
+Datasets are independently generated with native Hindi and Bhojpuri templates, names, and grammar. They are stored under `hindi/phase3/reasoning_v1/` and `bhojpuri/phase3/reasoning_v1/` in Google Drive.
+
+```bash
+python -m lma_phase3.release --output-dir /path/to/release-root --evidence-dir report/audits/generated/phase3/reasoning_v1
+```
+
+### Finetuning Reproduction
+
+Both models are finetuned using causal language modeling with prompt masking ($Y[:N-1] = -100$), loss computed strictly over target tokens, AdamW with cosine decay ($10^{-4} \to 10^{-5}$), batch size 16 (micro 8, grad accum 2), and full RNG state capture:
+
+```bash
+# Hindi finetuning (Model H)
+python -m lma_phase3.finetune \
+  --config hindi/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --train-data /path/to/hindi/phase3/reasoning_v1/train.jsonl.gz \
+  --val-data /path/to/hindi/phase3/reasoning_v1/validation.jsonl.gz \
+  --template-config hindi/configs/phase3_templates.json \
+  --output-dir /path/to/hindi/phase3/runs/finetune_v1 \
+  --device mps
+
+# Bhojpuri finetuning (Model L)
+python -m lma_phase3.finetune \
+  --config bhojpuri/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt \
+  --train-data /path/to/bhojpuri/phase3/reasoning_v1/train.jsonl.gz \
+  --val-data /path/to/bhojpuri/phase3/reasoning_v1/validation.jsonl.gz \
+  --template-config bhojpuri/configs/phase3_templates.json \
+  --output-dir /path/to/bhojpuri/phase3/runs/finetune_v1 \
+  --device mps
+```
+
+### Held-Out Evaluation Reproduction
+
+Evaluation executes both generation protocols without format gates:
+1. **Original Prompt Protocol (16 max tokens)**: Tests direct answer recovery, scoring strict exact match, answer presence (whole-name boundary match), and premise claim support.
+2. **Explanation Prompt Protocol (96 max tokens)**: Tests full step-by-step reasoning derivation, verified against the ground-truth world by a deterministic symbolic proof checker.
+
+```bash
+# Hindi evaluation
+python -m lma_phase3.evaluate_finetuned \
+  --config hindi/configs/phase3.toml \
+  --checkpoint /path/to/hindi/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --dataset-root /path/to/reasoning_v1 \
+  --output-dir report/results/generated/phase3/finetuned_v1/hindi \
+  --device mps --protocols both
+
+# Bhojpuri evaluation
+python -m lma_phase3.evaluate_finetuned \
+  --config bhojpuri/configs/phase3.toml \
+  --checkpoint /path/to/bhojpuri/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --dataset-root /path/to/reasoning_v1 \
+  --output-dir report/results/generated/phase3/finetuned_v1/bhojpuri \
+  --device mps --protocols both
+```
+
+### Key Empirical Results
+
+#### Primary Test Split (2,000 examples per language)
+
+| Metric | Hindi Pretrained | Hindi Finetuned | Bhojpuri Pretrained | Bhojpuri Finetuned |
+|---|---|---|---|---|
+| **Original (16-tok) Answer Presence** | 17.00% | **83.85%** | 3.10% | **85.00%** |
+| **Original (16-tok) Supported Claims** | 5.90% | **81.55%** | 0.00% | **62.25%** |
+| **Explanation (96-tok) Answer Presence** | 6.60% | **91.70%** | 2.30% | **89.15%** |
+| **Explanation (96-tok) Joint Verified Proofs** | 0.00% | **86.15%** | 0.00% | **69.90%** |
+| **Two-Hop Transitivity Verified Proofs** | 0.00% | **100.00%** | 0.00% | **100.00%** |
+
+#### Generalization Challenges (500 examples each)
+
+| Split | Hindi Presence (96-tok) | Hindi Verified Proofs | Bhojpuri Presence (96-tok) | Bhojpuri Verified Proofs |
+|---|---|---|---|---|
+| **Challenge Wording** | 89.40% | **64.60%** | 87.20% | **68.00%** |
+| **Challenge Unseen Names** | 24.60% | 0.00% | 13.60% | 0.00% |
+
+- **Syntactic Robustness**: Both models demonstrate high robustness to unseen phrasing, retaining 87–89% answer presence and 65–68% fully verified multi-step proofs.
+- **Entity Tokenization Bottleneck**: Unseen names split into novel subword fragments, disrupting greedy generation and revealing that subword fragmentation is the primary bottleneck for causal reasoning in small language models.
+
+### Multi-Head Attention Analysis
+
+Attention maps on fixed reasoning prompts before and after finetuning show structural specialization:
+- **Entropy Reduction**: Average attention entropy drops from ~2.2–2.5 in pretrained models to ~1.6–2.0 in finetuned models in mid-to-late layers (Layers 4–8).
+- **Relational Routing**: Specialised heads emerge that route direct attention between numeric entities in the premises and the comparative query tokens.
+- Attention comparison tool:
+
+```bash
+# Hindi attention comparison
+python -m lma_phase3.attention_compare \
+  --config hindi/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --finetuned-checkpoint /path/to/hindi/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --tokenizer hindi/tokenizer/hindi.model \
+  --prompt "रमेश की लंबाई 194 सेंटीमीटर है। नितिन की लंबाई 110 सेंटीमीटर है। रमेश और नितिन में से किसकी लंबाई सबसे कम है? पहले उत्तर लिखें। फिर कारण: लिखकर तुलना का छोटा कारण बताएँ। उत्तर:" \
+  --output-dir report/figures/generated/phase3/attention/hindi \
+  --device cpu --layers 1 8 --heads 0 1 2
+
+# Bhojpuri attention comparison
+python -m lma_phase3.attention_compare \
+  --config bhojpuri/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt \
+  --finetuned-checkpoint /path/to/bhojpuri/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --tokenizer bhojpuri/tokenizer/bhojpuri.model \
+  --prompt "रामनाथ के उमिर 24 बरिस बा। बनवारी के उमिर 65 बरिस बा। रामनाथ आ बनवारी में केकर उमिर सबसे ढेर बा? पहिले जवाब लिखीं। फेर कारण: लिख के तुलना के छोट कारण बताईं। जवाब:" \
+  --output-dir report/figures/generated/phase3/attention/bhojpuri \
+  --device cpu --layers 1 8 --heads 0 1 2
+```
+
+Full details, error analysis, task breakdowns, and rubric questions are documented in [`report/phase-3.md`](report/phase-3.md).

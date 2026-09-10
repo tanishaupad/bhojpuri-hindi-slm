@@ -1,0 +1,249 @@
+{
+  "batch_size": 32,
+  "checkpoint_sha256": "69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133",
+  "dataset_manifest_sha256": "e94e438d766ea80c1785f1786901673c9aada3ee9f7fc01be3120a5b3b499710",
+  "dataset_version": "reasoning-v1",
+  "device": "mps",
+  "evaluator_sha256": "50353c7090dc43fb972318fc33a15acc63f8a7cefa0e6142b4734524f8ef2c33",
+  "language": "bhojpuri",
+  "model_stage": "pretrained",
+  "precision": "float32",
+  "protocol": {
+    "decoding": "greedy",
+    "exact_match": "Unicode NFC, collapse whitespace and strip surrounding whitespace; compare full continuation to canonical answer. No substring matching or answer extraction.",
+    "maximum_new_tokens": 16,
+    "reporting": "Per-task and overall primary test accuracy; challenge scores separately; validation only for selection.",
+    "stop": "EOS or token limit"
+  },
+  "splits": {
+    "challenge_names": {
+      "elapsed_seconds": 23.79547108290717,
+      "overall": {
+        "accuracy": 0.0,
+        "correct": 0,
+        "errors": {
+          "empty_output": 20,
+          "noncanonical_output": 480
+        },
+        "examples": 500,
+        "stopped_at_eos": 21
+      },
+      "per_task": {
+        "direct": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 9,
+            "noncanonical_output": 116
+          },
+          "examples": 125,
+          "stopped_at_eos": 9
+        },
+        "equality": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 1,
+            "noncanonical_output": 124
+          },
+          "examples": 125,
+          "stopped_at_eos": 1
+        },
+        "extremum": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 10,
+            "noncanonical_output": 115
+          },
+          "examples": 125,
+          "stopped_at_eos": 11
+        },
+        "transitivity": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "noncanonical_output": 125
+          },
+          "examples": 125,
+          "stopped_at_eos": 0
+        }
+      },
+      "predictions_sha256": "e53494835fac44eaf6a73f01224dd2b414baf2bcc60ac0e10af7996b60a8526a",
+      "split_sha256": "48afdd2f5943cf7a660167d4342d92123dd9c5a244aae5dfb7482d0ecb19f225"
+    },
+    "challenge_wording": {
+      "elapsed_seconds": 22.119150958023965,
+      "overall": {
+        "accuracy": 0.0,
+        "correct": 0,
+        "errors": {
+          "empty_output": 74,
+          "noncanonical_output": 426
+        },
+        "examples": 500,
+        "stopped_at_eos": 83
+      },
+      "per_task": {
+        "direct": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 19,
+            "noncanonical_output": 106
+          },
+          "examples": 125,
+          "stopped_at_eos": 20
+        },
+        "equality": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 13,
+            "noncanonical_output": 112
+          },
+          "examples": 125,
+          "stopped_at_eos": 14
+        },
+        "extremum": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 33,
+            "noncanonical_output": 92
+          },
+          "examples": 125,
+          "stopped_at_eos": 34
+        },
+        "transitivity": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 9,
+            "noncanonical_output": 116
+          },
+          "examples": 125,
+          "stopped_at_eos": 15
+        }
+      },
+      "predictions_sha256": "9702445798cfe2fe64a9bc091d7fb9bdee154b69bad602eece5225687d69b9cd",
+      "split_sha256": "7b65fcec7ce56752825ab96ec2f87540e232ca97516d0794906eea9dbb6cdbf6"
+    },
+    "test": {
+      "elapsed_seconds": 64.9872342501767,
+      "overall": {
+        "accuracy": 0.0,
+        "correct": 0,
+        "errors": {
+          "empty_output": 251,
+          "noncanonical_output": 1749
+        },
+        "examples": 2000,
+        "stopped_at_eos": 290
+      },
+      "per_task": {
+        "direct": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 85,
+            "noncanonical_output": 415
+          },
+          "examples": 500,
+          "stopped_at_eos": 91
+        },
+        "equality": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 24,
+            "noncanonical_output": 476
+          },
+          "examples": 500,
+          "stopped_at_eos": 24
+        },
+        "extremum": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 105,
+            "noncanonical_output": 395
+          },
+          "examples": 500,
+          "stopped_at_eos": 113
+        },
+        "transitivity": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 37,
+            "noncanonical_output": 463
+          },
+          "examples": 500,
+          "stopped_at_eos": 62
+        }
+      },
+      "predictions_sha256": "1838f453e74d2c1045ba66fb36544152e9027cfedf0438bdf561a7a6d80a757c",
+      "split_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140"
+    },
+    "validation": {
+      "elapsed_seconds": 53.09493362531066,
+      "overall": {
+        "accuracy": 0.0,
+        "correct": 0,
+        "errors": {
+          "empty_output": 257,
+          "noncanonical_output": 1743
+        },
+        "examples": 2000,
+        "stopped_at_eos": 285
+      },
+      "per_task": {
+        "direct": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 97,
+            "noncanonical_output": 403
+          },
+          "examples": 500,
+          "stopped_at_eos": 98
+        },
+        "equality": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 27,
+            "noncanonical_output": 473
+          },
+          "examples": 500,
+          "stopped_at_eos": 31
+        },
+        "extremum": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 101,
+            "noncanonical_output": 399
+          },
+          "examples": 500,
+          "stopped_at_eos": 111
+        },
+        "transitivity": {
+          "accuracy": 0.0,
+          "correct": 0,
+          "errors": {
+            "empty_output": 32,
+            "noncanonical_output": 468
+          },
+          "examples": 500,
+          "stopped_at_eos": 45
+        }
+      },
+      "predictions_sha256": "9dd012a759c1c928560dc12acfb02e103d99592f87655e2c4884121edf8cfa0d",
+      "split_sha256": "13416f826523c2aedf38bf59de496b7e3bb03443d9ba61c58d79eba68ed167a6"
+    }
+  },
+  "tokenizer_sha256": "5d50ad313682cabe0f17b63f7829cecf0512ca563630322a1809c0c958741cec",
+  "torch_version": "2.4.1"
+}

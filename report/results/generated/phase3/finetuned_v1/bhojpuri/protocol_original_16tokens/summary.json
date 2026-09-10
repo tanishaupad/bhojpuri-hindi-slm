@@ -1,0 +1,230 @@
+{
+  "challenge_names": {
+    "answer_present_count": 117,
+    "answer_present_rate": 0.234,
+    "exact_match_count": 0,
+    "exact_match_rate": 0.0,
+    "joint_verified_count": 0,
+    "joint_verified_rate": 0.0,
+    "protocol": "original",
+    "sufficient_proof_count": 0,
+    "sufficient_proof_rate": 0.0,
+    "supported_claim_count": 0,
+    "supported_claim_rate": 0.0,
+    "task_breakdown": {
+      "direct": {
+        "answer_present": 0,
+        "answer_present_rate": 0.0,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "equality": {
+        "answer_present": 117,
+        "answer_present_rate": 0.936,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "extremum": {
+        "answer_present": 0,
+        "answer_present_rate": 0.0,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "transitivity": {
+        "answer_present": 0,
+        "answer_present_rate": 0.0,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      }
+    },
+    "token_limit": 16,
+    "total_examples": 500,
+    "unsupported_claim_count": 0,
+    "unsupported_claim_rate": 0.0,
+    "verified_explanation_count": 0,
+    "verified_explanation_rate": 0.0
+  },
+  "challenge_wording": {
+    "answer_present_count": 411,
+    "answer_present_rate": 0.822,
+    "exact_match_count": 0,
+    "exact_match_rate": 0.0,
+    "joint_verified_count": 0,
+    "joint_verified_rate": 0.0,
+    "protocol": "original",
+    "sufficient_proof_count": 0,
+    "sufficient_proof_rate": 0.0,
+    "supported_claim_count": 296,
+    "supported_claim_rate": 0.592,
+    "task_breakdown": {
+      "direct": {
+        "answer_present": 114,
+        "answer_present_rate": 0.912,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "equality": {
+        "answer_present": 91,
+        "answer_present_rate": 0.728,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "extremum": {
+        "answer_present": 83,
+        "answer_present_rate": 0.664,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "transitivity": {
+        "answer_present": 123,
+        "answer_present_rate": 0.984,
+        "count": 125,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      }
+    },
+    "token_limit": 16,
+    "total_examples": 500,
+    "unsupported_claim_count": 57,
+    "unsupported_claim_rate": 0.114,
+    "verified_explanation_count": 0,
+    "verified_explanation_rate": 0.0
+  },
+  "test": {
+    "answer_present_count": 1700,
+    "answer_present_rate": 0.85,
+    "exact_match_count": 0,
+    "exact_match_rate": 0.0,
+    "joint_verified_count": 0,
+    "joint_verified_rate": 0.0,
+    "protocol": "original",
+    "sufficient_proof_count": 0,
+    "sufficient_proof_rate": 0.0,
+    "supported_claim_count": 1245,
+    "supported_claim_rate": 0.6225,
+    "task_breakdown": {
+      "direct": {
+        "answer_present": 470,
+        "answer_present_rate": 0.94,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "equality": {
+        "answer_present": 390,
+        "answer_present_rate": 0.78,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "extremum": {
+        "answer_present": 341,
+        "answer_present_rate": 0.682,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "transitivity": {
+        "answer_present": 499,
+        "answer_present_rate": 0.998,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      }
+    },
+    "token_limit": 16,
+    "total_examples": 2000,
+    "unsupported_claim_count": 193,
+    "unsupported_claim_rate": 0.0965,
+    "verified_explanation_count": 0,
+    "verified_explanation_rate": 0.0
+  },
+  "validation": {
+    "answer_present_count": 1693,
+    "answer_present_rate": 0.8465,
+    "exact_match_count": 0,
+    "exact_match_rate": 0.0,
+    "joint_verified_count": 0,
+    "joint_verified_rate": 0.0,
+    "protocol": "original",
+    "sufficient_proof_count": 0,
+    "sufficient_proof_rate": 0.0,
+    "supported_claim_count": 1219,
+    "supported_claim_rate": 0.6095,
+    "task_breakdown": {
+      "direct": {
+        "answer_present": 454,
+        "answer_present_rate": 0.908,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "equality": {
+        "answer_present": 400,
+        "answer_present_rate": 0.8,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "extremum": {
+        "answer_present": 340,
+        "answer_present_rate": 0.68,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      },
+      "transitivity": {
+        "answer_present": 499,
+        "answer_present_rate": 0.998,
+        "count": 500,
+        "exact_match": 0,
+        "exact_match_rate": 0.0,
+        "joint_verified": 0,
+        "joint_verified_rate": 0.0
+      }
+    },
+    "token_limit": 16,
+    "total_examples": 2000,
+    "unsupported_claim_count": 193,
+    "unsupported_claim_rate": 0.0965,
+    "verified_explanation_count": 0,
+    "verified_explanation_rate": 0.0
+  }
+}

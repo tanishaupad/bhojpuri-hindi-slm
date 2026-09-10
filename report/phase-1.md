@@ -82,6 +82,12 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 | Bhojpuri | Test | 2,351 | 214,399 | 52,302 | 162,097 | 24.39% |
 | **Bhojpuri Overall** | | **230,687** | **23,019,401** | **5,181,337** | **17,838,064** | **22.51%** |
 
+> [!NOTE]
+> **Token-Count Reconciliation between Phase 1 and Phase 2**:
+> The token counts in the table above reflect whitespace-normalized SentencePiece encoding (`normalize_tokenizer_input()`), which was used during Phase 1 corpus analysis. In Phase 2, token streams were packed directly from raw text before appending one `<eos>` token per document to form contiguous training and evaluation streams (see [`heldout_recomputation.json`](audits/generated/heldout_recomputation.json)).
+> - **Hindi Test**: Phase 2 packed test stream contains **3,521,023 tokens** = 3,498,250 raw tokens + 22,773 document EOS tokens. Re-encoding the identical decontaminated test split with Phase 1 whitespace normalization yields **3,468,316 tokens** (a 29,934 token difference due to raw vs. normalized whitespace, plus a 95,492 token reconciliation from the preliminary Phase 1 summary count).
+> - **Bhojpuri Test**: Phase 2 packed test stream contains **222,585 tokens** = 220,234 raw tokens + 2,351 document EOS tokens. Re-encoding with whitespace normalization yields **214,399 tokens**, matching Phase 1's reported count exactly.
+
 #### Justification for Bhojpuri Dataset Size Shortfall
 While Hindi reached **~339M tokens** (approaching the ~500M target within computational constraints), Bhojpuri yielded **22.58M clean training tokens**. This shortfall is strictly due to the low-resource reality of Bhojpuri on the public web:
 1. **Scarcity of Native Monolingual Text**: High proportions of online "Bhojpuri" text are machine-translated benchmark subsets (which were deliberately excluded to preserve linguistic authenticity) or Hindi text mistakenly tagged as Bhojpuri.
@@ -112,10 +118,10 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
 
 - **Hindi (Selected: 24,000 Unigram)**:
   - **Fertility & Subwords**: Fertility drops significantly from 1.3562 (16k) to 1.2928 (24k), capturing key compound morphemes with 83.93% held-out vocabulary utilization.
-  - **Parameter Budget Allocation**: For our target ~25M parameter model in Phase 2 ($d_{\text{model}} = 512$), a 24,000-piece embedding table uses $24,000 \times 512 \approx 12.28\text{M}$ parameters (exactly ~49% of the budget), leaving the remaining ~12.7M parameters for deep multi-head attention and feed-forward layers. A 32k vocabulary would consume ~16.4M parameters (65% of the total budget) in embeddings alone.
+  - **Parameter Budget Allocation**: In our final Phase 2 model architecture ($d_{\text{model}} = 384$, 25,285,248 total parameters; initially projected at $d_{\text{model}} = 512$ in early planning), the 24,000-piece embedding table uses $24,000 \times 384 = 9,216,000$ parameters (36.45% of the total parameter budget), leaving the remaining 16,069,248 parameters (63.55%) for deep multi-head attention and feed-forward layers. A 32k vocabulary would have consumed 12.29M parameters (~49% of the budget) in embeddings alone.
 - **Bhojpuri (Selected: 16,000 Unigram)**:
   - **High Utilization**: The 16,000 vocabulary achieves 78.79% utilization on held-out text with low fertility (1.3341) and an unknown rate of 0.00176%. Larger vocabularies (24k/32k) exhibit steep drops in utilization (down to 56.29%) and overfit rare morphological variations in the smaller corpus.
-  - **Parameter Saving**: An 8.19M parameter embedding footprint leaves sufficient capacity for Transformer depth.
+  - **Parameter Saving**: With $d_{\text{model}} = 384$, the 16,000-piece vocabulary requires $16,000 \times 384 = 6,144,000$ parameters (24.70% of the 24,870,912 total model parameters), leaving 18,726,912 parameters (75.30%) for Transformer depth.
 
 ---
 

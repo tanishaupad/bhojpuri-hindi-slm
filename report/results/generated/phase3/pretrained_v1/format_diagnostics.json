@@ -1,0 +1,20 @@
+{
+  "hindi": {
+    "split": "test",
+    "examples": 2000,
+    "starts_with_reference_delimited": 140,
+    "contains_reference_delimited": 340,
+    "exact_match": 0,
+    "punctuation_only_difference": 0,
+    "note": "Post-hoc format diagnostics only, not alternative accuracy scores. Reference mentions may be copying or coincidence."
+  },
+  "bhojpuri": {
+    "split": "test",
+    "examples": 2000,
+    "starts_with_reference_delimited": 56,
+    "contains_reference_delimited": 62,
+    "exact_match": 0,
+    "punctuation_only_difference": 0,
+    "note": "Post-hoc format diagnostics only, not alternative accuracy scores. Reference mentions may be copying or coincidence."
+  }
+}

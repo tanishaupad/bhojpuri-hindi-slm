@@ -1,0 +1,462 @@
+{
+  "explanation": {
+    "challenge_names": {
+      "answer_present_count": 123,
+      "answer_present_rate": 0.246,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 0,
+      "joint_verified_rate": 0.0,
+      "protocol": "explanation",
+      "sufficient_proof_count": 0,
+      "sufficient_proof_rate": 0.0,
+      "supported_claim_count": 173,
+      "supported_claim_rate": 0.346,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 15,
+          "answer_present_rate": 0.12,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "equality": {
+          "answer_present": 80,
+          "answer_present_rate": 0.64,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "extremum": {
+          "answer_present": 16,
+          "answer_present_rate": 0.128,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "transitivity": {
+          "answer_present": 12,
+          "answer_present_rate": 0.096,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        }
+      },
+      "token_limit": 96,
+      "total_examples": 500,
+      "unsupported_claim_count": 68,
+      "unsupported_claim_rate": 0.136,
+      "verified_explanation_count": 0,
+      "verified_explanation_rate": 0.0
+    },
+    "challenge_wording": {
+      "answer_present_count": 447,
+      "answer_present_rate": 0.894,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 323,
+      "joint_verified_rate": 0.646,
+      "protocol": "explanation",
+      "sufficient_proof_count": 395,
+      "sufficient_proof_rate": 0.79,
+      "supported_claim_count": 500,
+      "supported_claim_rate": 1.0,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 125,
+          "answer_present_rate": 1.0,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 105,
+          "joint_verified_rate": 0.84
+        },
+        "equality": {
+          "answer_present": 72,
+          "answer_present_rate": 0.576,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 72,
+          "joint_verified_rate": 0.576
+        },
+        "extremum": {
+          "answer_present": 125,
+          "answer_present_rate": 1.0,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 83,
+          "joint_verified_rate": 0.664
+        },
+        "transitivity": {
+          "answer_present": 125,
+          "answer_present_rate": 1.0,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 63,
+          "joint_verified_rate": 0.504
+        }
+      },
+      "token_limit": 96,
+      "total_examples": 500,
+      "unsupported_claim_count": 88,
+      "unsupported_claim_rate": 0.176,
+      "verified_explanation_count": 395,
+      "verified_explanation_rate": 0.79
+    },
+    "test": {
+      "answer_present_count": 1834,
+      "answer_present_rate": 0.917,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 1723,
+      "joint_verified_rate": 0.8615,
+      "protocol": "explanation",
+      "sufficient_proof_count": 1723,
+      "sufficient_proof_rate": 0.8615,
+      "supported_claim_count": 2000,
+      "supported_claim_rate": 1.0,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 500,
+          "answer_present_rate": 1.0,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 474,
+          "joint_verified_rate": 0.948
+        },
+        "equality": {
+          "answer_present": 334,
+          "answer_present_rate": 0.668,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 334,
+          "joint_verified_rate": 0.668
+        },
+        "extremum": {
+          "answer_present": 500,
+          "answer_present_rate": 1.0,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 415,
+          "joint_verified_rate": 0.83
+        },
+        "transitivity": {
+          "answer_present": 500,
+          "answer_present_rate": 1.0,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 500,
+          "joint_verified_rate": 1.0
+        }
+      },
+      "token_limit": 96,
+      "total_examples": 2000,
+      "unsupported_claim_count": 277,
+      "unsupported_claim_rate": 0.1385,
+      "verified_explanation_count": 1723,
+      "verified_explanation_rate": 0.8615
+    },
+    "validation": {
+      "answer_present_count": 1830,
+      "answer_present_rate": 0.915,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 1717,
+      "joint_verified_rate": 0.8585,
+      "protocol": "explanation",
+      "sufficient_proof_count": 1717,
+      "sufficient_proof_rate": 0.8585,
+      "supported_claim_count": 2000,
+      "supported_claim_rate": 1.0,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 500,
+          "answer_present_rate": 1.0,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 471,
+          "joint_verified_rate": 0.942
+        },
+        "equality": {
+          "answer_present": 330,
+          "answer_present_rate": 0.66,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 330,
+          "joint_verified_rate": 0.66
+        },
+        "extremum": {
+          "answer_present": 500,
+          "answer_present_rate": 1.0,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 416,
+          "joint_verified_rate": 0.832
+        },
+        "transitivity": {
+          "answer_present": 500,
+          "answer_present_rate": 1.0,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 500,
+          "joint_verified_rate": 1.0
+        }
+      },
+      "token_limit": 96,
+      "total_examples": 2000,
+      "unsupported_claim_count": 283,
+      "unsupported_claim_rate": 0.1415,
+      "verified_explanation_count": 1717,
+      "verified_explanation_rate": 0.8585
+    }
+  },
+  "original": {
+    "challenge_names": {
+      "answer_present_count": 95,
+      "answer_present_rate": 0.19,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 0,
+      "joint_verified_rate": 0.0,
+      "protocol": "original",
+      "sufficient_proof_count": 0,
+      "sufficient_proof_rate": 0.0,
+      "supported_claim_count": 1,
+      "supported_claim_rate": 0.002,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 15,
+          "answer_present_rate": 0.12,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "equality": {
+          "answer_present": 62,
+          "answer_present_rate": 0.496,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "extremum": {
+          "answer_present": 13,
+          "answer_present_rate": 0.104,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "transitivity": {
+          "answer_present": 5,
+          "answer_present_rate": 0.04,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        }
+      },
+      "token_limit": 16,
+      "total_examples": 500,
+      "unsupported_claim_count": 0,
+      "unsupported_claim_rate": 0.0,
+      "verified_explanation_count": 0,
+      "verified_explanation_rate": 0.0
+    },
+    "challenge_wording": {
+      "answer_present_count": 416,
+      "answer_present_rate": 0.832,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 0,
+      "joint_verified_rate": 0.0,
+      "protocol": "original",
+      "sufficient_proof_count": 0,
+      "sufficient_proof_rate": 0.0,
+      "supported_claim_count": 427,
+      "supported_claim_rate": 0.854,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 124,
+          "answer_present_rate": 0.992,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "equality": {
+          "answer_present": 62,
+          "answer_present_rate": 0.496,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "extremum": {
+          "answer_present": 105,
+          "answer_present_rate": 0.84,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "transitivity": {
+          "answer_present": 125,
+          "answer_present_rate": 1.0,
+          "count": 125,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        }
+      },
+      "token_limit": 16,
+      "total_examples": 500,
+      "unsupported_claim_count": 3,
+      "unsupported_claim_rate": 0.006,
+      "verified_explanation_count": 0,
+      "verified_explanation_rate": 0.0
+    },
+    "test": {
+      "answer_present_count": 1677,
+      "answer_present_rate": 0.8385,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 0,
+      "joint_verified_rate": 0.0,
+      "protocol": "original",
+      "sufficient_proof_count": 0,
+      "sufficient_proof_rate": 0.0,
+      "supported_claim_count": 1631,
+      "supported_claim_rate": 0.8155,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 482,
+          "answer_present_rate": 0.964,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "equality": {
+          "answer_present": 250,
+          "answer_present_rate": 0.5,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "extremum": {
+          "answer_present": 449,
+          "answer_present_rate": 0.898,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "transitivity": {
+          "answer_present": 496,
+          "answer_present_rate": 0.992,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        }
+      },
+      "token_limit": 16,
+      "total_examples": 2000,
+      "unsupported_claim_count": 3,
+      "unsupported_claim_rate": 0.0015,
+      "verified_explanation_count": 0,
+      "verified_explanation_rate": 0.0
+    },
+    "validation": {
+      "answer_present_count": 1663,
+      "answer_present_rate": 0.8315,
+      "exact_match_count": 0,
+      "exact_match_rate": 0.0,
+      "joint_verified_count": 0,
+      "joint_verified_rate": 0.0,
+      "protocol": "original",
+      "sufficient_proof_count": 0,
+      "sufficient_proof_rate": 0.0,
+      "supported_claim_count": 1618,
+      "supported_claim_rate": 0.809,
+      "task_breakdown": {
+        "direct": {
+          "answer_present": 478,
+          "answer_present_rate": 0.956,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "equality": {
+          "answer_present": 250,
+          "answer_present_rate": 0.5,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "extremum": {
+          "answer_present": 441,
+          "answer_present_rate": 0.882,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        },
+        "transitivity": {
+          "answer_present": 494,
+          "answer_present_rate": 0.988,
+          "count": 500,
+          "exact_match": 0,
+          "exact_match_rate": 0.0,
+          "joint_verified": 0,
+          "joint_verified_rate": 0.0
+        }
+      },
+      "token_limit": 16,
+      "total_examples": 2000,
+      "unsupported_claim_count": 3,
+      "unsupported_claim_rate": 0.0015,
+      "verified_explanation_count": 0,
+      "verified_explanation_rate": 0.0
+    }
+  }
+}

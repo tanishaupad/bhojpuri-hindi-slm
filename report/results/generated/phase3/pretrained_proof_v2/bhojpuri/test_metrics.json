@@ -1,0 +1,112 @@
+{
+  "dataset_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140",
+  "elapsed_seconds": 137.37071266699968,
+  "overall": {
+    "answer_correct": 0,
+    "answer_parsed": 0,
+    "examples": 2000,
+    "explanation_parseable": 0,
+    "explanation_present": 0,
+    "explanation_verified": 0,
+    "joint_correct": 0,
+    "rates": {
+      "answer_correct": 0.0,
+      "answer_parsed": 0.0,
+      "explanation_parseable": 0.0,
+      "explanation_present": 0.0,
+      "explanation_verified": 0.0,
+      "joint_correct": 0.0
+    },
+    "statuses": {
+      "missing_explanation": 2000
+    },
+    "stopped_at_eos": 49
+  },
+  "per_task": {
+    "direct": {
+      "answer_correct": 0,
+      "answer_parsed": 0,
+      "examples": 500,
+      "explanation_parseable": 0,
+      "explanation_present": 0,
+      "explanation_verified": 0,
+      "joint_correct": 0,
+      "rates": {
+        "answer_correct": 0.0,
+        "answer_parsed": 0.0,
+        "explanation_parseable": 0.0,
+        "explanation_present": 0.0,
+        "explanation_verified": 0.0,
+        "joint_correct": 0.0
+      },
+      "statuses": {
+        "missing_explanation": 500
+      },
+      "stopped_at_eos": 15
+    },
+    "equality": {
+      "answer_correct": 0,
+      "answer_parsed": 0,
+      "examples": 500,
+      "explanation_parseable": 0,
+      "explanation_present": 0,
+      "explanation_verified": 0,
+      "joint_correct": 0,
+      "rates": {
+        "answer_correct": 0.0,
+        "answer_parsed": 0.0,
+        "explanation_parseable": 0.0,
+        "explanation_present": 0.0,
+        "explanation_verified": 0.0,
+        "joint_correct": 0.0
+      },
+      "statuses": {
+        "missing_explanation": 500
+      },
+      "stopped_at_eos": 14
+    },
+    "extremum": {
+      "answer_correct": 0,
+      "answer_parsed": 0,
+      "examples": 500,
+      "explanation_parseable": 0,
+      "explanation_present": 0,
+      "explanation_verified": 0,
+      "joint_correct": 0,
+      "rates": {
+        "answer_correct": 0.0,
+        "answer_parsed": 0.0,
+        "explanation_parseable": 0.0,
+        "explanation_present": 0.0,
+        "explanation_verified": 0.0,
+        "joint_correct": 0.0
+      },
+      "statuses": {
+        "missing_explanation": 500
+      },
+      "stopped_at_eos": 16
+    },
+    "transitivity": {
+      "answer_correct": 0,
+      "answer_parsed": 0,
+      "examples": 500,
+      "explanation_parseable": 0,
+      "explanation_present": 0,
+      "explanation_verified": 0,
+      "joint_correct": 0,
+      "rates": {
+        "answer_correct": 0.0,
+        "answer_parsed": 0.0,
+        "explanation_parseable": 0.0,
+        "explanation_present": 0.0,
+        "explanation_verified": 0.0,
+        "joint_correct": 0.0
+      },
+      "statuses": {
+        "missing_explanation": 500
+      },
+      "stopped_at_eos": 4
+    }
+  },
+  "predictions_sha256": "786a6d1a189a4d1d933fd9b711d847401345a2e95dffb126d6584cdb898d5066"
+}

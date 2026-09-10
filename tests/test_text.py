@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from lma_phase1.text import (
-    clean_anjoria_article,
     canonical_text,
+    clean_anjoria_article,
     clean_bhojpuri_wikipedia_article,
     clean_pib_article,
     has_translation_credit,

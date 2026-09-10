@@ -1,0 +1,46 @@
+{
+  "hindi_validation": {
+    "documents": 23033,
+    "normalized_tokens": 3429056,
+    "raw_tokens": 3456615,
+    "raw_unk": 19400,
+    "normalized_unk": 51,
+    "utf8_bytes": 34973965,
+    "packed_tokens": 3479648,
+    "sha256": "71d1b9940011ac7998e444380dd82f0037bb65eb3a0a12818684c7066e9594b5",
+    "original_sha256": "71d1b9940011ac7998e444380dd82f0037bb65eb3a0a12818684c7066e9594b5"
+  },
+  "hindi_test": {
+    "documents": 22773,
+    "normalized_tokens": 3468316,
+    "raw_tokens": 3498250,
+    "raw_unk": 22435,
+    "normalized_unk": 69,
+    "utf8_bytes": 35374088,
+    "packed_tokens": 3521023,
+    "sha256": "ef94dde8713b0e7a5d8ff7cbad54ff869c51b6336ec7f23cf24ec6915ebfad12",
+    "original_sha256": "ef94dde8713b0e7a5d8ff7cbad54ff869c51b6336ec7f23cf24ec6915ebfad12"
+  },
+  "bhojpuri_validation": {
+    "documents": 2344,
+    "normalized_tokens": 227239,
+    "raw_tokens": 232538,
+    "raw_unk": 3406,
+    "normalized_unk": 4,
+    "utf8_bytes": 2176729,
+    "packed_tokens": 234882,
+    "sha256": "da51b42c38b3451ae30d5438a2a171318189863a6eaeb797a8d6ebde735d352d",
+    "original_sha256": "da51b42c38b3451ae30d5438a2a171318189863a6eaeb797a8d6ebde735d352d"
+  },
+  "bhojpuri_test": {
+    "documents": 2351,
+    "normalized_tokens": 214399,
+    "raw_tokens": 220234,
+    "raw_unk": 3797,
+    "normalized_unk": 6,
+    "utf8_bytes": 2045282,
+    "packed_tokens": 222585,
+    "sha256": "c21f470f9f8fd6ddb7dc1ac3f9080579a8de1fd5ba537e0e2537d0aad2656f26",
+    "original_sha256": "c21f470f9f8fd6ddb7dc1ac3f9080579a8de1fd5ba537e0e2537d0aad2656f26"
+  }
+}

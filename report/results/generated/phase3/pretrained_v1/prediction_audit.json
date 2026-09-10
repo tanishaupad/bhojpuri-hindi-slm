@@ -1,0 +1,9 @@
+{
+  "predictions_checked": 10000,
+  "unique_ids_complete_per_split": true,
+  "prompt_reference_match_to_frozen_release": true,
+  "saved_token_ids_decode_to_recorded_text": true,
+  "independent_exact_match_recomputation": "passed",
+  "prediction_hash_checks": "passed",
+  "maximum_generated_tokens": 16
+}

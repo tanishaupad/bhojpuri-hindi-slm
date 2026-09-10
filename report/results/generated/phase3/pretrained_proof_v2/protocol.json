@@ -1,0 +1,36 @@
+{
+  "checker": "Controlled complete-sentence parser; supported facts plus task-specific sufficient proof.",
+  "code_sha256": {
+    "cached_decode.py": "cf2944ca3662f08246e71c44fbd3d60a13f34b6afa4d302cd4b4f7987b5a44ce",
+    "evaluate_proofs.py": "cae24b437f7ad5e6d7c57d310ae449fae0f6e850b7113b650bab8e3590bb4a69",
+    "proof_checker.py": "aeb8f24a0f4d7c1dd1500464a025d6e4fdfa78e9af90c65ee7075876eb98a914"
+  },
+  "comparison": "Prompt and token budget differ from the frozen 16-token answer-only baseline; report separately.",
+  "coverage": "Unparsed sentences are unverified, not proof of factual error.",
+  "generation": {
+    "batch_size": 32,
+    "decoding": "greedy",
+    "device": "cpu",
+    "maximum_new_tokens": 96,
+    "precision": "float32",
+    "stop": "EOS or token limit"
+  },
+  "instructions": {
+    "bho": "पहिले जवाब लिखीं। फेर कारण: लिख के तुलना के छोट कारण बताईं।",
+    "hi": "पहले उत्तर लिखें। फिर कारण: लिखकर तुलना का छोटा कारण बताएँ।"
+  },
+  "preflight": {
+    "bhojpuri": {
+      "maximum_prompt_tokens": 65,
+      "maximum_reference_tokens_including_eos": 59,
+      "reference_proofs_verified": 5000
+    },
+    "hindi": {
+      "maximum_prompt_tokens": 61,
+      "maximum_reference_tokens_including_eos": 51,
+      "reference_proofs_verified": 5000
+    }
+  },
+  "status": "supplemental protocol introduced after answer-only baseline",
+  "version": "pretrained-proof-v2"
+}

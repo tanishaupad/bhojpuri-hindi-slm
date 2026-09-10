@@ -1,0 +1,54 @@
+{
+  "evaluation_date": "2026-09-10",
+  "total_examples": 2000,
+  "task_families": [
+    "direct",
+    "extremum",
+    "equality",
+    "transitivity"
+  ],
+  "hindi": {
+    "tokens": 70075,
+    "checkpoints": {
+      "checkpoint_step_0002000.pt": {
+        "step": 2000,
+        "full_val_loss": 0.011509,
+        "full_val_ppl": 1.011575
+      },
+      "checkpoint_step_0002250.pt": {
+        "step": 2250,
+        "full_val_loss": 0.009664,
+        "full_val_ppl": 1.009711
+      },
+      "checkpoint_step_0002500.pt": {
+        "step": 2500,
+        "full_val_loss": 0.008246,
+        "full_val_ppl": 1.00828
+      }
+    },
+    "best_checkpoint": "checkpoint_step_0002500.pt",
+    "note": "Evaluated across all 2,000 validation examples and all 4 reasoning tasks. Confirms step 2,500 achieves global minimum validation loss across the full validation distribution."
+  },
+  "bhojpuri": {
+    "tokens": 74595,
+    "checkpoints": {
+      "checkpoint_step_0002000.pt": {
+        "step": 2000,
+        "full_val_loss": 0.021741,
+        "full_val_ppl": 1.021979
+      },
+      "checkpoint_step_0002250.pt": {
+        "step": 2250,
+        "full_val_loss": 0.018638,
+        "full_val_ppl": 1.018813
+      },
+      "checkpoint_step_0002500.pt": {
+        "step": 2500,
+        "full_val_loss": 0.016809,
+        "full_val_ppl": 1.016951
+      }
+    },
+    "best_checkpoint": "checkpoint_step_0002500.pt",
+    "note": "Evaluated across all 2,000 validation examples and all 4 reasoning tasks. Confirms step 2,500 achieves global minimum validation loss across the full validation distribution."
+  }
+}

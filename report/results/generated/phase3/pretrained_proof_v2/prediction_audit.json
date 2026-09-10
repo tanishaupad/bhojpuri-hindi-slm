@@ -1,0 +1,19 @@
+{
+  "predictions_verified": 10000,
+  "languages": {
+    "hindi": {
+      "scored": 5000,
+      "missing_reason_marker": 5000,
+      "multiple_reason_markers": 0
+    },
+    "bhojpuri": {
+      "scored": 5000,
+      "missing_reason_marker": 5000,
+      "multiple_reason_markers": 0
+    }
+  },
+  "code_protocol_data_prediction_hashes": "passed",
+  "source_prompt_reference_consistency": "passed",
+  "decoding_stop_and_limit_checks": "passed",
+  "scorer_and_aggregate_recomputation": "passed"
+}

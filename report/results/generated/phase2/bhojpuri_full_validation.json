@@ -1,0 +1,18 @@
+{
+  "language": "bhojpuri",
+  "split": "full_validation",
+  "cross_entropy": 4.173670189633223,
+  "perplexity": 64.95340649058264,
+  "bits_per_byte": 0.6497348927166573,
+  "tokens_scored": 234881,
+  "utf8_bytes": 2176729,
+  "checkpoint_sha256": "69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133",
+  "token_file_sha256": "aee1752731e167ca015200a670ec4b7934977a87990de3e54b6bce13ab7253d9",
+  "precision": "float32",
+  "device": "cpu",
+  "torch_version": "2.4.1",
+  "context_length": 256,
+  "batch_size": 8,
+  "protocol": "Non-overlapping 256-target windows, including final partial window; same boundaries as phase2 intrinsic_metrics. BPB includes EOS likelihood and divides by original document UTF-8 bytes.",
+  "elapsed_seconds": 164.931264791172
+}

@@ -57,3 +57,45 @@ lma_phase2_outputs/
 !report/samples/generated/
 !report/samples/generated/phase2/
 !report/samples/generated/phase2/*.jsonl
+
+# Small Phase 3 development examples are review evidence, not full datasets.
+!report/samples/generated/phase3/
+!report/samples/generated/phase3/pilot_v1/
+!report/samples/generated/phase3/pilot_v1/*_development.jsonl
+
+# Full Phase 3 evaluation predictions are reproducibility evidence.
+!report/results/generated/phase3/
+!report/results/generated/phase3/pretrained_v1/
+!report/results/generated/phase3/pretrained_v1/hindi/
+!report/results/generated/phase3/pretrained_v1/bhojpuri/
+!report/results/generated/phase3/pretrained_v1/*/*_predictions.jsonl
+
+# Supplemental per-example answer-presence scores.
+!report/results/generated/phase3/pretrained_presence_v1/
+!report/results/generated/phase3/pretrained_presence_v1/*_presence.jsonl
+
+# Compressed answer-and-explanation predictions for symbolic verification.
+!report/results/generated/phase3/pretrained_proof_v1/
+!report/results/generated/phase3/pretrained_proof_v1/hindi/
+!report/results/generated/phase3/pretrained_proof_v1/bhojpuri/
+!report/results/generated/phase3/pretrained_proof_v1/*/*_predictions.jsonl.gz
+
+# Completed, resumable CPU explanation verification run.
+!report/results/generated/phase3/pretrained_proof_v2/
+!report/results/generated/phase3/pretrained_proof_v2/hindi/
+!report/results/generated/phase3/pretrained_proof_v2/bhojpuri/
+!report/results/generated/phase3/pretrained_proof_v2/*/*_predictions.jsonl.gz
+
+# Corrected per-example semantic and answer-presence evidence.
+!report/results/generated/phase3/semantic_original_v1/
+!report/results/generated/phase3/semantic_original_v1/*.jsonl.gz
+!report/results/generated/phase3/semantic_explanations_v1/
+!report/results/generated/phase3/semantic_explanations_v1/*.jsonl.gz
+
+# Finetuned Phase 3 evaluation predictions and summaries.
+!report/results/generated/phase3/finetuned_v1/
+!report/results/generated/phase3/finetuned_v1/hindi/
+!report/results/generated/phase3/finetuned_v1/bhojpuri/
+!report/results/generated/phase3/finetuned_v1/*/*.json
+!report/results/generated/phase3/finetuned_v1/*/*/*.jsonl
+

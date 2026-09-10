@@ -183,11 +183,17 @@ still reported, but is tokenizer-dependent.
 | Perplexity | **39.57** | **62.93** |
 | Bits per UTF-8 byte | **0.5282** | **0.6503** |
 
-Hindi performs better on the tokenizer-neutral BPB measure. The likely explanation is its much
-larger unique training corpus: about 337M tokens versus 23M. Bhojpuri receives nearly three passes
-through its smaller corpus, but repeated exposure cannot replace breadth. Test perplexity is lower
-than the periodic validation perplexity because the former is an exact full-test calculation and
-the latter is the training loop's fixed validation-window estimate.
+To remove any ambiguity between periodic training estimates and full held-out evaluation, full validation splits were also scored in their entirety with identical non-overlapping 256-target windows and original UTF-8 byte denominators:
+
+| Full-validation metric | Hindi | Bhojpuri |
+|---|---:|---:|
+| Tokens scored | 3,479,647 | 234,881 |
+| UTF-8 bytes | 34,973,965 | 2,176,729 |
+| Cross-entropy (nats/token) | **3.6667** | **4.1737** |
+| Perplexity | **39.12** | **64.95** |
+| Bits per UTF-8 byte | **0.5263** | **0.6497** |
+
+Hindi performs better on the tokenizer-neutral BPB measure across both validation (0.5263 vs 0.6497) and test (0.5282 vs 0.6503). The likely explanation is its much larger unique training corpus: about 337M tokens versus 23M. Bhojpuri receives nearly three passes through its smaller corpus, but repeated exposure cannot replace breadth. Test and validation perplexities on the complete distributions are closely matched (~39.1–39.6 for Hindi; ~62.9–65.0 for Bhojpuri), confirming that earlier higher periodic validation numbers were artifacts of the training loop's limited 100-batch window estimate.
 
 Script is not a confound here because both corpora primarily use Devanagari. Tokenization differs
 only modestly on held-out text: Hindi's selected 24k tokenizer has 1.2928 tokens/word and 3.986

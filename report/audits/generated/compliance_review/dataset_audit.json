@@ -1,0 +1,142 @@
+{
+  "hindi": {
+    "train": {
+      "count": 20000,
+      "max_training_sequence_length": 111,
+      "examples_with_unk": 0,
+      "target_tokens": 700974,
+      "families": {
+        "direct": 5000,
+        "extremum": 5000,
+        "equality": 5000,
+        "transitivity": 5000
+      },
+      "sha256": "eb68af2d39ab470a566a98800d7348f249e7fb5685c21da08fbccd8bd0a4b013"
+    },
+    "validation": {
+      "count": 2000,
+      "max_training_sequence_length": 111,
+      "examples_with_unk": 0,
+      "target_tokens": 70075,
+      "families": {
+        "direct": 500,
+        "extremum": 500,
+        "equality": 500,
+        "transitivity": 500
+      },
+      "sha256": "eba0251218b504e1c42ce552e60b2918cf1a1c5c11fed5a6d59d4b3cec4ed8b4",
+      "first_400_families": {
+        "direct": 400
+      }
+    },
+    "test": {
+      "count": 2000,
+      "max_training_sequence_length": 111,
+      "examples_with_unk": 0,
+      "target_tokens": 70089,
+      "families": {
+        "direct": 500,
+        "extremum": 500,
+        "equality": 500,
+        "transitivity": 500
+      },
+      "sha256": "02df190a05dab9e00c582d7904b79cfdf0c77230cecefb2fe1147f7313bca572"
+    },
+    "challenge_names": {
+      "count": 500,
+      "max_training_sequence_length": 111,
+      "examples_with_unk": 0,
+      "target_tokens": 17527,
+      "families": {
+        "direct": 125,
+        "extremum": 125,
+        "equality": 125,
+        "transitivity": 125
+      },
+      "sha256": "8b77dee381623a2441de895def894845f14af3709e9ece7cd037da5aad38b625"
+    },
+    "challenge_wording": {
+      "count": 500,
+      "max_training_sequence_length": 110,
+      "examples_with_unk": 0,
+      "target_tokens": 17519,
+      "families": {
+        "direct": 125,
+        "extremum": 125,
+        "equality": 125,
+        "transitivity": 125
+      },
+      "sha256": "8d824f1efa8cc4447dbd9e87e4082d65bae007b388adf4554e6b015da926241c"
+    }
+  },
+  "bhojpuri": {
+    "train": {
+      "count": 20000,
+      "max_training_sequence_length": 123,
+      "examples_with_unk": 0,
+      "target_tokens": 744290,
+      "families": {
+        "direct": 5000,
+        "extremum": 5000,
+        "equality": 5000,
+        "transitivity": 5000
+      },
+      "sha256": "b514cf547e1d28e299c8c739b4c9948c9620a5c141d7f2f4b6dff5a1bf6285ae"
+    },
+    "validation": {
+      "count": 2000,
+      "max_training_sequence_length": 123,
+      "examples_with_unk": 0,
+      "target_tokens": 74595,
+      "families": {
+        "direct": 500,
+        "extremum": 500,
+        "equality": 500,
+        "transitivity": 500
+      },
+      "sha256": "13416f826523c2aedf38bf59de496b7e3bb03443d9ba61c58d79eba68ed167a6",
+      "first_400_families": {
+        "direct": 400
+      }
+    },
+    "test": {
+      "count": 2000,
+      "max_training_sequence_length": 123,
+      "examples_with_unk": 0,
+      "target_tokens": 74539,
+      "families": {
+        "direct": 500,
+        "extremum": 500,
+        "equality": 500,
+        "transitivity": 500
+      },
+      "sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140"
+    },
+    "challenge_names": {
+      "count": 500,
+      "max_training_sequence_length": 123,
+      "examples_with_unk": 0,
+      "target_tokens": 19259,
+      "families": {
+        "direct": 125,
+        "extremum": 125,
+        "equality": 125,
+        "transitivity": 125
+      },
+      "sha256": "48afdd2f5943cf7a660167d4342d92123dd9c5a244aae5dfb7482d0ecb19f225"
+    },
+    "challenge_wording": {
+      "count": 500,
+      "max_training_sequence_length": 123,
+      "examples_with_unk": 0,
+      "target_tokens": 18619,
+      "families": {
+        "direct": 125,
+        "extremum": 125,
+        "equality": 125,
+        "transitivity": 125
+      },
+      "sha256": "7b65fcec7ce56752825ab96ec2f87540e232ca97516d0794906eea9dbb6cdbf6"
+    }
+  }
+}

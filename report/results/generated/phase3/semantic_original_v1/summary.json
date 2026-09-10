@@ -1,0 +1,1632 @@
+{
+  "protocol": "format-independent semantic rescore v1",
+  "predictions_root": "report/results/generated/phase3/pretrained_v1",
+  "reference_proofs_passed_without_markers": 10000,
+  "languages": {
+    "hindi": {
+      "validation": {
+        "overall": {
+          "examples": 2000,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 434,
+          "supported_claim_found": 124,
+          "has_unsupported_claim": 310,
+          "full_text_coverage": 47,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.217,
+            "supported_claim_found": 0.062,
+            "has_unsupported_claim": 0.155,
+            "full_text_coverage": 0.0235,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 2000
+          },
+          "answer_presence": {
+            "examples": 2000,
+            "strict_exact_match": 0,
+            "answer_present": 375,
+            "correct_and_alternative_present": 113,
+            "correct_present_without_alternative": 262,
+            "literal_substring_present": 375,
+            "answer_presence_rate": 0.1875,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 69,
+            "supported_claim_found": 15,
+            "has_unsupported_claim": 54,
+            "full_text_coverage": 4,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.138,
+              "supported_claim_found": 0.03,
+              "has_unsupported_claim": 0.108,
+              "full_text_coverage": 0.008,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 134,
+              "correct_and_alternative_present": 28,
+              "correct_present_without_alternative": 106,
+              "literal_substring_present": 134,
+              "answer_presence_rate": 0.268,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 113,
+            "supported_claim_found": 16,
+            "has_unsupported_claim": 97,
+            "full_text_coverage": 23,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.226,
+              "supported_claim_found": 0.032,
+              "has_unsupported_claim": 0.194,
+              "full_text_coverage": 0.046,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 98,
+              "correct_and_alternative_present": 17,
+              "correct_present_without_alternative": 81,
+              "literal_substring_present": 98,
+              "answer_presence_rate": 0.196,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 149,
+            "supported_claim_found": 93,
+            "has_unsupported_claim": 56,
+            "full_text_coverage": 20,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.298,
+              "supported_claim_found": 0.186,
+              "has_unsupported_claim": 0.112,
+              "full_text_coverage": 0.04,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 0,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 0,
+              "literal_substring_present": 0,
+              "answer_presence_rate": 0.0,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 103,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 103,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.206,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.206,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 143,
+              "correct_and_alternative_present": 68,
+              "correct_present_without_alternative": 75,
+              "literal_substring_present": 143,
+              "answer_presence_rate": 0.286,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "2b50188e8df4e079d97030395deb8bdcd3dd4cbf06d499cc6547348537d2cfa4",
+        "scores_sha256": "a570c7a5ad76c44c9c3df2109a78b5e789abc675d9913aac7f207535972d319f"
+      },
+      "test": {
+        "overall": {
+          "examples": 2000,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 446,
+          "supported_claim_found": 118,
+          "has_unsupported_claim": 328,
+          "full_text_coverage": 55,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.223,
+            "supported_claim_found": 0.059,
+            "has_unsupported_claim": 0.164,
+            "full_text_coverage": 0.0275,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 2000
+          },
+          "answer_presence": {
+            "examples": 2000,
+            "strict_exact_match": 0,
+            "answer_present": 340,
+            "correct_and_alternative_present": 97,
+            "correct_present_without_alternative": 243,
+            "literal_substring_present": 340,
+            "answer_presence_rate": 0.17,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 95,
+            "supported_claim_found": 24,
+            "has_unsupported_claim": 71,
+            "full_text_coverage": 8,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.19,
+              "supported_claim_found": 0.048,
+              "has_unsupported_claim": 0.142,
+              "full_text_coverage": 0.016,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 118,
+              "correct_and_alternative_present": 22,
+              "correct_present_without_alternative": 96,
+              "literal_substring_present": 118,
+              "answer_presence_rate": 0.236,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 93,
+            "supported_claim_found": 8,
+            "has_unsupported_claim": 85,
+            "full_text_coverage": 26,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.186,
+              "supported_claim_found": 0.016,
+              "has_unsupported_claim": 0.17,
+              "full_text_coverage": 0.052,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 86,
+              "correct_and_alternative_present": 11,
+              "correct_present_without_alternative": 75,
+              "literal_substring_present": 86,
+              "answer_presence_rate": 0.172,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 153,
+            "supported_claim_found": 86,
+            "has_unsupported_claim": 67,
+            "full_text_coverage": 20,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.306,
+              "supported_claim_found": 0.172,
+              "has_unsupported_claim": 0.134,
+              "full_text_coverage": 0.04,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 0,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 0,
+              "literal_substring_present": 0,
+              "answer_presence_rate": 0.0,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 105,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 105,
+            "full_text_coverage": 1,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.21,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.21,
+              "full_text_coverage": 0.002,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 136,
+              "correct_and_alternative_present": 64,
+              "correct_present_without_alternative": 72,
+              "literal_substring_present": 136,
+              "answer_presence_rate": 0.272,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "f1a7c28597efabf00f4d1342e4b6a76aebd915ea6616e0b9337d6d03c03e19af",
+        "scores_sha256": "66b3b1b993004f0bb3623634847a1ed7c4ecb4c677bc1155dc906ac2dda58d03"
+      },
+      "challenge_names": {
+        "overall": {
+          "examples": 500,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 95,
+          "supported_claim_found": 23,
+          "has_unsupported_claim": 72,
+          "full_text_coverage": 21,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.19,
+            "supported_claim_found": 0.046,
+            "has_unsupported_claim": 0.144,
+            "full_text_coverage": 0.042,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 500
+          },
+          "answer_presence": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 96,
+            "correct_and_alternative_present": 29,
+            "correct_present_without_alternative": 67,
+            "literal_substring_present": 96,
+            "answer_presence_rate": 0.192,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 19,
+            "supported_claim_found": 5,
+            "has_unsupported_claim": 14,
+            "full_text_coverage": 1,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.152,
+              "supported_claim_found": 0.04,
+              "has_unsupported_claim": 0.112,
+              "full_text_coverage": 0.008,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 32,
+              "correct_and_alternative_present": 8,
+              "correct_present_without_alternative": 24,
+              "literal_substring_present": 32,
+              "answer_presence_rate": 0.256,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 24,
+            "supported_claim_found": 4,
+            "has_unsupported_claim": 20,
+            "full_text_coverage": 2,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.192,
+              "supported_claim_found": 0.032,
+              "has_unsupported_claim": 0.16,
+              "full_text_coverage": 0.016,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 22,
+              "correct_and_alternative_present": 4,
+              "correct_present_without_alternative": 18,
+              "literal_substring_present": 22,
+              "answer_presence_rate": 0.176,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 32,
+            "supported_claim_found": 14,
+            "has_unsupported_claim": 18,
+            "full_text_coverage": 16,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.256,
+              "supported_claim_found": 0.112,
+              "has_unsupported_claim": 0.144,
+              "full_text_coverage": 0.128,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 2,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 2,
+              "literal_substring_present": 2,
+              "answer_presence_rate": 0.016,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 20,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 20,
+            "full_text_coverage": 2,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.16,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.16,
+              "full_text_coverage": 0.016,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 40,
+              "correct_and_alternative_present": 17,
+              "correct_present_without_alternative": 23,
+              "literal_substring_present": 40,
+              "answer_presence_rate": 0.32,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "33b5d7e3b2cf841dc46156c93144969242a014d53bcb55ef937aae0184ea5df6",
+        "scores_sha256": "f554620086b4fc7d0d0e373f2cebe5af0627361f89640f7aa00d196b57f03664"
+      },
+      "challenge_wording": {
+        "overall": {
+          "examples": 500,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 86,
+          "supported_claim_found": 24,
+          "has_unsupported_claim": 62,
+          "full_text_coverage": 6,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.172,
+            "supported_claim_found": 0.048,
+            "has_unsupported_claim": 0.124,
+            "full_text_coverage": 0.012,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 500
+          },
+          "answer_presence": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 91,
+            "correct_and_alternative_present": 20,
+            "correct_present_without_alternative": 71,
+            "literal_substring_present": 91,
+            "answer_presence_rate": 0.182,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 17,
+            "supported_claim_found": 4,
+            "has_unsupported_claim": 13,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.136,
+              "supported_claim_found": 0.032,
+              "has_unsupported_claim": 0.104,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 34,
+              "correct_and_alternative_present": 6,
+              "correct_present_without_alternative": 28,
+              "literal_substring_present": 34,
+              "answer_presence_rate": 0.272,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 14,
+            "supported_claim_found": 1,
+            "has_unsupported_claim": 13,
+            "full_text_coverage": 2,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.112,
+              "supported_claim_found": 0.008,
+              "has_unsupported_claim": 0.104,
+              "full_text_coverage": 0.016,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 24,
+              "correct_and_alternative_present": 6,
+              "correct_present_without_alternative": 18,
+              "literal_substring_present": 24,
+              "answer_presence_rate": 0.192,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 33,
+            "supported_claim_found": 19,
+            "has_unsupported_claim": 14,
+            "full_text_coverage": 3,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.264,
+              "supported_claim_found": 0.152,
+              "has_unsupported_claim": 0.112,
+              "full_text_coverage": 0.024,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 0,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 0,
+              "literal_substring_present": 0,
+              "answer_presence_rate": 0.0,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 22,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 22,
+            "full_text_coverage": 1,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.176,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.176,
+              "full_text_coverage": 0.008,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 33,
+              "correct_and_alternative_present": 8,
+              "correct_present_without_alternative": 25,
+              "literal_substring_present": 33,
+              "answer_presence_rate": 0.264,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "27db3490535659e9c44b8e927624ac71a20e1ce8d9b02b6f8bd1b196c1d06faf",
+        "scores_sha256": "12ac4aa8a82fd3217ee70ea6b33137ece02d8d80dccfdbd0f893a4a68647d8a9"
+      }
+    },
+    "bhojpuri": {
+      "validation": {
+        "overall": {
+          "examples": 2000,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 0,
+          "supported_claim_found": 0,
+          "has_unsupported_claim": 0,
+          "full_text_coverage": 0,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.0,
+            "supported_claim_found": 0.0,
+            "has_unsupported_claim": 0.0,
+            "full_text_coverage": 0.0,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 2000
+          },
+          "answer_presence": {
+            "examples": 2000,
+            "strict_exact_match": 0,
+            "answer_present": 43,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 43,
+            "literal_substring_present": 63,
+            "answer_presence_rate": 0.0215,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 14,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 14,
+              "literal_substring_present": 14,
+              "answer_presence_rate": 0.028,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 11,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 11,
+              "literal_substring_present": 11,
+              "answer_presence_rate": 0.022,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 1,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 1,
+              "literal_substring_present": 21,
+              "answer_presence_rate": 0.002,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 17,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 17,
+              "literal_substring_present": 17,
+              "answer_presence_rate": 0.034,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "9dd012a759c1c928560dc12acfb02e103d99592f87655e2c4884121edf8cfa0d",
+        "scores_sha256": "e58f486e11f80e37b81354bcee7ee8b82081e42a26aa3c2f7e6d5387efc56a34"
+      },
+      "test": {
+        "overall": {
+          "examples": 2000,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 0,
+          "supported_claim_found": 0,
+          "has_unsupported_claim": 0,
+          "full_text_coverage": 0,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.0,
+            "supported_claim_found": 0.0,
+            "has_unsupported_claim": 0.0,
+            "full_text_coverage": 0.0,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 2000
+          },
+          "answer_presence": {
+            "examples": 2000,
+            "strict_exact_match": 0,
+            "answer_present": 62,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 62,
+            "literal_substring_present": 80,
+            "answer_presence_rate": 0.031,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 24,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 24,
+              "literal_substring_present": 24,
+              "answer_presence_rate": 0.048,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 22,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 22,
+              "literal_substring_present": 23,
+              "answer_presence_rate": 0.044,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 0,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 0,
+              "literal_substring_present": 17,
+              "answer_presence_rate": 0.0,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 500,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 500
+            },
+            "answer_presence": {
+              "examples": 500,
+              "strict_exact_match": 0,
+              "answer_present": 16,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 16,
+              "literal_substring_present": 16,
+              "answer_presence_rate": 0.032,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "1838f453e74d2c1045ba66fb36544152e9027cfedf0438bdf561a7a6d80a757c",
+        "scores_sha256": "f6897b830672a82ee1351bbc5618d83b8c81b4400448403daa4335bc224d6a8b"
+      },
+      "challenge_names": {
+        "overall": {
+          "examples": 500,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 0,
+          "supported_claim_found": 0,
+          "has_unsupported_claim": 0,
+          "full_text_coverage": 0,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.0,
+            "supported_claim_found": 0.0,
+            "has_unsupported_claim": 0.0,
+            "full_text_coverage": 0.0,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 500
+          },
+          "answer_presence": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 38,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 38,
+            "literal_substring_present": 49,
+            "answer_presence_rate": 0.076,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 14,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 14,
+              "literal_substring_present": 14,
+              "answer_presence_rate": 0.112,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 10,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 10,
+              "literal_substring_present": 13,
+              "answer_presence_rate": 0.08,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 0,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 0,
+              "literal_substring_present": 8,
+              "answer_presence_rate": 0.0,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 14,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 14,
+              "literal_substring_present": 14,
+              "answer_presence_rate": 0.112,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "e53494835fac44eaf6a73f01224dd2b414baf2bcc60ac0e10af7996b60a8526a",
+        "scores_sha256": "2b624fb28d5648a6045d0c58aaf829592b24e8def57c7c78601fbe9b54a09c45"
+      },
+      "challenge_wording": {
+        "overall": {
+          "examples": 500,
+          "answer_correct": 0,
+          "answer_resolved": 0,
+          "claim_coverage": 0,
+          "supported_claim_found": 0,
+          "has_unsupported_claim": 0,
+          "full_text_coverage": 0,
+          "sufficient_supported_justification": 0,
+          "explanation_fully_verified": 0,
+          "joint_supported": 0,
+          "joint_fully_verified": 0,
+          "rates": {
+            "answer_correct": 0.0,
+            "answer_resolved": 0.0,
+            "claim_coverage": 0.0,
+            "supported_claim_found": 0.0,
+            "has_unsupported_claim": 0.0,
+            "full_text_coverage": 0.0,
+            "sufficient_supported_justification": 0.0,
+            "explanation_fully_verified": 0.0,
+            "joint_supported": 0.0,
+            "joint_fully_verified": 0.0
+          },
+          "answer_statuses": {
+            "unresolved": 500
+          },
+          "answer_presence": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 16,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 16,
+            "literal_substring_present": 27,
+            "answer_presence_rate": 0.032,
+            "strict_exact_match_rate": 0.0
+          },
+          "answer_accuracy_among_resolved": null
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 10,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 10,
+              "literal_substring_present": 10,
+              "answer_presence_rate": 0.08,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "extremum": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 4,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 4,
+              "literal_substring_present": 4,
+              "answer_presence_rate": 0.032,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "equality": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 1,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 1,
+              "literal_substring_present": 12,
+              "answer_presence_rate": 0.008,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          },
+          "transitivity": {
+            "examples": 125,
+            "answer_correct": 0,
+            "answer_resolved": 0,
+            "claim_coverage": 0,
+            "supported_claim_found": 0,
+            "has_unsupported_claim": 0,
+            "full_text_coverage": 0,
+            "sufficient_supported_justification": 0,
+            "explanation_fully_verified": 0,
+            "joint_supported": 0,
+            "joint_fully_verified": 0,
+            "rates": {
+              "answer_correct": 0.0,
+              "answer_resolved": 0.0,
+              "claim_coverage": 0.0,
+              "supported_claim_found": 0.0,
+              "has_unsupported_claim": 0.0,
+              "full_text_coverage": 0.0,
+              "sufficient_supported_justification": 0.0,
+              "explanation_fully_verified": 0.0,
+              "joint_supported": 0.0,
+              "joint_fully_verified": 0.0
+            },
+            "answer_statuses": {
+              "unresolved": 125
+            },
+            "answer_presence": {
+              "examples": 125,
+              "strict_exact_match": 0,
+              "answer_present": 1,
+              "correct_and_alternative_present": 0,
+              "correct_present_without_alternative": 1,
+              "literal_substring_present": 1,
+              "answer_presence_rate": 0.008,
+              "strict_exact_match_rate": 0.0
+            },
+            "answer_accuracy_among_resolved": null
+          }
+        },
+        "input_predictions_sha256": "9702445798cfe2fe64a9bc091d7fb9bdee154b69bad602eece5225687d69b9cd",
+        "scores_sha256": "3a5c70404c9b8eb7c1b72ae6a3af3ded43fe27367d2db3bb66355a289a75d252"
+      }
+    }
+  },
+  "code_sha256": {
+    "semantic_check.py": "c4c4bb956900456c09ea3fb89d887d39ea61f7ad2819d02aa66aea90b68a3708",
+    "rescore_semantics.py": "001f81201cf2da772f07be99d53d9347b8478d01537275916369141eb1547c74",
+    "proof_checker.py": "aeb8f24a0f4d7c1dd1500464a025d6e4fdfa78e9af90c65ee7075876eb98a914",
+    "score_answer_presence.py": "802b0d2f8915d7035e51d8c5827de43fbe0a80978b8855322fb89e2d12fd1fd3"
+  },
+  "limitations": [
+    "Finite supported grammar, not an unrestricted natural-language judge.",
+    "Unresolved answers are not counted as established incorrect conclusions.",
+    "A supported claim or copied premise is not a sufficient explanation.",
+    "Supported-subset proof metrics do not validate uninterpreted extra clauses.",
+    "These post-hoc checks preserve original generation and frozen baseline results."
+  ]
+}

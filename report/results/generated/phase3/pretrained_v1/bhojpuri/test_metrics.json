@@ -1,0 +1,57 @@
+{
+  "elapsed_seconds": 64.9872342501767,
+  "overall": {
+    "accuracy": 0.0,
+    "correct": 0,
+    "errors": {
+      "empty_output": 251,
+      "noncanonical_output": 1749
+    },
+    "examples": 2000,
+    "stopped_at_eos": 290
+  },
+  "per_task": {
+    "direct": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "errors": {
+        "empty_output": 85,
+        "noncanonical_output": 415
+      },
+      "examples": 500,
+      "stopped_at_eos": 91
+    },
+    "equality": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "errors": {
+        "empty_output": 24,
+        "noncanonical_output": 476
+      },
+      "examples": 500,
+      "stopped_at_eos": 24
+    },
+    "extremum": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "errors": {
+        "empty_output": 105,
+        "noncanonical_output": 395
+      },
+      "examples": 500,
+      "stopped_at_eos": 113
+    },
+    "transitivity": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "errors": {
+        "empty_output": 37,
+        "noncanonical_output": 463
+      },
+      "examples": 500,
+      "stopped_at_eos": 62
+    }
+  },
+  "predictions_sha256": "1838f453e74d2c1045ba66fb36544152e9027cfedf0438bdf561a7a6d80a757c",
+  "split_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140"
+}

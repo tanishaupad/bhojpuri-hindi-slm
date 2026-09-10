@@ -1,0 +1,466 @@
+{
+  "metric": "whole-answer presence anywhere in generated continuation",
+  "status": "post-hoc supplemental diagnostic requested after observing strict baseline",
+  "generation": "unchanged original greedy generations; EOS or 16-token limit",
+  "normalization": "Unicode NFC and whitespace collapse; reject matches inside words",
+  "limitations": [
+    "Mentions may be copying, negation, or an incorrect claim.",
+    "A response containing every candidate receives presence credit; flagged separately.",
+    "This is not explanation correctness or final-answer accuracy."
+  ],
+  "scorer_sha256": "802b0d2f8915d7035e51d8c5827de43fbe0a80978b8855322fb89e2d12fd1fd3",
+  "languages": {
+    "hindi": {
+      "validation": {
+        "overall": {
+          "examples": 2000,
+          "strict_exact_match": 0,
+          "answer_present": 375,
+          "correct_and_alternative_present": 113,
+          "correct_present_without_alternative": 262,
+          "literal_substring_present": 375,
+          "answer_presence_rate": 0.1875,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 134,
+            "correct_and_alternative_present": 28,
+            "correct_present_without_alternative": 106,
+            "literal_substring_present": 134,
+            "answer_presence_rate": 0.268,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 98,
+            "correct_and_alternative_present": 17,
+            "correct_present_without_alternative": 81,
+            "literal_substring_present": 98,
+            "answer_presence_rate": 0.196,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 0,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 0,
+            "literal_substring_present": 0,
+            "answer_presence_rate": 0.0,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 143,
+            "correct_and_alternative_present": 68,
+            "correct_present_without_alternative": 75,
+            "literal_substring_present": 143,
+            "answer_presence_rate": 0.286,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "2b50188e8df4e079d97030395deb8bdcd3dd4cbf06d499cc6547348537d2cfa4",
+        "row_scores_sha256": "c558ab1f47981dd3c481d0aa71207b920fd110c0c7daaa9eef53e44d00f65387"
+      },
+      "test": {
+        "overall": {
+          "examples": 2000,
+          "strict_exact_match": 0,
+          "answer_present": 340,
+          "correct_and_alternative_present": 97,
+          "correct_present_without_alternative": 243,
+          "literal_substring_present": 340,
+          "answer_presence_rate": 0.17,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 118,
+            "correct_and_alternative_present": 22,
+            "correct_present_without_alternative": 96,
+            "literal_substring_present": 118,
+            "answer_presence_rate": 0.236,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 86,
+            "correct_and_alternative_present": 11,
+            "correct_present_without_alternative": 75,
+            "literal_substring_present": 86,
+            "answer_presence_rate": 0.172,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 0,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 0,
+            "literal_substring_present": 0,
+            "answer_presence_rate": 0.0,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 136,
+            "correct_and_alternative_present": 64,
+            "correct_present_without_alternative": 72,
+            "literal_substring_present": 136,
+            "answer_presence_rate": 0.272,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "f1a7c28597efabf00f4d1342e4b6a76aebd915ea6616e0b9337d6d03c03e19af",
+        "row_scores_sha256": "3ab3ffafeab38900a2d780987d505f2c57d145fd556b05362dc374ff4db07636"
+      },
+      "challenge_names": {
+        "overall": {
+          "examples": 500,
+          "strict_exact_match": 0,
+          "answer_present": 96,
+          "correct_and_alternative_present": 29,
+          "correct_present_without_alternative": 67,
+          "literal_substring_present": 96,
+          "answer_presence_rate": 0.192,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 32,
+            "correct_and_alternative_present": 8,
+            "correct_present_without_alternative": 24,
+            "literal_substring_present": 32,
+            "answer_presence_rate": 0.256,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 22,
+            "correct_and_alternative_present": 4,
+            "correct_present_without_alternative": 18,
+            "literal_substring_present": 22,
+            "answer_presence_rate": 0.176,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 2,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 2,
+            "literal_substring_present": 2,
+            "answer_presence_rate": 0.016,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 40,
+            "correct_and_alternative_present": 17,
+            "correct_present_without_alternative": 23,
+            "literal_substring_present": 40,
+            "answer_presence_rate": 0.32,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "33b5d7e3b2cf841dc46156c93144969242a014d53bcb55ef937aae0184ea5df6",
+        "row_scores_sha256": "d9ae9e56ded408b59c7b422769bb9f63322fe2b25fa6425341de6a9dc0a3c92c"
+      },
+      "challenge_wording": {
+        "overall": {
+          "examples": 500,
+          "strict_exact_match": 0,
+          "answer_present": 91,
+          "correct_and_alternative_present": 20,
+          "correct_present_without_alternative": 71,
+          "literal_substring_present": 91,
+          "answer_presence_rate": 0.182,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 34,
+            "correct_and_alternative_present": 6,
+            "correct_present_without_alternative": 28,
+            "literal_substring_present": 34,
+            "answer_presence_rate": 0.272,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 24,
+            "correct_and_alternative_present": 6,
+            "correct_present_without_alternative": 18,
+            "literal_substring_present": 24,
+            "answer_presence_rate": 0.192,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 0,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 0,
+            "literal_substring_present": 0,
+            "answer_presence_rate": 0.0,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 33,
+            "correct_and_alternative_present": 8,
+            "correct_present_without_alternative": 25,
+            "literal_substring_present": 33,
+            "answer_presence_rate": 0.264,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "27db3490535659e9c44b8e927624ac71a20e1ce8d9b02b6f8bd1b196c1d06faf",
+        "row_scores_sha256": "166923ad44ab405920065d2212fdb915619bc6067f81c4d2a5b0585f6b73cc2a"
+      }
+    },
+    "bhojpuri": {
+      "validation": {
+        "overall": {
+          "examples": 2000,
+          "strict_exact_match": 0,
+          "answer_present": 43,
+          "correct_and_alternative_present": 0,
+          "correct_present_without_alternative": 43,
+          "literal_substring_present": 63,
+          "answer_presence_rate": 0.0215,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 14,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 14,
+            "literal_substring_present": 14,
+            "answer_presence_rate": 0.028,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 11,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 11,
+            "literal_substring_present": 11,
+            "answer_presence_rate": 0.022,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 1,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 1,
+            "literal_substring_present": 21,
+            "answer_presence_rate": 0.002,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 17,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 17,
+            "literal_substring_present": 17,
+            "answer_presence_rate": 0.034,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "9dd012a759c1c928560dc12acfb02e103d99592f87655e2c4884121edf8cfa0d",
+        "row_scores_sha256": "b8bfff67af8588893769279033cb098b6f5153372c65437b7f291cc2bc1080af"
+      },
+      "test": {
+        "overall": {
+          "examples": 2000,
+          "strict_exact_match": 0,
+          "answer_present": 62,
+          "correct_and_alternative_present": 0,
+          "correct_present_without_alternative": 62,
+          "literal_substring_present": 80,
+          "answer_presence_rate": 0.031,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 24,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 24,
+            "literal_substring_present": 24,
+            "answer_presence_rate": 0.048,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 22,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 22,
+            "literal_substring_present": 23,
+            "answer_presence_rate": 0.044,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 0,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 0,
+            "literal_substring_present": 17,
+            "answer_presence_rate": 0.0,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 500,
+            "strict_exact_match": 0,
+            "answer_present": 16,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 16,
+            "literal_substring_present": 16,
+            "answer_presence_rate": 0.032,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "1838f453e74d2c1045ba66fb36544152e9027cfedf0438bdf561a7a6d80a757c",
+        "row_scores_sha256": "7ba1b7966394f45283f3e8aa7e3c74c19727727bb92aceb30b313971a94e9dd7"
+      },
+      "challenge_names": {
+        "overall": {
+          "examples": 500,
+          "strict_exact_match": 0,
+          "answer_present": 38,
+          "correct_and_alternative_present": 0,
+          "correct_present_without_alternative": 38,
+          "literal_substring_present": 49,
+          "answer_presence_rate": 0.076,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 14,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 14,
+            "literal_substring_present": 14,
+            "answer_presence_rate": 0.112,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 10,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 10,
+            "literal_substring_present": 13,
+            "answer_presence_rate": 0.08,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 0,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 0,
+            "literal_substring_present": 8,
+            "answer_presence_rate": 0.0,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 14,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 14,
+            "literal_substring_present": 14,
+            "answer_presence_rate": 0.112,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "e53494835fac44eaf6a73f01224dd2b414baf2bcc60ac0e10af7996b60a8526a",
+        "row_scores_sha256": "90c992c0fff2bafc16b5beabc15ebf207b127e3176d3861318afb1ff57134b78"
+      },
+      "challenge_wording": {
+        "overall": {
+          "examples": 500,
+          "strict_exact_match": 0,
+          "answer_present": 16,
+          "correct_and_alternative_present": 0,
+          "correct_present_without_alternative": 16,
+          "literal_substring_present": 27,
+          "answer_presence_rate": 0.032,
+          "strict_exact_match_rate": 0.0
+        },
+        "per_task": {
+          "direct": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 10,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 10,
+            "literal_substring_present": 10,
+            "answer_presence_rate": 0.08,
+            "strict_exact_match_rate": 0.0
+          },
+          "extremum": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 4,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 4,
+            "literal_substring_present": 4,
+            "answer_presence_rate": 0.032,
+            "strict_exact_match_rate": 0.0
+          },
+          "equality": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 1,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 1,
+            "literal_substring_present": 12,
+            "answer_presence_rate": 0.008,
+            "strict_exact_match_rate": 0.0
+          },
+          "transitivity": {
+            "examples": 125,
+            "strict_exact_match": 0,
+            "answer_present": 1,
+            "correct_and_alternative_present": 0,
+            "correct_present_without_alternative": 1,
+            "literal_substring_present": 1,
+            "answer_presence_rate": 0.008,
+            "strict_exact_match_rate": 0.0
+          }
+        },
+        "original_predictions_sha256": "9702445798cfe2fe64a9bc091d7fb9bdee154b69bad602eece5225687d69b9cd",
+        "row_scores_sha256": "fb9134148e086a55bda07aa35d0e0d1a95c3e6c003df96fc4eb83f8cf1cfda85"
+      }
+    }
+  }
+}

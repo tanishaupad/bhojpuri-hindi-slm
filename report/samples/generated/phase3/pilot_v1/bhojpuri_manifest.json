@@ -1,0 +1,182 @@
+{
+  "generator_version": "phase3-development-v1",
+  "language": "bho",
+  "seed": 2026090902,
+  "split": "development_review",
+  "examples": 50,
+  "human_review_status": "wording_approved",
+  "release_status": "pilot_only",
+  "tokenizer_sha256": "5d50ad313682cabe0f17b63f7829cecf0512ca563630322a1809c0c958741cec",
+  "templates_sha256": "67305ba4cec60364949273f982166b21e29b2d33310d5a91be4d05c2e44d09f6",
+  "records_sha256": "4ee73633e7540dd0246bd2df1c530f4fa658220a858b1beacc4d321fa5548919",
+  "family_summary": {
+    "direct": {
+      "examples": 13,
+      "domains": {
+        "height": 6,
+        "age": 7
+      },
+      "directions": {
+        "greater": 7,
+        "smaller": 6
+      },
+      "answer_positions": {
+        "1": 6,
+        "0": 7
+      },
+      "equality_labels": {
+        "None": 13
+      },
+      "templates": {
+        "bho.direct.height.0": 4,
+        "bho.direct.age.1": 4,
+        "bho.direct.age.0": 3,
+        "bho.direct.height.1": 2
+      }
+    },
+    "extremum": {
+      "examples": 13,
+      "domains": {
+        "age": 7,
+        "height": 6
+      },
+      "directions": {
+        "greater": 7,
+        "smaller": 6
+      },
+      "answer_positions": {
+        "0": 5,
+        "2": 4,
+        "1": 4
+      },
+      "equality_labels": {
+        "None": 13
+      },
+      "templates": {
+        "bho.extremum.age.1": 4,
+        "bho.extremum.height.0": 4,
+        "bho.extremum.age.0": 3,
+        "bho.extremum.height.1": 2
+      }
+    },
+    "equality": {
+      "examples": 12,
+      "domains": {
+        "age": 6,
+        "height": 6
+      },
+      "directions": {
+        "None": 12
+      },
+      "answer_positions": {
+        "None": 12
+      },
+      "equality_labels": {
+        "True": 6,
+        "False": 6
+      },
+      "templates": {
+        "bho.equality.age.1": 3,
+        "bho.equality.age.0": 3,
+        "bho.equality.height.0": 3,
+        "bho.equality.height.1": 3
+      }
+    },
+    "transitivity": {
+      "examples": 12,
+      "domains": {
+        "age": 6,
+        "height": 6
+      },
+      "directions": {
+        "greater": 6,
+        "smaller": 6
+      },
+      "answer_positions": {
+        "0": 6,
+        "1": 6
+      },
+      "equality_labels": {
+        "None": 12
+      },
+      "templates": {
+        "bho.transitivity.age.0": 3,
+        "bho.transitivity.age.1": 3,
+        "bho.transitivity.height.1": 3,
+        "bho.transitivity.height.0": 3
+      }
+    }
+  },
+  "length_including_eos": {
+    "min": 31,
+    "max": 51,
+    "mean": 38.02
+  },
+  "rejections": {},
+  "unique_worlds": 50,
+  "worlds_excluded_from_future_heldout": [
+    "1adad770fa1e009530f26abc16eb3490a55b9f6a3423afc5fbd5b244ce30fe0d",
+    "73b36192aeb7dd30b71d71f7f9cc53a73359be25548ccf8c0c2f1072aa1f037a",
+    "f4c4ca2a03551cbaf51e091cb14ccf5f125c1a280fecf83f470b28d8a9a678e5",
+    "3ed8a71fb04706e8df8378496ab98d587b80f17375b56f66f773e397ebb099e8",
+    "fff530d58cf0841277415c999d33c44b86245d48f6dd0573b3f4dcba00e3a538",
+    "7ea1d11c5b536ddc05107bee0fef1b41fa8f0c66541267898b0fa30f21bc1449",
+    "4c073a6eeefc7b32e17e30baeea757335385122cbf3419a171816a3a96bd18c1",
+    "cbe1236b4e0a1a22bfbcd41e3f8053b6422b3f83be2e0dbc795c24d9a533a2f9",
+    "2127589c2530cf8e9c56da92deef1e42bad4d6027f1a076438abf7023ef1a16a",
+    "fa71a2d5d255056211c03ffce0f163d3ceb88a0a1a55c106219e1cd94d52d8a7",
+    "2a7786250898209b37e3f0a3eb037746892128869d224d7f759bab4af95f6725",
+    "95fe4d373d55bf5d3f227ef3739ba073b893ac276bc94964e0f1ba98a3e4b31a",
+    "2b3b1ca40f6e97768daab9eb53d24b65c006a804bd6cca53f572d88673243164",
+    "838702eebc2856dd6aa9f9b4da4d815a2a76adf043cd6f9dc32539d59db72b8d",
+    "cffe1174fc6f62373a3af1305811dd89908f91a8eab46e809f94b419bd238eae",
+    "f99e7e102d32f753d6afb8c8f8514a99310859245d492971f2b1d0a13554af0a",
+    "45cc9c68fd0d6e41434faa1028eaadfb981c281bf8cd01fdb8c671e6cee4b7d7",
+    "1e2c777c00efcf08107d3cda5fb455c2abbde55fb1b63161a5f04256b7726b2a",
+    "af31d8c6d1f0ea055f19958b85bf114740b41f69619ed0e0e5789eedabf1e73b",
+    "70dbfe761918107c933813559b618ed51076b8c7f290e5b7bbe43cd158b269d6",
+    "1a52e097cac061ee01f5aae047922dc545a58e4aa569447a9283c994a350aad3",
+    "3f9c3146d1b08d8958f3a31670bb89c4fdeb802db4f66a6733a13a7599186923",
+    "97a57f9c72cfd4883299432294db7327979607cc395f0396d92b59eaad83e0ab",
+    "9ad306c4968e432e6b62726e34091b90a67ee8f116506ebd0d62c999de8fec97",
+    "809d72d6147115d2a824506fd6c4d2e1318d9b1d87197cc4e5bca603cab23e97",
+    "7f5d795ce1acdd295f61be13435ad9d3c8129c99be47f2ca891d9d47b09937ca",
+    "a7bfcd2c85c124f22f8849b5a77a529523c2cc047249d8281e5727a3eff8260e",
+    "6aba2f0eede2c737f5437cba63aa7f22016152fe34d46162750872fec4f8c33d",
+    "37e42bfd7a96f454b922cc79176971b134b41c056ec11a2640a085c9b73d0903",
+    "4178415809f99cbb9b6f113c7a9df324712019db12dbe83b59946ce305f42ed6",
+    "e6bf37f7af6a84624d8c7fb72522cb4578439f131cedf1988498c0b6e0aa6e93",
+    "8e61bbf273eea21dbb8d4bfe5bca21d74b907fde8dea32aa2539c0787dd1af39",
+    "7d43fcddd7cbb0c38338a23eb0a78eef7aec6af7c0549bb78202389645100720",
+    "26d031ec8a9a47c4d84d22947934310ac172203cd3522d25385d82a622d80907",
+    "0de9256b91f0dfd92b891dbfd5b8fc0f8ce5e9c36cb9ac1cb72fe31e174925ee",
+    "13ffd3b9d151f0af8a7e12bb8babbb4c7a378a331098d8e95dab542d86b27a5b",
+    "dd6b5db153e0a0fb821b5ec2f2f147745023dcd436288c5353a64ed7e2717b42",
+    "2bc55e73beca1c2aa06ef4c05fc1c3e9a1b69969f0938b826b9222e1d02ddbdd",
+    "e6f836daf098b11a76146392bdf3a47b18c0b40980320777bd202353ccb6d7e0",
+    "52a6cafb5ff3892df3ec910047ce9061f8f89214890d4a8ec03d710e54a0591a",
+    "f7d78fb1b82ab8cb5c6be6063f41dde2323788f1c5fe7607668e8e6a9c13c43d",
+    "419c054c6e3cc4f6c6d9d09000c81abba455e4d97135c380c989fc91296fc665",
+    "1206348afafaf6926325e343ad26c7323ebcf3c50bd0a6af9874b3a073406414",
+    "54b82acb76997a78127fe2ed49d8d3a621afb51a938f0e785f572b4c369b2f2a",
+    "dd84990dab069a5d098fbb761b7e45d219f9ade03ad60656583bf77fe8d3d2fe",
+    "f15dd29ab60b145371a4c533fbcf274b8b4d49fcc985edf9088114e54ffba15d",
+    "158dc70a58330fb47ae3003d08820da6c78269385775f58e390c2bb7751f4532",
+    "d9a41108ef1c2141aebc50a405071fccce3fb080c2eaed22b924eba147024ce7",
+    "6bd152c854b0aea547e990d717f5ac89e4b7bcd1b908ff44e2c80c4efc9f2a75",
+    "f58b1011a6d358fd7b3ab88f1f045834dfc86244e45b64e1fcb8437c54f61816"
+  ],
+  "normalization": "Collapse Unicode whitespace before encoding complete prompt + answer; append EOS",
+  "limitations": [
+    "Development examples only; no train/validation/test release",
+    "Two domains; two question variants per domain/family",
+    "Male names only to limit grammatical agreement complexity in this pilot",
+    "Language naturalness requires human review; symbolic validity is insufficient"
+  ],
+  "code_sha256": {
+    "generate.py": "f0a68c395ab895e41f646eebff298217fc890f1e4e76caf0ca4acaae113966ca",
+    "__init__.py": "6e1329afe74ffc4e45eb5c6bd64e405970251d0806d2d02001ddcdece9c49b28",
+    "problems.py": "e4b9e7bbe56d30648c83c8c90f5da6e04b3ff8d695581ab774c03e5b5b2cdfe0"
+  },
+  "review_record": "wording_review.json"
+}
