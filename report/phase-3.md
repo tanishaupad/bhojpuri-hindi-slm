@@ -498,10 +498,10 @@ All large artifacts, packed binary streams, and resume-capable checkpoints are v
 |---|---|---:|---:|---|---|
 | Pretrained Final | Hindi | 20,300 | 303,590,517 | `575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42` | [Hindi Pretrain Folder](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF) |
 | Pretrained Final | Bhojpuri | 4,150 | 298,618,485 | `69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133` | [Bhojpuri Pretrain Folder](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN) |
-| Finetuned Best | Hindi | 2,500 | 303,575,984 | `8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062` | `hindi/phase3/runs/finetune_v1/` |
-| Finetuned Step 2500 | Hindi | 2,500 | 303,579,744 | `e0e76afdf39f89c1432a2034efeed201ed32e0cad90836db04be741293993457` | `hindi/phase3/runs/finetune_v1/` |
-| Finetuned Best | Bhojpuri | 2,500 | 298,604,016 | `cccd2ed6ce9c776972a4589ec18e9aa5198e2f81b04da2213902b4babda421b0` | `bhojpuri/phase3/runs/finetune_v1/` |
-| Finetuned Step 2500 | Bhojpuri | 2,500 | 298,607,712 | `28d1799b0d842ac745db2390450590b74cc904b798b429669b1a010cb24d36f6` | `bhojpuri/phase3/runs/finetune_v1/` |
+| Finetuned Best | Hindi | 2,500 | 303,575,984 | `8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062` | [Hindi Finetune Folder](https://drive.google.com/drive/folders/1sLMoA66JndkIJ_xnI96BYAi1uzfPTuED?usp=share_link) |
+| Finetuned Step 2500 | Hindi | 2,500 | 303,579,744 | `e0e76afdf39f89c1432a2034efeed201ed32e0cad90836db04be741293993457` | [Hindi Finetune Folder](https://drive.google.com/drive/folders/1sLMoA66JndkIJ_xnI96BYAi1uzfPTuED?usp=share_link) |
+| Finetuned Best | Bhojpuri | 2,500 | 298,604,016 | `cccd2ed6ce9c776972a4589ec18e9aa5198e2f81b04da2213902b4babda421b0` | [Bhojpuri Finetune Folder](https://drive.google.com/drive/folders/1P_2ZzGcOyPl-WqMi1i5iMi6qLxcD8jrt?usp=share_link) |
+| Finetuned Step 2500 | Bhojpuri | 2,500 | 298,607,712 | `28d1799b0d842ac745db2390450590b74cc904b798b429669b1a010cb24d36f6` | [Bhojpuri Finetune Folder](https://drive.google.com/drive/folders/1P_2ZzGcOyPl-WqMi1i5iMi6qLxcD8jrt?usp=share_link) |
 
 ### Complete Reproduction Commands
 
