@@ -312,11 +312,11 @@ Finetuning was executed entirely on the local Apple M4 GPU (16 GB unified RAM) v
 - **Periodic Validation Subset**: During training, periodic validation evaluated 50 validation batches (400 examples at microbatch size 8). Because validation files group items by task blocks, these first 400 rows belong to the direct comparison task family. The reported selection losses were:
   - **Hindi Model H**: Train loss dropped to **$0.0067$**; 400-example subset validation cross-entropy dropped to **$0.0041$ nats/token** (PPL **$1.0041$**).
   - **Bhojpuri Model L**: Train loss dropped to **$0.0154$**; 400-example subset validation cross-entropy dropped to **$0.0168$ nats/token** (PPL **$1.0170$**).
-- **Full Multi-Task Validation Verification**: To ensure checkpoint selection was robust and not biased by the 400-example subset, all retained checkpoints were evaluated post-hoc across the **complete 2,000-example validation split** covering all four task families (Direct, Extremum, Equality, and Transitivity; see `report/results/generated/phase3/full_validation.json`):
+- **Full Multi-Task Validation Verification**: To check whether the selected checkpoint also performed best among the retained candidates beyond the 400-example subset, all three retained checkpoints were evaluated post-hoc across the **complete 2,000-example validation split** covering all four task families (Direct, Extremum, Equality, and Transitivity; see `report/results/generated/phase3/full_validation.json`):
   - **Hindi**: Step 2,000 loss 0.01151 (PPL 1.0116) $\to$ Step 2,250 loss 0.00966 (PPL 1.0097) $\to$ **Step 2,500 loss 0.00825 (PPL 1.0083)**.
   - **Bhojpuri**: Step 2,000 loss 0.02174 (PPL 1.0220) $\to$ Step 2,250 loss 0.01864 (PPL 1.0188) $\to$ **Step 2,500 loss 0.01681 (PPL 1.0170)**.
   
-  This confirms that step 2,500 achieved the global minimum loss across the complete multi-task validation distribution for both languages, verifying that the selected final checkpoint is optimal without requiring retraining.
+  For both languages, step 2,500 had the lowest full-validation loss among the three retained checkpoints evaluated: steps 2,000, 2,250 and 2,500. This supports retaining the selected checkpoint; it does not establish a global minimum over checkpoints that were not evaluated or other training configurations.
 
 ![Finetuning Curves](figures/generated/phase3/finetuning_curves.png)
 
@@ -390,7 +390,7 @@ Remarkably, on **Two-Hop Transitivity**, both Model H and Model L achieved **100
    - *Prompt*: `बनवारी के लंबाई 106 सेंटीमीटर बा। गुड्डू के लंबाई 197 सेंटीमीटर बा। बनवारी आ गुड्डू में सबसे लमहर के बा? पहिले जवाब लिखीं। फेर कारण: लिख के तुलना के छोट कारण बताईं। जवाब:`
    - *Generated*: `बनवारी। कारण: बनवारी के लंबाई 106 सेंटीमीटर बा। गुड्डू के लंबाई 197 सेंटीमीटर बा। बनवारी के लंबाई गुड्डू से ढेर बा।`
    - *Diagnostics*: `answer_present: True`, `joint_fully_verified: False`, `unsupported_claims: [{'kind': 'gt', 'left': 0, 'right': 1}]`.
-   - *Analysis*: The model faithfully recalled both scalar premises (106 cm and 197 cm), but failed the final relational deduction by falsely asserting $106 > 197$. Because answer presence alone was satisfied (`बनवारी` appears as the initial token), this demonstrates why strict proof verification is necessary to penalize false mathematical deductions that superficial string matching would credit.
+   - *Analysis*: The model faithfully recalled both scalar premises (106 cm and 197 cm), but failed the final relational deduction by falsely asserting $106 > 197$. Answer presence passes because the correct name `गुड्डू` appears in the copied premise, even though the explicit answer is the incorrect name `बनवारी`. This demonstrates why mentioning the reference answer anywhere in the output does not establish a correct answer or valid deduction; the semantic checker correctly rejects the conclusion.
 
 2. **Unseen Syntactic Patterns (Challenge Wording)**:
    When evaluated on syntactic templates reserved exclusively for held-out evaluation (Variant 1), both models maintained robust answer presence (Hindi $89.40\%$, Bhojpuri $87.20\%$). It is important to distinguish standalone explanation verification from joint success:

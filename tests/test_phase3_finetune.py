@@ -1,6 +1,8 @@
+import json
 from pathlib import Path
 
 import pytest
+import sentencepiece as spm
 import torch
 from torch.utils.data import DataLoader
 
@@ -9,15 +11,37 @@ from lma_phase2.model import DecoderOnlyTransformer
 from lma_phase2.training import configure_optimizer, configure_scheduler
 from lma_phase3.finetune import restore_rng_state, save_finetune_checkpoint
 from lma_phase3.finetune_data import ReasoningFinetuneDataset, collate_reasoning_batch
+from lma_phase3.generate import FAMILIES, generate_pilot
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.fixture
+def reasoning_data(tmp_path: Path) -> dict[str, Path]:
+    """Generate small, deterministic datasets using only committed language resources."""
+    paths = {}
+    for language in ("hindi", "bhojpuri"):
+        resource = json.loads((ROOT / language / "configs/phase3_templates.json").read_text())
+        tokenizer = spm.SentencePieceProcessor(
+            model_file=str(ROOT / language / "tokenizer" / f"{language}.model")
+        )
+        rows, _ = generate_pilot(resource, tokenizer, count=16)
+        # Interleave families so even four-example tests exercise every target structure.
+        groups = [[row for row in rows if row["task_family"] == family] for family in FAMILIES]
+        rows = [row for group in zip(*groups, strict=True) for row in group]
+        path = tmp_path / f"{language}.jsonl"
+        path.write_text(
+            "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8"
+        )
+        paths[language] = path
+    return paths
+
+
 @pytest.mark.parametrize("language", ["hindi", "bhojpuri"])
-def test_dataset_boundary_shifting_and_masking(language: str):
+def test_dataset_boundary_shifting_and_masking(language: str, reasoning_data: dict[str, Path]):
     template_path = ROOT / language / "configs/phase3_templates.json"
     tokenizer_path = ROOT / language / f"tokenizer/{language}.model"
-    data_path = ROOT / f"tmp/phase3/reasoning_v1/{language}/validation.jsonl.gz"
+    data_path = reasoning_data[language]
 
     dataset = ReasoningFinetuneDataset(
         data_path=data_path,
@@ -52,10 +76,10 @@ def test_dataset_boundary_shifting_and_masking(language: str):
 
 
 @pytest.mark.parametrize("language", ["hindi", "bhojpuri"])
-def test_collator_padding_and_loss_masking(language: str):
+def test_collator_padding_and_loss_masking(language: str, reasoning_data: dict[str, Path]):
     template_path = ROOT / language / "configs/phase3_templates.json"
     tokenizer_path = ROOT / language / f"tokenizer/{language}.model"
-    data_path = ROOT / f"tmp/phase3/reasoning_v1/{language}/validation.jsonl.gz"
+    data_path = reasoning_data[language]
 
     dataset = ReasoningFinetuneDataset(
         data_path=data_path,
@@ -70,6 +94,7 @@ def test_collator_padding_and_loss_masking(language: str):
     assert inputs.shape == labels.shape
 
     max_len = inputs.shape[1]
+    assert len({len(dataset[i]["input_ids"]) for i in range(len(dataset))}) > 1
     # Check that any padding positions have label -100 and input pad_id 0
     for i in range(len(dataset)):
         original_len = len(dataset[i]["input_ids"])
@@ -78,12 +103,13 @@ def test_collator_padding_and_loss_masking(language: str):
             assert torch.all(inputs[i, original_len:] == 0)
 
 
-def test_tiny_subset_overfit():
-    """Verify that 8 examples can be learned to near-zero loss in 25 steps."""
+def test_tiny_subset_overfit(reasoning_data: dict[str, Path]):
+    """Verify that loss on eight examples decreases substantially over 35 steps."""
+    torch.manual_seed(1234)
     config = load_experiment_config(ROOT / "hindi/configs/phase3.toml")
     template_path = ROOT / "hindi/configs/phase3_templates.json"
     tokenizer_path = ROOT / "hindi/tokenizer/hindi.model"
-    data_path = ROOT / "tmp/phase3/reasoning_v1/hindi/validation.jsonl.gz"
+    data_path = reasoning_data["hindi"]
 
     dataset = ReasoningFinetuneDataset(
         data_path=data_path,
@@ -188,12 +214,12 @@ def test_resume_validation_checks(tmp_path: Path):
     assert saved_model["vocabulary_size"] != config.model.vocabulary_size
 
 
-def test_resume_exact_continuation(tmp_path: Path):
+def test_resume_exact_continuation(tmp_path: Path, reasoning_data: dict[str, Path]):
     """Test that interruption and resumption produces identical weights to uninterrupted training."""
     config = load_experiment_config(ROOT / "hindi/configs/phase3.toml")
     template_path = ROOT / "hindi/configs/phase3_templates.json"
     tokenizer_path = ROOT / "hindi/tokenizer/hindi.model"
-    data_path = ROOT / "tmp/phase3/reasoning_v1/hindi/validation.jsonl.gz"
+    data_path = reasoning_data["hindi"]
 
     dataset = ReasoningFinetuneDataset(
         data_path=data_path,
@@ -275,4 +301,3 @@ def test_resume_exact_continuation(tmp_path: Path):
     # Check that model weights match exactly
     for (name_a, p_a), (name_r, p_r) in zip(model_a.named_parameters(), model_resumed.named_parameters(), strict=True):
         assert torch.allclose(p_a, p_r, atol=1e-6), f"Mismatch in {name_a} between uninterrupted and resumed run"
-

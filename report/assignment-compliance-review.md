@@ -1,5 +1,38 @@
 # Assignment compliance review and self-verification guide
 
+## Status update — 11 September 2026
+
+The 10 September audit below is a historical record, not the current submission status.
+Its test/lint counts, uncommitted-work finding, and missing-remote-branch finding are superseded.
+
+- Phase 3 implementation, results, finetuning logs and compressed prediction records are now
+  committed. The remote `phase-3` branch was verified at `df0900f` before these follow-up fixes.
+- The current suite contains 153 tests and repository-wide lint passes. Six finetuning tests
+  previously required ignored local datasets. They now generate deterministic 16-example
+  fixtures for each language from committed templates and tokenizers, covering all four task
+  families. The suite is verified from a clean export without staged datasets.
+- All 20,000 saved finetuned predictions reproduced their recorded scores in the latest review.
+  This remains a saved-output consistency check, not a fresh full model-generation run.
+- README CLI flags, checkpoint navigation, qualitative quotations, attention-table values,
+  loss-objective documentation and the direct-only periodic-validation disclosure have been
+  corrected. Full-validation scores for the three retained checkpoints are recorded. Step 2,500
+  is described as best among those three candidates, not a global optimum.
+- The Bhojpuri failure example now explains that answer presence credits the correct name
+  `गुड्डू` in a copied premise despite the incorrect explicit answer `बनवारी`.
+- The dataset-release page now links to completed finetuning and evaluation. The user reports
+  completing the Drive-access check; this is user confirmation rather than an independently
+  reproduced signed-out download in this review.
+- Resume code now rejects a missing `latest.json`, checks selected architecture fields and
+  reconstructs seeded data order; a controlled continuation test is present. These changes do
+  not establish exact recovery for every configuration or retroactively change old checkpoints.
+
+Remaining limitations include Hindi's shortfall from the approximately 500M-token target,
+the unrecounted manual fraction in the final raw packed training streams, and the finite,
+template-based scope of reasoning and attention conclusions. The original findings below
+should be read alongside this update, not treated as an unresolved checklist.
+
+## Historical audit — 10 September 2026
+
 Audit: 10 September 2026. Scope: the current local working tree, including work added after the Antigravity handoff. This is a review, not a revision of the experiments or a claim about awarded marks.
 
 Specification: `M26/LMA/LMA_Individual_Project_v1.pdf`, pages 1–12. Final deadline: 16 September 2026, 11:59 P.M. Phase 3 must be submitted on `phase-3` through the existing GitHub Classroom repository.

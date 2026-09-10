@@ -27,7 +27,7 @@
       }
     },
     "best_checkpoint": "checkpoint_step_0002500.pt",
-    "note": "Evaluated across all 2,000 validation examples and all 4 reasoning tasks. Confirms step 2,500 achieves global minimum validation loss across the full validation distribution."
+    "note": "Evaluated across all 2,000 validation examples and all 4 reasoning tasks. Step 2,500 has the lowest full-validation loss among the three retained checkpoints evaluated: steps 2,000, 2,250 and 2,500. Checkpoints not evaluated and other training configurations are outside this comparison."
   },
   "bhojpuri": {
     "tokens": 74595,
@@ -49,6 +49,6 @@
       }
     },
     "best_checkpoint": "checkpoint_step_0002500.pt",
-    "note": "Evaluated across all 2,000 validation examples and all 4 reasoning tasks. Confirms step 2,500 achieves global minimum validation loss across the full validation distribution."
+    "note": "Evaluated across all 2,000 validation examples and all 4 reasoning tasks. Step 2,500 has the lowest full-validation loss among the three retained checkpoints evaluated: steps 2,000, 2,250 and 2,500. Checkpoints not evaluated and other training configurations are outside this comparison."
   }
 }
