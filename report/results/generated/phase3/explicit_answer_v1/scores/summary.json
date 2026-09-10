@@ -1,0 +1,3210 @@
+{
+  "code_sha256": {
+    "explicit_answer.py": "d9de828fb39d75bfe25e21c6a7d7a9fed9c007a66e84c387e5f4a844aec1f046",
+    "rescore_explicit_answers.py": "a5135de32e99f64a6c0230345dc071f7eccbf09d89f68673d513eb4e073d8b32"
+  },
+  "results": {
+    "bhojpuri/explanation/finetuned/challenge_names": {
+      "counts": {
+        "answer_present": 68,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 68,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "48afdd2f5943cf7a660167d4342d92123dd9c5a244aae5dfb7482d0ecb19f225",
+      "examples": 500,
+      "input_predictions_sha256": "18d063fbdda40bd386d2f72477ddbca5d0553e272a557c81cec734c30f334d22",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 68,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 68,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.544,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.544,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.136,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.136,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "4526ab6c46764ec90f69d706d9dbcd97de8bc07d38bba5cf3525c7a4dbbeb397"
+    },
+    "bhojpuri/explanation/finetuned/challenge_wording": {
+      "counts": {
+        "answer_present": 436,
+        "explanation_fully_verified": 340,
+        "explicit_answer_and_explanation_verified": 340,
+        "explicit_answer_correct": 347,
+        "legacy_joint_fully_verified": 340,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "7b65fcec7ce56752825ab96ec2f87540e232ca97516d0794906eea9dbb6cdbf6",
+      "examples": 500,
+      "input_predictions_sha256": "1831860e8238bb92e8aba6c322d0a5c41f616abe8d75731d5aa2a73a96bf9506",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 90,
+            "explicit_answer_and_explanation_verified": 90,
+            "explicit_answer_correct": 91,
+            "legacy_joint_fully_verified": 90,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.72,
+            "explicit_answer_and_explanation_verified": 0.72,
+            "explicit_answer_correct": 0.728,
+            "legacy_joint_fully_verified": 0.72,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 61,
+            "explanation_fully_verified": 61,
+            "explicit_answer_and_explanation_verified": 61,
+            "explicit_answer_correct": 61,
+            "legacy_joint_fully_verified": 61,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.488,
+            "explanation_fully_verified": 0.488,
+            "explicit_answer_and_explanation_verified": 0.488,
+            "explicit_answer_correct": 0.488,
+            "legacy_joint_fully_verified": 0.488,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 64,
+            "explicit_answer_and_explanation_verified": 64,
+            "explicit_answer_correct": 70,
+            "legacy_joint_fully_verified": 64,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.512,
+            "explicit_answer_and_explanation_verified": 0.512,
+            "explicit_answer_correct": 0.56,
+            "legacy_joint_fully_verified": 0.512,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 125,
+            "explicit_answer_and_explanation_verified": 125,
+            "explicit_answer_correct": 125,
+            "legacy_joint_fully_verified": 125,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 1.0,
+            "explicit_answer_and_explanation_verified": 1.0,
+            "explicit_answer_correct": 1.0,
+            "legacy_joint_fully_verified": 1.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.872,
+        "explanation_fully_verified": 0.68,
+        "explicit_answer_and_explanation_verified": 0.68,
+        "explicit_answer_correct": 0.694,
+        "legacy_joint_fully_verified": 0.68,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "4d54a8bc59e9d60abacde44943a38bcc68790dc5decdb4704a83ba54a6033184"
+    },
+    "bhojpuri/explanation/finetuned/test": {
+      "counts": {
+        "answer_present": 1783,
+        "explanation_fully_verified": 1398,
+        "explicit_answer_and_explanation_verified": 1398,
+        "explicit_answer_correct": 1428,
+        "legacy_joint_fully_verified": 1398,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140",
+      "examples": 2000,
+      "input_predictions_sha256": "648b2bea594afcccad9a813292e86add2161df5f7b23836e2ae98993933581bc",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 376,
+            "explicit_answer_and_explanation_verified": 376,
+            "explicit_answer_correct": 379,
+            "legacy_joint_fully_verified": 376,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.752,
+            "explicit_answer_and_explanation_verified": 0.752,
+            "explicit_answer_correct": 0.758,
+            "legacy_joint_fully_verified": 0.752,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 283,
+            "explanation_fully_verified": 283,
+            "explicit_answer_and_explanation_verified": 283,
+            "explicit_answer_correct": 283,
+            "legacy_joint_fully_verified": 283,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.566,
+            "explanation_fully_verified": 0.566,
+            "explicit_answer_and_explanation_verified": 0.566,
+            "explicit_answer_correct": 0.566,
+            "legacy_joint_fully_verified": 0.566,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 239,
+            "explicit_answer_and_explanation_verified": 239,
+            "explicit_answer_correct": 266,
+            "legacy_joint_fully_verified": 239,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.478,
+            "explicit_answer_and_explanation_verified": 0.478,
+            "explicit_answer_correct": 0.532,
+            "legacy_joint_fully_verified": 0.478,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 500,
+            "explicit_answer_and_explanation_verified": 500,
+            "explicit_answer_correct": 500,
+            "legacy_joint_fully_verified": 500,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 1.0,
+            "explicit_answer_and_explanation_verified": 1.0,
+            "explicit_answer_correct": 1.0,
+            "legacy_joint_fully_verified": 1.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.8915,
+        "explanation_fully_verified": 0.699,
+        "explicit_answer_and_explanation_verified": 0.699,
+        "explicit_answer_correct": 0.714,
+        "legacy_joint_fully_verified": 0.699,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "d85fe469987b3fd3fa211efb51834e58d29b1d9d6a931d8b863a356fd586050d"
+    },
+    "bhojpuri/explanation/finetuned/validation": {
+      "counts": {
+        "answer_present": 1778,
+        "explanation_fully_verified": 1393,
+        "explicit_answer_and_explanation_verified": 1393,
+        "explicit_answer_correct": 1420,
+        "legacy_joint_fully_verified": 1393,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "13416f826523c2aedf38bf59de496b7e3bb03443d9ba61c58d79eba68ed167a6",
+      "examples": 2000,
+      "input_predictions_sha256": "4448e6cb1664c627acd6ebc20f17cb05be353b3a9d70ca131620f918ed5a51b2",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 383,
+            "explicit_answer_and_explanation_verified": 383,
+            "explicit_answer_correct": 385,
+            "legacy_joint_fully_verified": 383,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.766,
+            "explicit_answer_and_explanation_verified": 0.766,
+            "explicit_answer_correct": 0.77,
+            "legacy_joint_fully_verified": 0.766,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 278,
+            "explanation_fully_verified": 278,
+            "explicit_answer_and_explanation_verified": 278,
+            "explicit_answer_correct": 278,
+            "legacy_joint_fully_verified": 278,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.556,
+            "explanation_fully_verified": 0.556,
+            "explicit_answer_and_explanation_verified": 0.556,
+            "explicit_answer_correct": 0.556,
+            "legacy_joint_fully_verified": 0.556,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 232,
+            "explicit_answer_and_explanation_verified": 232,
+            "explicit_answer_correct": 257,
+            "legacy_joint_fully_verified": 232,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.464,
+            "explicit_answer_and_explanation_verified": 0.464,
+            "explicit_answer_correct": 0.514,
+            "legacy_joint_fully_verified": 0.464,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 500,
+            "explicit_answer_and_explanation_verified": 500,
+            "explicit_answer_correct": 500,
+            "legacy_joint_fully_verified": 500,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 1.0,
+            "explicit_answer_and_explanation_verified": 1.0,
+            "explicit_answer_correct": 1.0,
+            "legacy_joint_fully_verified": 1.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.889,
+        "explanation_fully_verified": 0.6965,
+        "explicit_answer_and_explanation_verified": 0.6965,
+        "explicit_answer_correct": 0.71,
+        "legacy_joint_fully_verified": 0.6965,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "ba6d370ebabcd8014ab0a6e819fc16f0498965ef5563f33dc0c1c095f487b44a"
+    },
+    "bhojpuri/explanation/pretrained/challenge_names": {
+      "counts": {
+        "answer_present": 31,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "48afdd2f5943cf7a660167d4342d92123dd9c5a244aae5dfb7482d0ecb19f225",
+      "examples": 500,
+      "input_predictions_sha256": "e065b1b7d3d54c7dedbed6966c03d481076ba4683fab57c67ce4cdfac33e184e",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 11,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.088,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 3,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.024,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 7,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.056,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 10,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.08,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.062,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "0a8021642ccf9fa2d57339ed2665adaac0a4f97ee402a777014cb881cf75e36c"
+    },
+    "bhojpuri/explanation/pretrained/challenge_wording": {
+      "counts": {
+        "answer_present": 13,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "7b65fcec7ce56752825ab96ec2f87540e232ca97516d0794906eea9dbb6cdbf6",
+      "examples": 500,
+      "input_predictions_sha256": "4fbbac437fbe4c59a3b95efc357c43ac8cf42a8e60bc8d762f8966c9d32ae6bf",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 8,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.064,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 3,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.024,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 2,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.016,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.026,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "f698a9e1475e488dfe0d9e9ac65f99f296204bd2f1631bf95487a06a15533f06"
+    },
+    "bhojpuri/explanation/pretrained/test": {
+      "counts": {
+        "answer_present": 46,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140",
+      "examples": 2000,
+      "input_predictions_sha256": "f2436121e1d3f7fbe3e9d284daa9b3346be2155e7269aebf73473e05aa230e11",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 16,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.032,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 3,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.006,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 16,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.032,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 11,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.022,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.023,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "efefefcb4d4797260fafe4ced52d860423cc1c776535fb192ff220dde20046f8"
+    },
+    "bhojpuri/explanation/pretrained/validation": {
+      "counts": {
+        "answer_present": 26,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "13416f826523c2aedf38bf59de496b7e3bb03443d9ba61c58d79eba68ed167a6",
+      "examples": 2000,
+      "input_predictions_sha256": "8f188ab9815e255c8c1fee60a8d909ca86a478f77357f9de4cbef478a74ec2de",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 8,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.016,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 2,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.004,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 5,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.01,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 11,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.022,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.013,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "be950bf5c6424e1d621b49ef9a9a1009ec2701f9611a095e00331553574d5f50"
+    },
+    "bhojpuri/original/finetuned/challenge_names": {
+      "counts": {
+        "answer_present": 117,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 62,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "48afdd2f5943cf7a660167d4342d92123dd9c5a244aae5dfb7482d0ecb19f225",
+      "examples": 500,
+      "input_predictions_sha256": "a02a17fe11e1d4db3d367add21e06c30389195cd50a052466b9704693272dd99",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 117,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 62,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.936,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.496,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.234,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.124,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "158575d2847a77e5579c4183d31f8b2caa3764e815cd3328cbe10709b622aa67"
+    },
+    "bhojpuri/original/finetuned/challenge_wording": {
+      "counts": {
+        "answer_present": 411,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 271,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "7b65fcec7ce56752825ab96ec2f87540e232ca97516d0794906eea9dbb6cdbf6",
+      "examples": 500,
+      "input_predictions_sha256": "afe87268778c237c4aa523297751c8249d4ed8ea7b47ed3b1df8307dba935b2e",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 114,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 63,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.912,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.504,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 91,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 62,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.728,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.496,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 83,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 23,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.664,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.184,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 123,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 123,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.984,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.984,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.822,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.542,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "29632cc7191307b93f0bd4dbf9c1bf06ffb30109746dd0c59a1e840bdfec33ca"
+    },
+    "bhojpuri/original/finetuned/test": {
+      "counts": {
+        "answer_present": 1700,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 1003,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140",
+      "examples": 2000,
+      "input_predictions_sha256": "969ec9f90129a297b301b40bfdf6f489fab0493c1aa373f77671e511ba4af56c",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 470,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 223,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.94,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.446,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 390,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 250,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.78,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.5,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 341,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 89,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.682,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.178,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 499,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 441,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.998,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.882,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.85,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.5015,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "8763e6792b01281c3d6c5a541cc38bf22fc92450de8086d6df4fa60b051e09be"
+    },
+    "bhojpuri/original/finetuned/validation": {
+      "counts": {
+        "answer_present": 1693,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 1024,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "13416f826523c2aedf38bf59de496b7e3bb03443d9ba61c58d79eba68ed167a6",
+      "examples": 2000,
+      "input_predictions_sha256": "e02c7159193e45ad7e0ab2e27eb7d5fcfcf404d7f12360876126787396abb72c",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 454,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 243,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.908,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.486,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 400,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 249,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.8,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.498,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 340,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 82,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.68,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.164,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 499,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 450,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.998,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.9,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.8465,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.512,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "bcd00ced19b70c6d01de955c69758c4220eb53afcb5b84dc0fa3e3e0568e6f28"
+    },
+    "bhojpuri/original/pretrained/challenge_names": {
+      "counts": {
+        "answer_present": 38,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "48afdd2f5943cf7a660167d4342d92123dd9c5a244aae5dfb7482d0ecb19f225",
+      "examples": 500,
+      "input_predictions_sha256": "2b624fb28d5648a6045d0c58aaf829592b24e8def57c7c78601fbe9b54a09c45",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 14,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.112,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 10,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.08,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 14,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.112,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.076,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "380adbbbfebf87b639f89293c76b7cb11fe124d94756bfeaf552b22f40e4c358"
+    },
+    "bhojpuri/original/pretrained/challenge_wording": {
+      "counts": {
+        "answer_present": 16,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "7b65fcec7ce56752825ab96ec2f87540e232ca97516d0794906eea9dbb6cdbf6",
+      "examples": 500,
+      "input_predictions_sha256": "3a5c70404c9b8eb7c1b72ae6a3af3ded43fe27367d2db3bb66355a289a75d252",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 10,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.08,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 1,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.008,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 4,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.032,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 1,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.008,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.032,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "c51b9016fa92d182cd8a2a527744600a20c6c3cccef8bd392749627153c2f758"
+    },
+    "bhojpuri/original/pretrained/test": {
+      "counts": {
+        "answer_present": 62,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "52d7a775ce49c79cb451278f5c13da7d7d37daf7698295d94463a1c22f827140",
+      "examples": 2000,
+      "input_predictions_sha256": "f6897b830672a82ee1351bbc5618d83b8c81b4400448403daa4335bc224d6a8b",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 24,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.048,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 22,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.044,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 16,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.032,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.031,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "ef99ac9b956cf223411db37efd620cfd85decc80173ff85488950298dfcc399f"
+    },
+    "bhojpuri/original/pretrained/validation": {
+      "counts": {
+        "answer_present": 43,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "13416f826523c2aedf38bf59de496b7e3bb03443d9ba61c58d79eba68ed167a6",
+      "examples": 2000,
+      "input_predictions_sha256": "e58f486e11f80e37b81354bcee7ee8b82081e42a26aa3c2f7e6d5387efc56a34",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 14,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.028,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 1,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.002,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 11,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.022,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 17,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.034,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.0215,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "f732703e24eb11da8bd9d8b1cc853f5428dc10ed256b23b535a5e38047f6c3dd"
+    },
+    "hindi/explanation/finetuned/challenge_names": {
+      "counts": {
+        "answer_present": 123,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 79,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8b77dee381623a2441de895def894845f14af3709e9ece7cd037da5aad38b625",
+      "examples": 500,
+      "input_predictions_sha256": "05d0d7cff778437cbcf249efd196647fd1ae61f8674fd318968117e99fd909a4",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 15,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.12,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 80,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 79,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.64,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.632,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 16,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.128,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 12,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.096,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.246,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.158,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "3366e9b81465394e7bc2c547ef677f5a6b81b389969a96b9091b13cd0a8cf6c0"
+    },
+    "hindi/explanation/finetuned/challenge_wording": {
+      "counts": {
+        "answer_present": 447,
+        "explanation_fully_verified": 395,
+        "explicit_answer_and_explanation_verified": 323,
+        "explicit_answer_correct": 331,
+        "legacy_joint_fully_verified": 323,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8d824f1efa8cc4447dbd9e87e4082d65bae007b388adf4554e6b015da926241c",
+      "examples": 500,
+      "input_predictions_sha256": "d5cd19a0dcead578039f86ef54195ec7231b276f622d319fd4efc941acf24d3b",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 114,
+            "explicit_answer_and_explanation_verified": 105,
+            "explicit_answer_correct": 112,
+            "legacy_joint_fully_verified": 105,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.912,
+            "explicit_answer_and_explanation_verified": 0.84,
+            "explicit_answer_correct": 0.896,
+            "legacy_joint_fully_verified": 0.84,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 72,
+            "explanation_fully_verified": 72,
+            "explicit_answer_and_explanation_verified": 72,
+            "explicit_answer_correct": 72,
+            "legacy_joint_fully_verified": 72,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.576,
+            "explanation_fully_verified": 0.576,
+            "explicit_answer_and_explanation_verified": 0.576,
+            "explicit_answer_correct": 0.576,
+            "legacy_joint_fully_verified": 0.576,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 84,
+            "explicit_answer_and_explanation_verified": 83,
+            "explicit_answer_correct": 84,
+            "legacy_joint_fully_verified": 83,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.672,
+            "explicit_answer_and_explanation_verified": 0.664,
+            "explicit_answer_correct": 0.672,
+            "legacy_joint_fully_verified": 0.664,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 125,
+            "explicit_answer_and_explanation_verified": 63,
+            "explicit_answer_correct": 63,
+            "legacy_joint_fully_verified": 63,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 1.0,
+            "explicit_answer_and_explanation_verified": 0.504,
+            "explicit_answer_correct": 0.504,
+            "legacy_joint_fully_verified": 0.504,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.894,
+        "explanation_fully_verified": 0.79,
+        "explicit_answer_and_explanation_verified": 0.646,
+        "explicit_answer_correct": 0.662,
+        "legacy_joint_fully_verified": 0.646,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "013f40a3b8a9c46eeffafc74b4fd5c10006bc4a23eb90e2838877bedebcd859a"
+    },
+    "hindi/explanation/finetuned/test": {
+      "counts": {
+        "answer_present": 1834,
+        "explanation_fully_verified": 1723,
+        "explicit_answer_and_explanation_verified": 1723,
+        "explicit_answer_correct": 1724,
+        "legacy_joint_fully_verified": 1723,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "02df190a05dab9e00c582d7904b79cfdf0c77230cecefb2fe1147f7313bca572",
+      "examples": 2000,
+      "input_predictions_sha256": "c58807661a7deaf032110165d9c77bf5ac0c86b0b2373b3a9ff21e4d779632a9",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 474,
+            "explicit_answer_and_explanation_verified": 474,
+            "explicit_answer_correct": 474,
+            "legacy_joint_fully_verified": 474,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.948,
+            "explicit_answer_and_explanation_verified": 0.948,
+            "explicit_answer_correct": 0.948,
+            "legacy_joint_fully_verified": 0.948,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 334,
+            "explanation_fully_verified": 334,
+            "explicit_answer_and_explanation_verified": 334,
+            "explicit_answer_correct": 334,
+            "legacy_joint_fully_verified": 334,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.668,
+            "explanation_fully_verified": 0.668,
+            "explicit_answer_and_explanation_verified": 0.668,
+            "explicit_answer_correct": 0.668,
+            "legacy_joint_fully_verified": 0.668,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 415,
+            "explicit_answer_and_explanation_verified": 415,
+            "explicit_answer_correct": 416,
+            "legacy_joint_fully_verified": 415,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.83,
+            "explicit_answer_and_explanation_verified": 0.83,
+            "explicit_answer_correct": 0.832,
+            "legacy_joint_fully_verified": 0.83,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 500,
+            "explicit_answer_and_explanation_verified": 500,
+            "explicit_answer_correct": 500,
+            "legacy_joint_fully_verified": 500,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 1.0,
+            "explicit_answer_and_explanation_verified": 1.0,
+            "explicit_answer_correct": 1.0,
+            "legacy_joint_fully_verified": 1.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.917,
+        "explanation_fully_verified": 0.8615,
+        "explicit_answer_and_explanation_verified": 0.8615,
+        "explicit_answer_correct": 0.862,
+        "legacy_joint_fully_verified": 0.8615,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "9270b86f62320d33d79d8167797478fd7944f6aabc8f33cd76f7ad1001dea124"
+    },
+    "hindi/explanation/finetuned/validation": {
+      "counts": {
+        "answer_present": 1830,
+        "explanation_fully_verified": 1717,
+        "explicit_answer_and_explanation_verified": 1717,
+        "explicit_answer_correct": 1717,
+        "legacy_joint_fully_verified": 1717,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "eba0251218b504e1c42ce552e60b2918cf1a1c5c11fed5a6d59d4b3cec4ed8b4",
+      "examples": 2000,
+      "input_predictions_sha256": "002a509bb32c11db301dd15ea450b76ff3e1ab21fefd792afb654109c6c42175",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 471,
+            "explicit_answer_and_explanation_verified": 471,
+            "explicit_answer_correct": 471,
+            "legacy_joint_fully_verified": 471,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.942,
+            "explicit_answer_and_explanation_verified": 0.942,
+            "explicit_answer_correct": 0.942,
+            "legacy_joint_fully_verified": 0.942,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 330,
+            "explanation_fully_verified": 330,
+            "explicit_answer_and_explanation_verified": 330,
+            "explicit_answer_correct": 330,
+            "legacy_joint_fully_verified": 330,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.66,
+            "explanation_fully_verified": 0.66,
+            "explicit_answer_and_explanation_verified": 0.66,
+            "explicit_answer_correct": 0.66,
+            "legacy_joint_fully_verified": 0.66,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 416,
+            "explicit_answer_and_explanation_verified": 416,
+            "explicit_answer_correct": 416,
+            "legacy_joint_fully_verified": 416,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.832,
+            "explicit_answer_and_explanation_verified": 0.832,
+            "explicit_answer_correct": 0.832,
+            "legacy_joint_fully_verified": 0.832,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 500,
+            "explanation_fully_verified": 500,
+            "explicit_answer_and_explanation_verified": 500,
+            "explicit_answer_correct": 500,
+            "legacy_joint_fully_verified": 500,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 1.0,
+            "explicit_answer_and_explanation_verified": 1.0,
+            "explicit_answer_correct": 1.0,
+            "legacy_joint_fully_verified": 1.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.915,
+        "explanation_fully_verified": 0.8585,
+        "explicit_answer_and_explanation_verified": 0.8585,
+        "explicit_answer_correct": 0.8585,
+        "legacy_joint_fully_verified": 0.8585,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "a43962d48fd3be9ead4f9fedd5e1b7cf91a8ca90ca7db521b56e5bfa9caee815"
+    },
+    "hindi/explanation/pretrained/challenge_names": {
+      "counts": {
+        "answer_present": 38,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8b77dee381623a2441de895def894845f14af3709e9ece7cd037da5aad38b625",
+      "examples": 500,
+      "input_predictions_sha256": "882d380d8cae8f8accac47f13c95297dd4c6bd0d0d877b0f69397df3b69523bb",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 6,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.048,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 20,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.16,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 2,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.016,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 10,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.08,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.076,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "9faec9fcebdb0b4e0b4e4addd200fb9d9ef908782dd023fe2e99d9d0cb92f056"
+    },
+    "hindi/explanation/pretrained/challenge_wording": {
+      "counts": {
+        "answer_present": 19,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8d824f1efa8cc4447dbd9e87e4082d65bae007b388adf4554e6b015da926241c",
+      "examples": 500,
+      "input_predictions_sha256": "d24065d5a7b5c7aeab41da2cedd9861677fbad1135b889d72f6e68dae041b1d3",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 2,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.016,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 2,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.016,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 1,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.008,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 14,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.112,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.038,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "4db75984753fe1f44e9986ceabc5fafb413a6978d1228bff526029f180b90435"
+    },
+    "hindi/explanation/pretrained/test": {
+      "counts": {
+        "answer_present": 132,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "02df190a05dab9e00c582d7904b79cfdf0c77230cecefb2fe1147f7313bca572",
+      "examples": 2000,
+      "input_predictions_sha256": "03ee108f1f560457a475a236877a05ef4514bca45bd3f754abd0f4cf566a3ca3",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 16,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.032,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 57,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.114,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 15,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.03,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 44,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.088,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.066,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "1e9b3f2e8d8689e9e026cd6fa634fb1875a919ff3d10f8d1dba719d3819798b2"
+    },
+    "hindi/explanation/pretrained/validation": {
+      "counts": {
+        "answer_present": 126,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "eba0251218b504e1c42ce552e60b2918cf1a1c5c11fed5a6d59d4b3cec4ed8b4",
+      "examples": 2000,
+      "input_predictions_sha256": "95c7384541720489a398e8b5c61fd431f89e0c532f790c082ff7c323111c6083",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 11,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.022,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 64,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.128,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 15,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.03,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 36,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.072,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.063,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "f8cd8f8c4f5803783b80a8861d4d7c254dbb496fe95f8359e2714a9585d22df9"
+    },
+    "hindi/original/finetuned/challenge_names": {
+      "counts": {
+        "answer_present": 95,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 62,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8b77dee381623a2441de895def894845f14af3709e9ece7cd037da5aad38b625",
+      "examples": 500,
+      "input_predictions_sha256": "762ea8f6bb3e679740f938cdd173a76d72a782dacda2930ece3f516be15b5427",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 15,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.12,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 62,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 62,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.496,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.496,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 13,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.104,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 5,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.04,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.19,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.124,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "bd282de3aebce02fbee50243542e82b20461b4de7d2f9f4f80dc96043e3826ac"
+    },
+    "hindi/original/finetuned/challenge_wording": {
+      "counts": {
+        "answer_present": 416,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 295,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8d824f1efa8cc4447dbd9e87e4082d65bae007b388adf4554e6b015da926241c",
+      "examples": 500,
+      "input_predictions_sha256": "3b79a2b3a6a760ea611c8e657455b3959fd3b4cf57299df2e1c41ce5f5664cb9",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 124,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 118,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.992,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.944,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 62,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 62,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.496,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.496,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 105,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 52,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.84,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.416,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 125,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 63,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 1.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.504,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.832,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.59,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "a1f8c9937f4c8b3f551a26957fea2d92677143c0d3a3dafd84a509b0e1c6280e"
+    },
+    "hindi/original/finetuned/test": {
+      "counts": {
+        "answer_present": 1677,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 1231,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "02df190a05dab9e00c582d7904b79cfdf0c77230cecefb2fe1147f7313bca572",
+      "examples": 2000,
+      "input_predictions_sha256": "77cc4b02aa580b197dfbe3bf969aa4ced3141a1cd918378d6dcf02873d565f4b",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 482,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 437,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.964,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.874,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 250,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 250,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.5,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.5,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 449,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 292,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.898,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.584,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 496,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 252,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.992,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.504,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.8385,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.6155,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "a77e8b758afe2a648a0df36e70fe175fa7ca7dcf6eac1f67bd66639bab7a79eb"
+    },
+    "hindi/original/finetuned/validation": {
+      "counts": {
+        "answer_present": 1663,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 1229,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "eba0251218b504e1c42ce552e60b2918cf1a1c5c11fed5a6d59d4b3cec4ed8b4",
+      "examples": 2000,
+      "input_predictions_sha256": "e3fe3b5f4f763c04aea5675395e89cf2d0309f3b0db961c2bb5b4ff5ea7c4d87",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 478,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 434,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.956,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.868,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 250,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 250,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.5,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.5,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 441,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 289,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.882,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.578,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 494,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 256,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.988,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.512,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.8315,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.6145,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "9caca75f27d872b85706dc65ed19d71e88b175a6b355100d6e5893b3e392721f"
+    },
+    "hindi/original/pretrained/challenge_names": {
+      "counts": {
+        "answer_present": 96,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8b77dee381623a2441de895def894845f14af3709e9ece7cd037da5aad38b625",
+      "examples": 500,
+      "input_predictions_sha256": "f554620086b4fc7d0d0e373f2cebe5af0627361f89640f7aa00d196b57f03664",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 32,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.256,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 2,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.016,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 22,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.176,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 40,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.32,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.192,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "86fd9e43f03173f25a975509cf7fcf65f39299a630fa43f3d262c550389cae75"
+    },
+    "hindi/original/pretrained/challenge_wording": {
+      "counts": {
+        "answer_present": 91,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "8d824f1efa8cc4447dbd9e87e4082d65bae007b388adf4554e6b015da926241c",
+      "examples": 500,
+      "input_predictions_sha256": "12ac4aa8a82fd3217ee70ea6b33137ece02d8d80dccfdbd0f893a4a68647d8a9",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 34,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.272,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 24,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.192,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 33,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 125,
+          "rates": {
+            "answer_present": 0.264,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.182,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "182c27964ced5078c523f902d74cbd03decfcff71cafb15d3b9a5a2d63720c28"
+    },
+    "hindi/original/pretrained/test": {
+      "counts": {
+        "answer_present": 340,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "02df190a05dab9e00c582d7904b79cfdf0c77230cecefb2fe1147f7313bca572",
+      "examples": 2000,
+      "input_predictions_sha256": "66b3b1b993004f0bb3623634847a1ed7c4ecb4c677bc1155dc906ac2dda58d03",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 118,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.236,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 86,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.172,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 136,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.272,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.17,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "2e3c89dbc44defa44a5c69692e2e33ec8e189ebca06e75615c821033ca04260e"
+    },
+    "hindi/original/pretrained/validation": {
+      "counts": {
+        "answer_present": 375,
+        "explanation_fully_verified": 0,
+        "explicit_answer_and_explanation_verified": 0,
+        "explicit_answer_correct": 0,
+        "legacy_joint_fully_verified": 0,
+        "strict_exact_match": 0
+      },
+      "dataset_sha256": "eba0251218b504e1c42ce552e60b2918cf1a1c5c11fed5a6d59d4b3cec4ed8b4",
+      "examples": 2000,
+      "input_predictions_sha256": "a570c7a5ad76c44c9c3df2109a78b5e789abc675d9913aac7f207535972d319f",
+      "per_task": {
+        "direct": {
+          "counts": {
+            "answer_present": 134,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.268,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "equality": {
+          "counts": {
+            "answer_present": 0,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.0,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "extremum": {
+          "counts": {
+            "answer_present": 98,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.196,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        },
+        "transitivity": {
+          "counts": {
+            "answer_present": 143,
+            "explanation_fully_verified": 0,
+            "explicit_answer_and_explanation_verified": 0,
+            "explicit_answer_correct": 0,
+            "legacy_joint_fully_verified": 0,
+            "strict_exact_match": 0
+          },
+          "examples": 500,
+          "rates": {
+            "answer_present": 0.286,
+            "explanation_fully_verified": 0.0,
+            "explicit_answer_and_explanation_verified": 0.0,
+            "explicit_answer_correct": 0.0,
+            "legacy_joint_fully_verified": 0.0,
+            "strict_exact_match": 0.0
+          }
+        }
+      },
+      "rates": {
+        "answer_present": 0.1875,
+        "explanation_fully_verified": 0.0,
+        "explicit_answer_and_explanation_verified": 0.0,
+        "explicit_answer_correct": 0.0,
+        "legacy_joint_fully_verified": 0.0,
+        "strict_exact_match": 0.0
+      },
+      "scores_sha256": "975c96ab39c70b3cb2b5d894239034f9985f20f9c44c144663b532a438e61dcd"
+    }
+  },
+  "status": "Retrospective diagnostic; historical outputs informed earlier analysis. Extraction rule checked on validation only, then frozen before this held-out rescore. Existing explanation-verification scores reused without parser changes.",
+  "version": "explicit_answer_v1"
+}

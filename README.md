@@ -629,6 +629,7 @@ python -m lma_phase3.finetune \
   --val-data /path/to/hindi/phase3/reasoning_v1/validation.jsonl.gz \
   --template-config hindi/configs/phase3_templates.json \
   --output-dir /path/to/hindi/phase3/runs/finetune_v1 \
+  --validation-scope legacy_subset \
   --device mps
 
 # Bhojpuri finetuning (Model L)
@@ -639,8 +640,11 @@ python -m lma_phase3.finetune \
   --val-data /path/to/bhojpuri/phase3/reasoning_v1/validation.jsonl.gz \
   --template-config bhojpuri/configs/phase3_templates.json \
   --output-dir /path/to/bhojpuri/phase3/runs/finetune_v1 \
+  --validation-scope legacy_subset \
   --device mps
 ```
+
+New training runs default to **full validation across all four task families**. The commands above explicitly reproduce historical v1 subset validation. Omit `--validation-scope legacy_subset` and choose a new output directory for full-validation selection; resume requires the same selection protocol as the saved checkpoint. Existing models were not retrained.
 
 ### Held-Out Evaluation Reproduction
 
@@ -666,6 +670,20 @@ python -m lma_phase3.evaluate_finetuned \
   --device mps --protocols both
 ```
 
+### Course-alignment additions
+
+See [the course-alignment report](report/phase-3-course-alignment.md) for generic-text retention before/after SFT, explicit-answer accuracy, limitations, and reproduction commands. The assigned synthetic question structures and datasets are unchanged. Original metrics below remain historical diagnostics; answer presence is not answer accuracy.
+
+| Added metric | Hindi | Bhojpuri |
+|---|---:|---:|
+| Explicit-answer accuracy after SFT, primary test, 96 tokens | 86.20% | 71.40% |
+| Explicit answer + verified explanation, same protocol | 86.15% | 69.90% |
+| Generic-text perplexity before SFT | 39.57 | 62.93 |
+| Generic-text perplexity after SFT | 628.12 | 4,939.06 |
+
+The paired generic-text evaluation uses identical Phase 2 test streams and shows substantial loss of predictive performance after SFT. Low reasoning-target loss therefore does not establish retained language ability. The answer rescore is retrospective, uses a frozen leading-answer extraction rule, and preserves historical metrics.
+
+
 ### Key Empirical Results
 
 #### Primary Test Split (2,000 examples per language)
@@ -685,14 +703,14 @@ python -m lma_phase3.evaluate_finetuned \
 | **Challenge Wording** | 89.40% | **64.60%** | 87.20% | **68.00%** |
 | **Challenge Unseen Names** | 24.60% | 0.00% | 13.60% | 0.00% |
 
-- **Syntactic Robustness**: Both models demonstrate high robustness to unseen phrasing, retaining 87–89% answer presence and 65–68% fully verified multi-step proofs.
-- **Entity Tokenization Bottleneck**: Unseen names split into novel subword fragments, disrupting greedy generation and revealing that subword fragmentation is the primary bottleneck for causal reasoning in small language models.
+- **Wording challenge**: Under the single reserved question variant, joint verification is 64.60% for Hindi and 68.00% for Bhojpuri. This measures a narrow wording change; premise phrasing and task structures remain familiar.
+- **Unseen names**: Joint verification falls to zero. Segmentation and entity familiarity are possible explanations; no controlled experiment establishes a primary cause.
 
 ### Multi-Head Attention Analysis
 
-Attention maps on fixed reasoning prompts before and after finetuning show structural specialization:
-- **Entropy Reduction**: Average attention entropy drops from ~2.2–2.5 in pretrained models to ~1.6–2.0 in finetuned models in mid-to-late layers (Layers 4–8).
-- **Relational Routing**: Specialised heads emerge that route direct attention between numeric entities in the premises and the comparative query tokens.
+Attention maps on fixed prompts show descriptive changes in attention concentration and distance:
+- Selected mid/late heads have lower entropy after finetuning; the exact per-head values are in Section 8 of the Phase 3 report.
+- These summaries do not identify causally necessary reasoning heads. Ablations or activation interventions would be needed for that claim.
 - Attention comparison tool:
 
 ```bash

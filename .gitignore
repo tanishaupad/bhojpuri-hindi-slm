@@ -99,3 +99,5 @@ lma_phase2_outputs/
 !report/results/generated/phase3/finetuned_v1/*/*.json
 !report/results/generated/phase3/finetuned_v1/*/*/*.jsonl
 
+# Retrospective explicit-answer scores preserve the original generation artifacts.
+!report/results/generated/phase3/explicit_answer_v1/scores/*.jsonl.gz

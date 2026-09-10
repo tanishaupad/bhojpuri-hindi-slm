@@ -81,6 +81,7 @@ def save_finetune_checkpoint(
     experiment: ExperimentConfig,
     epoch: int = 0,
     keep_last: int = 3,
+    validation_protocol: str | None = None,
 ) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = path.with_suffix(path.suffix + ".tmp")
@@ -96,6 +97,7 @@ def save_finetune_checkpoint(
         "tokens_seen": tokens_seen,
         "epoch": epoch,
         "best_validation_loss": best_val_loss,
+        "validation_protocol": validation_protocol,
         "config": experiment.to_dict(),
         "rng_state": capture_rng_state(),
     }
@@ -125,10 +127,12 @@ def evaluate_validation(
     autocast_context: Any,
     max_batches: int | None = None,
 ) -> dict[str, float]:
+    """Compute token-weighted loss on all validation examples unless explicitly capped."""
     was_training = model.training
     model.eval()
     total_loss = 0.0
     total_tokens = 0
+    total_examples = 0
 
     for i, batch in enumerate(val_loader):
         if max_batches is not None and i >= max_batches:
@@ -145,6 +149,7 @@ def evaluate_validation(
 
         total_loss += float(loss.item()) * active_tokens
         total_tokens += active_tokens
+        total_examples += input_ids.shape[0]
 
     if was_training:
         model.train()
@@ -157,6 +162,7 @@ def evaluate_validation(
         "loss": mean_loss,
         "perplexity": math.exp(min(mean_loss, 50.0)),
         "tokens": total_tokens,
+        "examples": total_examples,
     }
 
 
@@ -174,9 +180,14 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true", help="Resume from latest.json")
     parser.add_argument("--smoke-test", action="store_true", help="Run quick 30-step overfit verification")
     parser.add_argument("--pilot-steps", type=int, default=None, help="Stop early after N steps for pilot")
+    parser.add_argument(
+        "--validation-scope", choices=("full", "legacy_subset"), default="full",
+        help="Full split for new runs; legacy_subset only to reproduce/resume historical v1 runs",
+    )
     args = parser.parse_args()
 
     experiment = load_experiment_config(args.config)
+    validation_protocol = "full_validation_v1" if args.validation_scope == "full" else None
     seed_all(experiment.training.seed)
     device = select_device(args.device)
     autocast_ctx, _, use_scaler = precision_context(device, experiment.training.precision)
@@ -257,6 +268,12 @@ def main() -> None:
         tokens_seen = ckpt["tokens_seen"]
         best_val_loss = ckpt.get("best_validation_loss", float("inf"))
         restore_rng_state(ckpt["rng_state"])
+        if ckpt.get("validation_protocol") != validation_protocol and not args.smoke_test:
+            raise ValueError(
+                "This run selected checkpoints with a different validation protocol. "
+                "Use --validation-scope legacy_subset to resume historical v1, or start a "
+                "new output run for full-validation selection."
+            )
     else:
         print(f"Initializing fresh weights from {args.pretrained_checkpoint}...")
         pre_ckpt = torch.load(args.pretrained_checkpoint, map_location="cpu", weights_only=False)
@@ -350,7 +367,11 @@ def main() -> None:
         # Logging & Validation
         val_metrics: dict[str, Any] = {}
         if step % val_interval == 0 or step == total_steps:
-            val_batches = 10 if args.smoke_test else experiment.training.validation_batches
+            # Default selection covers every family, including files grouped by task.
+            # The shared legacy validation_batches config remains for historical reproducibility.
+            val_batches = 10 if args.smoke_test else (
+                None if args.validation_scope == "full" else experiment.training.validation_batches
+            )
             val_metrics = evaluate_validation(model, val_loader, device, autocast_ctx, max_batches=val_batches)
             val_loss = val_metrics["loss"]
             if val_loss < best_val_loss and not args.smoke_test:
@@ -368,6 +389,7 @@ def main() -> None:
                     experiment,
                     epoch=current_epoch,
                     keep_last=experiment.training.checkpoint_keep_last,
+                    validation_protocol=validation_protocol,
                 )
 
         if step % experiment.training.log_interval == 0 or step == total_steps or args.smoke_test:
@@ -408,6 +430,7 @@ def main() -> None:
                 experiment,
                 epoch=current_epoch,
                 keep_last=experiment.training.checkpoint_keep_last,
+                validation_protocol=validation_protocol,
             )
 
     print(f"Training completed successfully at step {step}!")

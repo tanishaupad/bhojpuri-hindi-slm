@@ -1,0 +1,11 @@
+{
+  "version": "explicit_answer_v1",
+  "scope": "Retrospective format-based answer accuracy; original generation protocols and datasets unchanged.",
+  "rule": "Remove optional leading उत्तर:/जवाब:. If कारण: is present, use the entire preceding answer field; otherwise use the first sentence or bare response. Strip terminal punctuation and normalize NFC/whitespace; compare exactly with the reference. Never search premises, later sentences or answer choices.",
+  "denominator": "All examples; malformed, empty and repeated answer fields count as incorrect.",
+  "joint_metric": "Explicit answer correct AND existing explanation_fully_verified; legacy joint_fully_verified stays separate.",
+  "validation_review": "Applied to all 8,000 saved validation continuations (2 languages x 2 protocols x 2 model stages); inspected 16 finetuned success/failure examples. This is a software/developer review, not independent human calibration. Rule unchanged after inspection.",
+  "limitations": "Earlier project work inspected test outputs; this is retrospective, not a preregistered confirmatory evaluation. Grammar-limited explanation verifier remains unchanged. No free-prose semantic accuracy claim.",
+  "extractor_sha256": "d9de828fb39d75bfe25e21c6a7d7a9fed9c007a66e84c387e5f4a844aec1f046",
+  "validation_summary_sha256": "1e418c5f3e21d824360afb8e33a5f9eba5202764fef729557cc9c2bea23741fe"
+}

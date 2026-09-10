@@ -5,6 +5,7 @@ Evaluates on:
 2. Explanation prompt (96 tokens)
 Computes exact match, whole-word answer presence, and semantic verification
 (supported facts, unsupported claims, sufficient proofs, unresolved text).
+Also reports explicit-answer accuracy and explicit-answer-plus-explanation success.
 """
 
 from __future__ import annotations
@@ -27,6 +28,7 @@ from lma_phase2.training import select_device
 from lma_phase3.cached_decode import greedy_cached
 from lma_phase3.evaluate import normalize_answer
 from lma_phase3.evaluate_proofs import explanation_prompt
+from lma_phase3.explicit_answer import SCORING_VERSION, score_explicit_answer
 from lma_phase3.score_answer_presence import score_row
 from lma_phase3.semantic_check import score_semantics
 
@@ -91,6 +93,7 @@ def evaluate_split(
                 "strict_exact_match": norm_gen == norm_ref,
                 "answer_present": p_check["answer_present"],
                 "semantic_checks": s_check,
+                **score_explicit_answer(norm_gen, r["answer_text"], s_check),
             }
             predictions.append(pred_record)
 
@@ -103,25 +106,43 @@ def evaluate_split(
     sufficient_proofs = sum(p["semantic_checks"]["sufficient_supported_justification"] for p in predictions)
     verified_explanations = sum(p["semantic_checks"]["explanation_fully_verified"] for p in predictions)
     joint_verified = sum(p["semantic_checks"]["joint_fully_verified"] for p in predictions)
+    explicit_correct = sum(p["explicit_answer_correct"] for p in predictions)
+    explicit_joint = sum(p["explicit_answer_and_explanation_verified"] for p in predictions)
 
-    task_breakdown = defaultdict(lambda: {"count": 0, "exact_match": 0, "answer_present": 0, "joint_verified": 0})
+    task_breakdown = defaultdict(lambda: {
+        "count": 0, "exact_match": 0, "answer_present": 0, "joint_verified": 0,
+        "explicit_answer_correct": 0, "explicit_answer_and_explanation_verified": 0,
+    })
     for p in predictions:
         tf = p["task_family"]
         task_breakdown[tf]["count"] += 1
         task_breakdown[tf]["exact_match"] += int(p["strict_exact_match"])
         task_breakdown[tf]["answer_present"] += int(p["answer_present"])
         task_breakdown[tf]["joint_verified"] += int(p["semantic_checks"]["joint_fully_verified"])
+        task_breakdown[tf]["explicit_answer_correct"] += int(p["explicit_answer_correct"])
+        task_breakdown[tf]["explicit_answer_and_explanation_verified"] += int(
+            p["explicit_answer_and_explanation_verified"]
+        )
 
     for tf, d in task_breakdown.items():
         c = d["count"]
         d["exact_match_rate"] = d["exact_match"] / c
         d["answer_present_rate"] = d["answer_present"] / c
         d["joint_verified_rate"] = d["joint_verified"] / c
+        d["explicit_answer_accuracy"] = d["explicit_answer_correct"] / c
+        d["explicit_answer_and_explanation_verified_rate"] = (
+            d["explicit_answer_and_explanation_verified"] / c
+        )
 
     summary = {
         "protocol": protocol,
         "token_limit": limit,
         "total_examples": total,
+        "answer_scoring_version": SCORING_VERSION,
+        "explicit_answer_correct_count": explicit_correct,
+        "explicit_answer_accuracy": explicit_correct / total,
+        "explicit_answer_and_explanation_verified_count": explicit_joint,
+        "explicit_answer_and_explanation_verified_rate": explicit_joint / total,
         "exact_match_count": exact_matches,
         "exact_match_rate": exact_matches / total,
         "answer_present_count": answer_presents,
@@ -205,6 +226,7 @@ def main() -> None:
             proto_summaries[split] = summary
             print(
                 f"  -> Exact Match: {summary['exact_match_rate']*100:.2f}% | "
+                f"Explicit Answer: {summary['explicit_answer_accuracy']*100:.2f}% | "
                 f"Answer Present: {summary['answer_present_rate']*100:.2f}% | "
                 f"Joint Verified: {summary['joint_verified_rate']*100:.2f}%"
             )

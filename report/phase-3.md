@@ -9,6 +9,8 @@
 
 ## 1. Executive Summary and Verification Findings
 
+The [course-alignment evaluation](phase-3-course-alignment.md) adds generic-text retention metrics and a retrospective explicit-answer rescore. It also documents full-split validation for future training runs. The original question structures, datasets, checkpoints and generation outputs are unchanged.
+
 As mandated by the Phase 3 requirements, this report consolidates the complete empirical trajectory across Phases 1, 2, and 3. Before launching Phase 3 synthetic data generation and finetuning, a comprehensive audit and recomputation was executed across the Phase 1 and Phase 2 artifacts to ensure full specification compliance, resolve token accounting discrepancies, correct architectural parameters, and unify held-out evaluation metrics.
 
 ### 1.1 Summary of Verification Findings
@@ -276,7 +278,7 @@ To transition the models from next-token language generators into grounded reaso
 1. **Deterministic Target Generation**:
    Supervision targets were generated programmatically from `reference_explanation()` in `src/lma_phase3/proof_checker.py`, producing:
    $$\text{Target} = \langle\text{Canonical Answer}\rangle \text{। कारण: } \langle\text{Premise 1}\rangle \langle\text{Premise 2}\rangle \langle\text{Deductive Step}\rangle$$
-   This guarantees that every ground-truth training instance is mathematically sound, numerically grounded in the prompt premises, and syntactically compliant with the target language.
+   The symbolic verification checks target correctness against the generated world. Template review supplies the linguistic evidence; symbolic correctness alone does not establish naturalness.
 
 2. **Shift Alignment and Target Masking**:
    Let prompt tokens be $P = [p_0, \dots, p_{N-1}]$ and target tokens (including appended $\text{EOS}$) be $T = [t_0, \dots, t_{K-1}, \text{eos}]$. The combined sequence $S = P + T$ has length $L = N + K + 1 \le 256$.
@@ -322,6 +324,10 @@ Finetuning was executed entirely on the local Apple M4 GPU (16 GB unified RAM) v
 
 ---
 
+### 5.4 Full-split selection for future runs
+
+The finetuning CLI now defaults to `--validation-scope full`, evaluating all 2,000 validation examples across all four tasks at each validation interval. Historical v1 checkpoints used the first 400 examples; their reported losses and weights are preserved. Reproduce or resume those runs with `--validation-scope legacy_subset`. Mixing selection protocols on resume is rejected, because their best-loss values are not comparable. Full-validation checkpoint selection is a code update, not a claim that the existing models were retrained.
+
 ## 6. Comprehensive Held-Out Reasoning Evaluation
 
 Following the frozen protocol, both finetuned models were evaluated across all four held-out splits: Validation (2,000), Primary Test (2,000), Unseen Names Challenge (500), and Unseen Wording Challenge (500), under both the original 16-token prompt protocol and the 96-token explanation protocol.
@@ -366,11 +372,26 @@ Following the frozen protocol, both finetuned models were evaluated across all f
 
 ---
 
+### 6.4 Explicit answers and retained language ability
+
+The [course-alignment report](phase-3-course-alignment.md) separates explicit-answer accuracy from explanation verification and answer presence, and measures generic-text CE/PPL/BPB before and after SFT. Its scoring rule was checked on validation examples and frozen before rescoring the held-out outputs; this remains retrospective because earlier analysis already inspected test generations. The original tables above retain their original metric definitions.
+
+| Primary test metric | Hindi pretrained | Hindi finetuned | Bhojpuri pretrained | Bhojpuri finetuned |
+|---|---:|---:|---:|---:|
+| Explicit-answer accuracy, original 16-token protocol | 0.00% | 61.55% | 0.00% | 50.15% |
+| Explicit-answer accuracy, explanation 96-token protocol | 0.00% | 86.20% | 0.00% | 71.40% |
+| Explicit answer + verified explanation, 96-token protocol | 0.00% | 86.15% | 0.00% | 69.90% |
+| Generic-text test perplexity, same Phase 2 tokens | 39.57 | 628.12 | 62.93 | 4,939.06 |
+| Generic-text test BPB, same Phase 2 tokens | 0.5282 | 0.9252 | 0.6503 | 1.3353 |
+
+The retention evaluation shows a substantial loss in generic-text predictive performance after SFT: perplexity rises 15.87x for Hindi and 78.49x for Bhojpuri. Improved task responses and low reasoning-target loss do not imply preserved general language modeling. This is consistent with forgetting or task specialization, not a measurement of individual facts erased. These paired evaluations retain the known raw-text preprocessing limitation and use identical tokens before and after SFT.
+
+
 ## 7. Error Analysis & Qualitative Case Studies
 
 ### 7.1 Qualitative Successes
 
-The finetuned models reliably demonstrate structured, step-by-step reasoning that reproduces both premises faithfully, computes the relative ordering, and outputs the exact target answer.
+The following successful examples contain structured explanations that reproduce the premises and state supported conclusions. They illustrate benchmark successes, not reliability across all examples or unfamiliar entities.
 
 **Hindi Direct Comparison (`hi-test-000000`)**:
 - *Prompt*: `अशोक की उम्र 13 साल है। सुमित की उम्र 25 साल है। अशोक और सुमित में से किसकी उम्र सबसे कम है? पहले उत्तर लिखें। फिर कारण: लिखकर तुलना का छोटा कारण बताएँ। उत्तर:`
@@ -382,7 +403,7 @@ The finetuned models reliably demonstrate structured, step-by-step reasoning tha
 - *Generated*: `रामनाथ। कारण: गणेश के लंबाई हरिहर से ढेर बा। हरिहर के लंबाई रामनाथ से ढेर बा। गणेश के लंबाई रामनाथ से ढेर बा।`
 - *Diagnostics*: `answer_present: True`, `joint_fully_verified: True`, `unsupported_claims: []`.
 
-Remarkably, on **Two-Hop Transitivity**, both Model H and Model L achieved **100.00% verified proof accuracy (500/500)** on the primary test, demonstrating that on this finite benchmark, causal transformers can reliably chain multi-step relational inequalities without hallucinating intermediate relations.
+On **Two-Hop Transitivity**, both models achieved **100.00% joint verification (500/500)** on the primary test under the 96-token protocol and the implemented parser. These are successes on familiar task structures and entity pools; the unseen-name failures prevent extrapolation to general multi-step reasoning.
 
 ### 7.2 Failure Modes and Generalization Boundaries
 
@@ -399,10 +420,10 @@ Remarkably, on **Two-Hop Transitivity**, both Model H and Model L achieved **100
    The moderate drop in joint verification occurs primarily in extremum and equality tasks, where slight syntactic inversion in the prompt led the model to emit a valid reasoning derivation while omitting the explicit initial answer token.
 
 3. **Unseen Named Entities (Challenge Names)**:
-   When tested on names withheld entirely from the reasoning training split, verified explanations dropped to zero, and answer presence fell to $24.60\%$ (Hindi) and $13.60\%$ (Bhojpuri). Inspection of outputs reveals that unseen names segment into unfamiliar multi-token subword pieces, triggering subword repetition or fallback to familiar names from the pretraining vocabulary. This provides strong support for the hypothesis that in small decoder models (~25M parameters), relational reasoning is heavily coupled to familiar entity tokenization boundaries.
+   When tested on names withheld entirely from the reasoning training split, verified explanations dropped to zero, and answer presence fell to $24.60\%$ (Hindi) and $13.60\%$ (Bhojpuri). Qualitative inspection shows fragmented entity strings, repetition, and substitutions with familiar names. These co-occurring observations do not isolate whether segmentation or entity familiarity caused the errors. This is consistent with dependence on familiar entities. Token segmentation is one possible contributor, alongside entity exposure and template learning; no controlled experiment isolates their effects.
 
 4. **Strict Exact Match vs. Whole-Output Evaluation**:
-   Strict exact match remained $0.0\%$ across all splits because the models generated complete, punctuated explanations (e.g., `अशोक। कारण: ...`) rather than bare one-word tokens. This empirically validates the architectural decision to score answer presence and semantic completeness separately.
+   Strict exact match remained $0.0\%$ across all splits because the models generated complete, punctuated explanations (e.g., `अशोक। कारण: ...`) rather than bare one-word tokens. Whole-output exact match penalizes the expected explanation format. The retrospective explicit-answer metric in Section 6.4 separates the answer field from the explanation; answer presence remains only a mention diagnostic.
 
 ---
 
@@ -434,7 +455,7 @@ The side-by-side heatmaps ([Layer 1 Head 2](figures/generated/phase3/attention/h
 1. **Descriptive Head Specialization**: In the pretrained models, attention across heads was relatively diffuse, characteristic of general autoregressive language modeling. After finetuning, several heads exhibit noticeable entropy reduction:
    - In Hindi, mid-layer Head L2 H5 shows a drop in entropy ($\Delta = -0.43$) paired with increased mean attention distance ($\Delta = +2.12$), routing probability mass across premise clauses between names and scalar attributes.
    - In Bhojpuri, Head L2 H5 exhibits both an entropy drop ($\Delta = -0.34$) and a distance decrease ($\Delta = -2.18$), concentrating attention locally within adjacent premise tokens.
-   - In both models, late heads (Hindi L8 H5, Bhojpuri L8 H5) show both entropy reduction and reduced attention distance ($\Delta = -3.71$ Hindi, $-1.35$ Bhojpuri), shifting attention away from generic prefix tokens toward the proximate entity values needed to form the comparative conclusion.
+   - In both models, late heads (Hindi L8 H5, Bhojpuri L8 H5) show both entropy reduction and reduced attention distance ($\Delta = -3.71$ Hindi, $-1.35$ Bhojpuri), showing a shorter average attention distance. Entropy and distance alone cannot establish which token roles are functionally necessary.
 2. **Epistemic Limitation**: These attention entropy and distance shifts describe changes in probability concentration across sequence positions. They do not constitute proof of an isolated comparison circuit; demonstrating causal necessity would require activation patching or head ablations.
 
 ---
@@ -448,23 +469,24 @@ The side-by-side heatmaps ([Layer 1 Head 2](figures/generated/phase3/attention/h
 - **Quality & Composition**: Both corpora satisfied the $\ge 20\%$ manual collection threshold in normalized pre-decontamination statistics (Hindi: $25.06\%$, Bhojpuri: $22.49\%$). However, Bhojpuri required extensive manual crawl curation, sitemap filtering, and character 4-gram discrimination to remove parallel translations and Hindi borrowings.
 
 ### Question 2: How do language-modeling and reasoning results compare across the two resource tiers?
-- **Pretrained LM Performance**: Model H significantly outperformed Model L in vocabulary-neutral compression ($0.5282$ vs. $0.6503$ Bits per Byte; $39.57$ vs. $62.93$ test perplexity), directly reflecting the benefits of pretraining token volume and lexical coverage.
+- **Pretrained LM Performance**: Model H had lower BPB ($0.5282$ vs. $0.6503$) and test perplexity ($39.57$ vs. $62.93$). BPB supports comparison across different tokenizers, but these two runs do not isolate corpus size, quality, tokenizer effects, or architecture.
 - **Reasoning Finetuning Performance**: In contrast to pretraining, the performance gap narrowed dramatically during reasoning finetuning:
-  - Both models achieved comparable answer presence on the primary test ($83.85\%$ Hindi vs. $85.00\%$ Bhojpuri in the 16-token protocol; $91.70\%$ Hindi vs. $89.15\%$ Bhojpuri in the 96-token protocol).
-  - Both models achieved **$100.00\%$ verified transitivity reasoning** on the primary test.
-  - Hindi maintained an advantage in multi-entity extremum reasoning ($83.0\%$ vs. $47.8\%$) and overall joint proof verification ($86.15\%$ vs. $69.90\%$). This performance difference reflects Hindi's larger pretraining corpus breadth ($332.6\text{M}$ vs $68.0\text{M}$ tokens processed) and higher subword coverage rather than transformer backbone capacity, as Bhojpuri actually possesses the wider feed-forward dimension.
+  - Explicit-answer accuracy is 61.55% Hindi vs. 50.15% Bhojpuri in the 16-token protocol, and 86.20% vs. 71.40% in the 96-token protocol. Higher answer-presence rates include names mentioned in premises and should not be interpreted as answer accuracy.
+  - Generic-text perplexity increases from 39.57 to 628.12 for Hindi and 62.93 to 4,939.06 for Bhojpuri after SFT, revealing a task/retention trade-off.
+  - Both models achieved **$100.00\%$ joint verification** on the 500 familiar-entity transitivity test examples under the 96-token protocol.
+  - Hindi maintained an advantage in multi-entity extremum reasoning ($83.0\%$ vs. $47.8\%$) and overall joint proof verification ($86.15\%$ vs. $69.90\%$). Corpus breadth, tokenization and backbone allocation are possible contributors to this difference. The two-model comparison does not establish which factor caused it; Bhojpuri has a wider feed-forward dimension despite its smaller vocabulary.
 
 ### Question 3: What tokenizer and corpus factors most affected the lower-resource model?
 - **Devanagari Whitespace Normalization**: Collapsing Unicode whitespace prior to encoding proved vital; raw text encoding without whitespace collapsing multiplied out-of-vocabulary (`<unk>`) rates by orders of magnitude ($3,797$ raw vs. $6$ normalized in Bhojpuri test).
 - **Parameter Budget Allocation**: Both models have 9 layers and $d_{\text{model}}=384$, totaling approximately 25M parameters:
   - Hindi's $24\text{k}$ vocabulary required $9.22\text{M}$ parameters ($36.45\%$ of total parameters), leaving $16.07\text{M}$ ($63.55\%$) for its transformer backbone ($d_{\text{ff}} = 1536$).
   - Bhojpuri's smaller $16\text{k}$ vocabulary required only $6.14\text{M}$ parameters ($24.70\%$), allowing a wider feed-forward dimension ($d_{\text{ff}} = 1920$) so that $18.73\text{M}$ ($75.30\%$) went to the backbone.
-  While the wider backbone provided ample capacity, the smaller vocabulary resulted in higher subword fragmentation for novel entities.
+  The vocabulary/backbone allocation differs between models. A controlled comparison is needed to attribute novel-entity failures to vocabulary size or segmentation rather than entity exposure or other differences.
 
 ### Question 4: What evidence explains the observed differences?
-- **Empirical Demonstration of Synthetic Reasoning Transfer**: Pretrained models achieved $0.0\%$ explanation verification and low answer presence ($17.0\%$ Hindi, $3.1\%$ Bhojpuri), demonstrating that next-token pretraining alone does not yield multi-step reasoning capabilities. Finetuning on verified synthetic relational graphs raised primary test verification to $86.15\%$ (Hindi) and $69.90\%$ (Bhojpuri).
-- **Subword Fragmentation Hypothesis**: On the Challenge Names split, verified proofs dropped to $0.0\%$ for both models. Qualitative inspection shows that unseen names segment into multiple unfamiliar subwords, disrupting greedy generation. This provides strong support for the hypothesis that subword fragmentation is the primary bottleneck for entity-centric reasoning in compact language models.
-- **Descriptive Attention Restructuring**: The observed drops in multi-head attention entropy ($\Delta \approx -0.25$ to $-0.43$ in mid/late heads) describe a shift toward sharper probability concentration on premise entities and scalar values. While not proving isolated causal circuits, these descriptive shifts corroborate the models' transition from diffuse language modeling to localized relational tracking.
+- **Empirical Demonstration of Synthetic Reasoning Transfer**: These pretrained checkpoints achieved $0.0\%$ explanation verification and low original-protocol answer presence ($17.0\%$ Hindi, $3.1\%$ Bhojpuri). This shows poor performance under the tested prompts and budgets, not that next-token pretraining can never support reasoning. Finetuning on verified synthetic relational graphs raised primary test verification to $86.15\%$ (Hindi) and $69.90\%$ (Bhojpuri).
+- **Subword Fragmentation Hypothesis**: On the Challenge Names split, verified proofs dropped to $0.0\%$ for both models. Qualitative inspection shows fragmented name outputs and generation failures, but their causal relationship was not isolated. Token fragmentation is a hypothesis, not an established primary bottleneck. Testing it requires controlling name exposure and token segmentation while holding task structure and training fixed.
+- **Descriptive Attention Restructuring**: The observed drops in multi-head attention entropy ($\Delta \approx -0.25$ to $-0.43$ in mid/late heads) describe a shift toward sharper probability concentration on premise entities and scalar values. These are descriptive changes on the selected prompts; they do not establish causal relational circuits or general reasoning ability.
 
 ---
 
@@ -492,6 +514,7 @@ python -m lma_phase3.finetune \
   --val-data tmp/phase3/reasoning_v1/hindi/validation.jsonl.gz \
   --template-config hindi/configs/phase3_templates.json \
   --output-dir tmp/phase3/runs/hindi/finetune_v1 \
+  --validation-scope legacy_subset \
   --device mps
 
 # 2. Evaluate Hindi Model H on all held-out splits
