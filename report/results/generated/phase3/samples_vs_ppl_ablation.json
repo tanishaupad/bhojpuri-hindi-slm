@@ -1,0 +1,146 @@
+{
+  "bhojpuri": [
+    {
+      "language": "bhojpuri",
+      "samples": 0,
+      "generic_perplexity": 62.926440840713674,
+      "generic_cross_entropy": 4.141966438505971,
+      "generic_bits_per_byte": 0.6503121393105361,
+      "reasoning_val_loss": 3.7464446823896913,
+      "reasoning_val_perplexity": 42.37017446947855,
+      "reasoning_val_accuracy": 0.0
+    },
+    {
+      "language": "bhojpuri",
+      "samples": 1000,
+      "generic_perplexity": 170.74131312987606,
+      "generic_cross_entropy": 5.140149622368306,
+      "generic_bits_per_byte": 0.8070325404433523,
+      "reasoning_val_loss": 0.2119114066192664,
+      "reasoning_val_perplexity": 1.2360383754092652,
+      "reasoning_val_accuracy": 56.00000000000001
+    },
+    {
+      "language": "bhojpuri",
+      "samples": 3000,
+      "generic_perplexity": 352.35240167739016,
+      "generic_cross_entropy": 5.864631815919491,
+      "generic_bits_per_byte": 0.9207803392668027,
+      "reasoning_val_loss": 0.07521003509306526,
+      "reasoning_val_perplexity": 1.0781105681595304,
+      "reasoning_val_accuracy": 39.0
+    },
+    {
+      "language": "bhojpuri",
+      "samples": 5000,
+      "generic_perplexity": 457.36949748026314,
+      "generic_cross_entropy": 6.125491592614393,
+      "generic_bits_per_byte": 0.9617367984658591,
+      "reasoning_val_loss": 0.05556162114677313,
+      "reasoning_val_perplexity": 1.0571341568844477,
+      "reasoning_val_accuracy": 32.0
+    },
+    {
+      "language": "bhojpuri",
+      "samples": 8000,
+      "generic_perplexity": 1145.6443057790075,
+      "generic_cross_entropy": 7.043722470195795,
+      "generic_bits_per_byte": 1.1059042356593731,
+      "reasoning_val_loss": 0.031052571435969786,
+      "reasoning_val_perplexity": 1.0315397319860562,
+      "reasoning_val_accuracy": 28.000000000000004
+    },
+    {
+      "language": "bhojpuri",
+      "samples": 12000,
+      "generic_perplexity": 2238.0970190080443,
+      "generic_cross_entropy": 7.7133812386954546,
+      "generic_bits_per_byte": 1.2110444469132708,
+      "reasoning_val_loss": 0.023168677983140585,
+      "reasoning_val_perplexity": 1.023439156641266,
+      "reasoning_val_accuracy": 59.0
+    },
+    {
+      "language": "bhojpuri",
+      "samples": 20000,
+      "generic_perplexity": 4939.061184617598,
+      "generic_cross_entropy": 8.504930548521719,
+      "generic_bits_per_byte": 1.335322162024012,
+      "reasoning_val_loss": 0.01680927945163574,
+      "reasoning_val_perplexity": 1.0169513503094134,
+      "reasoning_val_accuracy": 49.0
+    }
+  ],
+  "hindi": [
+    {
+      "language": "hindi",
+      "samples": 0,
+      "generic_perplexity": 39.572316438058394,
+      "generic_cross_entropy": 3.6781297939431656,
+      "generic_bits_per_byte": 0.5281837994028693,
+      "reasoning_val_loss": 2.3797658676646924,
+      "reasoning_val_perplexity": 10.802373382919159,
+      "reasoning_val_accuracy": 0.0
+    },
+    {
+      "language": "hindi",
+      "samples": 1000,
+      "generic_perplexity": 55.30388834350568,
+      "generic_cross_entropy": 4.012843219682183,
+      "generic_bits_per_byte": 0.5762490441936071,
+      "reasoning_val_loss": 0.09352657343930446,
+      "reasoning_val_perplexity": 1.0980397816471055,
+      "reasoning_val_accuracy": 49.0
+    },
+    {
+      "language": "hindi",
+      "samples": 3000,
+      "generic_perplexity": 68.89272159585107,
+      "generic_cross_entropy": 4.232550535224095,
+      "generic_bits_per_byte": 0.607799275202482,
+      "reasoning_val_loss": 0.04838285994580759,
+      "reasoning_val_perplexity": 1.0495724176491543,
+      "reasoning_val_accuracy": 52.0
+    },
+    {
+      "language": "hindi",
+      "samples": 5000,
+      "generic_perplexity": 87.37576265843423,
+      "generic_cross_entropy": 4.4702179290816515,
+      "generic_bits_per_byte": 0.6419285947519383,
+      "reasoning_val_loss": 0.029397822690071407,
+      "reasoning_val_perplexity": 1.0298342044071909,
+      "reasoning_val_accuracy": 40.0
+    },
+    {
+      "language": "hindi",
+      "samples": 8000,
+      "generic_perplexity": 158.49631575109194,
+      "generic_cross_entropy": 5.065731348574572,
+      "generic_bits_per_byte": 0.7274450278645285,
+      "reasoning_val_loss": 0.02390749370322496,
+      "reasoning_val_perplexity": 1.0241955689689946,
+      "reasoning_val_accuracy": 52.0
+    },
+    {
+      "language": "hindi",
+      "samples": 12000,
+      "generic_perplexity": 333.86413987510366,
+      "generic_cross_entropy": 5.810734143383621,
+      "generic_bits_per_byte": 0.8344283125153256,
+      "reasoning_val_loss": 0.0195797529024887,
+      "reasoning_val_perplexity": 1.0197726934497808,
+      "reasoning_val_accuracy": 41.0
+    },
+    {
+      "language": "hindi",
+      "samples": 20000,
+      "generic_perplexity": 628.1219659752762,
+      "generic_cross_entropy": 6.442734360947657,
+      "generic_bits_per_byte": 0.925184293091679,
+      "reasoning_val_loss": 0.008245530107784031,
+      "reasoning_val_perplexity": 1.0082796181179883,
+      "reasoning_val_accuracy": 85.0
+    }
+  ]
+}
