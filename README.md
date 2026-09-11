@@ -194,7 +194,11 @@ Drive folder, with temporary local staging only while a large streaming job is a
 Final large corpus artifacts, packed streams, and model checkpoints are stored in Google Drive;
 small audit and evaluation artifacts are versioned in this repository.
 
-### Final Phase 1 Datasets and Splits
+### Historical Phase 1 Datasets and Splits
+
+The following figures are the historical Phase 1 summary. Hindi held-out counts and final
+training composition are corrected in the Phase 1 report; use the verified final recount below
+for the corpus actually packed for pretraining.
 
 - **Hindi (Model H)**:
   - Total Corpus: 2,283,757 documents / 339,048,510 tokens (with 24k Unigram tokenizer)
@@ -209,6 +213,19 @@ small audit and evaluation artifacts are versioned in this repository.
   - Validation split: 2,344 documents / 227,239 tokens
   - Test split: 2,351 documents / 214,399 tokens
   - Tokenizer: `bhojpuri/tokenizer/bhojpuri.model` (16,000 Unigram, character coverage 1.0)
+
+### Verified final training composition
+
+| Language | Final train documents | Raw content tokens | Manual content tokens | Manual fraction | Packed tokens (with EOS) |
+|---|---:|---:|---:|---:|---:|
+| Hindi | 2,237,942 | 334,757,275 | 85,857,319 | 25.6476% | 336,995,217 |
+| Bhojpuri | 225,689 | 22,917,286 | 5,453,089 | 23.7947% | 23,142,975 |
+
+These content-token fractions exclude EOS. Both reconstructed packed streams match the original
+Phase 2 SHA-256 hashes. Full normalized/raw/packed counts are in
+[`final_training_recount.json`](report/audits/generated/final_training_recount.json).
+Hindi remains below the approximately 500M-token target; the explicit lower-resource shortfall
+allowance applies to Bhojpuri. No exemption for Hindi is claimed.
 
 ## 1. Manual collection
 
@@ -738,3 +755,38 @@ python -m lma_phase3.attention_compare \
 ```
 
 Full details, error analysis, task breakdowns, and rubric questions are documented in [`report/phase-3.md`](report/phase-3.md).
+
+
+## Auxiliary sample-budget experiments
+
+The submitted main finetuned models remain the 20k `finetune_v1` checkpoints linked above.
+Hindi 5k and Bhojpuri 3k are exploratory comparisons, not proven retention optima. Their original
+weight-only files do not replace the main resume-capable checkpoints. See the
+[ablation report](report/phase-3-sample-ablation.md) for exact scope, training commands and limitations,
+and the [artifact manifest](report/results/generated/phase3/ablation_artifact_manifest.json)
+for checkpoint, subset, tokenizer and prediction hashes. Auxiliary weights are currently local;
+an independently verified shared Drive upload is not claimed.
+
+Full auxiliary predictions are included under
+[`optimal_eval`](report/results/generated/phase3/optimal_eval) (a legacy directory name).
+Recompute their scores from released datasets without running training or model generation:
+
+```bash
+python scripts/verify_phase3_results.py \
+  --dataset-root /path/to/reasoning_v1 \
+  --predictions-root report/results/generated/phase3/optimal_eval \
+  --model-directories hindi_5k bhojpuri_3k
+```
+
+Verify the main predictions with the same command but omit `--predictions-root` and
+`--model-directories`. Regenerate the result tables with `python scripts/build_ablation_report.py`.
+To independently recount final training tokens and manual fractions:
+
+```bash
+python scripts/recount_training_tokens.py \
+  --artifact-root /path/to/LMA_Individual_Project \
+  --output tmp/final_training_recount.json --threads 4
+```
+
+Source corrections on `phase-3` do not alter earlier graded branches or prove historical
+push timing. The no-position ablation is optional and is not claimed here.

@@ -98,6 +98,10 @@ lma_phase2_outputs/
 !report/results/generated/phase3/finetuned_v1/bhojpuri/
 !report/results/generated/phase3/finetuned_v1/*/*.json
 !report/results/generated/phase3/finetuned_v1/*/*/*.jsonl
+!report/results/generated/phase3/finetuned_v1/*/*/*_predictions.jsonl.gz
+
+# Compact auxiliary prediction evidence; checkpoints remain outside Git.
+!report/results/generated/phase3/optimal_eval/*/*/*_predictions.jsonl.gz
 
 # Retrospective explicit-answer scores preserve the original generation artifacts.
 !report/results/generated/phase3/explicit_answer_v1/scores/*.jsonl.gz

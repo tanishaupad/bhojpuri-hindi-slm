@@ -121,6 +121,10 @@ The completed artifacts are recorded in
 | Hindi | 2,237,942 | 336,995,217 | 3,479,648 | 3,521,023 | 9 |
 | Bhojpuri | 225,689 | 23,142,975 | 234,882 | 222,585 | 303 |
 
+The final raw-content manual fractions are **25.6476% Hindi / 23.7947% Bhojpuri**;
+[the full training recount](audits/generated/final_training_recount.json) reproduces both packed-stream hashes.
+This recount and the full-validation evaluation were added on Phase 3, after the Phase 2 deadline.
+
 Both independent models completed their scheduled Kaggle GPU runs in bfloat16 with PyTorch
 2.10.0 and CUDA 12.8. Before those runs, each full-size model also passed a one-step CPU train,
 validation, checkpoint, and `--resume latest` smoke test.
@@ -292,6 +296,12 @@ All 12 heatmaps have explicit layer/head labels and a shared 0–1 probability s
 token labels were regenerated with an explicit compatible font after Kaggle's default font rendered
 them as boxes. Complete head summaries are in
 [`report/tables/generated/phase2`](tables/generated/phase2).
+
+On the Phase 3 branch, the heatmaps were redrawn to match the exact saved prefixes quoted above;
+some earlier PNGs depicted different prefixes. Before redrawing, all 54 head metrics per language
+were recomputed and matched the existing CSV within 1e-4. The CSV results were unchanged.
+Reproduce this correction with `scripts/replot_phase2_attention.py --artifact-root
+/path/to/LMA_Individual_Project --font /path/to/Devanagari-font.ttf`.
 
 ## 7. Reproducibility and conclusions
 

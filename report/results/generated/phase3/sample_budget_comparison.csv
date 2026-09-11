@@ -1,0 +1,15 @@
+protocol,split,metric,hindi_base,hindi_5k,hindi_20k,bhojpuri_base,bhojpuri_3k,bhojpuri_20k
+original,test,Explicit answer accuracy,0.0,0.4605,0.6155,0.0,0.3735,0.5015
+original,test,Answer presence,0.17,0.803,0.8385,0.031,0.6825,0.85
+original,validation,Explicit answer accuracy,0.0,0.4435,0.6145,0.0,0.3825,0.512
+original,challenge_wording,Explicit answer accuracy,0.0,0.466,0.59,0.0,0.39,0.542
+original,challenge_names,Explicit answer accuracy,0.0,0.138,0.124,0.0,0.116,0.124
+explanation,test,Explicit answer accuracy,0.0,0.619,0.862,0.0,0.4535,0.714
+explanation,test,Explicit joint success,0.0,0.5545,0.8615,0.0,0.2305,0.699
+explanation,test,Answer presence,0.066,0.896,0.917,0.023,0.878,0.8915
+explanation,validation,Explicit answer accuracy,0.0,0.6135,0.8585,0.0,0.49,0.71
+explanation,validation,Explicit joint success,0.0,0.5545,0.8585,0.0,0.2455,0.6965
+explanation,challenge_wording,Explicit answer accuracy,0.0,0.474,0.662,0.0,0.46,0.694
+explanation,challenge_wording,Explicit joint success,0.0,0.41,0.646,0.0,0.228,0.68
+explanation,challenge_names,Explicit answer accuracy,0.0,0.262,0.158,0.0,0.124,0.136
+explanation,challenge_names,Explicit joint success,0.0,0.176,0.0,0.0,0.0,0.0

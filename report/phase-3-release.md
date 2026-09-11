@@ -1,8 +1,8 @@
 # Phase 3 reasoning_v1 dataset release
 
 Status: generated, audited, and copied to the project Drive filesystem. User approved the
-naturalness of both 50-example development pilots. The [pretrained reasoning baselines](phase-3-baselines.md) are complete. Finetuning and held-out evaluation are also complete; see the [final Phase 3 report](phase-3.md).
-The original proposal is in [phase-3-dataset-design.md](phase-3-dataset-design.md).
+naturalness of both 50-example development pilots. The [pretrained reasoning baselines](phase-3.md#4-pretrained-reasoning-baselines) are complete. Finetuning and held-out evaluation are also complete; see the [final Phase 3 report](phase-3.md).
+The dataset design and construction details are documented in [the Phase 3 report](phase-3.md#2-dataset-design-and-construction).
 
 ## Contents per language
 

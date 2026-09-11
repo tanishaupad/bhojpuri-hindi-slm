@@ -16,6 +16,7 @@ import sentencepiece as spm
 
 from lma_phase3.evaluate import normalize_answer
 from lma_phase3.evaluate_proofs import explanation_prompt
+from lma_phase3.explicit_answer import score_explicit_answer
 from lma_phase3.score_answer_presence import score_row
 from lma_phase3.semantic_check import score_semantics
 
@@ -31,6 +32,13 @@ def main():
         default=root / "report/results/generated/phase3/finetuned_v1",
     )
     parser.add_argument(
+        "--model-directories",
+        nargs=2,
+        default=["hindi", "bhojpuri"],
+        metavar=("HINDI_DIR", "BHOJPURI_DIR"),
+        help="Subdirectories for the two languages; use hindi_5k bhojpuri_3k for the auxiliary runs",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         help="Optional JSON evidence file; use a new path to preserve earlier audits",
@@ -39,11 +47,11 @@ def main():
     root = Path(__file__).resolve().parents[1]
     results = {}
     total = 0
-    for lang in ["hindi", "bhojpuri"]:
+    for lang, model_directory in zip(["hindi", "bhojpuri"], args.model_directories, strict=True):
         base = json.loads((root / lang / "configs/phase3_templates.json").read_text())
         sp = spm.SentencePieceProcessor(model_file=str(root / lang / f"tokenizer/{lang}.model"))
         for proto, limit in [("original", 16), ("explanation", 96)]:
-            folder = args.predictions_root / f"{lang}/protocol_{proto}_{limit}tokens"
+            folder = args.predictions_root / model_directory / f"protocol_{proto}_{limit}tokens"
             summary = json.loads((folder / "summary.json").read_text())
             for split in ["validation", "test", "challenge_names", "challenge_wording"]:
                 with gzip.open(args.dataset_root / lang / f"{split}.jsonl.gz", "rt") as f:
@@ -73,6 +81,12 @@ def main():
                     checks["semantic"] = s == p["semantic_checks"]
                     checks["presence"] = a["answer_present"] == p["answer_present"]
                     checks["strict"] = a["strict_exact_match"] == p["strict_exact_match"]
+                    explicit = score_explicit_answer(p["generated"], r["answer_text"], s)
+                    checks["explicit"] = all(p[k] == v for k, v in explicit.items() if k in p)
+                    counts["explicit_answer_correct_count"] += explicit["explicit_answer_correct"]
+                    counts["explicit_answer_and_explanation_verified_count"] += explicit[
+                        "explicit_answer_and_explanation_verified"
+                    ]
                     for k, ok in checks.items():
                         if not ok:
                             errors[k] += 1

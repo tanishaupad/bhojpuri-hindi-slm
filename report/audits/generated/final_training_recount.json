@@ -1,0 +1,75 @@
+{
+  "languages": {
+    "bhojpuri": {
+      "by_collection_type": {
+        "downloaded": {
+          "documents": 210056,
+          "normalized_tokens": 17464197,
+          "packed_tokens": 17674253,
+          "raw_tokens": 17464197,
+          "utf8_bytes": 164506527
+        },
+        "manual": {
+          "documents": 15633,
+          "normalized_tokens": 4907228,
+          "packed_tokens": 5468722,
+          "raw_tokens": 5453089,
+          "utf8_bytes": 45531995
+        }
+      },
+      "input_sha256": "11ad20143c7a856672b5c7044f435b471386b0f156d317af6a44157299b4aa94",
+      "manual_fractions": {
+        "normalized_tokens": 0.21935249989663153,
+        "packed_tokens": 0.2363015990813627,
+        "raw_tokens": 0.23794654393194725
+      },
+      "manual_requirement_met_excluding_eos": true,
+      "matches_phase2_manifest": true,
+      "reencoded_packed_sha256": "49d83e8a360cce8cbf41da526f962ccb8aab18196d6250ac71340c12e2838a66",
+      "tokenizer_sha256": "5d50ad313682cabe0f17b63f7829cecf0512ca563630322a1809c0c958741cec",
+      "totals": {
+        "documents": 225689,
+        "normalized_tokens": 22371425,
+        "packed_tokens": 23142975,
+        "raw_tokens": 22917286,
+        "utf8_bytes": 210038522
+      }
+    },
+    "hindi": {
+      "by_collection_type": {
+        "downloaded": {
+          "documents": 2141978,
+          "normalized_tokens": 248899956,
+          "packed_tokens": 251041934,
+          "raw_tokens": 248899956,
+          "utf8_bytes": 2616253764
+        },
+        "manual": {
+          "documents": 95964,
+          "normalized_tokens": 83250143,
+          "packed_tokens": 85953283,
+          "raw_tokens": 85857319,
+          "utf8_bytes": 774397090
+        }
+      },
+      "input_sha256": "20e873c2489030b4d50415754f410b36176e99912bdeda215cd4af2363ccca6b",
+      "manual_fractions": {
+        "normalized_tokens": 0.2506401270107705,
+        "packed_tokens": 0.25505787223086906,
+        "raw_tokens": 0.2564763349803227
+      },
+      "manual_requirement_met_excluding_eos": true,
+      "matches_phase2_manifest": true,
+      "reencoded_packed_sha256": "6a3a2e414a8e690e970f8611b53989ea38a19b02de8926b5c2f9401b98ebdcfc",
+      "tokenizer_sha256": "5a88ca1d2519429e518b104684a59ca62a17ef5015e60ec0bad3a755b156bbb8",
+      "totals": {
+        "documents": 2237942,
+        "normalized_tokens": 332150099,
+        "packed_tokens": 336995217,
+        "raw_tokens": 334757275,
+        "utf8_bytes": 3390650854
+      }
+    }
+  },
+  "protocol": "Final decontaminated training splits; raw content tokens exclude EOS, packed counts assign one EOS to the source document. Normalized counts are a separate diagnostic. Packed SHA-256 is reproduced in document order."
+}

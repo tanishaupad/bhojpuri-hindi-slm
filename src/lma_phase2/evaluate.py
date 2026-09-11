@@ -86,7 +86,7 @@ def plot_attention(
 ) -> None:
     output.parent.mkdir(parents=True, exist_ok=True)
     figure, axis = plt.subplots(figsize=(10, 8))
-    image = axis.imshow(matrix, aspect="auto", cmap="viridis", vmin=0.0)
+    image = axis.imshow(matrix, aspect="auto", cmap="viridis", vmin=0.0, vmax=1.0)
     step = max(1, len(labels) // 20)
     positions = list(range(0, len(labels), step))
     font = FontProperties(fname=str(font_path)) if font_path is not None else None

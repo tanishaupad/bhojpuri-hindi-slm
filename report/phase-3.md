@@ -3,7 +3,7 @@
 **Author**: Tanisha Upadhyay  
 **Course**: CL3-410 / Language Modeling and Applications  
 **Date**: September 2026  
-**Status**: Complete. Both independent models finetuned on reasoning_v1, fully evaluated across held-out splits and both generation protocols, multi-head attention shifts analyzed, and cross-phase empirical findings consolidated.  
+**Status**: Main experiments complete; limitations and retrospective corrections are documented below. Both independent models were finetuned on reasoning_v1 and evaluated across held-out splits and both generation protocols.  
 
 ---
 
@@ -11,19 +11,19 @@
 
 The [course-alignment evaluation](phase-3-course-alignment.md) adds generic-text retention metrics and a retrospective explicit-answer rescore. It also documents full-split validation for future training runs. The original question structures, datasets, checkpoints and generation outputs are unchanged.
 
-As mandated by the Phase 3 requirements, this report consolidates the complete empirical trajectory across Phases 1, 2, and 3. Before launching Phase 3 synthetic data generation and finetuning, a comprehensive audit and recomputation was executed across the Phase 1 and Phase 2 artifacts to ensure full specification compliance, resolve token accounting discrepancies, correct architectural parameters, and unify held-out evaluation metrics.
+This report consolidates Phases 1, 2 and 3. Retrospective audits corrected token accounting, architectural descriptions and held-out metric reporting. Corrections on this branch do not establish full compliance or change what was submitted on earlier graded branches.
 
 ### 1.1 Summary of Verification Findings
 
 | Verification Check | Historical Phase 1 / Phase 2 Record | Recomputed & Verified Specification Finding | Status |
 |---|---|---|---|
-| **Code Quality & Tests** | 84 unit tests passing | **84 passing**, **0 lint errors** (all import-order and set duplicate lints resolved) | **Compliant** |
+| **Code Quality & Tests** | 84 tests in the earlier snapshot | The reviewed pre-correction suite passed 167 tests. Current checks are recorded in the submission verification artifact. | Version-specific evidence |
 | **Model Dimension ($d_{\text{model}}$)** | Prospective $d_{\text{model}} = 512$ cited in early planning | **Realized $d_{\text{model}} = 384$** ($25.29\text{M}$ Hindi / $24.87\text{M}$ Bhojpuri parameters) | **Reconciled** |
 | **Embedding Budget** | $12.28\text{M}$ parameters ($49\%$) | **$9.22\text{M}$ ($36.45\%$) for Hindi; $6.14\text{M}$ ($24.70\%$) for Bhojpuri** | **Reconciled** |
 | **Hindi Test Tokens** | $3,372,824$ reported in Phase 1 | **$3,521,023$ packed in Phase 2** ($3,498,250$ raw tokens $+$ $22,773$ document EOS) | **Reconciled** |
 | **Validation Evaluation** | $4.095$ loss / $60.06$ PPL (periodic 100-batch estimate) | **Full validation: $3.6667$ CE / $39.12$ PPL / $0.5263$ BPB** scored over all $3,479,647$ tokens | **Recomputed** |
 | **Bhojpuri Validation** | $4.068$ loss / $58.41$ PPL (periodic 100-batch estimate) | **Full validation: $4.1737$ CE / $64.95$ PPL / $0.6497$ BPB** scored over all $234,881$ tokens | **Recomputed** |
-| **Manual Data Share** | Target $\ge 20\%$ | **Hindi: $25.06\%$ ($83.27\text{M}$ tokens); Bhojpuri: $22.49\%$ ($5.08\text{M}$ tokens)** | **Compliant** |
+| **Manual Data Share** | Historical normalized shares: Hindi 25.06%, Bhojpuri 22.49% | See the final training recount for raw, normalized and EOS-inclusive denominators. Historical shares must not be substituted for the final-stream fraction. | Denominator-specific evidence |
 
 ---
 
@@ -50,6 +50,27 @@ The exact token accounting breakdown (recorded in [`report/audits/generated/held
 
 ---
 
+### 2.1.1 Final training recount (11 September 2026)
+
+Every final decontaminated training document was re-encoded with the released tokenizer.
+The reconstructed packed stream matches the published Phase 2 SHA-256 for both languages.
+Raw content counts exclude EOS; the packed count includes one EOS per document.
+
+| Language | Final train documents | Raw content tokens | Manual content tokens | Manual fraction | Packed tokens (with EOS) |
+|---|---:|---:|---:|---:|---:|
+| Hindi | 2,237,942 | 334,757,275 | 85,857,319 | 25.6476% | 336,995,217 |
+| Bhojpuri | 225,689 | 22,917,286 | 5,453,089 | 23.7947% | 23,142,975 |
+
+Both final training corpora exceed 20% manual content tokens. Assigning each EOS to its source
+document gives packed manual fractions of 25.5058% Hindi and 23.6302% Bhojpuri. Independently
+normalizing whitespace gives 332,150,099 Hindi / 22,371,425 Bhojpuri training tokens, with
+manual fractions 25.0640% / 21.9352%. These are different denominators, not competing estimates.
+The recount verifies recorded collection types and token counts; it is not a fresh manual
+review of the linguistic quality or collection classification of every source.
+
+Evidence: [final_training_recount.json](audits/generated/final_training_recount.json).
+Historical pre-decontamination statistics are retained in the Phase 1 report.
+
 ### 2.2 Corrected Architecture and Embedding Budget
 
 In the preliminary Phase 1 writeup, parameter allocation was estimated using an assumed dimension of $d_{\text{model}} = 512$. In Phase 2, the models were instantiated with $d_{\text{model}} = 384$ and $9$ layers to optimize head dimensions ($6$ heads $\times 64 = 384$) and fit student GPU memory budgets.
@@ -67,7 +88,7 @@ Both configurations tie the input token embeddings with the final linear languag
 | **Transformer Backbone Parameters** | 16,069,248 (63.55%) | 18,726,912 (75.30%) |
 | **Total Parameter Count** | **25,285,248** | **24,870,912** |
 
-Untying the output projection would have added an additional $9.22\text{M}$ (Hindi) or $6.14\text{M}$ (Bhojpuri) parameters, pushing the models well beyond the $25\text{M}$ parameter budget ceiling. The realized architecture balances depth and capacity effectively.
+Untying the output projection would add $9.22\text{M}$ (Hindi) or $6.14\text{M}$ (Bhojpuri) parameters, moving the models well above the approximately $25\text{M}$ target. This is an approximate target, not a hard ceiling.
 
 ---
 
@@ -218,10 +239,8 @@ from answer-format and stopping behavior. Language-model pretraining alone has n
 models reliable users of the synthetic QA format. The same evaluator will be applied after
 finetuning, with validation-only checkpoint selection.
 
-Full per-task tables, deterministic error examples, protocol details and artifact locations are
-in [phase-3-baselines.md](phase-3-baselines.md). The next step is implementing and testing
-answer-token-only finetuning, then comparing the independently finetuned models to these frozen
-baselines. No finetuned accuracy or attention change has been measured yet.
+Per-task baseline metrics and predictions are in [pretrained_v1](results/generated/phase3/pretrained_v1/).
+Completed finetuning, generation evaluation and attention comparisons are reported below.
 
 
 ### 4.1 Supplemental answer-presence scoring
@@ -304,7 +323,7 @@ To transition the models from next-token language generators into grounded reaso
   - Bhojpuri Model L: `checkpoint_step_0004150.pt` ($24.87\text{M}$ parameters, $d_{\text{model}}=384$, 9 layers, 6 heads, tied 16k embeddings).
 - **Optimizer & Schedule**: A fresh AdamW optimizer was initialized ($\text{lr} = 1.0 \times 10^{-4}$, $\text{weight decay} = 0.1$, $\beta_1 = 0.9, \beta_2 = 0.95$, $\epsilon = 10^{-8}$) with a 100-step linear warmup and cosine decay to $\text{lr}_{\text{min}} = 1.0 \times 10^{-5}$ across 2,500 steps (2 full epochs over 20,000 examples with effective batch size 16).
 - **Safe Checkpointing and Resumption**:
-  To guarantee exact reproducibility and pause/resume safety on local hardware, `save_finetune_checkpoint()` captures complete device state: Python `random`, NumPy, PyTorch CPU, and PyTorch MPS hardware RNG via `torch.mps.get_rng_state()`, along with epoch and microbatch position. Checkpoint writing is atomic via temporary file rename, retaining the three newest checkpoints and tracking `latest.json` and `best_checkpoint.pt`. On resume, configuration architecture parameters are strictly validated against the checkpoint, and data iteration advances deterministically to the exact interrupted batch.
+  The main checkpoints retain weights, optimizer, scheduler, training step, configuration and Python/NumPy/PyTorch RNG states. The current loader reconstructs seeded data order and checks selected architecture fields and validation protocol. Controlled continuation tests pass, but this does not establish exact continuation for all configurations or retroactively add data-position state to historical checkpoints. Atomic writes protect completed checkpoint files; the latest three checkpoints are retained.
 
 ### 5.3 Local Hardware Performance, Loss Trajectory & Validation Selection
 
@@ -388,78 +407,96 @@ The retention evaluation shows a substantial loss in generic-text predictive per
 
 ### 6.5 SFT Sample Budget vs. Generic Retention Ablation
 
-To investigate the dynamics governing the observed retention loss, we conducted an empirical ablation analyzing the relationship between supervised training volume ($N$) and generic-text perplexity degradation. Supervised finetuning introduces an inherent tension between adapting to structured reasoning formats and preserving the base model's general language modeling distribution.
+#### Protocol and limitations
 
-#### Experimental Protocol
-Using the stratified training sets described in Section 3, independent models were initialized from the respective Phase 2 base checkpoints (`checkpoint_step_0020300.pt` for Model H; `checkpoint_step_0004150.pt` for Model L) across six supervision volumes: $N \in [1{,}000,\ 3{,}000,\ 5{,}000,\ 8{,}000,\ 12{,}000,\ 20{,}000]$, alongside the unfinetuned baseline ($N=0$).
+Five subset runs per language used 1,000, 3,000, 5,000, 8,000 and 12,000 examples.
+The 20,000-example point reuses the historical v1 run; zero is the pretrained checkpoint.
+Each subset has equal counts from direct, extremum, equality and transitivity tasks, with
+seed 20260823. Subsets are separately sampled, not nested. Two passes at effective batch
+size 16 give 125-1,500 steps for the subset runs and 2,500 steps for v1. Peak/final learning
+rates are 1e-4/1e-5, with cosine decay and warmup `max(10, min(100, round(steps * 0.1)))`.
+Thus sample count, optimizer steps and warmup duration vary together; this experiment does
+not isolate the effect of unique examples at fixed compute. There is one seed per condition.
 
-To isolate sample scale while maintaining consistent training dynamics:
-- Each configuration was trained for an invariant duration of 2 epochs (effective batch size 16), scaling steps linearly from 125 steps ($N=1\text{k}$) to 2,500 steps ($N=20\text{k}$).
-- Cosine learning rate scheduling ($1.0 \times 10^{-4} \to 1.0 \times 10^{-5}$) with proportional linear warmup was enforced for all sweeps.
-- Every subset maintained exact stratification across all four reasoning families (`direct`, `extremum`, `equality`, `transitivity`) using deterministic seed `20260823`.
-- Evaluation measured: (1) generic-text cross-entropy and perplexity on the full Phase 2 held-out test stream, (2) token-weighted loss on the complete 2,000-example reasoning validation split, and (3) format-compliant explicit-answer accuracy under the 16-token generation protocol.
+Generic CE/PPL score the complete original Phase 2 **test** streams: 3,521,022 targets for
+Hindi and 222,584 for Bhojpuri, including EOS. The raw-text normalization limitation remains.
+Reasoning loss/PPL cover all 2,000 validation examples. In contrast, the sweep's accuracy
+column and blue plot line use **only the first 100 validation examples, all direct comparisons**,
+with original prompts and 16 generated tokens. They are not full-benchmark accuracy.
 
-| Language | Reasoning Samples ($N$) | Training Steps | Generic LM Cross-Entropy | Generic LM Perplexity | Perplexity Ratio ($/N=0$) | Reasoning Val Loss | Reasoning Val PPL | Explicit Answer Accuracy (%) |
+The choice to inspect Hindi 5k and Bhojpuri 3k followed examination of generic-test PPL.
+This is retrospective, exploratory comparison, with no predefined retention threshold or
+selection objective. These are illustrative smaller-budget checkpoints, not established
+optima. The generic test stream has been consulted during selection and is not an untouched
+selection-independent estimate. Future selection should use generic validation data.
+
+| Language | Samples | Steps | Generic CE | Generic PPL | PPL / base | Full validation loss | Full validation PPL | Direct-only accuracy (first 100) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| **Hindi (Model H)** | 0 (Pretrained) | 0 | 3.6781 | **39.57** | 1.00× | 2.3798 | 10.80 | 0.0% |
-| | 1,000 | 125 | 4.0128 | **55.30** | 1.40× | 0.0935 | 1.10 | 49.0% |
-| | 3,000 | 375 | 4.2326 | **68.89** | 1.74× | 0.0484 | 1.05 | 52.0% |
-| | 5,000 | 625 | 4.4702 | **87.38** | 2.21× | 0.0294 | 1.03 | 40.0% |
-| | 8,000 | 1,000 | 5.0657 | **158.50** | 4.01× | 0.0239 | 1.02 | 52.0% |
-| | 12,000 | 1,500 | 5.8107 | **333.86** | 8.44× | 0.0196 | 1.02 | 41.0% |
-| | 20,000 (v1 final) | 2,500 | 6.4427 | **628.12** | 15.87× | 0.0082 | 1.01 | 85.0% |
-| **Bhojpuri (Model L)** | 0 (Pretrained) | 0 | 4.1420 | **62.93** | 1.00× | 3.7464 | 42.37 | 0.0% |
-| | 1,000 | 125 | 5.1401 | **170.74** | 2.71× | 0.2119 | 1.24 | 56.0% |
-| | 3,000 | 375 | 5.8646 | **352.35** | 5.60× | 0.0752 | 1.08 | 39.0% |
-| | 5,000 | 625 | 6.1255 | **457.37** | 7.27× | 0.0556 | 1.06 | 32.0% |
-| | 8,000 | 1,000 | 7.0437 | **1,145.64** | 18.21× | 0.0311 | 1.03 | 28.0% |
-| | 12,000 | 1,500 | 7.7134 | **2,238.10** | 35.57× | 0.0232 | 1.02 | 59.0% |
-| | 20,000 (v1 final) | 2,500 | 8.5049 | **4,939.06** | 78.49× | 0.0168 | 1.02 | 49.0% |
+| Hindi | 0 | 0 | 3.6781 | 39.57 | 1.00x | 2.3798 | 10.80 | 0.0% |
+| Hindi | 1,000 | 125 | 4.0128 | 55.30 | 1.40x | 0.0935 | 1.10 | 49.0% |
+| Hindi | 3,000 | 375 | 4.2326 | 68.89 | 1.74x | 0.0484 | 1.05 | 52.0% |
+| Hindi | 5,000 | 625 | 4.4702 | 87.38 | 2.21x | 0.0294 | 1.03 | 40.0% |
+| Hindi | 8,000 | 1,000 | 5.0657 | 158.50 | 4.01x | 0.0239 | 1.02 | 52.0% |
+| Hindi | 12,000 | 1,500 | 5.8107 | 333.86 | 8.44x | 0.0196 | 1.02 | 41.0% |
+| Hindi | 20,000 | 2,500 | 6.4427 | 628.12 | 15.87x | 0.0082 | 1.01 | 85.0% |
+| Bhojpuri | 0 | 0 | 4.1420 | 62.93 | 1.00x | 3.7464 | 42.37 | 0.0% |
+| Bhojpuri | 1,000 | 125 | 5.1401 | 170.74 | 2.71x | 0.2119 | 1.24 | 56.0% |
+| Bhojpuri | 3,000 | 375 | 5.8646 | 352.35 | 5.60x | 0.0752 | 1.08 | 39.0% |
+| Bhojpuri | 5,000 | 625 | 6.1255 | 457.37 | 7.27x | 0.0556 | 1.06 | 32.0% |
+| Bhojpuri | 8,000 | 1,000 | 7.0437 | 1,145.64 | 18.21x | 0.0311 | 1.03 | 28.0% |
+| Bhojpuri | 12,000 | 1,500 | 7.7134 | 2,238.10 | 35.57x | 0.0232 | 1.02 | 59.0% |
+| Bhojpuri | 20,000 | 2,500 | 8.5049 | 4,939.06 | 78.49x | 0.0168 | 1.02 | 49.0% |
 
-![Trade-off between generic language perplexity and reasoning sample budget](figures/generated/phase3/samples_vs_ppl_tradeoff.png)
+![Generic test PPL and direct-only validation accuracy](figures/generated/phase3/samples_vs_ppl_tradeoff.png)
 
-#### Empirical Findings
-1. **Inflection Point and Early Saturation of Task Objective**:
-   In Model H (Hindi), reasoning validation loss drops precipitously from $2.3798 \to 0.0294$ by $N=5{,}000$—capturing $98.8\%$ of the total available loss reduction—with relatively modest generic perplexity degradation ($39.57 \to 87.38$, a $2.21\times$ increase). Expanding supervision beyond $N=8{,}000$ yields marginal task loss improvements ($0.0239 \to 0.0082$) while inducing rapid, exponential inflation in generic perplexity ($158.50 \to 333.86 \to 628.12$). This demonstrates that a sample budget between $5{,}000$ and $8{,}000$ examples establishes format alignment and deductive grounding while curtailing severe distribution drift.
+#### Full-split comparison of illustrative smaller-budget checkpoints
 
-2. **Resource-Tier Asymmetry and Representational Fragility**:
-   The degradation gradient is markedly steeper for Model L (Bhojpuri). Because Model L was pretrained on a smaller token mass ($68\text{M}$ tokens processed across ~2.9 epochs, compared to $332\text{M}$ for Model H), its representations possess less inertia against task over-specialization. Generic perplexity increases by $2.71\times$ even at $N=1{,}000$, crosses $1{,}000$ PPL at $N=8{,}000$ ($18.21\times$), and reaches $4{,}939.06$ ($78.49\times$) at $N=20{,}000$. Consequently, lower-resource language models exhibit significantly narrower tolerance windows for full-parameter finetuning, necessitating either truncated sample budgets ($3{,}000$ to $5{,}000$ examples) or regularized adaptation schemes (e.g., parameter-efficient adapters or replay mixtures).
+The following table uses the complete split for each row, unlike the 100-case sweep diagnostic.
+Explicit joint success requires both the correct declared answer and a fully verified explanation.
 
-#### Complete Multi-Split Evaluation of Retention-Optimal Checkpoints
-To evaluate whether the retention-optimal checkpoints ($N=5{,}000$ for Model H; $N=3{,}000$ for Model L) sustain viable deductive capabilities across the complete benchmark, both models were subjected to the identical frozen evaluation protocol across all four held-out splits (Validation, Primary Test, Challenge Wording, and Challenge Names) under both the 16-token and 96-token generation regimes:
-
-| Protocol / Split | Metric | Hindi Pretrained | Hindi 5k (Optimal) | Hindi 20k (Full) | Bhojpuri Pretrained | Bhojpuri 3k (Optimal) | Bhojpuri 20k (Full) |
+| Protocol / split | Metric | Hindi base | Hindi 5k | Hindi 20k | Bhojpuri base | Bhojpuri 3k | Bhojpuri 20k |
 |---|---|---:|---:|---:|---:|---:|---:|
-| **Original 16-Token Protocol** | | | | | | | |
-| Primary Test (2,000) | Explicit Answer Accuracy | 0.00% | **46.05%** | 61.55% | 0.00% | **37.35%** | 50.15% |
-| | Answer Presence Rate | 17.00% | **80.30%** | 83.85% | 3.10% | **68.25%** | 85.00% |
-| Validation (2,000) | Explicit Answer Accuracy | 0.00% | **44.35%** | 60.25% | 0.00% | **38.25%** | 50.80% |
-| Challenge Wording (500) | Explicit Answer Accuracy | 0.00% | **46.60%** | 66.20% | 0.00% | **39.00%** | 69.40% |
-| Challenge Names (500) | Explicit Answer Accuracy | 0.00% | **13.80%** | 15.80% | 0.00% | **11.60%** | 13.60% |
-| **Explanation 96-Token Protocol** | | | | | | | |
-| Primary Test (2,000) | Explicit Answer Accuracy | 0.00% | **61.90%** | 86.20% | 0.00% | **45.35%** | 71.40% |
-| | Joint Verified Proofs | 0.00% | **55.45%** | 86.15% | 0.00% | **23.05%** | 69.90% |
-| | Answer Presence Rate | 17.00% | **89.60%** | 91.70% | 3.10% | **87.80%** | 89.15% |
-| Validation (2,000) | Explicit Answer Accuracy | 0.00% | **61.35%** | 85.90% | 0.00% | **49.00%** | 71.40% |
-| | Joint Verified Proofs | 0.00% | **55.45%** | 85.90% | 0.00% | **24.55%** | 69.65% |
-| Challenge Wording (500) | Explicit Answer Accuracy | 0.00% | **47.40%** | 79.00% | 0.00% | **46.00%** | 69.40% |
-| | Joint Verified Proofs | 0.00% | **41.00%** | 64.60% | 0.00% | **22.80%** | 68.00% |
-| Challenge Names (500) | Explicit Answer Accuracy | 0.00% | **26.20%** | 15.80% | 0.00% | **12.40%** | 13.60% |
-| | Joint Verified Proofs | 0.00% | **17.60%** | 0.00% | 0.00% | **0.00%** | 0.00% |
-| **Language Retention** | | | | | | | |
-| Held-Out Test Perplexity | Generic LM PPL | **39.57** | **87.38** | 628.12 | **62.93** | **352.35** | 4,939.06 |
-| Perplexity Degradation Ratio | Relative to Base ($N=0$) | **1.0×** | **2.2×** | 15.9× | **1.0×** | **5.6×** | 78.5× |
+| 16 tokens / Test (2,000) | Explicit answer accuracy | 0.00% | 46.05% | 61.55% | 0.00% | 37.35% | 50.15% |
+| 16 tokens / Test (2,000) | Answer presence | 17.00% | 80.30% | 83.85% | 3.10% | 68.25% | 85.00% |
+| 16 tokens / Validation (2,000) | Explicit answer accuracy | 0.00% | 44.35% | 61.45% | 0.00% | 38.25% | 51.20% |
+| 16 tokens / Wording (500) | Explicit answer accuracy | 0.00% | 46.60% | 59.00% | 0.00% | 39.00% | 54.20% |
+| 16 tokens / Names (500) | Explicit answer accuracy | 0.00% | 13.80% | 12.40% | 0.00% | 11.60% | 12.40% |
+| 96 tokens / Test (2,000) | Explicit answer accuracy | 0.00% | 61.90% | 86.20% | 0.00% | 45.35% | 71.40% |
+| 96 tokens / Test (2,000) | Explicit joint success | 0.00% | 55.45% | 86.15% | 0.00% | 23.05% | 69.90% |
+| 96 tokens / Test (2,000) | Answer presence | 6.60% | 89.60% | 91.70% | 2.30% | 87.80% | 89.15% |
+| 96 tokens / Validation (2,000) | Explicit answer accuracy | 0.00% | 61.35% | 85.85% | 0.00% | 49.00% | 71.00% |
+| 96 tokens / Validation (2,000) | Explicit joint success | 0.00% | 55.45% | 85.85% | 0.00% | 24.55% | 69.65% |
+| 96 tokens / Wording (500) | Explicit answer accuracy | 0.00% | 47.40% | 66.20% | 0.00% | 46.00% | 69.40% |
+| 96 tokens / Wording (500) | Explicit joint success | 0.00% | 41.00% | 64.60% | 0.00% | 22.80% | 68.00% |
+| 96 tokens / Names (500) | Explicit answer accuracy | 0.00% | 26.20% | 15.80% | 0.00% | 12.40% | 13.60% |
+| 96 tokens / Names (500) | Explicit joint success | 0.00% | 17.60% | 0.00% | 0.00% | 0.00% | 0.00% |
 
-#### Trade-Off Analysis: Specialization vs. Retention
-1. **The Alignment Tax on Explanation Length:**
-   While short-answer accuracy remains competitive between the optimal and 20k configurations (46.05% vs. 61.55% for Hindi; 37.35% vs. 50.15% for Bhojpuri), multi-token joint proof verification exhibits a noticeable specialization gap (55.45% vs. 86.15% in Hindi; 23.05% vs. 69.90% in Bhojpuri). Rigorous deductive proof production requires verbatim template adherence across ~60–80 generated tokens; 20,000 examples provide the parameter reinforcement necessary to master the strict template surface form, whereas 3,000–5,000 examples capture the deductive entity comparison while occasionally deviating in grammatical surface formatting.
+#### Interpretation
 
-2. **Novel-Entity Regularization in Hindi 5k:**
-   Remarkably, on the **Challenge Names** split under the 96-token protocol, Hindi Model H at $N=5{,}000$ achieved **26.20% explicit accuracy and 17.60% joint verified proofs** (88/500), outperforming the 20k configuration which collapsed to **15.80% accuracy and 0.00% verified proofs**. Training with 20k repetitive examples severely overfitted the model to the training entity vocabulary, causing complete generation failure when presented with out-of-distribution names. The 5k checkpoint, retaining significantly higher baseline language competence, successfully generalized deductive operations across unfamiliar entity tokens.
+Hindi 5k raises generic PPL from 39.57 to 87.38 (2.21x), versus 628.12 at 20k.
+Bhojpuri 3k raises PPL from 62.93 to 352.35 (5.60x), versus 4,939.06 at 20k.
+These are substantial losses in generic prediction, although smaller than at 20k. They do
+not demonstrate that 3k-5k avoids forgetting or that 5k-8k is a universal safe range.
+The results support the TA's suggestion to measure retention rather than accepting a sample
+budget without checking it. Bhojpuri already loses predictive performance at 1k (2.71x PPL).
 
-3. **Synthesis:**
-   Full-scale 20k finetuning optimizes benchmark-specific explanation verification at the cost of catastrophic language model collapse. Conversely, moderate sample budgets ($N \in [3\text{k}, 5\text{k}]$) preserve general linguistic capability, avoid catastrophic forgetting, and improve out-of-distribution entity generalization, establishing an essential design consideration for low-resource and parameter-constrained language models.
+Full-test explicit answer accuracy under the 96-token protocol is 61.90% for Hindi 5k and
+45.35% for Bhojpuri 3k, compared with 86.20% and 71.40% at 20k. Explicit joint success is
+55.45% and 23.05%, compared with 86.15% and 69.90%. Thus improved retention relative to 20k
+comes with worse familiar-task performance. Lower teacher-forced loss alone is not proof
+of better generated answers; failures cannot be attributed only to surface formatting.
 
+Hindi 5k improves the names-challenge aggregate to 26.20% explicit accuracy and 17.60% joint
+success (88/500), versus 15.80% and 0% at 20k. Its 88 joint successes consist of 49 equality
+and 39 transitivity examples; direct and extremum each have zero joint successes. Direct
+explicit accuracy is only 1/125 and extremum is 0/125. This is limited, task-dependent
+generalization, not reliable unfamiliar-name handling. Bhojpuri remains at zero joint
+success on that challenge. Entity familiarity, tokenization, data scale and training exposure
+are possible explanations; these runs do not identify a causal mechanism.
+
+The submitted main models remain the resume-capable 20k v1 checkpoints linked in Section 10.
+The auxiliary weight-only snapshots do not replace them. Reproduction, hashes and evidence
+locations are documented in [the ablation report](phase-3-sample-ablation.md).
 
 ## 7. Error Analysis & Qualitative Case Studies
 
@@ -537,10 +574,10 @@ The side-by-side heatmaps ([Layer 1 Head 2](figures/generated/phase3/attention/h
 ## 9. Synthesis: Addressing the Course Research Questions
 
 ### Question 1: How did data scale and quality differ between Model H and Model L?
-- **Scale and Targets**: The assignment established an aspirational target of approximately 500M training tokens per language where feasible.
+- **Scale and Targets**: The assignment targets approximately 500M training tokens per language and explicitly permits a justified lower-resource shortfall. Hindi falls below the target; no automatic exemption or guaranteed grading allowance is claimed.
   - Model H's packed pretraining stream contained $336.99\text{M}$ tokens, of which $332.60\text{M}$ tokens were processed across 20,300 steps (~1 epoch). The shortfall relative to 500M reflects strict de-duplication and the constraint that manual tokens constitute $\ge 20\%$ of the corpus.
   - Model L's packed pretraining stream contained $23.14\text{M}$ tokens ($225,689$ documents), with $67.99\text{M}$ tokens processed across 4,150 steps (~2.94 epochs). This shortfall is explicitly permitted and justified by the course specification due to the scarcity of clean, public-domain monolingual Bhojpuri web text and strict filtering of Hindi dialect contamination.
-- **Quality & Composition**: Both corpora satisfied the $\ge 20\%$ manual collection threshold in normalized pre-decontamination statistics (Hindi: $25.06\%$, Bhojpuri: $22.49\%$). However, Bhojpuri required extensive manual crawl curation, sitemap filtering, and character 4-gram discrimination to remove parallel translations and Hindi borrowings.
+- **Quality & Composition**: The full final-training recount verifies raw-content manual shares of **25.6476% Hindi / 23.7947% Bhojpuri**, both above the 20% threshold. However, Bhojpuri required extensive manual crawl curation, sitemap filtering, and character 4-gram discrimination to remove parallel translations and Hindi borrowings.
 
 ### Question 2: How do language-modeling and reasoning results compare across the two resource tiers?
 - **Pretrained LM Performance**: Model H had lower BPB ($0.5282$ vs. $0.6503$) and test perplexity ($39.57$ vs. $62.93$). BPB supports comparison across different tokenizers, but these two runs do not isolate corpus size, quality, tokenizer effects, or architecture.
@@ -609,4 +646,3 @@ python -m lma_phase3.attention_compare \
   --output-dir report/figures/generated/phase3/attention/hindi \
   --device cpu --layers 1 8 --heads 0 1 2
 ```
-

@@ -1,0 +1,661 @@
+{
+  "predictions_checked": 20000,
+  "results": {
+    "hindi/original/validation": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 887,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 1584,
+        "supported_claim_count": 1922,
+        "unsupported_claim_count": 25,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 874,
+        "answer_resolved_count": 1963
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 225
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 149
+        },
+        "equality": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 250
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 250
+        }
+      },
+      "predictions_sha256": "c69214b749bd7fa1a0cb48af4bbfacf94c8242fba2a82601004feedf13b79c2c"
+    },
+    "hindi/original/test": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 921,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 1606,
+        "supported_claim_count": 1948,
+        "unsupported_claim_count": 15,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 904,
+        "answer_resolved_count": 1959
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 243
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 161
+        },
+        "equality": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 250
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 250
+        }
+      },
+      "predictions_sha256": "859b45db62fc1d65fe55dd1c29b00083b8b1558680cc278683c0297b8ec4c6fb"
+    },
+    "hindi/original/challenge_names": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 69,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 205,
+        "supported_claim_count": 189,
+        "unsupported_claim_count": 5,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 69,
+        "answer_resolved_count": 147
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "equality": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 62
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 7
+        }
+      },
+      "predictions_sha256": "7cc9ea07ee77a814cfe79b0500f593753c20278811b8d96e0bdea104e9049528"
+    },
+    "hindi/original/challenge_wording": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 233,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 408,
+        "supported_claim_count": 488,
+        "unsupported_claim_count": 10,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 233,
+        "answer_resolved_count": 499
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 68
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 40
+        },
+        "equality": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 62
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 63
+        }
+      },
+      "predictions_sha256": "f74cb66c0fea5aa0cf13448348f70c4aeaa6f635dad068a009137406ffba6e84"
+    },
+    "hindi/explanation/validation": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 1227,
+        "explicit_answer_and_explanation_verified_count": 1109,
+        "exact_match_count": 0,
+        "answer_present_count": 1794,
+        "supported_claim_count": 2000,
+        "unsupported_claim_count": 825,
+        "sufficient_proof_count": 1165,
+        "verified_explanation_count": 1165,
+        "joint_verified_count": 1109,
+        "answer_correct_count": 1116,
+        "answer_resolved_count": 1690
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 199,
+          "answer_correct": 199
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 116,
+          "answer_correct": 123
+        },
+        "equality": {
+          "n": 500,
+          "joint": 294,
+          "answer_correct": 294
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 500,
+          "answer_correct": 500
+        }
+      },
+      "predictions_sha256": "11a562f046981dcab097975fb44edeb240e3ec869cc174425d31eee5b8f42db4"
+    },
+    "hindi/explanation/test": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 1238,
+        "explicit_answer_and_explanation_verified_count": 1109,
+        "exact_match_count": 0,
+        "answer_present_count": 1792,
+        "supported_claim_count": 2000,
+        "unsupported_claim_count": 823,
+        "sufficient_proof_count": 1167,
+        "verified_explanation_count": 1167,
+        "joint_verified_count": 1109,
+        "answer_correct_count": 1118,
+        "answer_resolved_count": 1684
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 202,
+          "answer_correct": 202
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 115,
+          "answer_correct": 124
+        },
+        "equality": {
+          "n": 500,
+          "joint": 292,
+          "answer_correct": 292
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 500,
+          "answer_correct": 500
+        }
+      },
+      "predictions_sha256": "853c9d8249f9325add9abb9815b3be10614c86074c930dbccd97b7c321d937b0"
+    },
+    "hindi/explanation/challenge_names": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 131,
+        "explicit_answer_and_explanation_verified_count": 88,
+        "exact_match_count": 0,
+        "answer_present_count": 392,
+        "supported_claim_count": 494,
+        "unsupported_claim_count": 92,
+        "sufficient_proof_count": 104,
+        "verified_explanation_count": 88,
+        "joint_verified_count": 88,
+        "answer_correct_count": 171,
+        "answer_resolved_count": 234
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 1
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "equality": {
+          "n": 125,
+          "joint": 49,
+          "answer_correct": 62
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 39,
+          "answer_correct": 108
+        }
+      },
+      "predictions_sha256": "bfba39067a4b3815598df1c671badf5fabc5a5f33a570159717138bc72a06d27"
+    },
+    "hindi/explanation/challenge_wording": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 237,
+        "explicit_answer_and_explanation_verified_count": 205,
+        "exact_match_count": 0,
+        "answer_present_count": 441,
+        "supported_claim_count": 500,
+        "unsupported_claim_count": 206,
+        "sufficient_proof_count": 290,
+        "verified_explanation_count": 290,
+        "joint_verified_count": 205,
+        "answer_correct_count": 208,
+        "answer_resolved_count": 346
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 48,
+          "answer_correct": 48
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 28,
+          "answer_correct": 31
+        },
+        "equality": {
+          "n": 125,
+          "joint": 66,
+          "answer_correct": 66
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 63,
+          "answer_correct": 63
+        }
+      },
+      "predictions_sha256": "f7f525992ff468d69bf0bbdd562af0bfa90bce2ff96fbfdaa2865ec0e2bf33f3"
+    },
+    "bhojpuri/original/validation": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 765,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 1376,
+        "supported_claim_count": 689,
+        "unsupported_claim_count": 1093,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 659,
+        "answer_resolved_count": 1258
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 161
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 97
+        },
+        "equality": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 216
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 185
+        }
+      },
+      "predictions_sha256": "8345724711ebcd8d480461c1163c1a6571216c60f5900216229b1a99633d1380"
+    },
+    "bhojpuri/original/test": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 747,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 1365,
+        "supported_claim_count": 687,
+        "unsupported_claim_count": 1111,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 644,
+        "answer_resolved_count": 1281
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 151
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 110
+        },
+        "equality": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 222
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 0,
+          "answer_correct": 161
+        }
+      },
+      "predictions_sha256": "16198040cec9cc250adabfac83d803aee60bccfa2f5cb7a52cbbf38f9c1c379e"
+    },
+    "bhojpuri/original/challenge_names": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 58,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 75,
+        "supported_claim_count": 0,
+        "unsupported_claim_count": 0,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 39,
+        "answer_resolved_count": 89
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "equality": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 39
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        }
+      },
+      "predictions_sha256": "f4cba65bcf160c3f0185fe49311b46498b20745b76d4e656cf418fb4eea780a7"
+    },
+    "bhojpuri/original/challenge_wording": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 195,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 360,
+        "supported_claim_count": 118,
+        "unsupported_claim_count": 259,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 168,
+        "answer_resolved_count": 339
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 49
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 22
+        },
+        "equality": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 54
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 43
+        }
+      },
+      "predictions_sha256": "ee0a83fcd2643a6659571a6fb520745b62fadc38dd8ad24ee6c91fde788b9bd8"
+    },
+    "bhojpuri/explanation/validation": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 980,
+        "explicit_answer_and_explanation_verified_count": 491,
+        "exact_match_count": 0,
+        "answer_present_count": 1758,
+        "supported_claim_count": 2000,
+        "unsupported_claim_count": 1270,
+        "sufficient_proof_count": 699,
+        "verified_explanation_count": 699,
+        "joint_verified_count": 491,
+        "answer_correct_count": 522,
+        "answer_resolved_count": 880
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 52,
+          "answer_correct": 52
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 8,
+          "answer_correct": 33
+        },
+        "equality": {
+          "n": 500,
+          "joint": 258,
+          "answer_correct": 258
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 173,
+          "answer_correct": 179
+        }
+      },
+      "predictions_sha256": "83d17aa495413603c61e9564350b844206ed6d69b5e10c6e3cbf7c071a4f0bd7"
+    },
+    "bhojpuri/explanation/test": {
+      "n": 2000,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 907,
+        "explicit_answer_and_explanation_verified_count": 461,
+        "exact_match_count": 0,
+        "answer_present_count": 1756,
+        "supported_claim_count": 2000,
+        "unsupported_claim_count": 1288,
+        "sufficient_proof_count": 680,
+        "verified_explanation_count": 680,
+        "joint_verified_count": 461,
+        "answer_correct_count": 482,
+        "answer_resolved_count": 837
+      },
+      "tasks": {
+        "direct": {
+          "n": 500,
+          "joint": 46,
+          "answer_correct": 46
+        },
+        "extremum": {
+          "n": 500,
+          "joint": 5,
+          "answer_correct": 19
+        },
+        "equality": {
+          "n": 500,
+          "joint": 256,
+          "answer_correct": 256
+        },
+        "transitivity": {
+          "n": 500,
+          "joint": 154,
+          "answer_correct": 161
+        }
+      },
+      "predictions_sha256": "00a9603adb75b42a9f40637fec5a0c256949430487d7af440ed8b22d6342792a"
+    },
+    "bhojpuri/explanation/challenge_names": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 62,
+        "explicit_answer_and_explanation_verified_count": 0,
+        "exact_match_count": 0,
+        "answer_present_count": 62,
+        "supported_claim_count": 62,
+        "unsupported_claim_count": 77,
+        "sufficient_proof_count": 0,
+        "verified_explanation_count": 0,
+        "joint_verified_count": 0,
+        "answer_correct_count": 62,
+        "answer_resolved_count": 125
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        },
+        "equality": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 62
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 0,
+          "answer_correct": 0
+        }
+      },
+      "predictions_sha256": "d88bac7800991a397487710aea3482c1169f6e4afdb8cad26cafd22e70c00a72"
+    },
+    "bhojpuri/explanation/challenge_wording": {
+      "n": 500,
+      "errors": {},
+      "error_examples": [],
+      "counts": {
+        "explicit_answer_correct_count": 230,
+        "explicit_answer_and_explanation_verified_count": 114,
+        "exact_match_count": 0,
+        "answer_present_count": 437,
+        "supported_claim_count": 500,
+        "unsupported_claim_count": 324,
+        "sufficient_proof_count": 166,
+        "verified_explanation_count": 166,
+        "joint_verified_count": 114,
+        "answer_correct_count": 118,
+        "answer_resolved_count": 207
+      },
+      "tasks": {
+        "direct": {
+          "n": 125,
+          "joint": 17,
+          "answer_correct": 17
+        },
+        "extremum": {
+          "n": 125,
+          "joint": 2,
+          "answer_correct": 5
+        },
+        "equality": {
+          "n": 125,
+          "joint": 62,
+          "answer_correct": 62
+        },
+        "transitivity": {
+          "n": 125,
+          "joint": 33,
+          "answer_correct": 34
+        }
+      },
+      "predictions_sha256": "43b0f08e740281d2dfb81f3b4534bf09832e8e361ad7f59346c5dbbd1a534ad0"
+    }
+  }
+}
