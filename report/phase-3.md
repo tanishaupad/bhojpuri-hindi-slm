@@ -208,7 +208,7 @@ results. New name strings are substitutions into approved templates, not separat
 Datasets and manifests were copied to each language’s `phase3/reasoning_v1/` folder in the existing
 Drive filesystem, and destination SHA-256 hashes matched. Remote synchronization and shareability
 are managed separately by Drive. The complete reproduction and fixed scoring protocol are in
-[phase-3-release.md](phase-3-release.md). Pretrained reasoning baselines are reported in Section 4; no finetuning improvement is claimed yet.
+[phase-3-release.md](phase-3-release.md). Pretrained reasoning baselines are reported in Section 4, followed by causal finetuning in Section 5, held-out evaluation in Section 6, error analysis in Section 7, and attention analysis in Section 8.
 
 
 ## 4. Pretrained reasoning baselines

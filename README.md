@@ -627,7 +627,7 @@ The reasoning dataset contains **25,000 examples per language** across four task
 - **Validation**: 2,000 examples
 - **Primary Test**: 2,000 examples
 - **Challenge Unseen Names**: 500 examples (novel person names absent from training)
-- **Challenge Unseen Wording**: 500 examples (held-out premise templates and comparative phrasings)
+- **Challenge Unseen Wording**: 500 examples (held-out question wording variants; premise templates remain shared)
 
 Datasets are independently generated with native Hindi and Bhojpuri templates, names, and grammar. They are stored under `hindi/phase3/reasoning_v1/` and `bhojpuri/phase3/reasoning_v1/` in Google Drive.
 

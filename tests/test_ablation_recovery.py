@@ -104,5 +104,6 @@ def test_ablation_resume_matches_uninterrupted_with_dropout(tmp_path, monkeypatc
     assert a["config"]["training"]["warmup_steps"] == 10
     with (tmp_path / "interrupted/training.jsonl").open() as handle:
         logs = [json.loads(line) for line in handle]
-    assert sum(row["step"] == 28 for row in logs) == 1
+    assert sum(row["step"] == 28 for row in logs) == 0
+    assert [row["step"] for row in logs] == [10, 20, 30, 40]
     assert all(row["loss"] >= 0 for row in logs)
