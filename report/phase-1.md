@@ -3,7 +3,7 @@
 ## 1. Language selection
 
 - **Language #1 (Model H):** Hindi (`hi`, Devanagari script), selected as the higher-resource Indian language due to abundant availability of public digital text, governmental archives, and encyclopedic resources.
-- **Language #2 (Model L):** Nepali (`ne`, Devanagari script), selected as Language #2, targeting ~300M tokens with $\ge 20\%$ manually collected data (achieving 258.7M train tokens at 22.77% manual tokens). In addition, Bhojpuri (`bho`, Devanagari script) is preserved as an approved low-resource comparison language and corpus.
+- **Language #2 (Model L):** Nepali (`ne`, Devanagari script), selected as Language #2, targeting ~300M tokens with $\ge 20\%$ manually collected data (achieving 272.9M train tokens at 22.85% manual tokens). In addition, Bhojpuri (`bho`, Devanagari script) is preserved as an approved low-resource comparison language and corpus.
 
 The corpora, tokenizers, vocabulary artifacts, training splits and model weights are independent. Token strings can naturally coincide because both languages use Devanagari; there is no shared embedding table or tokenizer.
 
@@ -102,10 +102,10 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 | Bhojpuri | Validation | 2,344 | 227,239 | 50,949 | 176,290 | 22.42% |
 | Bhojpuri | Test | 2,351 | 214,399 | 52,302 | 162,097 | 24.39% |
 | **Bhojpuri Overall** | | **230,687** | **23,019,401** | **5,181,337** | **17,838,064** | **22.51%** |
-| **Nepali** | Train | 705,137 | 258,736,416 | 58,921,054 | 199,815,362 | **22.77%** |
-| Nepali | Validation | 7,380 | 2,790,499 | 624,970 | 2,165,529 | 22.39% |
-| Nepali | Test | 7,354 | 2,738,274 | 695,137 | 2,043,137 | 25.39% |
-| **Nepali Overall** | | **719,871** | **264,265,189** | **60,241,161** | **204,024,028** | **22.80%** |
+| **Nepali** | Train | 705,137 | 272,852,322 | 62,340,020 | 210,512,302 | **22.85%** |
+| Nepali | Validation | 7,380 | 2,943,324 | 661,089 | 2,282,235 | 22.46% |
+| Nepali | Test | 7,354 | 2,888,685 | 736,159 | 2,152,526 | 25.48% |
+| **Nepali Overall** | | **719,871** | **278,684,331** | **63,737,268** | **214,947,063** | **22.87%** |
 
 > [!NOTE]
 > **Token-Count Reconciliation between Phase 1 and Phase 2**:
@@ -132,9 +132,9 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
 | **Hindi** | 32,000 | 1.2630 | 4.080 | 0.001522% | 87.64% |
 | **Bhojpuri** | **16,000** | **1.3341** | **3.764** | **0.001760%** | **78.79%** |
 | **Bhojpuri** | 24,000 | 1.2809 | 3.921 | 0.001833% | 66.40% |
-| **Nepali** | 16,000 | 1.3548 | 4.800 | 0.001733% | 92.97% |
-| **Nepali** | **24,000** | **1.2844** | **5.063** | **0.001828%** | **95.23%** |
-| **Nepali** | 32,000 | 1.2460 | 5.220 | 0.001884% | 96.03% |
+| **Nepali** | **16,000** | **1.3548** | **4.800** | **0.001733%** | **92.97%** |
+| Nepali | 24,000 | 1.2844 | 5.063 | 0.001828% | 95.23% |
+| Nepali | 32,000 | 1.2460 | 5.220 | 0.001884% | 96.03% |
 | **Bhojpuri** | 32,000 | 1.2546 | 4.003 | 0.001872% | 56.29% |
 
 ![Hindi Token Frequency Distribution](figures/generated/hindi_token_frequency.png)

@@ -12,12 +12,12 @@
     "size_bytes": 8343704
   },
   "nepali/tokenizer/nepali.model": {
-    "sha256": "fbde49e8b0f54d37e8e0f13c76cd0d5731aeb1cfda8d9501e3668fe2dd3adf34",
-    "size_bytes": 671304
+    "sha256": "1b29810e1bab0b4cc97c6b5ce04ebaa9ab3ef4ba21ec7e4ec97defb8632f96ea",
+    "size_bytes": 428111
   },
   "nepali/tokenizer/nepali.vocab": {
-    "sha256": "c9e846dd0cee4e9bf6bc2f0c047d8c868e36c9b13535f3929d9c731b4949e2ba",
-    "size_bytes": 692547
+    "sha256": "1309438323957c4001e3af78ae803fe38564bc34edc90e0afab5f4094164bec0",
+    "size_bytes": 442350
   },
   "nepali/tokenizer/nepali_unigram_16000.model": {
     "sha256": "1b29810e1bab0b4cc97c6b5ce04ebaa9ab3ef4ba21ec7e4ec97defb8632f96ea",
