@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "accepted_characters": 283178748,
+    "accepted_documents": 149776,
+    "accepted_words": 44764222,
+    "raw_documents": 150988,
+    "rejected_high_digit_ratio": 21,
+    "rejected_high_latin_ratio": 1112,
+    "rejected_low_devanagari_ratio": 1022,
+    "rejected_too_few_words": 87,
+    "rejected_too_short_characters": 1
+  },
+  "inputs": [
+    "nepali/data/raw/manual/onlinekhabar.jsonl.gz"
+  ],
+  "language": "ne",
+  "output": "nepali/data/interim/onlinekhabar_clean_v3.jsonl.gz",
+  "thresholds": {
+    "clean_anjoria": false,
+    "clean_bhojpuri_wikipedia": false,
+    "clean_hindi_wikipedia": false,
+    "clean_pib_boilerplate": false,
+    "exclude_translation_marked_sources": [],
+    "excluded_source_names": [],
+    "maximum_digit_ratio": 0.25,
+    "maximum_latin_ratio": 0.2,
+    "minimum_characters": 200,
+    "minimum_devanagari_ratio": 0.7,
+    "minimum_words": 30,
+    "remove_repeated_lines": true
+  }
+}

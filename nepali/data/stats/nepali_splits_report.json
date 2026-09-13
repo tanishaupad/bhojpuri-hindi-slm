@@ -1,0 +1,21 @@
+{
+  "counts": {
+    "test_documents": 7354,
+    "test_downloaded_documents": 5637,
+    "test_manual_documents": 1717,
+    "train_documents": 705137,
+    "train_downloaded_documents": 545910,
+    "train_manual_documents": 159227,
+    "validation_documents": 7380,
+    "validation_downloaded_documents": 5704,
+    "validation_manual_documents": 1676
+  },
+  "input": "nepali/data/interim/nepali_balanced22_v2.jsonl.gz",
+  "output_dir": "nepali/data/splits",
+  "ratios": {
+    "test": 0.01,
+    "train": 0.98,
+    "validation": 0.01
+  },
+  "seed": "lma-nepali-phase-1-2026"
+}

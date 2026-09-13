@@ -1,0 +1,31 @@
+{
+  "counts": {
+    "accepted_characters": 422780645,
+    "accepted_documents": 220137,
+    "accepted_words": 65699409,
+    "raw_documents": 221118,
+    "rejected_high_latin_ratio": 758,
+    "rejected_low_devanagari_ratio": 295,
+    "rejected_too_few_words": 96,
+    "rejected_too_short_characters": 242
+  },
+  "inputs": [
+    "nepali/data/raw/downloaded/sangraha_verified_nep.jsonl.gz"
+  ],
+  "language": "ne",
+  "output": "nepali/data/interim/sangraha_verified_nep_clean.jsonl.gz",
+  "thresholds": {
+    "clean_anjoria": false,
+    "clean_bhojpuri_wikipedia": false,
+    "clean_hindi_wikipedia": false,
+    "clean_pib_boilerplate": false,
+    "exclude_translation_marked_sources": [],
+    "excluded_source_names": [],
+    "maximum_digit_ratio": 0.25,
+    "maximum_latin_ratio": 0.2,
+    "minimum_characters": 200,
+    "minimum_devanagari_ratio": 0.7,
+    "minimum_words": 30,
+    "remove_repeated_lines": true
+  }
+}

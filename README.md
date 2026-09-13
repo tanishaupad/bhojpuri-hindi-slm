@@ -214,6 +214,14 @@ for the corpus actually packed for pretraining.
   - Test split: 2,351 documents / 214,399 tokens
   - Tokenizer: `bhojpuri/tokenizer/bhojpuri.model` (16,000 Unigram, character coverage 1.0)
 
+- **Nepali**:
+  - Total Corpus: 719,871 documents / 264,265,189 tokens (with 24k Unigram tokenizer)
+  - Train split: 705,137 documents / 258,736,416 tokens (**22.77% manual tokens**)
+  - Validation split: 7,380 documents / 2,790,499 tokens
+  - Test split: 7,354 documents / 2,738,274 tokens
+  - Tokenizer: `nepali/tokenizer/nepali.model` (24,000 Unigram, character coverage 1.0)
+  - Google Drive: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (`nepali/`)
+
 ### Verified final training composition
 
 | Language | Final train documents | Raw content tokens | Manual content tokens | Manual fraction | Packed tokens (with EOS) |

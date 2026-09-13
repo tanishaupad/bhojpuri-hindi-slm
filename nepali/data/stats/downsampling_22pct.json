@@ -1,0 +1,14 @@
+{
+  "actual_manual_word_fraction": 0.22039669442373605,
+  "counts": {
+    "kept_downloaded_documents": 219899,
+    "kept_downloaded_words": 65645447,
+    "kept_manual_documents": 69796,
+    "kept_manual_words": 18558207
+  },
+  "downloaded_word_budget": 65645447,
+  "input": "nepali/data/interim/nepali_document_deduplicated.jsonl.gz",
+  "output": "nepali/data/interim/nepali_balanced22.jsonl.gz",
+  "seed": "lma-nepali-downsample-2026",
+  "target_manual_word_fraction": 0.22
+}

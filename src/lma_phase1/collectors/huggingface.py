@@ -50,7 +50,9 @@ def collect(args: argparse.Namespace) -> int:
         load_kwargs["name"] = args.subset
     if args.data_dir:
         load_kwargs["data_dir"] = args.data_dir
-    if args.encoding_errors:
+    # Parquet builders reject the CSV/text-only ``encoding_errors`` option.
+    # The default strict mode needs no explicit argument.
+    if args.encoding_errors and args.encoding_errors != "strict":
         load_kwargs["encoding_errors"] = args.encoding_errors
     data_files = getattr(args, "data_file", None)
     if data_files:
