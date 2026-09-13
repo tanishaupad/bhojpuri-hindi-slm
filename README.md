@@ -5,7 +5,7 @@
 This repository builds fully independent decoder-only language models from scratch:
 
 - **Model H (Language #1):** Hindi (`hi`, Devanagari), the higher-resource language.
-- **Model L (Language #2):** Nepali (`ne`, Devanagari), the primary Language #2 target (~300M tokens, $\ge 20\%$ manual tokens; 258.7M train tokens at 22.77% manual achieved), alongside Bhojpuri (`bho`, Devanagari) as an approved lower-resource comparison language.
+- **Model L (Language #2):** Nepali (`ne`, Devanagari), the primary Language #2 target (~300M tokens, $\ge 20\%$ manual tokens; 272.9M train tokens at 22.85% manual achieved), alongside Bhojpuri (`bho`, Devanagari) as an approved lower-resource comparison language.
 
 The `phase-1` and `phase-2` branches established reproducible corpus collection, preprocessing,
 deduplication, split creation, tokenizer training, pre-training data-integrity audits, and from-scratch
@@ -215,11 +215,11 @@ for the corpus actually packed for pretraining.
   - Tokenizer: `bhojpuri/tokenizer/bhojpuri.model` (16,000 Unigram, character coverage 1.0)
 
 - **Nepali**:
-  - Total Corpus: 719,871 documents / 264,265,189 tokens (with 24k Unigram tokenizer)
-  - Train split: 705,137 documents / 258,736,416 tokens (**22.77% manual tokens**)
-  - Validation split: 7,380 documents / 2,790,499 tokens
-  - Test split: 7,354 documents / 2,738,274 tokens
-  - Tokenizer: `nepali/tokenizer/nepali.model` (24,000 Unigram, character coverage 1.0)
+  - Total Corpus: 719,871 documents / 278,684,331 tokens (with 16k Unigram tokenizer)
+  - Train split: 705,137 documents / 272,852,322 tokens (**22.85% manual tokens**)
+  - Validation split: 7,380 documents / 2,943,324 tokens
+  - Test split: 7,354 documents / 2,888,685 tokens
+  - Tokenizer: `nepali/tokenizer/nepali.model` (16,000 Unigram, character coverage 1.0)
   - Google Drive: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (`nepali/`)
 
 ### Verified final training composition
