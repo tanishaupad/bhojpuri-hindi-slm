@@ -3,7 +3,7 @@
 ## 1. Language selection
 
 - **Language #1 (Model H):** Hindi (`hi`, Devanagari script), selected as the higher-resource Indian language due to abundant availability of public digital text, governmental archives, and encyclopedic resources.
-- **Language #2 (Model L):** Nepali (`ne`, Devanagari script), selected as Language #2, targeting ~300M tokens with $\ge 20\%$ manually collected data (achieving 275.35M train tokens at 22.78% manual tokens, and 281.22M total tokens across all splits).
+- **Language #2 (Model L):** Nepali (`ne`, Devanagari script), selected as Language #2, targeting ~300M tokens with $\ge 20\%$ manually collected data (achieving 273.17M train tokens at 22.74% manual tokens, and 278.99M total tokens across all splits).
 
 The corpora, tokenizers, vocabulary artifacts, training splits and model weights are independent. Token strings can naturally coincide because both languages use Devanagari; there is no shared embedding table or tokenizer.
 
@@ -21,11 +21,11 @@ The corpora, tokenizers, vocabulary artifacts, training splits and model weights
 | Hindi | Hindi Wikibooks | Manual | MediaWiki Action API | CC BY-SA 4.0 | 4,151,331 |
 | Hindi | IndicCorp v2 (`data/hi-{1,2,3}.txt`) | Downloaded | Hugging Face streaming | CC0-1.0 | 248,972,606 |
 | **Hindi Total** | | | | | **332,246,742** |
-| Nepali | Nepali Wikipedia | Manual | MediaWiki Action API (v2 cleaned) | CC BY-SA 4.0 | 11,455,382 |
-| Nepali | Onlinekhabar | Manual | WordPress REST API | Source rights retained; course research | 51,280,008 |
-| Nepali | Sangraha Verified Web | Downloaded | Hugging Face streaming (`ai4bharat/sangraha`) | CC BY 4.0 | 61,743,709 |
-| Nepali | Sangraha Unverified Web | Downloaded | Hugging Face streaming (`ai4bharat/sangraha`) | CC BY 4.0 | 150,866,779 |
-| **Nepali Total** | | | | | **275,345,878** |
+| Nepali | Nepali Wikipedia | Manual | MediaWiki Action API (v2 cleaned) | CC BY-SA 4.0 | 10,836,296 |
+| Nepali | Onlinekhabar | Manual | WordPress REST API | Source rights retained; course research | 51,271,037 |
+| Nepali | Sangraha Verified Web | Downloaded | Hugging Face streaming (`ai4bharat/sangraha`) | CC BY 4.0 | 61,294,242 |
+| Nepali | Sangraha Unverified Web | Downloaded | Hugging Face streaming (`ai4bharat/sangraha`) | CC BY 4.0 | 149,765,024 |
+| **Nepali Total** | | | | | **273,166,599** |
 
 ---
 
@@ -35,8 +35,8 @@ All raw data collectors write to a unified, provenance-tracking document schema 
 
 - **Hindi Manual Sources**: Namespace-0 page dumps from Hindi Wikipedia, Wikisource, and Wikibooks were gathered using rate-limited MediaWiki Action API collectors with checkpoint continuation. Press Information Bureau (PIB) Hindi articles were collected and imported with body verification, quarantining Akamai access-denied responses.
 - **Hindi Downloaded Source**: IndicCorp v2 Hindi was streamed from three raw text shards (`data/hi-1.txt`, `data/hi-2.txt`, `data/hi-3.txt`) directly into compressed JSONL.
-- **Nepali Manual Sources**: Namespace-0 articles from Nepali Wikipedia were collected using the MediaWiki Action API with resume checkpoints (24,220 retained articles after strict template, table, category, and wikitext cleaning). Onlinekhabar news articles (138,358 clean articles) were collected via categorized REST API endpoints with provenance tracking and boilerplate removal.
-- **Nepali Downloaded Sources**: Sangraha (AI4Bharat) Nepali web extractions were streamed from both verified (`sangraha_verified_nep:web`, 150,305 train documents) and unverified (`sangraha_unverified_nep`, 400,686 train documents) subsets, filtered against machine-translation markers and non-Devanagari boilerplate.
+- **Nepali Manual Sources**: Namespace-0 articles from Nepali Wikipedia were collected using the MediaWiki Action API with resume checkpoints (22,568 retained articles after strict template, table, category, inline media `\d+px`, thumbnail/caption markers `thumb|` / `अङ्गुठाकार|`, and trailing reference/external-link section cleaning). Onlinekhabar news articles (138,358 clean articles) were collected via categorized REST API endpoints with provenance tracking and boilerplate removal.
+- **Nepali Downloaded Sources**: Sangraha (AI4Bharat) Nepali web extractions were streamed from both verified (`sangraha_verified_nep:web`, 149,249 train documents) and unverified (`sangraha_unverified_nep`, 397,814 train documents) subsets, filtered against machine-translation markers and non-Devanagari boilerplate.
 
 ---
 
@@ -57,9 +57,10 @@ Preprocessing enforces a strict multi-stage filtering cascade:
 ### 2.4 Deduplication
 
 Deduplication was conducted in three hierarchical phases, preserving manual document priority:
-1. **Exact Document Deduplication**: SHA-256 hashing of NFC-normalized, whitespace-collapsed, case-folded text. Manual documents were indexed first, dropping identical downloaded copies. (Removed 3,028 duplicates in Hindi; 17,810 exact duplicates and 1,328 near duplicates removed in Nepali across 989,284 examined documents, retaining 970,146 documents).
-2. **Corpus-Wide Exact Paragraph Deduplication**: Paragraphs with $\ge 100$ characters and $\ge 15$ words were indexed in SQLite. If an identical paragraph appeared in an earlier document, it was removed. If paragraph removal reduced the document below 200 characters / 30 words, the document was dropped. (Removed 29,625 duplicate paragraphs and 16,565 empty/short documents in Hindi; 135,684 duplicate paragraphs and 4,981 below-floor documents removed in Nepali, retaining 965,165 documents). An audit of sampled pairs confirmed valid removal of shared boilerplates and cross-source repeats with zero false positives.
-3. **Near-Duplicate Detection & Deterministic Downsampling**: Bottom-k MinHash over word 5-grams was applied to eliminate cross-source near-duplicates (threshold $s = 0.95$). For Nepali, downloaded records were deterministically downsampled using seed `lma-nepali-downsample-2026` to cap downloaded words at 162,208,048, retaining 725,037 documents (162,578 manual, 562,459 downloaded) and achieving an exact manual word fraction of 22.00% (22.80% manual tokens overall; 22.78% in train).
+1. **Exact Document Deduplication**: SHA-256 hashing of NFC-normalized, whitespace-collapsed, case-folded text. Manual documents were indexed first, dropping identical downloaded copies. (Removed 3,028 duplicates in Hindi; 17,813 exact duplicates and 1,293 near duplicates removed in Nepali across 987,583 examined documents, retaining 968,477 documents: 161,265 manual, 807,212 downloaded).
+2. **Corpus-Wide Exact Paragraph Deduplication**: Paragraphs with $\ge 100$ characters and $\ge 15$ words were indexed in SQLite. If an identical paragraph appeared in an earlier document, it was removed. If paragraph removal reduced the document below 200 characters / 30 words, the document was dropped. (Removed 29,625 duplicate paragraphs and 16,565 empty/short documents in Hindi; 135,681 duplicate paragraphs and 4,961 below-floor documents removed in Nepali, retaining 963,515 documents: 160,926 manual, 802,589 downloaded). An audit of sampled pairs confirmed valid removal of shared boilerplates and cross-source repeats with zero false positives.
+3. **Near-Duplicate Detection & Deterministic Downsampling**: Bottom-k MinHash over word 5-grams was applied to eliminate cross-source near-duplicates. For Nepali, downloaded records were deterministically downsampled using seed `lma-nepali-downsample-2026` to cap downloaded words at 161,040,310, retaining 719,368 documents (160,926 manual, 558,442 downloaded) and achieving an exact manual word fraction of 22.00000% (22.76% manual tokens overall; 22.74% in train).
+4. **Cross-Lingual Overlap & Leakage Audit**: An automated cross-lingual audit (`scripts/audit_cross_lingual_overlap.py`, recorded in `nepali_cross_lingual_overlap.json`) compared all 719,368 Nepali documents against the complete set of 2,283,757 indexed Hindi documents and 230,687 indexed Bhojpuri documents using exact stable text hashing. Zero exact matches (0 Hindi, 0 Bhojpuri) were found, demonstrating complete cross-lingual isolation and zero train/eval leakage across regional language collections.
 
 ---
 
@@ -73,10 +74,10 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 | Hindi | Validation | 23,033 | 3,428,944 | 859,881 | 2,569,063 | 25.08% |
 | Hindi | Test | 22,773 | 3,372,824 | 839,451 | 2,533,373 | 24.89% |
 | **Hindi Overall** | | **2,283,757** | **339,048,510** | **84,973,468** | **254,075,042** | **25.06%** |
-| **Nepali** | Train | 710,200 | 275,345,878 | 62,735,390 | 212,610,488 | **22.78%** |
-| Nepali | Validation | 7,434 | 2,962,133 | 659,799 | 2,302,334 | 22.27% |
-| Nepali | Test | 7,403 | 2,909,630 | 733,328 | 2,176,302 | 25.20% |
-| **Nepali Overall** | | **725,037** | **281,217,641** | **64,128,517** | **217,089,124** | **22.80%** |
+| **Nepali** | Train | 704,658 | 273,166,599 | 62,107,333 | 211,059,266 | **22.74%** |
+| Nepali | Validation | 7,377 | 2,943,224 | 652,871 | 2,290,353 | 22.18% |
+| Nepali | Test | 7,333 | 2,885,028 | 726,768 | 2,158,260 | 25.19% |
+| **Nepali Overall** | | **719,368** | **278,994,851** | **63,486,972** | **215,507,879** | **22.76%** |
 
 > [!NOTE]
 > **Token-Count Reconciliation between Phase 1 and Phase 2**:
@@ -87,10 +88,10 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 Hindi's historical training summary was **332.25M tokens**, below the approximately 500M training-token target. The final packed stream contains **336.995M tokens**, including EOS. Filtering, the collected manual-text budget and compute constraints limited the completed experiment; no grading exception is claimed.
 
 #### Justification for Nepali Dataset Size Shortfall
-Nepali's final training corpus contains **275.35M tokens** across 710,200 documents (and **281.22M total tokens** across all splits), falling short of the unconstrained 500M theoretical target. This shortfall is the result of a deliberate quality, authenticity, and compliance trade-off:
-1. **Preservation of the $\ge 20\%$ Manual Requirement**: Under the course constraints, downloaded text must not exceed $4\times$ manual text to maintain $\ge 20\%$ manual representation. With 62.74M clean manual training tokens gathered from Onlinekhabar and Nepali Wikipedia, maintaining a rigorous $\ge 22\%$ manual-word buffer required capping downloaded web records at 162.2M words (212.61M train tokens).
-2. **Exclusion of Noisy Web Scrapes & Machine-Translated Data**: While additional uncurated web dumps exist in raw crawls, automated audits and pilot evaluations revealed pervasive English/Latin boilerplates, machine-translated fragments, and corrupted OCR text. These were systematically purged through strict script ratio filtering ($\ge 70\%$ Devanagari), exact document deduplication (17,810 duplicates dropped), and corpus-wide paragraph deduplication (135,684 duplicate paragraphs removed).
-3. **Model Representation Depth**: At 275.35M tokens, the dataset provides extensive coverage for our compact Model L architecture, comfortably satisfying Chinchilla-scaling regimes without synthetic noise.
+Nepali's final training corpus contains **273.17M tokens** across 704,658 documents (and **278.99M total tokens** across all splits), falling short of the unconstrained 500M theoretical target. This shortfall is the result of a deliberate quality, authenticity, and compliance trade-off:
+1. **Preservation of the $\ge 20\%$ Manual Requirement**: Under the course constraints, downloaded text must not exceed $4\times$ manual text to maintain $\ge 20\%$ manual representation. With 62.11M clean manual training tokens gathered from Onlinekhabar and Nepali Wikipedia, maintaining a rigorous $\ge 22\%$ manual-word buffer required capping downloaded web records at 161.04M words (211.06M train tokens).
+2. **Exclusion of Noisy Web Scrapes & Machine-Translated Data**: While additional uncurated web dumps exist in raw crawls, automated audits and pilot evaluations revealed pervasive English/Latin boilerplates, machine-translated fragments, and corrupted OCR text. These were systematically purged through strict script ratio filtering ($\ge 70\%$ Devanagari), exact document deduplication (17,813 duplicates dropped), and corpus-wide paragraph deduplication (135,681 duplicate paragraphs removed).
+3. **Model Representation Depth**: At 273.17M tokens, the dataset provides extensive coverage for our compact Model L architecture, comfortably satisfying Chinchilla-scaling regimes without synthetic noise.
 
 ---
 
@@ -103,9 +104,9 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
 | **Hindi** | 16,000 | 1.3562 | 3.800 | 0.001418% | 76.04% |
 | **Hindi** | **24,000** | **1.2928** | **3.986** | **0.001487%** | **83.93%** |
 | Hindi | 32,000 | 1.2630 | 4.080 | 0.001522% | 87.64% |
-| **Nepali** | **16,000** | **1.3533** | **4.803** | **0.001148%** | **92.79%** |
-| Nepali | 24,000 | 1.2828 | 5.067 | 0.001211% | 95.10% |
-| Nepali | 32,000 | 1.2448 | 5.222 | 0.001248% | 95.93% |
+| **Nepali** | **16,000** | **1.3522** | **4.805** | **0.001359%** | **92.89%** |
+| Nepali | 24,000 | 1.2821 | 5.068 | 0.001433% | 95.17% |
+| Nepali | 32,000 | 1.2439 | 5.224 | 0.001477% | 95.95% |
 
 ![Hindi Token Frequency Distribution](figures/generated/hindi_token_frequency.png)
 ![Nepali Token Frequency Distribution](figures/generated/nepali_token_frequency.png)
@@ -118,9 +119,9 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
   - **Fertility & Subwords**: Fertility drops significantly from 1.3562 (16k) to 1.2928 (24k), capturing key compound morphemes with 83.93% held-out vocabulary utilization.
   - **Parameter Budget Allocation**: In our final Phase 2 model architecture ($d_{\text{model}} = 384$, 25,285,248 total parameters; initially projected at $d_{\text{model}} = 512$ in early planning), the 24,000-piece embedding table uses $24,000 \times 384 = 9,216,000$ parameters (36.45% of the total parameter budget), leaving the remaining 16,069,248 parameters (63.55%) for deep multi-head attention and feed-forward layers. A 32k vocabulary would have consumed 12.29M parameters (~49% of the budget) in embeddings alone.
 - **Nepali (Selected: 16,000 Unigram)**:
-  - **Optimal Subword Balance & Vocabulary Utilization**: The 16,000 Unigram model achieves 92.79% vocabulary utilization on held-out validation text with low fertility (1.3533 tokens/word), 4.803 characters/token, and an unknown rate of 0.001148%. While 24k and 32k marginally decrease fertility to 1.2828 and 1.2448, they suffer sharp increases in rare and singleton subwords: types occurring $\le 5$ times jump from 1.50% (16k) to 4.14% (24k) and 11.19% (32k), with singleton piece rates rising from 0.51% (16k) to 1.25% (32k).
+  - **Optimal Subword Balance & Vocabulary Utilization**: The 16,000 Unigram model achieves 92.89% vocabulary utilization on held-out validation text with low fertility (1.3522 tokens/word), 4.805 characters/token, and an unknown rate of 0.001359%. While 24k and 32k marginally decrease fertility to 1.2821 and 1.2439, they suffer sharp increases in rare and singleton subwords: types occurring $\le 5$ times jump from 1.47% (16k) to 4.16% (24k) and 11.27% (32k), with singleton piece rates rising to 1.14% (32k).
   - **Parameter Allocation for Model L**: In our target 12-layer transformer architecture ($d_{\text{model}} = 384$, ~25M total parameters), the 16,000-piece embedding table uses $16,000 \times 384 = 6,144,000$ parameters (24.70% of the total budget), reserving 75.30% of parameters for multi-head attention and feed-forward layers. A 24k vocabulary would consume 36.45% and 32k would consume 48.60% in embeddings alone, severely starving representational capacity.
-  - **Effective Token Throughput**: At 16k vocabulary, the training split yields 275.35M tokens (22.78% manual tokens), effectively modeling Nepali agglutinative nominal case markers (*vibhakti*) without excessive subword fragmentation.
+  - **Effective Token Throughput**: At 16k vocabulary, the training split yields 273.17M tokens (22.74% manual tokens), effectively modeling Nepali agglutinative nominal case markers (*vibhakti*) without excessive subword fragmentation.
 
 ---
 
@@ -299,4 +300,4 @@ All large corpus splits (`train.jsonl.gz`, `validation.jsonl.gz`, `test.jsonl.gz
 
 1. **Translationese & Synthetic Artifact Avoidance**: A substantial portion of open-source multilingual Indic data originates from translated parallel benchmarks (e.g., FLORES, MultiUN, translated Common Crawl). These were systematically excluded by provenance filtering to prevent models from learning unnatural syntactic patterns ("translationese").
 2. **Standardization & Curation in High-Resource Hindi**: While Hindi digital resources are abundant, extensive manual filtering and deduplication were required to remove government portal boilerplate, repeated headers, and uninformative media summaries.
-3. **Nepali Scale, Agglutinative Morphology, and Provenance Balance**: Scaling the Nepali corpus as Language #2 to 275.35M training tokens (281.22M total tokens across all splits) required extensive collection of native manual sources (138,358 clean Onlinekhabar articles and 24,220 Wikipedia articles), securing 62.74M manual training tokens (22.78% of the training split, satisfying the $\ge 20\%$ requirement with a verified buffer). The selected 16,000 Unigram tokenizer achieves 1.3533 fertility, 4.803 characters/token, and 92.79% validation utilization, effectively balancing subword granularity for Nepali agglutinative case markers (*vibhakti*) while allocating 75.3% of the model parameter budget to transformer layers rather than sparse embedding weights. The shortfall against 500M tokens was necessary to protect the 20% manual threshold without admitting uncurated or synthetic web-crawl noise.
+3. **Nepali Scale, Agglutinative Morphology, and Provenance Balance**: Scaling the Nepali corpus as Language #2 to 273.17M training tokens (278.99M total tokens across all splits) required extensive collection of native manual sources (138,358 clean Onlinekhabar articles and 22,568 Wikipedia articles), securing 62.11M manual training tokens (22.74% of the training split, satisfying the $\ge 20\%$ requirement with a verified buffer). The selected 16,000 Unigram tokenizer achieves 1.3522 fertility, 4.805 characters/token, and 92.89% validation utilization, effectively balancing subword granularity for Nepali agglutinative case markers (*vibhakti*) while allocating 75.3% of the model parameter budget to transformer layers rather than sparse embedding weights. The shortfall against 500M tokens was necessary to protect the 20% manual threshold without admitting uncurated or synthetic web-crawl noise.

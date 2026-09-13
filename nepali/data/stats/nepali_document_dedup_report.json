@@ -1,19 +1,19 @@
 {
   "counts_this_run": {
-    "exact_duplicates": 17810,
-    "examined": 989284,
-    "kept": 970146,
-    "kept_downloaded": 807215,
-    "kept_manual": 162931,
-    "near_duplicates": 1328
+    "exact_duplicates": 17813,
+    "examined": 987583,
+    "kept": 968477,
+    "kept_downloaded": 807212,
+    "kept_manual": 161265,
+    "near_duplicates": 1293
   },
   "inputs": [
-    "tmp/nepali/rebuild_wikipedia_clean.jsonl.gz",
+    "nepali/data/interim/nepali_wikipedia_clean.jsonl.gz",
     "nepali/data/interim/onlinekhabar_clean_v3.jsonl.gz",
     "nepali/data/interim/sangraha_verified_nep_clean.jsonl.gz",
     "nepali/data/interim/sangraha_unverified_nep_clean.jsonl.gz"
   ],
-  "output": "tmp/nepali/rebuild_document_deduplicated.jsonl.gz",
+  "output": "nepali/data/interim/nepali_document_deduplicated.jsonl.gz",
   "settings": {
     "bands": 4,
     "exact_only": false,

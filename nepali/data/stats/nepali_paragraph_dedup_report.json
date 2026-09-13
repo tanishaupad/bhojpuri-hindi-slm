@@ -1,17 +1,17 @@
 {
   "counts_this_run": {
-    "documents_examined": 970146,
-    "documents_kept": 965165,
-    "documents_kept_downloaded": 802587,
-    "documents_kept_manual": 162578,
-    "documents_removed_after_paragraph_deduplication": 4980,
-    "duplicate_characters_removed": 33078594,
-    "duplicate_words_removed": 5088848,
+    "documents_examined": 968477,
+    "documents_kept": 963515,
+    "documents_kept_downloaded": 802589,
+    "documents_kept_manual": 160926,
+    "documents_removed_after_paragraph_deduplication": 4961,
+    "duplicate_characters_removed": 33091145,
+    "duplicate_words_removed": 5090778,
     "exact_duplicates_after_paragraph_cleanup": 1,
-    "paragraph_duplicates_removed": 135684,
-    "paragraphs_eligible": 6154847,
-    "paragraphs_examined": 7302004,
-    "paragraphs_ineligible_short": 1147157
+    "paragraph_duplicates_removed": 135681,
+    "paragraphs_eligible": 6151185,
+    "paragraphs_examined": 7237255,
+    "paragraphs_ineligible_short": 1086070
   },
   "inputs": [
     "nepali/data/interim/nepali_document_deduplicated.jsonl.gz"

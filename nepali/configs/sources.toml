@@ -27,6 +27,11 @@ split = "nep"
 license = "CC-BY-4.0"
 enabled = true
 
+# Sangraha unverified Nepali web crawl from AI4Bharat.
+# Collection & Provenance: Extracted from Common Crawl / Indic web crawls by AI4Bharat.
+# Limitation: Upstream dataset does not provide record-level original URLs; documented as unverified web crawl.
+# Filtering: Filtered via language heuristics, document length floors (>=200 chars, >=30 words),
+# exact and near-deduplication (MinHash), and corpus-wide paragraph deduplication.
 [[sources]]
 name = "sangraha_unverified_nep"
 kind = "huggingface"
@@ -36,3 +41,4 @@ subset = "unverified"
 split = "nep"
 license = "CC-BY-4.0"
 enabled = true
+

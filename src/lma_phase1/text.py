@@ -21,19 +21,41 @@ _WIKIPEDIA_TRAILING_HEADINGS = {
     "external links",
     "further reading",
     "notes",
+    "see also",
+    "sources",
+    "bibliography",
     "इन्हें भी देखें",
     "इन्हें भी देखिये",
     "इसे भी देखें",
+    "इहो देखल जाय",
     "सन्दर्भ",
     "सन्दर्भ सूची",
     "टिप्पणी",
     "टिप्पणियाँ",
     "बाहरी कड़ियाँ",
     "बाहरी सूत्र",
-    "इहो देखल जाय",
     "बाहरी कड़ी",
     "संदर्भ",
     "स्रोत",
+    "स्रोतहरू",
+    "सन्दर्भ सामग्रीहरू",
+    "सन्दर्भ सामग्री",
+    "सन्दर्भ सामाग्रीहरू",
+    "सन्दर्भ सामाग्री",
+    "सन्दर्भहरू",
+    "बाह्य कडीहरू",
+    "बाहिरी कडीहरू",
+    "बाह्यलिङ्कहरू",
+    "बाह्य लिङ्कहरू",
+    "यो पनि हेर्नुहोस्",
+    "यो पनि हेर्नुहोस",
+    "यी पनि हेर्नुहोस्",
+    "थप अध्ययन",
+    "टिप्पणीहरू",
+    "सन्दर्भ सामग्री सूची",
+    "सन्दर्भ सामग्रीसभ",
+    "सन्दर्भ सामग्रीहरु",
+    "टिप्पणी तथा सन्दर्भ सामग्रीहरू",
 }
 _ANJORIA_TAIL_MARKERS = {
     "submit a comment",
@@ -46,17 +68,35 @@ _ANJORIA_TAIL_MARKERS = {
 }
 _ANJORIA_COMMENT_COUNT = re.compile(r"^\d+\s+comments?$", re.IGNORECASE)
 _WIKIPEDIA_METADATA_LINE = re.compile(
-    r"^(?:\[\[?|,)?\s*(?:श्रेणी|category)\s*:|^__[A-Z]+__$", re.IGNORECASE
+    r"^(?:\[\[?|,)?\s*(?:श्रेणी|category)\s*[:ः]|^__[A-Z]+__$", re.IGNORECASE
+)
+_WIKIPEDIA_MEDIA_KEYWORDS = (
+    r"thumb|thumbnail|अङ्गुठाकार|अंगूठाकार|থाम্ব|right|left|center|centre|none|"
+    r"दायाँ|बायाँ|केन्द्र|size|upright(?:=[0-9.]*)?|border|frame|frameless|"
+    r"alt=[^|]*|पाठ=[^|]*|link=[^|]*|[०-९\d]+(?:\s*x\s*[०-९\d]+)?\s*px"
 )
 _WIKIPEDIA_MEDIA_LINE = re.compile(
-    r"^(?:(?:left|right|center|none)\|)?thumb\|", re.IGNORECASE
+    rf"^(?:(?:{_WIKIPEDIA_MEDIA_KEYWORDS})\s*\|\s*)*(?:[०-९\d]+(?:\s*x\s*[०-९\d]+)?\s*px|right|left|center|centre|none|दायाँ|बायाँ|केन्द्र)\s*\|",
+    re.IGNORECASE,
 )
 _WIKIPEDIA_SOCIAL_HANDLE = re.compile(
     r"\b(?:instagram|facebook|twitter|youtube)\s+(?:id|handle)\s*=\s*\S+",
     re.IGNORECASE,
 )
-_WIKIPEDIA_INLINE_CATEGORY = re.compile(r"(?:[ \t]+|\[\[?|,)(?:श्रेणी|category)\s*:", re.IGNORECASE)
-_WIKIPEDIA_INLINE_MEDIA_PREFIX = re.compile(r"(?:अङ्गुठाकार|thumb)\s*\|", re.IGNORECASE)
+_WIKIPEDIA_INLINE_CATEGORY = re.compile(
+    r"(?:[ \t]+|\[\[?|,)(?:श्रेणी|category)\s*[:ः]", re.IGNORECASE
+)
+_WIKIPEDIA_INLINE_MEDIA_PREFIX = re.compile(
+    rf"^(?:(?:{_WIKIPEDIA_MEDIA_KEYWORDS})\s*\|\s*)+",
+    re.IGNORECASE,
+)
+_WIKIPEDIA_INLINE_MEDIA_TAIL = re.compile(
+    r"(?<=\S)\s*(?:thumb|thumbnail|अङ्गुठाकार|अंगूठाकार|থाम্ব)\s*\|.*$", re.IGNORECASE
+)
+_WIKIPEDIA_INLINE_PX = re.compile(
+    r"(?:^|(?<=[^\w])|(?<=[^\d]))(?:[०-९\d]+(?:\s*x\s*[०-९\d]+)?|x[०-९\d]+)\s*px(?:\s*\|\s*[^|\s\n]*)*\s*\|?",
+    re.IGNORECASE,
+)
 _HTML_COMMENT = re.compile(r"<!--[\s\S]*?-->")
 _HTML_TAG = re.compile(r"</?[A-Za-z][^>]{0,500}>")
 _WIKIPEDIA_TABLE_ATTRIBUTE = re.compile(
@@ -64,7 +104,9 @@ _WIKIPEDIA_TABLE_ATTRIBUTE = re.compile(
     r'(?:"[^"]*"|\'[^\']*\'|[^\s|]*)',
     re.IGNORECASE,
 )
-_WIKIPEDIA_TABLE_MARKER_LINE = re.compile(r"^(?:\{\||\|\}|\|-|[!|]\s*[|!])")
+_WIKIPEDIA_TABLE_MARKER_LINE = re.compile(
+    r"^(?:\{\||\|\}|\|-|[!|]\s*[|!]|[!|]\s*class=|[!|]\s*style=)"
+)
 _TRANSLATION_CREDIT = re.compile(
     r"(?:अनुवादक|अनूदित|अनुवादित|अनुवाद\s*[:：-]|translated\s+by|translation\s*[:：-])",
     re.IGNORECASE,
@@ -162,8 +204,8 @@ def clean_pib_article(text: str) -> tuple[str, dict[str, int]]:
     }
 
 
-def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
-    """Remove reference/link tails and English-dominant blocks from Bhojpuri Wikipedia."""
+def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[str, int]]:
+    """Remove wikitext templates, media options/captions, tables, categories, and trailing sections."""
 
     text, removed_leading_templates = remove_leading_wikitext_templates(text)
     text, removed_residual_templates = remove_wikitext_templates(text)
@@ -174,8 +216,7 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
     truncated_inline_categories = int(inline_category is not None)
     if inline_category:
         text = text[: inline_category.start()]
-    removed_inline_media_prefixes = len(_WIKIPEDIA_INLINE_MEDIA_PREFIX.findall(text))
-    text = _WIKIPEDIA_INLINE_MEDIA_PREFIX.sub("", text)
+    removed_inline_media_prefixes = 0
     text = re.sub(
         r"\[\[?\s*(?:श्रेणी|category)\s*:[^\]\n]*\]?\]?", "", text, flags=re.IGNORECASE
     )
@@ -188,38 +229,94 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
         if not paragraph:
             continue
         lines = []
+        is_trailing = False
         for raw_line in paragraph.splitlines():
             line = raw_line.strip()
             if not line:
                 continue
+            normalized_heading = (
+                re.sub(r"^=+\s*|\s*=+$", "", line)
+                .replace("\u00a0", " ")
+                .strip()
+                .rstrip(":ः")
+                .strip()
+                .casefold()
+            )
+            if (
+                normalized_heading in _WIKIPEDIA_TRAILING_HEADINGS
+                or any(
+                    re.match(rf"^(?:=+\s*)?{re.escape(th)}\s*[:ः\-–—]", line, re.IGNORECASE)
+                    for th in _WIKIPEDIA_TRAILING_HEADINGS
+                )
+            ):
+                is_trailing = True
+                break
             if _WIKIPEDIA_METADATA_LINE.search(line):
                 removed_metadata_lines += 1
                 continue
             if _WIKIPEDIA_MEDIA_LINE.search(line):
                 removed_metadata_lines += 1
                 continue
-            if _WIKIPEDIA_TABLE_MARKER_LINE.search(line):
+            if _WIKIPEDIA_TABLE_MARKER_LINE.search(line) or line.startswith("|") or line.startswith("!"):
                 removed_metadata_lines += 1
                 continue
             line = re.sub(r"\{\|.*", "", line)
-            line = re.sub(r"(?<!-)श्रेणी:[^\n\]]*\]?\]?", "", line)
+            line = re.sub(
+                r"(?:\[\[?|,|\(|\b)(?:category|श्रेणी)\s*:[^\]\)\n]*[\]\)]?",
+                "",
+                line,
+                flags=re.IGNORECASE,
+            )
+            found_prefixes = len(_WIKIPEDIA_INLINE_MEDIA_PREFIX.findall(line))
+            removed_inline_media_prefixes += found_prefixes
+            line = _WIKIPEDIA_INLINE_MEDIA_TAIL.sub("", line)
+            line = _WIKIPEDIA_INLINE_MEDIA_PREFIX.sub("", line)
+            line = _WIKIPEDIA_INLINE_PX.sub("", line)
             line = _WIKIPEDIA_SOCIAL_HANDLE.sub("", line).strip()
-            line = line.replace("[[", "").replace("]]", "")
-            if not line:
+            line = line.replace("[[", "").replace("]]", "").strip()
+            if not line or re.fullmatch(
+                r"^(?:thumb|thumbnail|अङ्गुठाकार|अंगूठाकार|থाम্ব|right|left|center|centre|none|दायाँ|बायाँ|केन्द्र|size|[०-९\d]+(?:\s*x\s*[०-९\d]+)?\s*px|alt=[^|]*|पाठ=[^|]*|link=[^|]*|[|\s\-])+$",
+                line,
+                re.IGNORECASE,
+            ):
                 removed_metadata_lines += 1
                 continue
             lines.append(line)
-        if not lines:
-            continue
-        if any(line.casefold() in _WIKIPEDIA_TRAILING_HEADINGS for line in lines):
+        if is_trailing:
             truncated_trailing_sections += 1
             break
+        if not lines:
+            continue
         paragraph = "\n".join(lines)
         metrics = text_metrics(paragraph)
         if metrics.letters >= 20 and metrics.latin_ratio > 0.50:
             removed_english_paragraphs += 1
             continue
         kept_paragraphs.append(paragraph)
+
+    while kept_paragraphs:
+        last_lines = kept_paragraphs[-1].splitlines()
+        if len(last_lines) == 1:
+            candidate = (
+                re.sub(r"^=+\s*|\s*=+$", "", last_lines[0]).replace("\u00a0", " ").strip()
+            )
+            if (
+                candidate.casefold() in _WIKIPEDIA_TRAILING_HEADINGS
+                or (
+                    len(candidate.split()) <= 4
+                    and not any(candidate.endswith(p) for p in ("।", "!", "?", "."))
+                    and (
+                        last_lines[0].startswith("=")
+                        or last_lines[0].endswith("=")
+                        or len(candidate.split()) <= 2
+                    )
+                )
+            ):
+                kept_paragraphs.pop()
+                truncated_trailing_sections += 1
+                continue
+        break
+
     return "\n\n".join(kept_paragraphs).strip(), {
         "removed_english_paragraphs": removed_english_paragraphs,
         "removed_leading_templates": removed_leading_templates,
@@ -229,6 +326,15 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
         "truncated_inline_categories": truncated_inline_categories,
         "removed_inline_media_prefixes": removed_inline_media_prefixes,
     }
+
+
+def clean_nepali_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
+    """Clean Nepali Wikipedia articles by stripping markup, media captions, categories, and references."""
+    return clean_wikipedia_article(text, language="ne")
+
+
+# Backward compatibility alias
+clean_bhojpuri_wikipedia_article = clean_wikipedia_article
 
 
 def remove_leading_wikitext_templates(text: str) -> tuple[str, int]:

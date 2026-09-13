@@ -15,7 +15,9 @@ from lma_phase1.schema import Document
 from lma_phase1.text import (
     clean_anjoria_article,
     clean_bhojpuri_wikipedia_article,
+    clean_nepali_wikipedia_article,
     clean_pib_article,
+    clean_wikipedia_article,
     has_translation_credit,
     normalize_unicode,
     remove_repeated_lines,
@@ -119,7 +121,7 @@ def iter_processed(
             if document.source_name in {"hindi_wikipedia", "hindi_wikibooks"} and config.get(
                 "clean_hindi_wikipedia", False
             ):
-                cleaned_wikipedia_text, wikipedia_cleaning = clean_bhojpuri_wikipedia_article(text)
+                cleaned_wikipedia_text, wikipedia_cleaning = clean_wikipedia_article(text, language="hi")
                 text = cleaned_wikipedia_text
                 if not text:
                     wikipedia_cleaning["cleaned_to_empty"] = 1
@@ -130,7 +132,7 @@ def iter_processed(
                 "bhojpuri_wikipedia",
                 "bhojpuri_corpus:wikipedia",
             } and config.get("clean_bhojpuri_wikipedia", False):
-                cleaned_wikipedia_text, wikipedia_cleaning = clean_bhojpuri_wikipedia_article(text)
+                cleaned_wikipedia_text, wikipedia_cleaning = clean_wikipedia_article(text, language="bho")
                 text = cleaned_wikipedia_text
                 if not text:
                     wikipedia_cleaning["cleaned_to_empty"] = 1
@@ -140,7 +142,7 @@ def iter_processed(
             if document.source_name == "nepali_wikipedia" and config.get(
                 "clean_nepali_wikipedia", False
             ):
-                cleaned_wikipedia_text, wikipedia_cleaning = clean_bhojpuri_wikipedia_article(text)
+                cleaned_wikipedia_text, wikipedia_cleaning = clean_nepali_wikipedia_article(text)
                 text = cleaned_wikipedia_text
                 if not text:
                     wikipedia_cleaning["cleaned_to_empty"] = 1

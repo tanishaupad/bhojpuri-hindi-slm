@@ -301,3 +301,44 @@ def test_iter_processed_counts_empty_rejection_without_serializing_it(tmp_path) 
     assert accepted == []
     assert counters["rejected_empty_not_persisted"] == 1
     assert not rejected_path.exists()
+
+
+def test_iter_processed_applies_clean_nepali_wikipedia(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    document = make_document("nepali_wikipedia")
+    document.language = "ne"
+    document.text = (
+        "thumb|280px|सन् १७२० मा फ्रान्सका एक अभिनेता\n"
+        "अभिनेता त्यो पुरुष कलाकार हो जो एउटा चलचित्र वा नाटकमा कुनै चरित्रको अभिनय गर्दछ । "
+        "अभिनेता परिकल्पना तथा दर्शक माझ माध्यमको कार्य गर्ने गर्छ । यो एक महत्त्वपूर्ण नेपाली लेख हो ।\n\n"
+        "सन्दर्भ सामग्रीहरू\n\nश्रेणी:कलाकार"
+    )
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 100,
+        "minimum_words": 15,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "clean_nepali_wikipedia": True,
+        "remove_repeated_lines": True,
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="ne",
+            config=config,
+            rejected_path=None,
+            counters=counters,
+        )
+    )
+
+    assert len(accepted) == 1
+    assert "280px|" not in accepted[0].text
+    assert "thumb|" not in accepted[0].text
+    assert "सन्दर्भ सामग्रीहरू" not in accepted[0].text
+    assert "श्रेणी:कलाकार" not in accepted[0].text
+    assert accepted[0].text.startswith("अभिनेता त्यो पुरुष कलाकार हो")
+    assert counters["nepali_wikipedia_truncated_trailing_sections"] >= 1

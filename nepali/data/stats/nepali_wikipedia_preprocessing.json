@@ -1,22 +1,23 @@
 {
   "counts": {
-    "accepted_characters": 46415391,
-    "accepted_documents": 24301,
-    "accepted_words": 6870423,
-    "nepali_wikipedia_cleaned_to_empty": 199,
-    "nepali_wikipedia_removed_english_paragraphs": 4340,
-    "nepali_wikipedia_removed_inline_media_prefixes": 10150,
+    "accepted_characters": 43984248,
+    "accepted_documents": 22600,
+    "accepted_words": 6538646,
+    "nepali_wikipedia_cleaned_to_empty": 1685,
+    "nepali_wikipedia_removed_english_paragraphs": 2892,
+    "nepali_wikipedia_removed_inline_media_prefixes": 5380,
     "nepali_wikipedia_removed_leading_templates": 44,
-    "nepali_wikipedia_removed_metadata_lines": 58760,
+    "nepali_wikipedia_removed_metadata_lines": 14902,
     "nepali_wikipedia_removed_residual_templates": 94,
-    "nepali_wikipedia_truncated_inline_categories": 15,
-    "nepali_wikipedia_truncated_trailing_sections": 2974,
+    "nepali_wikipedia_truncated_inline_categories": 25,
+    "nepali_wikipedia_truncated_trailing_sections": 30955,
     "raw_documents": 30305,
-    "rejected_high_digit_ratio": 210,
-    "rejected_high_latin_ratio": 1289,
-    "rejected_low_devanagari_ratio": 711,
-    "rejected_too_few_words": 4628,
-    "rejected_too_short_characters": 4597
+    "rejected_empty_not_persisted": 1685,
+    "rejected_high_digit_ratio": 335,
+    "rejected_high_latin_ratio": 1430,
+    "rejected_low_devanagari_ratio": 2345,
+    "rejected_too_few_words": 6220,
+    "rejected_too_short_characters": 6413
   },
   "inputs": [
     "nepali/data/raw/manual/nepali_wikipedia.jsonl.gz"

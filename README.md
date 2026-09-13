@@ -5,7 +5,7 @@
 This repository builds fully independent decoder-only causal language models (~25M parameters) from scratch for two Indic languages in Devanagari script:
 
 - **Model H (Language #1):** Hindi (`hi`, Devanagari), the higher-resource Indian language.
-- **Model L (Language #2):** Nepali (`ne`, Devanagari), the primary Language #2 target (~300M tokens, $\ge 20\%$ manual tokens; 275.35M train tokens at 22.78% manual achieved).
+- **Model L (Language #2):** Nepali (`ne`, Devanagari), the primary Language #2 target (~300M tokens, $\ge 20\%$ manual tokens; 273.17M train tokens at 22.74% manual achieved).
 
 The corpora, tokenizers, vocabulary artifacts, training splits, and model weights are completely independent. Token strings can naturally coincide because both languages use Devanagari; there is no shared embedding table, tokenizer, or weight parameter.
 
@@ -15,10 +15,10 @@ The corpora, tokenizers, vocabulary artifacts, training splits, and model weight
 
 | Criterion | Requirement | Hindi (Model H) | Nepali (Model L) |
 |---|---|---:|---:|
-| **Target Scale** | ~300M – 500M training tokens | 332,246,742 tokens | 275,345,878 tokens |
-| **Manual Data Share** | $\ge 20\%$ of training tokens | **25.06%** (83.27M tokens) | **22.78%** (62.74M tokens) |
-| **Data Partitioning** | 98% Train / 1% Val / 1% Test | 2,237,951 / 23,033 / 22,773 docs | 710,200 / 7,434 / 7,403 docs |
-| **Selected Tokenizer** | SentencePiece Unigram from scratch | 24,000 vocab (fertility 1.2928) | 16,000 vocab (fertility 1.3533) |
+| **Target Scale** | ~300M – 500M training tokens | 332,246,742 tokens | 273,166,599 tokens |
+| **Manual Data Share** | $\ge 20\%$ of training tokens | **25.06%** (83.27M tokens) | **22.74%** (62.11M tokens) |
+| **Data Partitioning** | 98% Train / 1% Val / 1% Test | 2,237,951 / 23,033 / 22,773 docs | 704,658 / 7,377 / 7,333 docs |
+| **Selected Tokenizer** | SentencePiece Unigram from scratch | 24,000 vocab (fertility 1.2928) | 16,000 vocab (fertility 1.3522) |
 | **Model Size** | ~25M parameters ($d_{\text{model}}=384$) | 25,285,248 parameters | 24,870,912 parameters |
 | **Embedding Budget** | Balance depth vs. embeddings | 36.45% embedding / 63.55% transformer | 24.70% embedding / 75.30% transformer |
 | **Pipeline Reproducibility**| Deterministic seeds & manifests | Seed `lma-phase-1-2026` | Seed `lma-nepali-phase-1-2026` |
@@ -37,10 +37,10 @@ All token statistics reflect SentencePiece Unigram encoding with the selected pr
 | Hindi | Validation | 23,033 | 13,678,052 | 2,652,001 | 3,428,944 | 859,881 | 2,569,063 | 25.08% |
 | Hindi | Test | 22,773 | 13,446,801 | 2,608,981 | 3,372,824 | 839,451 | 2,533,373 | 24.89% |
 | **Hindi Total** | | **2,283,757** | **1,354,230,511** | **262,190,123** | **339,048,510** | **84,973,468** | **254,075,042** | **25.06%** |
-| **Nepali** | Train | 710,200 | 1,325,562,669 | 203,623,915 | 275,345,878 | 62,735,390 | 212,610,488 | **22.78%** |
-| Nepali | Validation | 7,434 | 14,227,778 | 2,188,883 | 2,962,133 | 659,799 | 2,302,334 | 22.27% |
-| Nepali | Test | 7,403 | 13,977,253 | 2,146,210 | 2,909,630 | 733,328 | 2,176,302 | 25.20% |
-| **Nepali Total** | | **725,037** | **1,353,767,700** | **207,959,008** | **281,217,641** | **64,128,517** | **217,089,124** | **22.80%** |
+| **Nepali** | Train | 704,658 | 1,315,752,602 | 202,155,595 | 273,166,599 | 62,107,333 | 211,059,266 | **22.74%** |
+| Nepali | Validation | 7,377 | 14,143,442 | 2,176,567 | 2,943,224 | 652,871 | 2,290,353 | 22.18% |
+| Nepali | Test | 7,333 | 13,868,241 | 2,129,750 | 2,885,028 | 726,768 | 2,158,260 | 25.19% |
+| **Nepali Total** | | **719,368** | **1,343,764,285** | **206,461,912** | **278,994,851** | **63,486,972** | **215,507,879** | **22.76%** |
 
 ### Clean Training Tokens by Source
 
@@ -51,10 +51,10 @@ All token statistics reflect SentencePiece Unigram encoding with the selected pr
 | Hindi | Hindi Wikisource | Manual | 47,816 | 12,382,392 | CC BY-SA 4.0 |
 | Hindi | Hindi Wikibooks | Manual | 4,212 | 4,151,331 | CC BY-SA 4.0 |
 | Hindi | IndicCorp v2 | Downloaded | 2,035,014 | 248,972,606 | CC0-1.0 |
-| Nepali | Nepali Wikipedia | Manual | 23,705 | 11,455,382 | CC BY-SA 4.0 |
-| Nepali | Onlinekhabar | Manual | 135,504 | 51,280,008 | Source rights retained; research |
-| Nepali | Sangraha Verified Web | Downloaded | 150,305 | 61,743,709 | CC BY 4.0 |
-| Nepali | Sangraha Unverified Web | Downloaded | 400,686 | 150,866,779 | CC BY 4.0 |
+| Nepali | Nepali Wikipedia | Manual | 22,091 | 10,836,296 | CC BY-SA 4.0 |
+| Nepali | Onlinekhabar | Manual | 135,504 | 51,271,037 | Source rights retained; research |
+| Nepali | Sangraha Verified Web | Downloaded | 149,249 | 61,294,242 | CC BY 4.0 |
+| Nepali | Sangraha Unverified Web | Downloaded | 397,814 | 149,765,024 | CC BY 4.0 |
 
 ---
 
@@ -67,14 +67,14 @@ Independent **SentencePiece Unigram** models were trained exclusively on each la
 | **Hindi** | 16,000 | 1.3562 | 3.800 | 0.001418% | 76.04% | 0.81% | 2.14% | Candidate |
 | **Hindi** | **24,000** | **1.2928** | **3.986** | **0.001487%** | **83.93%** | **0.86%** | **3.02%** | **Selected** |
 | Hindi | 32,000 | 1.2630 | 4.080 | 0.001522% | 87.64% | 1.84% | 7.91% | Candidate |
-| **Nepali** | **16,000** | **1.3533** | **4.803** | **0.001148%** | **92.79%** | **0.51%** | **1.50%** | **Selected** |
-| Nepali | 24,000 | 1.2828 | 5.067 | 0.001211% | 95.10% | 0.52% | 4.14% | Candidate |
-| Nepali | 32,000 | 1.2448 | 5.222 | 0.001248% | 95.93% | 1.25% | 11.19% | Candidate |
+| **Nepali** | **16,000** | **1.3522** | **4.805** | **0.001359%** | **92.89%** | **0.50%** | **1.47%** | **Selected** |
+| Nepali | 24,000 | 1.2821 | 5.068 | 0.001433% | 95.17% | 0.49% | 4.16% | Candidate |
+| Nepali | 32,000 | 1.2439 | 5.224 | 0.001477% | 95.95% | 1.14% | 11.27% | Candidate |
 
 ### Selection Rationale
 
 - **Hindi (Selected: 24,000 Unigram)**: Captures frequent bureaucratic and administrative compound words with an optimal fertility drop (1.356 $\rightarrow$ 1.293) and 83.93% validation utilization. Embedding parameters consume 9.22M weights (36.45% of total budget), leaving 63.55% for attention and feed-forward depth.
-- **Nepali (Selected: 16,000 Unigram)**: Achieves 92.79% validation utilization with only 1.50% rare pieces ($\le 5$) and 0.51% singletons. At $d_{\text{model}}=384$, the 16k vocabulary uses 6.14M parameters (24.70% of total budget), allocating **75.30%** of model capacity to transformer depth. Larger vocabularies (32k) suffer extreme tail sparsity (11.19% rare pieces) and starve transformer layers.
+- **Nepali (Selected: 16,000 Unigram)**: Achieves 92.89% validation utilization with only 1.47% rare pieces ($\le 5$) and 0.50% singletons. At $d_{\text{model}}=384$, the 16k vocabulary uses 6.14M parameters (24.70% of total budget), allocating **75.30%** of model capacity to transformer depth. Larger vocabularies (32k) suffer extreme tail sparsity (11.27% rare pieces) and starve transformer layers.
 
 ---
 

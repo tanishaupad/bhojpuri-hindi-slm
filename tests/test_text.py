@@ -4,7 +4,9 @@ from lma_phase1.text import (
     canonical_text,
     clean_anjoria_article,
     clean_bhojpuri_wikipedia_article,
+    clean_nepali_wikipedia_article,
     clean_pib_article,
+    clean_wikipedia_article,
     has_translation_credit,
     normalize_unicode,
     text_metrics,
@@ -185,3 +187,29 @@ def test_translation_credit_detection_is_explicit_and_conservative():
     assert has_translation_credit("अनुवादक: राम प्रसाद")
     assert has_translation_credit("Translated by A. Reader")
     assert not has_translation_credit("इस लेख में अनुवाद के सिद्धांत की चर्चा है।")
+
+
+def test_clean_nepali_wikipedia_article_removes_image_markup_and_trailing_sections():
+    raw = """thumb|280px|सन् १७२० मा फ्रान्सका एक अभिनेता
+अभिनेता त्यो पुरुष कलाकार हो जो एउटा चलचित्र वा नाटकमा कुनै चरित्रको अभिनय गर्दछ । अभिनेता परिकल्पना तथा दर्शक माझ माध्यमको कार्य गर्ने गर्छ ।
+
+इतिहास
+
+सन्दर्भ सामग्री
+
+बाह्य कडीहरू
+
+श्रेणी:कलाकार
+श्रेणीःटेलिभिजन शब्दावलीहरू"""
+
+    cleaned, report = clean_nepali_wikipedia_article(raw)
+
+    assert "280px|" not in cleaned
+    assert "thumb|" not in cleaned
+    assert "सन्दर्भ सामग्री" not in cleaned
+    assert "बाह्य कडीहरू" not in cleaned
+    assert "श्रेणी:" not in cleaned
+    assert "श्रेणीः" not in cleaned
+    assert "इतिहास" not in cleaned
+    assert cleaned.startswith("अभिनेता त्यो पुरुष कलाकार हो")
+    assert report["truncated_trailing_sections"] >= 1
