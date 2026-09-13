@@ -5,6 +5,7 @@ minimum_devanagari_ratio = 0.70
 maximum_latin_ratio = 0.20
 maximum_digit_ratio = 0.25
 remove_repeated_lines = true
+clean_nepali_wikipedia = true
 
 [split]
 train = 0.98

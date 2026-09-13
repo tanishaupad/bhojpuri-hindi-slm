@@ -1,17 +1,17 @@
 {
   "counts_this_run": {
-    "documents_examined": 970487,
-    "documents_kept": 967446,
-    "documents_kept_downloaded": 804826,
-    "documents_kept_manual": 162620,
-    "documents_removed_after_paragraph_deduplication": 3028,
-    "duplicate_characters_removed": 33119191,
-    "duplicate_words_removed": 5094959,
-    "exact_duplicates_after_paragraph_cleanup": 13,
-    "paragraph_duplicates_removed": 135765,
-    "paragraphs_eligible": 6153900,
-    "paragraphs_examined": 7360376,
-    "paragraphs_ineligible_short": 1206476
+    "documents_examined": 970146,
+    "documents_kept": 965165,
+    "documents_kept_downloaded": 802587,
+    "documents_kept_manual": 162578,
+    "documents_removed_after_paragraph_deduplication": 4980,
+    "duplicate_characters_removed": 33078594,
+    "duplicate_words_removed": 5088848,
+    "exact_duplicates_after_paragraph_cleanup": 1,
+    "paragraph_duplicates_removed": 135684,
+    "paragraphs_eligible": 6154847,
+    "paragraphs_examined": 7302004,
+    "paragraphs_ineligible_short": 1147157
   },
   "inputs": [
     "nepali/data/interim/nepali_document_deduplicated.jsonl.gz"
@@ -20,8 +20,8 @@
   "settings": {
     "exact_document_deduplication_after_paragraph_cleanup": true,
     "input_priority_preserved": true,
-    "minimum_document_characters": 30,
-    "minimum_document_words": 5,
+    "minimum_document_characters": 200,
+    "minimum_document_words": 30,
     "minimum_paragraph_characters": 100,
     "minimum_paragraph_words": 15
   }

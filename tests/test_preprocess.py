@@ -132,6 +132,39 @@ def test_iter_processed_applies_hindi_wikipedia_cleaning(tmp_path) -> None:
     assert counters["hindi_wikipedia_truncated_trailing_sections"] == 1
 
 
+def test_iter_processed_applies_nepali_wikipedia_cleaning(tmp_path) -> None:
+    input_path = tmp_path / "input.jsonl.gz"
+    document = make_document("nepali_wikipedia")
+    document.language = "ne"
+    document.text = "यो सफा नेपाली लेख हो। " * 20 + " श्रेणी:नेपाल"
+    write_jsonl(input_path, [document])
+    counters = Counter()
+    config = {
+        "minimum_characters": 120,
+        "minimum_words": 20,
+        "minimum_devanagari_ratio": 0.7,
+        "maximum_latin_ratio": 0.2,
+        "maximum_digit_ratio": 0.25,
+        "remove_repeated_lines": True,
+        "excluded_source_names": [],
+        "clean_nepali_wikipedia": True,
+    }
+
+    accepted = list(
+        iter_processed(
+            [input_path],
+            expected_language="ne",
+            config=config,
+            rejected_path=None,
+            counters=counters,
+        )
+    )
+
+    assert len(accepted) == 1
+    assert "श्रेणी:" not in accepted[0].text
+    assert counters["nepali_wikipedia_truncated_inline_categories"] == 1
+
+
 def test_iter_processed_removes_residual_wikipedia_markup(tmp_path) -> None:
     input_path = tmp_path / "input.jsonl.gz"
     document = make_document("hindi_wikipedia")

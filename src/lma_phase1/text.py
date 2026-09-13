@@ -32,7 +32,6 @@ _WIKIPEDIA_TRAILING_HEADINGS = {
     "बाहरी सूत्र",
     "इहो देखल जाय",
     "बाहरी कड़ी",
-    "बाहरी कड़ियाँ",
     "संदर्भ",
     "स्रोत",
 }
@@ -47,7 +46,7 @@ _ANJORIA_TAIL_MARKERS = {
 }
 _ANJORIA_COMMENT_COUNT = re.compile(r"^\d+\s+comments?$", re.IGNORECASE)
 _WIKIPEDIA_METADATA_LINE = re.compile(
-    r"^(?:श्रेणी|category)\s*:|^__[A-Z]+__$", re.IGNORECASE
+    r"^(?:\[\[?|,)?\s*(?:श्रेणी|category)\s*:|^__[A-Z]+__$", re.IGNORECASE
 )
 _WIKIPEDIA_MEDIA_LINE = re.compile(
     r"^(?:(?:left|right|center|none)\|)?thumb\|", re.IGNORECASE
@@ -56,6 +55,8 @@ _WIKIPEDIA_SOCIAL_HANDLE = re.compile(
     r"\b(?:instagram|facebook|twitter|youtube)\s+(?:id|handle)\s*=\s*\S+",
     re.IGNORECASE,
 )
+_WIKIPEDIA_INLINE_CATEGORY = re.compile(r"(?:[ \t]+|\[\[?|,)(?:श्रेणी|category)\s*:", re.IGNORECASE)
+_WIKIPEDIA_INLINE_MEDIA_PREFIX = re.compile(r"(?:अङ्गुठाकार|thumb)\s*\|", re.IGNORECASE)
 _HTML_COMMENT = re.compile(r"<!--[\s\S]*?-->")
 _HTML_TAG = re.compile(r"</?[A-Za-z][^>]{0,500}>")
 _WIKIPEDIA_TABLE_ATTRIBUTE = re.compile(
@@ -169,6 +170,15 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
     text = _HTML_COMMENT.sub("", text)
     text = _HTML_TAG.sub("", text)
     text = _WIKIPEDIA_TABLE_ATTRIBUTE.sub("", text)
+    inline_category = _WIKIPEDIA_INLINE_CATEGORY.search(text)
+    truncated_inline_categories = int(inline_category is not None)
+    if inline_category:
+        text = text[: inline_category.start()]
+    removed_inline_media_prefixes = len(_WIKIPEDIA_INLINE_MEDIA_PREFIX.findall(text))
+    text = _WIKIPEDIA_INLINE_MEDIA_PREFIX.sub("", text)
+    text = re.sub(
+        r"\[\[?\s*(?:श्रेणी|category)\s*:[^\]\n]*\]?\]?", "", text, flags=re.IGNORECASE
+    )
     kept_paragraphs = []
     removed_english_paragraphs = 0
     removed_metadata_lines = 0
@@ -191,6 +201,8 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
             if _WIKIPEDIA_TABLE_MARKER_LINE.search(line):
                 removed_metadata_lines += 1
                 continue
+            line = re.sub(r"\{\|.*", "", line)
+            line = re.sub(r"(?<!-)श्रेणी:[^\n\]]*\]?\]?", "", line)
             line = _WIKIPEDIA_SOCIAL_HANDLE.sub("", line).strip()
             line = line.replace("[[", "").replace("]]", "")
             if not line:
@@ -214,6 +226,8 @@ def clean_bhojpuri_wikipedia_article(text: str) -> tuple[str, dict[str, int]]:
         "removed_residual_templates": removed_residual_templates,
         "removed_metadata_lines": removed_metadata_lines,
         "truncated_trailing_sections": truncated_trailing_sections,
+        "truncated_inline_categories": truncated_inline_categories,
+        "removed_inline_media_prefixes": removed_inline_media_prefixes,
     }
 
 

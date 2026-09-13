@@ -34,6 +34,7 @@ DEFAULTS: dict[str, Any] = {
     "clean_pib_boilerplate": False,
     "clean_hindi_wikipedia": False,
     "clean_bhojpuri_wikipedia": False,
+    "clean_nepali_wikipedia": False,
     "clean_anjoria": False,
 }
 
@@ -136,6 +137,16 @@ def iter_processed(
                 source_cleaning["bhojpuri_wikipedia"] = wikipedia_cleaning
                 for key, value in wikipedia_cleaning.items():
                     counters[f"bhojpuri_wikipedia_{key}"] += value
+            if document.source_name == "nepali_wikipedia" and config.get(
+                "clean_nepali_wikipedia", False
+            ):
+                cleaned_wikipedia_text, wikipedia_cleaning = clean_bhojpuri_wikipedia_article(text)
+                text = cleaned_wikipedia_text
+                if not text:
+                    wikipedia_cleaning["cleaned_to_empty"] = 1
+                source_cleaning["nepali_wikipedia"] = wikipedia_cleaning
+                for key, value in wikipedia_cleaning.items():
+                    counters[f"nepali_wikipedia_{key}"] += value
             if document.source_name == "anjoria_pre2023" and config.get(
                 "clean_anjoria", False
             ):

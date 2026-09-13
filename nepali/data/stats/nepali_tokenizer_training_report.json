@@ -25,5 +25,5 @@
     }
   ],
   "normalization_rule": "identity for characters; SentencePiece collapses whitespace boundaries",
-  "training_paragraphs_available": 5131616
+  "training_paragraphs_available": 5136419
 }

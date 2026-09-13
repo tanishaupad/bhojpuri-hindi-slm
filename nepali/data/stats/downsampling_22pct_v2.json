@@ -1,14 +1,14 @@
 {
-  "actual_manual_word_fraction": 0.22000000126273714,
+  "actual_manual_word_fraction": 0.22000000884789672,
   "counts": {
-    "dropped_downloaded_documents": 247575,
-    "dropped_downloaded_words": 71736924,
-    "kept_downloaded_documents": 557251,
-    "kept_downloaded_words": 160603495,
-    "kept_manual_documents": 162620,
-    "kept_manual_words": 45298422
+    "dropped_downloaded_documents": 240128,
+    "dropped_downloaded_words": 69556873,
+    "kept_downloaded_documents": 562459,
+    "kept_downloaded_words": 162208040,
+    "kept_manual_documents": 162578,
+    "kept_manual_words": 45750988
   },
-  "downloaded_word_budget": 160603496,
+  "downloaded_word_budget": 162208048,
   "input": "nepali/data/interim/nepali_paragraph_deduplicated.jsonl.gz",
   "output": "nepali/data/interim/nepali_balanced22_v2.jsonl.gz",
   "seed": "lma-nepali-downsample-2026",

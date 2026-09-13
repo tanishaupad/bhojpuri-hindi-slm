@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 from datetime import UTC, datetime
 from pathlib import Path
 

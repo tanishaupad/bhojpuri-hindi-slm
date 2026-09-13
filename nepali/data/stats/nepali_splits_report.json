@@ -1,14 +1,14 @@
 {
   "counts": {
-    "test_documents": 7354,
-    "test_downloaded_documents": 5637,
-    "test_manual_documents": 1717,
-    "train_documents": 705137,
-    "train_downloaded_documents": 545910,
-    "train_manual_documents": 159227,
-    "validation_documents": 7380,
-    "validation_downloaded_documents": 5704,
-    "validation_manual_documents": 1676
+    "test_documents": 7403,
+    "test_downloaded_documents": 5700,
+    "test_manual_documents": 1703,
+    "train_documents": 710200,
+    "train_downloaded_documents": 550991,
+    "train_manual_documents": 159209,
+    "validation_documents": 7434,
+    "validation_downloaded_documents": 5768,
+    "validation_manual_documents": 1666
   },
   "input": "nepali/data/interim/nepali_balanced22_v2.jsonl.gz",
   "output_dir": "nepali/data/splits",

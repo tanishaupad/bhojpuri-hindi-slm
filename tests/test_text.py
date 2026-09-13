@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from lma_phase1.text import (
-    clean_anjoria_article,
     canonical_text,
+    clean_anjoria_article,
     clean_bhojpuri_wikipedia_article,
     clean_pib_article,
     has_translation_credit,
@@ -137,6 +137,16 @@ def test_wikipedia_cleaning_preserves_label_from_leaked_link_brackets():
     )
 
     assert cleaned == "यह होली ट्रिनिटी चर्च नाम का एक उपयोगी हिन्दी वाक्य है।"
+
+
+def test_wikipedia_cleaning_truncates_inline_categories_and_removes_thumb_prefix():
+    text = "अङ्गुठाकार|यो उपयोगी नेपाली लेख हो। श्रेणी:नेपाल श्रेणी:इतिहास"
+
+    cleaned, report = clean_bhojpuri_wikipedia_article(text)
+
+    assert cleaned == "यो उपयोगी नेपाली लेख हो।"
+    assert report["removed_inline_media_prefixes"] == 1
+    assert report["truncated_inline_categories"] == 1
 
 
 def test_clean_anjoria_article_truncates_repeated_site_tail():

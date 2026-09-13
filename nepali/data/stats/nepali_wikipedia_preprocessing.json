@@ -1,24 +1,33 @@
 {
   "counts": {
-    "accepted_characters": 47642884,
-    "accepted_documents": 24618,
-    "accepted_words": 6952297,
+    "accepted_characters": 46415391,
+    "accepted_documents": 24301,
+    "accepted_words": 6870423,
+    "nepali_wikipedia_cleaned_to_empty": 199,
+    "nepali_wikipedia_removed_english_paragraphs": 4340,
+    "nepali_wikipedia_removed_inline_media_prefixes": 10150,
+    "nepali_wikipedia_removed_leading_templates": 44,
+    "nepali_wikipedia_removed_metadata_lines": 58760,
+    "nepali_wikipedia_removed_residual_templates": 94,
+    "nepali_wikipedia_truncated_inline_categories": 15,
+    "nepali_wikipedia_truncated_trailing_sections": 2974,
     "raw_documents": 30305,
-    "rejected_high_digit_ratio": 125,
-    "rejected_high_latin_ratio": 2856,
-    "rejected_low_devanagari_ratio": 1754,
-    "rejected_too_few_words": 2864,
-    "rejected_too_short_characters": 2376
+    "rejected_high_digit_ratio": 210,
+    "rejected_high_latin_ratio": 1289,
+    "rejected_low_devanagari_ratio": 711,
+    "rejected_too_few_words": 4628,
+    "rejected_too_short_characters": 4597
   },
   "inputs": [
     "nepali/data/raw/manual/nepali_wikipedia.jsonl.gz"
   ],
   "language": "ne",
-  "output": "nepali/data/interim/nepali_wikipedia_clean.jsonl.gz",
+  "output": "tmp/nepali/rebuild_wikipedia_clean.jsonl.gz",
   "thresholds": {
     "clean_anjoria": false,
     "clean_bhojpuri_wikipedia": false,
     "clean_hindi_wikipedia": false,
+    "clean_nepali_wikipedia": true,
     "clean_pib_boilerplate": false,
     "exclude_translation_marked_sources": [],
     "excluded_source_names": [],

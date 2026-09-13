@@ -1,0 +1,25 @@
+{
+  "counts_this_run": {
+    "exact_duplicates": 17810,
+    "examined": 989284,
+    "kept": 970146,
+    "kept_downloaded": 807215,
+    "kept_manual": 162931,
+    "near_duplicates": 1328
+  },
+  "inputs": [
+    "tmp/nepali/rebuild_wikipedia_clean.jsonl.gz",
+    "nepali/data/interim/onlinekhabar_clean_v3.jsonl.gz",
+    "nepali/data/interim/sangraha_verified_nep_clean.jsonl.gz",
+    "nepali/data/interim/sangraha_unverified_nep_clean.jsonl.gz"
+  ],
+  "output": "tmp/nepali/rebuild_document_deduplicated.jsonl.gz",
+  "settings": {
+    "bands": 4,
+    "exact_only": false,
+    "hamming_threshold": 3,
+    "manual_records_processed_first": true,
+    "maximum_shingles": 2048,
+    "shingle_size": 5
+  }
+}

@@ -26,3 +26,13 @@ subset = "verified"
 split = "nep"
 license = "CC-BY-4.0"
 enabled = true
+
+[[sources]]
+name = "sangraha_unverified_nep"
+kind = "huggingface"
+collection_type = "downloaded"
+dataset = "ai4bharat/sangraha"
+subset = "unverified"
+split = "nep"
+license = "CC-BY-4.0"
+enabled = true
