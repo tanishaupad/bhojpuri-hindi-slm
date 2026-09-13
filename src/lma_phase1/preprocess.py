@@ -14,7 +14,6 @@ from lma_phase1.io import atomic_write_json, iter_jsonl, write_jsonl
 from lma_phase1.schema import Document
 from lma_phase1.text import (
     clean_anjoria_article,
-    clean_bhojpuri_wikipedia_article,
     clean_nepali_wikipedia_article,
     clean_pib_article,
     clean_wikipedia_article,

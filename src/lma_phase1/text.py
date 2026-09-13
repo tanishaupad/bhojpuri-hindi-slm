@@ -56,6 +56,8 @@ _WIKIPEDIA_TRAILING_HEADINGS = {
     "सन्दर्भ सामग्रीसभ",
     "सन्दर्भ सामग्रीहरु",
     "टिप्पणी तथा सन्दर्भ सामग्रीहरू",
+    "नोटहरू र सन्दर्भहरू",
+    "स्रोत र सन्दर्भहरू",
 }
 _ANJORIA_TAIL_MARKERS = {
     "submit a comment",
@@ -84,7 +86,7 @@ _WIKIPEDIA_SOCIAL_HANDLE = re.compile(
     re.IGNORECASE,
 )
 _WIKIPEDIA_INLINE_CATEGORY = re.compile(
-    r"(?:[ \t]+|\[\[?|,)(?:श्रेणी|category)\s*[:ः]", re.IGNORECASE
+    r"(?:श्रेणी|category)\s*[:ः]", re.IGNORECASE
 )
 _WIKIPEDIA_INLINE_MEDIA_PREFIX = re.compile(
     rf"^(?:(?:{_WIKIPEDIA_MEDIA_KEYWORDS})\s*\|\s*)+",
@@ -99,6 +101,10 @@ _WIKIPEDIA_INLINE_PX = re.compile(
 )
 _HTML_COMMENT = re.compile(r"<!--[\s\S]*?-->")
 _HTML_TAG = re.compile(r"</?[A-Za-z][^>]{0,500}>")
+_MALFORMED_HTML_MARKUP = re.compile(
+    r"<!DOCTYPE\s+[^>]*>|<\?php|\?>|<\\br\s*>|</>|<!\[CDATA\[[\s\S]*$",
+    re.IGNORECASE,
+)
 _WIKIPEDIA_TABLE_ATTRIBUTE = re.compile(
     r"\b(?:colspan|rowspan|class|style|scope|align|width|height)\s*=\s*"
     r'(?:"[^"]*"|\'[^\']*\'|[^\s|]*)',
@@ -211,6 +217,7 @@ def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[
     text, removed_residual_templates = remove_wikitext_templates(text)
     text = _HTML_COMMENT.sub("", text)
     text = _HTML_TAG.sub("", text)
+    text = _MALFORMED_HTML_MARKUP.sub("", text)
     text = _WIKIPEDIA_TABLE_ATTRIBUTE.sub("", text)
     inline_category = _WIKIPEDIA_INLINE_CATEGORY.search(text)
     truncated_inline_categories = int(inline_category is not None)
@@ -257,7 +264,7 @@ def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[
             if _WIKIPEDIA_MEDIA_LINE.search(line):
                 removed_metadata_lines += 1
                 continue
-            if _WIKIPEDIA_TABLE_MARKER_LINE.search(line) or line.startswith("|") or line.startswith("!"):
+            if _WIKIPEDIA_TABLE_MARKER_LINE.search(line) or line.startswith(("|", "!")):
                 removed_metadata_lines += 1
                 continue
             line = re.sub(r"\{\|.*", "", line)
@@ -273,6 +280,9 @@ def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[
             line = _WIKIPEDIA_INLINE_MEDIA_PREFIX.sub("", line)
             line = _WIKIPEDIA_INLINE_PX.sub("", line)
             line = _WIKIPEDIA_SOCIAL_HANDLE.sub("", line).strip()
+            line = re.sub(r"\{(?:मुख्य|sfn)\|[^}\n]*\}\}", "", line, flags=re.IGNORECASE)
+            line = re.sub(r"\{\\displaystyle\s+([^{}]*?(?:\{[^{}]*\}[^{}]*)*)\}", r"\1", line)
+            line = line.replace("}}", "")
             line = line.replace("[[", "").replace("]]", "").strip()
             if not line or re.fullmatch(
                 r"^(?:thumb|thumbnail|अङ्गुठाकार|अंगूठाकार|থाम্ব|right|left|center|centre|none|दायाँ|बायाँ|केन्द्र|size|[०-९\d]+(?:\s*x\s*[०-९\d]+)?\s*px|alt=[^|]*|पाठ=[^|]*|link=[^|]*|[|\s\-])+$",
@@ -282,10 +292,10 @@ def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[
                 removed_metadata_lines += 1
                 continue
             lines.append(line)
-        if is_trailing:
-            truncated_trailing_sections += 1
-            break
         if not lines:
+            if is_trailing:
+                truncated_trailing_sections += 1
+                break
             continue
         paragraph = "\n".join(lines)
         metrics = text_metrics(paragraph)
@@ -293,6 +303,9 @@ def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[
             removed_english_paragraphs += 1
             continue
         kept_paragraphs.append(paragraph)
+        if is_trailing:
+            truncated_trailing_sections += 1
+            break
 
     while kept_paragraphs:
         last_lines = kept_paragraphs[-1].splitlines()

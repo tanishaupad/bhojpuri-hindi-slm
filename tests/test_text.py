@@ -6,7 +6,6 @@ from lma_phase1.text import (
     clean_bhojpuri_wikipedia_article,
     clean_nepali_wikipedia_article,
     clean_pib_article,
-    clean_wikipedia_article,
     has_translation_credit,
     normalize_unicode,
     text_metrics,
@@ -213,3 +212,12 @@ def test_clean_nepali_wikipedia_article_removes_image_markup_and_trailing_sectio
     assert "इतिहास" not in cleaned
     assert cleaned.startswith("अभिनेता त्यो पुरुष कलाकार हो")
     assert report["truncated_trailing_sections"] >= 1
+
+
+def test_clean_nepali_wikipedia_preserves_body_before_unseparated_trailing_heading():
+    raw = "यो पर्याप्त लामो लेखको मुख्य सामग्री हो।\nअर्को उपयोगी सामग्री पनि यहीँ छ।\nस्रोत र सन्दर्भहरू"
+
+    cleaned, report = clean_nepali_wikipedia_article(raw)
+
+    assert cleaned == "यो पर्याप्त लामो लेखको मुख्य सामग्री हो।\nअर्को उपयोगी सामग्री पनि यहीँ छ।"
+    assert report["truncated_trailing_sections"] == 1
