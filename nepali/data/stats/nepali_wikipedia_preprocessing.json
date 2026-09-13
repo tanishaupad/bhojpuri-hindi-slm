@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "accepted_characters": 47642884,
+    "accepted_documents": 24618,
+    "accepted_words": 6952297,
+    "raw_documents": 30305,
+    "rejected_high_digit_ratio": 125,
+    "rejected_high_latin_ratio": 2856,
+    "rejected_low_devanagari_ratio": 1754,
+    "rejected_too_few_words": 2864,
+    "rejected_too_short_characters": 2376
+  },
+  "inputs": [
+    "nepali/data/raw/manual/nepali_wikipedia.jsonl.gz"
+  ],
+  "language": "ne",
+  "output": "nepali/data/interim/nepali_wikipedia_clean.jsonl.gz",
+  "thresholds": {
+    "clean_anjoria": false,
+    "clean_bhojpuri_wikipedia": false,
+    "clean_hindi_wikipedia": false,
+    "clean_pib_boilerplate": false,
+    "exclude_translation_marked_sources": [],
+    "excluded_source_names": [],
+    "maximum_digit_ratio": 0.25,
+    "maximum_latin_ratio": 0.2,
+    "minimum_characters": 200,
+    "minimum_devanagari_ratio": 0.7,
+    "minimum_words": 30,
+    "remove_repeated_lines": true
+  }
+}

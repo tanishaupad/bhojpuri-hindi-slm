@@ -1,0 +1,28 @@
+language = "ne"
+language_name = "Nepali"
+
+[[sources]]
+name = "nepali_wikipedia"
+kind = "mediawiki"
+collection_type = "manual"
+api_url = "https://ne.wikipedia.org/w/api.php"
+license = "CC-BY-SA-4.0"
+enabled = true
+
+[[sources]]
+name = "onlinekhabar"
+kind = "wordpress_rest"
+collection_type = "manual"
+api_url = "https://www.onlinekhabar.com/wp-json/wp/v2/posts"
+license = "source-rights-retained-course-research"
+enabled = true
+
+[[sources]]
+name = "sangraha_verified_nep"
+kind = "huggingface"
+collection_type = "downloaded"
+dataset = "ai4bharat/sangraha"
+subset = "verified"
+split = "nep"
+license = "CC-BY-4.0"
+enabled = true

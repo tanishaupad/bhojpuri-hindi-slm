@@ -1,0 +1,29 @@
+{
+  "character_coverage": 1.0,
+  "input": "nepali/data/splits/train.jsonl.gz",
+  "input_sentence_size": 1000000,
+  "language": "nepali",
+  "model_type": "unigram",
+  "models": [
+    {
+      "actual_vocabulary_size": 16000,
+      "model": "nepali/tokenizer/nepali_unigram_16000.model",
+      "requested_vocabulary_size": 16000,
+      "vocabulary": "nepali/tokenizer/nepali_unigram_16000.vocab"
+    },
+    {
+      "actual_vocabulary_size": 24000,
+      "model": "nepali/tokenizer/nepali_unigram_24000.model",
+      "requested_vocabulary_size": 24000,
+      "vocabulary": "nepali/tokenizer/nepali_unigram_24000.vocab"
+    },
+    {
+      "actual_vocabulary_size": 32000,
+      "model": "nepali/tokenizer/nepali_unigram_32000.model",
+      "requested_vocabulary_size": 32000,
+      "vocabulary": "nepali/tokenizer/nepali_unigram_32000.vocab"
+    }
+  ],
+  "normalization_rule": "identity for characters; SentencePiece collapses whitespace boundaries",
+  "training_paragraphs_available": 5131616
+}

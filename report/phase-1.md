@@ -5,7 +5,7 @@
 - **Model H:** Hindi (`hi`, Devanagari script), selected as the higher-resource Indian language due to abundant availability of public digital text, governmental archives, and encyclopedic resources.
 - **Model L:** Bhojpuri (`bho`, Devanagari script), selected from the course-approved lower-resource list (Bihari group of Indo-Aryan languages).
 
-The two corpora, tokenizers, vocabularies, training splits, and subsequent language model weights are completely independent and share no parameters, data, or vocabulary tokens.
+The two corpora, tokenizers, vocabulary artifacts, training splits and model weights are independent. Token strings can naturally coincide because both languages use Devanagari; there is no shared embedding table or tokenizer.
 
 ---
 
@@ -67,9 +67,30 @@ Deduplication was conducted in three hierarchical phases, preserving manual docu
 
 ---
 
-### 2.5 Dataset statistics
+### Final training recount (11 September 2026)
 
-After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ manual-word buffer, corpora were partitioned using a **98% / 1% / 1%** document-level split with cryptographic hashing on document and work group IDs:
+Every final decontaminated training document was re-encoded with the released tokenizer.
+The reconstructed packed stream matches the published Phase 2 SHA-256 for both languages.
+Raw content counts exclude EOS; the packed count includes one EOS per document.
+
+| Language | Final train documents | Raw content tokens | Manual content tokens | Manual fraction | Packed tokens (with EOS) |
+|---|---:|---:|---:|---:|---:|
+| Hindi | 2,237,942 | 334,757,275 | 85,857,319 | 25.6476% | 336,995,217 |
+| Bhojpuri | 225,689 | 22,917,286 | 5,453,089 | 23.7947% | 23,142,975 |
+
+Both final training corpora exceed 20% manual content tokens. Assigning each EOS to its source
+document gives packed manual fractions of 25.5058% Hindi and 23.6302% Bhojpuri. Independently
+normalizing whitespace gives 332,150,099 Hindi / 22,371,425 Bhojpuri training tokens, with
+manual fractions 25.0640% / 21.9352%. These are different denominators, not competing estimates.
+The recount verifies recorded collection types and token counts; it is not a fresh manual
+review of the linguistic quality or collection classification of every source.
+
+Evidence: [final_training_recount.json](audits/generated/final_training_recount.json).
+The historical pre-decontamination tables below are retained as historical records.
+
+### 2.5 Historical Phase 1 dataset statistics
+
+After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ manual-word buffer, corpora were partitioned using a **98% / 1% / 1%** document-level split with cryptographic hashing on document and work group IDs. The following is the historical pre-decontamination summary, not a fresh count of the final packed training streams. Hindi's held-out normalized counts were later corrected to 3,429,056 validation tokens and 3,468,316 test tokens; the historical overall totals therefore should not be reused as current totals.
 
 | Language | Split | Documents | Tokens | Manual tokens | Downloaded tokens | Manual token fraction |
 |---|---|---:|---:|---:|---:|---:|
@@ -81,9 +102,19 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 | Bhojpuri | Validation | 2,344 | 227,239 | 50,949 | 176,290 | 22.42% |
 | Bhojpuri | Test | 2,351 | 214,399 | 52,302 | 162,097 | 24.39% |
 | **Bhojpuri Overall** | | **230,687** | **23,019,401** | **5,181,337** | **17,838,064** | **22.51%** |
+| **Nepali** | Train | 705,137 | 258,736,416 | 58,921,054 | 199,815,362 | **22.77%** |
+| Nepali | Validation | 7,380 | 2,790,499 | 624,970 | 2,165,529 | 22.39% |
+| Nepali | Test | 7,354 | 2,738,274 | 695,137 | 2,043,137 | 25.39% |
+| **Nepali Overall** | | **719,871** | **264,265,189** | **60,241,161** | **204,024,028** | **22.80%** |
+
+> [!NOTE]
+> **Token-Count Reconciliation between Phase 1 and Phase 2**:
+> The token counts in the table above reflect whitespace-normalized SentencePiece encoding (`normalize_tokenizer_input()`), which was used during Phase 1 corpus analysis. In Phase 2, token streams were packed directly from raw text before appending one `<eos>` token per document to form contiguous training and evaluation streams (see [`heldout_recomputation.json`](audits/generated/heldout_recomputation.json)).
+> - **Hindi Test**: Phase 2 packed test stream contains **3,521,023 tokens** = 3,498,250 raw tokens + 22,773 document EOS tokens. Re-encoding the identical decontaminated test split with Phase 1 whitespace normalization yields **3,468,316 tokens** (a 29,934 token difference due to raw vs. normalized whitespace, plus a 95,492 token reconciliation from the preliminary Phase 1 summary count).
+> - **Bhojpuri Test**: Phase 2 packed test stream contains **222,585 tokens** = 220,234 raw tokens + 2,351 document EOS tokens. Re-encoding with whitespace normalization yields **214,399 tokens**, matching Phase 1's reported count exactly.
 
 #### Justification for Bhojpuri Dataset Size Shortfall
-While Hindi reached **~339M tokens** (approaching the ~500M target within computational constraints), Bhojpuri yielded **22.58M clean training tokens**. This shortfall is strictly due to the low-resource reality of Bhojpuri on the public web:
+Hindi's historical training summary was **332.25M tokens**, below the approximately 500M training-token target. The final packed stream contains **336.995M tokens**, including EOS. Filtering, the collected manual-text budget and compute constraints limited the completed experiment; the explicit lower-resource shortfall allowance does not automatically exempt Hindi, and no grading exception is claimed. Bhojpuri's historical training summary was **22.58M tokens**, with the following justification for its permitted lower-resource shortfall:
 1. **Scarcity of Native Monolingual Text**: High proportions of online "Bhojpuri" text are machine-translated benchmark subsets (which were deliberately excluded to preserve linguistic authenticity) or Hindi text mistakenly tagged as Bhojpuri.
 2. **Exclusion of Non-Devanagari / OCR-Scrambled Data**: Scanned PDF magazines (e.g., Sirijan, Diya Bati) produced corrupted Devanagari combining mark orders and were omitted to protect corpus quality.
 3. **Manual Ratio Compliance**: Maintaining a valid 22.49% manual token fraction required capping downloaded records proportionally to the ~5.18M manual tokens collected.
@@ -101,6 +132,9 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
 | **Hindi** | 32,000 | 1.2630 | 4.080 | 0.001522% | 87.64% |
 | **Bhojpuri** | **16,000** | **1.3341** | **3.764** | **0.001760%** | **78.79%** |
 | **Bhojpuri** | 24,000 | 1.2809 | 3.921 | 0.001833% | 66.40% |
+| **Nepali** | 16,000 | 1.3548 | 4.800 | 0.001733% | 92.97% |
+| **Nepali** | **24,000** | **1.2844** | **5.063** | **0.001828%** | **95.23%** |
+| **Nepali** | 32,000 | 1.2460 | 5.220 | 0.001884% | 96.03% |
 | **Bhojpuri** | 32,000 | 1.2546 | 4.003 | 0.001872% | 56.29% |
 
 ![Hindi Token Frequency Distribution](figures/generated/hindi_token_frequency.png)
@@ -112,10 +146,10 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
 
 - **Hindi (Selected: 24,000 Unigram)**:
   - **Fertility & Subwords**: Fertility drops significantly from 1.3562 (16k) to 1.2928 (24k), capturing key compound morphemes with 83.93% held-out vocabulary utilization.
-  - **Parameter Budget Allocation**: For our target ~25M parameter model in Phase 2 ($d_{\text{model}} = 512$), a 24,000-piece embedding table uses $24,000 \times 512 \approx 12.28\text{M}$ parameters (exactly ~49% of the budget), leaving the remaining ~12.7M parameters for deep multi-head attention and feed-forward layers. A 32k vocabulary would consume ~16.4M parameters (65% of the total budget) in embeddings alone.
+  - **Parameter Budget Allocation**: In our final Phase 2 model architecture ($d_{\text{model}} = 384$, 25,285,248 total parameters; initially projected at $d_{\text{model}} = 512$ in early planning), the 24,000-piece embedding table uses $24,000 \times 384 = 9,216,000$ parameters (36.45% of the total parameter budget), leaving the remaining 16,069,248 parameters (63.55%) for deep multi-head attention and feed-forward layers. A 32k vocabulary would have consumed 12.29M parameters (~49% of the budget) in embeddings alone.
 - **Bhojpuri (Selected: 16,000 Unigram)**:
   - **High Utilization**: The 16,000 vocabulary achieves 78.79% utilization on held-out text with low fertility (1.3341) and an unknown rate of 0.00176%. Larger vocabularies (24k/32k) exhibit steep drops in utilization (down to 56.29%) and overfit rare morphological variations in the smaller corpus.
-  - **Parameter Saving**: An 8.19M parameter embedding footprint leaves sufficient capacity for Transformer depth.
+  - **Parameter Saving**: With $d_{\text{model}} = 384$, the 16,000-piece vocabulary requires $16,000 \times 384 = 6,144,000$ parameters (24.70% of the 24,870,912 total model parameters), leaving 18,726,912 parameters (75.30%) for Transformer depth.
 
 ---
 
@@ -151,7 +185,7 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
   - Preprocessing & Dedup Hash: `lma-phase-1-2026`
   - Downsampling: `lma-downsample-2026`
   - Split Generator: `lma-phase-1-2026` (98/1/1 split ratio)
-  - SentencePiece Training: `seed=42`, `character_coverage=1.0`
+  - SentencePiece training: `character_coverage=1.0`; no explicit `seed=42` is passed by the training code. Input sampling, threads and library versions may affect retraining; the released tokenizer files identify the tokenizers used in all reported experiments.
 
 ### Pipeline Commands
 
@@ -161,30 +195,35 @@ python -m lma_phase1.paragraph_deduplicate \
   --input LMA_Processing/input/balanced_preparagraph_20pct_v1.jsonl.gz \
   --output LMA_Processing/output/hindi_paragraph_dedup_v1.jsonl.gz \
   --database LMA_Processing/output/hindi_paragraph_dedup_v1.sqlite \
+  --report LMA_Processing/output/hindi_paragraph_report.json \
   --minimum-paragraph-characters 100 --minimum-paragraph-words 15
 
 python -m lma_phase1.minhash_deduplicate \
   --input LMA_Processing/output/hindi_paragraph_dedup_v1.jsonl.gz \
   --output LMA_Processing/output/hindi_minhash_v1.jsonl.gz \
   --database LMA_Processing/output/hindi_minhash_v1.sqlite \
+  --report LMA_Processing/output/hindi_minhash_report.json \
   --mode apply --similarity-threshold 0.95 --index-collection-type manual
 
 # 2. Downsampling to 22% manual word buffer
 python -m lma_phase1.downsample \
   --input LMA_Processing/output/hindi_minhash_v1.jsonl.gz \
   --output LMA_Processing/output/hindi_balanced_22pct_v1.jsonl.gz \
+  --report LMA_Processing/output/hindi_downsample_report.json \
   --target-manual-word-fraction 0.22 --seed lma-downsample-2026
 
 # 3. Splitting (98/1/1)
 python -m lma_phase1.split \
   --input LMA_Processing/output/hindi_balanced_22pct_v1.jsonl.gz \
   --output-dir LMA_Processing/output/hindi_splits_v1 \
+  --report LMA_Processing/output/hindi_split_report.json \
   --train-ratio 0.98 --validation-ratio 0.01 --test-ratio 0.01
 
 # 4. Tokenizer Training & Evaluation
 python -m lma_phase1.tokenizer.train \
   --input LMA_Processing/output/hindi_splits_v1/train.jsonl.gz \
   --language hi --output-dir LMA_Processing/output/hindi_tokenizers \
+  --report LMA_Processing/output/hindi_tokenizer_training_report.json \
   --vocabulary-sizes 16000 24000 32000 --character-coverage 1.0
 
 python -m lma_phase1.tokenizer.evaluate \

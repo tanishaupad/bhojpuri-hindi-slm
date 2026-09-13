@@ -31,6 +31,11 @@ bhojpuri/data/interim/
 bhojpuri/data/processed/
 bhojpuri/data/splits/
 bhojpuri/data/checkpoints/
+nepali/data/raw/
+nepali/data/interim/
+nepali/data/processed/
+nepali/data/splits/
+nepali/data/checkpoints/
 *.jsonl
 *.jsonl.gz
 *.parquet

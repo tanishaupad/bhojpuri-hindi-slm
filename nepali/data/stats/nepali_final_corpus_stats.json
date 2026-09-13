@@ -1,0 +1,109 @@
+{
+  "by_collection_type": {
+    "downloaded": {
+      "characters": 1050552939,
+      "documents": 557251,
+      "tokens": 204024028,
+      "words": 160603495
+    },
+    "manual": {
+      "characters": 290468533,
+      "documents": 162620,
+      "tokens": 60241161,
+      "words": 45298422
+    }
+  },
+  "by_source": {
+    "nepali_wikipedia": {
+      "characters": 47208427,
+      "documents": 24584,
+      "tokens": 11377015,
+      "words": 6914302
+    },
+    "onlinekhabar": {
+      "characters": 243260106,
+      "documents": 138036,
+      "tokens": 48864146,
+      "words": 38384120
+    },
+    "sangraha_unverified_nep": {
+      "characters": 759987270,
+      "documents": 404855,
+      "tokens": 144568310,
+      "words": 115434346
+    },
+    "sangraha_verified_nep:web": {
+      "characters": 290565669,
+      "documents": 152396,
+      "tokens": 59455718,
+      "words": 45169149
+    }
+  },
+  "by_split": {
+    "test": {
+      "characters": 13860280,
+      "documents": 7354,
+      "tokens": 2738274,
+      "words": 2126311
+    },
+    "train": {
+      "characters": 1313032613,
+      "documents": 705137,
+      "tokens": 258736416,
+      "words": 201603077
+    },
+    "validation": {
+      "characters": 14128579,
+      "documents": 7380,
+      "tokens": 2790499,
+      "words": 2172529
+    }
+  },
+  "by_split_and_collection_type": {
+    "test:downloaded": {
+      "characters": 10544724,
+      "documents": 5637,
+      "tokens": 2043137,
+      "words": 1611803
+    },
+    "test:manual": {
+      "characters": 3315556,
+      "documents": 1717,
+      "tokens": 695137,
+      "words": 514508
+    },
+    "train:downloaded": {
+      "characters": 1028882617,
+      "documents": 545910,
+      "tokens": 199815362,
+      "words": 157288213
+    },
+    "train:manual": {
+      "characters": 284149996,
+      "documents": 159227,
+      "tokens": 58921054,
+      "words": 44314864
+    },
+    "validation:downloaded": {
+      "characters": 11125598,
+      "documents": 5704,
+      "tokens": 2165529,
+      "words": 1703479
+    },
+    "validation:manual": {
+      "characters": 3002981,
+      "documents": 1676,
+      "tokens": 624970,
+      "words": 469050
+    }
+  },
+  "manual_requirement_met": true,
+  "overall": {
+    "characters": 1341021472,
+    "documents": 719871,
+    "tokens": 264265189,
+    "words": 205901917
+  },
+  "tokenizer_model": "nepali/tokenizer/nepali.model",
+  "training_manual_token_fraction": 0.2277261736515667
+}

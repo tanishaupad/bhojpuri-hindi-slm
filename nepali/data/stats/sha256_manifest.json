@@ -1,0 +1,46 @@
+{
+  "nepali/data/splits/train.jsonl.gz": {
+    "sha256": "69f7877dee3757f6b13e78afdcf4e5624d45898dd53a17cfb17fb4dc79314d07",
+    "size_bytes": 789578014
+  },
+  "nepali/data/splits/validation.jsonl.gz": {
+    "sha256": "ffbd6a111af45e28a721387b1b5c94b6de6259069f81fe0741eab1086dd648c2",
+    "size_bytes": 8511484
+  },
+  "nepali/data/splits/test.jsonl.gz": {
+    "sha256": "a7bdcda89dafc0b057de96005bc4e31007ec44105723c4318d99de1f012a31af",
+    "size_bytes": 8343704
+  },
+  "nepali/tokenizer/nepali.model": {
+    "sha256": "fbde49e8b0f54d37e8e0f13c76cd0d5731aeb1cfda8d9501e3668fe2dd3adf34",
+    "size_bytes": 671304
+  },
+  "nepali/tokenizer/nepali.vocab": {
+    "sha256": "c9e846dd0cee4e9bf6bc2f0c047d8c868e36c9b13535f3929d9c731b4949e2ba",
+    "size_bytes": 692547
+  },
+  "nepali/tokenizer/nepali_unigram_16000.model": {
+    "sha256": "1b29810e1bab0b4cc97c6b5ce04ebaa9ab3ef4ba21ec7e4ec97defb8632f96ea",
+    "size_bytes": 428111
+  },
+  "nepali/tokenizer/nepali_unigram_16000.vocab": {
+    "sha256": "1309438323957c4001e3af78ae803fe38564bc34edc90e0afab5f4094164bec0",
+    "size_bytes": 442350
+  },
+  "nepali/tokenizer/nepali_unigram_24000.model": {
+    "sha256": "fbde49e8b0f54d37e8e0f13c76cd0d5731aeb1cfda8d9501e3668fe2dd3adf34",
+    "size_bytes": 671304
+  },
+  "nepali/tokenizer/nepali_unigram_24000.vocab": {
+    "sha256": "c9e846dd0cee4e9bf6bc2f0c047d8c868e36c9b13535f3929d9c731b4949e2ba",
+    "size_bytes": 692547
+  },
+  "nepali/tokenizer/nepali_unigram_32000.model": {
+    "sha256": "3e19fc7b94780af2ab650dc071292413183a820f018cfc212abff3ebf91b7461",
+    "size_bytes": 919777
+  },
+  "nepali/tokenizer/nepali_unigram_32000.vocab": {
+    "sha256": "d2cb75c2d1ed9fce8ace2cfcf1e69a8400609d5452be016e0d457ba168399a93",
+    "size_bytes": 948102
+  }
+}

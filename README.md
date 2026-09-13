@@ -7,9 +7,141 @@ This repository builds two fully independent decoder-only language models from s
 - **Model H:** Hindi (`hi`, Devanagari), the higher-resource language.
 - **Model L:** Bhojpuri (`bho`, Devanagari), the approved lower-resource language.
 
-The current `phase-1` branch contains reproducible corpus collection, preprocessing,
-deduplication, split creation, tokenizer training, and tokenizer evaluation code. The two
-languages never share documents, tokenizers, vocabularies, checkpoints, or weights.
+The `phase-1` and `phase-2` branches established reproducible corpus collection, preprocessing,
+deduplication, split creation, tokenizer training, pre-training data-integrity audits, and from-scratch
+PyTorch Transformer pretraining of two ~25M parameter causal decoder models. The current `phase-3`
+branch carries out reasoning dataset generation, baseline zero-shot evaluation, causal finetuning
+on multi-step reasoning tasks, held-out evaluation across original and explanation protocols, and
+before-and-after multi-head attention analysis. The two languages never share documents, tokenizers,
+vocabularies, checkpoints, or weights.
+
+## Phase 2 status
+
+Before model training, validation and test are treated as protected data. The training split is
+audited asymmetrically for canonical exact-document matches, exact paragraph reuse, and
+word-5-gram Bottom-k MinHash candidates at the same conservative 0.95 threshold used in Phase 1.
+The audit is resumable, preserves provenance in a review CSV, and never edits the official splits.
+
+| Language | Training documents checked | Exact documents | Exact paragraphs | Near documents | Flagged training documents |
+|---|---:|---:|---:|---:|---:|
+| Hindi | 2,237,951 | 0 | 0 | 75 | 75 |
+| Bhojpuri | 225,992 | 0 | 253 | 107 | 360 |
+
+These candidates were reviewed on 25 August 2026 using a recorded, user-directed policy. Hindi
+near-document matches with estimated similarity at least 0.97 were marked `remove` (9), and the
+remaining 66 were marked `keep`. For Bhojpuri, all 253 exact-paragraph matches and the 50
+near-document matches with similarity at least 0.98 were marked `remove`; the remaining 57 were
+marked `keep`. Every CSV row records its decision, reviewer policy, and rationale. Full settings,
+counts, and sampled pairs are in
+[`report/audits/generated`](report/audits/generated), with interpretation in
+[`report/phase-2.md`](report/phase-2.md). Versioned decontaminated training splits have now been
+generated in Google Drive: 2,237,942 Hindi documents after 9 removals and 225,689 Bhojpuri
+documents after 303 removals. Validation and test remain byte-for-byte unchanged.
+
+The from-scratch Phase 2 model, training, evaluation, and attention code is under
+`src/lma_phase2/`, with independent configurations at `hindi/configs/phase2.toml` and
+`bhojpuri/configs/phase2.toml`. The exact model sizes are 25,285,248 Hindi parameters and
+24,870,912 Bhojpuri parameters. Packed Phase 2 streams contain 336,995,217 Hindi and 23,142,975
+Bhojpuri training tokens. Both independent GPU pretraining runs are complete: Hindi reached
+20,300 steps / 332,595,200 processed tokens, and Bhojpuri reached 4,150 steps / 67,993,600 tokens.
+The final checkpoints, optimizer state, logs, and resume metadata are saved in Google Drive and
+their SHA-256 hashes are recorded below.
+
+| Full-test result | Hindi | Bhojpuri |
+|---|---:|---:|
+| Cross-entropy (nats/token) | 3.6782 | 4.1420 |
+| Perplexity | 39.57 | 62.93 |
+| Bits per UTF-8 byte | **0.5282** | **0.6503** |
+
+The complete comparison—including all four decoding modes, qualitative sample review, training
+curves, and early/late multi-head attention analysis—is in
+[`report/phase-2.md`](report/phase-2.md).
+
+```bash
+python -m lma_phase2.decontaminate \
+  --train /path/to/train.jsonl.gz \
+  --validation /path/to/validation.jsonl.gz \
+  --test /path/to/test.jsonl.gz \
+  --database tmp/decontamination.sqlite \
+  --audit-output report/audits/generated/matches.csv \
+  --report report/audits/generated/report.json \
+  --workers 4
+```
+
+### Phase 2 reproduction
+
+The final versioned splits and compact token streams are stored under each language's
+`phase2/tokenized_v1` Drive directory. Input, tokenizer, and packed-stream checksums are recorded
+in `report/audits/generated/phase2_data_manifest.json`; rerunning an interrupted packing job
+resumes at its last durable document boundary.
+
+```bash
+lma-tokenize-corpus \
+  --input train=/path/to/final/train.jsonl.gz \
+  --input validation=/path/to/final/validation.jsonl.gz \
+  --input test=/path/to/final/test.jsonl.gz \
+  --tokenizer-model hindi/tokenizer/hindi.model \
+  --output-dir /path/to/drive/hindi/phase2/tokenized \
+  --language hi
+```
+
+The equivalent Bhojpuri command uses `bhojpuri/tokenizer/bhojpuri.model`, language code `bho`,
+and its own output directory. The two streams and runs must never be mixed.
+
+Start Hindi pretraining, or resume it from the last complete checkpoint:
+
+```bash
+lma-train-lm \
+  --config hindi/configs/phase2.toml \
+  --train-manifest /path/to/hindi/phase2/tokenized/train.manifest.json \
+  --validation-manifest /path/to/hindi/phase2/tokenized/validation.manifest.json \
+  --output-dir /path/to/drive/hindi/phase2/runs/pretrain_v1
+
+lma-train-lm \
+  --config hindi/configs/phase2.toml \
+  --train-manifest /path/to/hindi/phase2/tokenized/train.manifest.json \
+  --validation-manifest /path/to/hindi/phase2/tokenized/validation.manifest.json \
+  --output-dir /path/to/drive/hindi/phase2/runs/pretrain_v1 \
+  --resume latest
+```
+
+Use `bhojpuri/configs/phase2.toml` and separate Bhojpuri manifests/output for Model L. Checkpoints
+contain model, optimizer, scheduler, mixed-precision scaler, step/configuration, and all RNG states.
+To stay within hosted-notebook disk limits, each run retains its three newest complete checkpoints.
+Evaluation writes its small JSON/CSV/PNG results into `report/`; large checkpoints and packed token
+streams remain in Google Drive.
+
+Evaluate the final Hindi checkpoint on its complete held-out test stream:
+
+```bash
+lma-evaluate-lm \
+  --config hindi/configs/phase2.toml \
+  --checkpoint /path/to/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --test-manifest /path/to/hindi/phase2/tokenized_v1/test.manifest.json \
+  --test-jsonl /path/to/hindi/splits/phase2_decontaminated_v1/test.jsonl.gz \
+  --tokenizer-model hindi/tokenizer/hindi.model \
+  --output report/results/generated/phase2/hindi_evaluation.json \
+  --samples-output report/samples/generated/phase2/hindi_samples.jsonl \
+  --attention-csv report/tables/generated/phase2/hindi_attention_summary.csv \
+  --figure-dir report/figures/generated/phase2/attention/hindi \
+  --generation-examples 50 \
+  --prefix-tokens 32 \
+  --continuation-tokens 64 \
+  --seed 20260823 \
+  --device cuda
+```
+
+For Bhojpuri, use its config, checkpoint, test data, tokenizer, and language-specific output paths.
+The Kaggle bundle can reproduce both evaluations in one command:
+
+```bash
+python /path/to/bundle/kaggle/run_phase2_kaggle.py --language both --mode evaluate
+```
+
+The final run folders are [Hindi Model H](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
+and [Bhojpuri Model L](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN).
+To reproduce attention labels on a system whose default font lacks Devanagari glyphs, pass a font
+file to evaluation with `--attention-font /path/to/Devanagari-font.ttf`.
 
 ## Phase 1 requirements tracked here
 
@@ -59,9 +191,14 @@ Drive folder, with temporary local staging only while a large streaming job is a
   stats/
 ```
 
-Final large artifacts and checksums will be uploaded to Google Drive; links will be added here.
+Final large corpus artifacts, packed streams, and model checkpoints are stored in Google Drive;
+small audit and evaluation artifacts are versioned in this repository.
 
-### Final Phase 1 Datasets and Splits
+### Historical Phase 1 Datasets and Splits
+
+The following figures are the historical Phase 1 summary. Hindi held-out counts and final
+training composition are corrected in the Phase 1 report; use the verified final recount below
+for the corpus actually packed for pretraining.
 
 - **Hindi (Model H)**:
   - Total Corpus: 2,283,757 documents / 339,048,510 tokens (with 24k Unigram tokenizer)
@@ -76,6 +213,27 @@ Final large artifacts and checksums will be uploaded to Google Drive; links will
   - Validation split: 2,344 documents / 227,239 tokens
   - Test split: 2,351 documents / 214,399 tokens
   - Tokenizer: `bhojpuri/tokenizer/bhojpuri.model` (16,000 Unigram, character coverage 1.0)
+
+- **Nepali**:
+  - Total Corpus: 719,871 documents / 264,265,189 tokens (with 24k Unigram tokenizer)
+  - Train split: 705,137 documents / 258,736,416 tokens (**22.77% manual tokens**)
+  - Validation split: 7,380 documents / 2,790,499 tokens
+  - Test split: 7,354 documents / 2,738,274 tokens
+  - Tokenizer: `nepali/tokenizer/nepali.model` (24,000 Unigram, character coverage 1.0)
+  - Google Drive: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (`nepali/`)
+
+### Verified final training composition
+
+| Language | Final train documents | Raw content tokens | Manual content tokens | Manual fraction | Packed tokens (with EOS) |
+|---|---:|---:|---:|---:|---:|
+| Hindi | 2,237,942 | 334,757,275 | 85,857,319 | 25.6476% | 336,995,217 |
+| Bhojpuri | 225,689 | 22,917,286 | 5,453,089 | 23.7947% | 23,142,975 |
+
+These content-token fractions exclude EOS. Both reconstructed packed streams match the original
+Phase 2 SHA-256 hashes. Full normalized/raw/packed counts are in
+[`final_training_recount.json`](report/audits/generated/final_training_recount.json).
+Hindi remains below the approximately 500M-token target; the explicit lower-resource shortfall
+allowance applies to Bhojpuri. No exemption for Hindi is claimed.
 
 ## 1. Manual collection
 
@@ -431,13 +589,24 @@ entire workflow independently under `bhojpuri/`.
 ## Reports and artifact links
 
 - **Phase 1 Report**: [`report/phase-1.md`](report/phase-1.md)
+- **Phase 2 Final Report**: [`report/phase-2.md`](report/phase-2.md)
+- **Phase 3 Final Report**: [`report/phase-3.md`](report/phase-3.md)
+- **Phase 2 Training Curves**: [`report/figures/generated/phase2/pretraining_curves.png`](report/figures/generated/phase2/pretraining_curves.png)
+- **Phase 3 Finetuning Curves**: [`report/figures/generated/phase3/finetuning_curves.png`](report/figures/generated/phase3/finetuning_curves.png)
+- **Phase 3 Attention Heatmaps**: [`report/figures/generated/phase3/attention/hindi/`](report/figures/generated/phase3/attention/hindi/), [`report/figures/generated/phase3/attention/bhojpuri/`](report/figures/generated/phase3/attention/bhojpuri/)
+- **Phase 2 Evaluation and Samples**: [`report/results/generated/phase2`](report/results/generated/phase2), [`report/samples/generated/phase2`](report/samples/generated/phase2)
+- **Phase 3 Evaluation Results**: [`report/results/generated/phase3/finetuned_v1`](report/results/generated/phase3/finetuned_v1)
+- **Hindi Pretrained Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF)
+- **Bhojpuri Pretrained Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1HQMO4a_Ud18URPi_X4nBNCIPZPcHeyCN)
+- **Hindi Finetuned Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1sLMoA66JndkIJ_xnI96BYAi1uzfPTuED?usp=share_link) (`hindi/phase3/runs/finetune_v1/`)
+- **Bhojpuri Finetuned Checkpoint Folder**: [Google Drive](https://drive.google.com/drive/folders/1P_2ZzGcOyPl-WqMi1i5iMi6qLxcD8jrt?usp=share_link) (`bhojpuri/phase3/runs/finetune_v1/`)
+- **Course Google Drive Root Folder**: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link)
 - **Token Frequency Plot (Hindi)**: [`report/figures/generated/hindi_token_frequency.png`](report/figures/generated/hindi_token_frequency.png)
 - **Token Frequency Plot (Bhojpuri)**: [`report/figures/generated/bhojpuri_token_frequency.png`](report/figures/generated/bhojpuri_token_frequency.png)
 - **Hindi Source Statistics Table**: [`report/tables/generated/hindi_sources.csv`](report/tables/generated/hindi_sources.csv)
 - **Bhojpuri Source Statistics Table**: [`report/tables/generated/bhojpuri_sources.csv`](report/tables/generated/bhojpuri_sources.csv)
-- **Google Drive Root Folder**: [LMA Individual Project Drive Folder](https://drive.google.com/drive/folders/1zjJ5bSM69g431qnSRHXnXOwO_7rJOpce?usp=share_link) (contains `hindi/splits/`, `hindi/tokenizers/`, `bhojpuri/splits/`, `bhojpuri/tokenized/`, `manifests/`)
 
-### Dataset and Split Checksums (SHA-256)
+### Dataset and Model Checksums (SHA-256)
 
 | Artifact | Language | SHA-256 Checksum |
 |---|---|---|
@@ -448,3 +617,184 @@ entire workflow independently under `bhojpuri/`.
 | `hindi/tokenizer/hindi.model` (24k) | Hindi | `7cf0b4bf5d70b741ef03c6218d6a858ff43675038ec7493a7e3d740eb76b6680` |
 | `bhojpuri/splits/downsampled22_v1/train.jsonl.gz` | Bhojpuri | `d690a2cf757b1cb7a60216ae9cb0f19c968f9b9f939eecdf590ad5ec1dbf6311` |
 | `bhojpuri/tokenizer/bhojpuri.model` (16k) | Bhojpuri | `5a703d1592ca07b667825d1945a6c38a2e1d743a6d7aa19c8fcb5cfdccefa9ba` |
+| `hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt` | Hindi | `575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42` |
+| `bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt` | Bhojpuri | `69580b164964ddb88477fd39181f5d1a57ef52cfcaa32dbe1fc68e19b805c133` |
+| `hindi/phase3/runs/finetune_v1/best_checkpoint.pt` | Hindi | `8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062` |
+| `hindi/phase3/runs/finetune_v1/checkpoint_step_0002500.pt` | Hindi | `e0e76afdf39f89c1432a2034efeed201ed32e0cad90836db04be741293993457` |
+| `bhojpuri/phase3/runs/finetune_v1/best_checkpoint.pt` | Bhojpuri | `cccd2ed6ce9c776972a4589ec18e9aa5198e2f81b04da2213902b4babda421b0` |
+| `bhojpuri/phase3/runs/finetune_v1/checkpoint_step_0002500.pt` | Bhojpuri | `28d1799b0d842ac745db2390450590b74cc904b798b429669b1a010cb24d36f6` |
+
+## Phase 3: Reasoning Dataset, Finetuning & Attention Analysis
+
+Phase 3 implements synthetic relational reasoning, deterministic symbolic verification, causal finetuning of the pretrained ~25M parameter decoder models, held-out evaluation across two distinct protocols, and before-and-after multi-head attention entropy analysis.
+
+### Dataset Design & Release (`reasoning_v1`)
+
+The reasoning dataset contains **25,000 examples per language** across four task families: Direct Comparison, Largest/Smallest selection, Value Equality, and Two-Hop Transitivity:
+- **Training**: 20,000 examples
+- **Validation**: 2,000 examples
+- **Primary Test**: 2,000 examples
+- **Challenge Unseen Names**: 500 examples (novel person names absent from training)
+- **Challenge Unseen Wording**: 500 examples (held-out question wording variants; premise templates remain shared)
+
+Datasets are independently generated with native Hindi and Bhojpuri templates, names, and grammar. They are stored under `hindi/phase3/reasoning_v1/` and `bhojpuri/phase3/reasoning_v1/` in Google Drive.
+
+```bash
+python -m lma_phase3.release --output-dir /path/to/release-root --evidence-dir report/audits/generated/phase3/reasoning_v1
+```
+
+### Finetuning Reproduction
+
+Both models are finetuned using causal language modeling with prompt masking ($Y[:N-1] = -100$), loss computed strictly over target tokens, AdamW with cosine decay ($10^{-4} \to 10^{-5}$), batch size 16 (micro 8, grad accum 2), and full RNG state capture:
+
+```bash
+# Hindi finetuning (Model H)
+python -m lma_phase3.finetune \
+  --config hindi/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --train-data /path/to/hindi/phase3/reasoning_v1/train.jsonl.gz \
+  --val-data /path/to/hindi/phase3/reasoning_v1/validation.jsonl.gz \
+  --template-config hindi/configs/phase3_templates.json \
+  --output-dir /path/to/hindi/phase3/runs/finetune_v1 \
+  --validation-scope legacy_subset \
+  --device mps
+
+# Bhojpuri finetuning (Model L)
+python -m lma_phase3.finetune \
+  --config bhojpuri/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt \
+  --train-data /path/to/bhojpuri/phase3/reasoning_v1/train.jsonl.gz \
+  --val-data /path/to/bhojpuri/phase3/reasoning_v1/validation.jsonl.gz \
+  --template-config bhojpuri/configs/phase3_templates.json \
+  --output-dir /path/to/bhojpuri/phase3/runs/finetune_v1 \
+  --validation-scope legacy_subset \
+  --device mps
+```
+
+New training runs default to **full validation across all four task families**. The commands above explicitly reproduce historical v1 subset validation. Omit `--validation-scope legacy_subset` and choose a new output directory for full-validation selection; resume requires the same selection protocol as the saved checkpoint. Existing models were not retrained.
+
+### Held-Out Evaluation Reproduction
+
+Evaluation executes both generation protocols without format gates:
+1. **Original Prompt Protocol (16 max tokens)**: Tests direct answer recovery, scoring strict exact match, answer presence (whole-name boundary match), and premise claim support.
+2. **Explanation Prompt Protocol (96 max tokens)**: Tests full step-by-step reasoning derivation, verified against the ground-truth world by a deterministic symbolic proof checker.
+
+```bash
+# Hindi evaluation
+python -m lma_phase3.evaluate_finetuned \
+  --config hindi/configs/phase3.toml \
+  --checkpoint /path/to/hindi/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --dataset-root /path/to/reasoning_v1 \
+  --output-dir report/results/generated/phase3/finetuned_v1/hindi \
+  --device mps --protocols both
+
+# Bhojpuri evaluation
+python -m lma_phase3.evaluate_finetuned \
+  --config bhojpuri/configs/phase3.toml \
+  --checkpoint /path/to/bhojpuri/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --dataset-root /path/to/reasoning_v1 \
+  --output-dir report/results/generated/phase3/finetuned_v1/bhojpuri \
+  --device mps --protocols both
+```
+
+### Course-alignment additions
+
+See [the course-alignment report](report/phase-3-course-alignment.md) for generic-text retention before/after SFT, explicit-answer accuracy, limitations, and reproduction commands. The assigned synthetic question structures and datasets are unchanged. Original metrics below remain historical diagnostics; answer presence is not answer accuracy.
+
+| Added metric | Hindi | Bhojpuri |
+|---|---:|---:|
+| Explicit-answer accuracy after SFT, primary test, 96 tokens | 86.20% | 71.40% |
+| Explicit answer + verified explanation, same protocol | 86.15% | 69.90% |
+| Generic-text perplexity before SFT | 39.57 | 62.93 |
+| Generic-text perplexity after SFT | 628.12 | 4,939.06 |
+
+The paired generic-text evaluation uses identical Phase 2 test streams and shows substantial loss of predictive performance after SFT. Low reasoning-target loss therefore does not establish retained language ability. The answer rescore is retrospective, uses a frozen leading-answer extraction rule, and preserves historical metrics.
+
+
+### Key Empirical Results
+
+#### Primary Test Split (2,000 examples per language)
+
+| Metric | Hindi Pretrained | Hindi Finetuned | Bhojpuri Pretrained | Bhojpuri Finetuned |
+|---|---|---|---|---|
+| **Original (16-tok) Answer Presence** | 17.00% | **83.85%** | 3.10% | **85.00%** |
+| **Original (16-tok) Supported Claims** | 5.90% | **81.55%** | 0.00% | **62.25%** |
+| **Explanation (96-tok) Answer Presence** | 6.60% | **91.70%** | 2.30% | **89.15%** |
+| **Explanation (96-tok) Joint Verified Proofs** | 0.00% | **86.15%** | 0.00% | **69.90%** |
+| **Two-Hop Transitivity Verified Proofs** | 0.00% | **100.00%** | 0.00% | **100.00%** |
+
+#### Generalization Challenges (500 examples each)
+
+| Split | Hindi Presence (96-tok) | Hindi Verified Proofs | Bhojpuri Presence (96-tok) | Bhojpuri Verified Proofs |
+|---|---|---|---|---|
+| **Challenge Wording** | 89.40% | **64.60%** | 87.20% | **68.00%** |
+| **Challenge Unseen Names** | 24.60% | 0.00% | 13.60% | 0.00% |
+
+- **Wording challenge**: Under the single reserved question variant, joint verification is 64.60% for Hindi and 68.00% for Bhojpuri. This measures a narrow wording change; premise phrasing and task structures remain familiar.
+- **Unseen names**: Joint verification falls to zero. Segmentation and entity familiarity are possible explanations; no controlled experiment establishes a primary cause.
+
+### Multi-Head Attention Analysis
+
+Attention maps on fixed prompts show descriptive changes in attention concentration and distance:
+- Selected mid/late heads have lower entropy after finetuning; the exact per-head values are in Section 8 of the Phase 3 report.
+- These summaries do not identify causally necessary reasoning heads. Ablations or activation interventions would be needed for that claim.
+- Attention comparison tool:
+
+```bash
+# Hindi attention comparison
+python -m lma_phase3.attention_compare \
+  --config hindi/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --finetuned-checkpoint /path/to/hindi/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --tokenizer hindi/tokenizer/hindi.model \
+  --prompt "रमेश की लंबाई 194 सेंटीमीटर है। नितिन की लंबाई 110 सेंटीमीटर है। रमेश और नितिन में से किसकी लंबाई सबसे कम है? पहले उत्तर लिखें। फिर कारण: लिखकर तुलना का छोटा कारण बताएँ। उत्तर:" \
+  --output-dir report/figures/generated/phase3/attention/hindi \
+  --device cpu --layers 1 8 --heads 0 1 2
+
+# Bhojpuri attention comparison
+python -m lma_phase3.attention_compare \
+  --config bhojpuri/configs/phase3.toml \
+  --pretrained-checkpoint /path/to/bhojpuri/phase2/runs/pretrain_v1/checkpoint_step_0004150.pt \
+  --finetuned-checkpoint /path/to/bhojpuri/phase3/runs/finetune_v1/best_checkpoint.pt \
+  --tokenizer bhojpuri/tokenizer/bhojpuri.model \
+  --prompt "रामनाथ के उमिर 24 बरिस बा। बनवारी के उमिर 65 बरिस बा। रामनाथ आ बनवारी में केकर उमिर सबसे ढेर बा? पहिले जवाब लिखीं। फेर कारण: लिख के तुलना के छोट कारण बताईं। जवाब:" \
+  --output-dir report/figures/generated/phase3/attention/bhojpuri \
+  --device cpu --layers 1 8 --heads 0 1 2
+```
+
+Full details, error analysis, task breakdowns, and rubric questions are documented in [`report/phase-3.md`](report/phase-3.md).
+
+
+## Auxiliary sample-budget experiments
+
+The submitted main finetuned models remain the 20k `finetune_v1` checkpoints linked above.
+Hindi 5k and Bhojpuri 3k are exploratory comparisons, not proven retention optima. Their original
+weight-only files do not replace the main resume-capable checkpoints. See the
+[ablation report](report/phase-3-sample-ablation.md) for exact scope, training commands and limitations,
+and the [artifact manifest](report/results/generated/phase3/ablation_artifact_manifest.json)
+for checkpoint, subset, tokenizer and prediction hashes. Auxiliary weights are currently local;
+an independently verified shared Drive upload is not claimed.
+
+Full auxiliary predictions are included under
+[`optimal_eval`](report/results/generated/phase3/optimal_eval) (a legacy directory name).
+Recompute their scores from released datasets without running training or model generation:
+
+```bash
+python scripts/verify_phase3_results.py \
+  --dataset-root /path/to/reasoning_v1 \
+  --predictions-root report/results/generated/phase3/optimal_eval \
+  --model-directories hindi_5k bhojpuri_3k
+```
+
+Verify the main predictions with the same command but omit `--predictions-root` and
+`--model-directories`. Regenerate the result tables with `python scripts/build_ablation_report.py`.
+To independently recount final training tokens and manual fractions:
+
+```bash
+python scripts/recount_training_tokens.py \
+  --artifact-root /path/to/LMA_Individual_Project \
+  --output tmp/final_training_recount.json --threads 4
+```
+
+Source corrections on `phase-3` do not alter earlier graded branches or prove historical
+push timing. The no-position ablation is optional and is not claimed here.

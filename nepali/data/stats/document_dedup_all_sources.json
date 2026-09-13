@@ -1,0 +1,23 @@
+{
+  "counts_this_run": {
+    "exact_duplicates": 162,
+    "examined": 220127,
+    "kept": 219899,
+    "kept_downloaded": 219899,
+    "near_duplicates": 66
+  },
+  "inputs": [
+    "nepali/data/interim/nepali_wikipedia_clean.jsonl.gz",
+    "nepali/data/interim/onlinekhabar_clean.jsonl.gz",
+    "nepali/data/interim/sangraha_verified_nep_clean.jsonl.gz"
+  ],
+  "output": "nepali/data/interim/nepali_document_deduplicated.jsonl.gz",
+  "settings": {
+    "bands": 4,
+    "exact_only": false,
+    "hamming_threshold": 3,
+    "manual_records_processed_first": true,
+    "maximum_shingles": 2048,
+    "shingle_size": 5
+  }
+}
