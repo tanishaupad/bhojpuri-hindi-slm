@@ -1,11 +1,11 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Q6gOCxoh)
 
-# Hindi and Bhojpuri monolingual language models
+# Hindi, Nepali, and Bhojpuri monolingual language models
 
-This repository builds two fully independent decoder-only language models from scratch:
+This repository builds fully independent decoder-only language models from scratch:
 
-- **Model H:** Hindi (`hi`, Devanagari), the higher-resource language.
-- **Model L:** Bhojpuri (`bho`, Devanagari), the approved lower-resource language.
+- **Model H (Language #1):** Hindi (`hi`, Devanagari), the higher-resource language.
+- **Model L (Language #2):** Nepali (`ne`, Devanagari), the primary Language #2 target (~300M tokens, $\ge 20\%$ manual tokens; 258.7M train tokens at 22.77% manual achieved), alongside Bhojpuri (`bho`, Devanagari) as an approved lower-resource comparison language.
 
 The `phase-1` and `phase-2` branches established reproducible corpus collection, preprocessing,
 deduplication, split creation, tokenizer training, pre-training data-integrity audits, and from-scratch

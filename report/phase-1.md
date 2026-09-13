@@ -2,10 +2,10 @@
 
 ## 1. Language selection
 
-- **Model H:** Hindi (`hi`, Devanagari script), selected as the higher-resource Indian language due to abundant availability of public digital text, governmental archives, and encyclopedic resources.
-- **Model L:** Bhojpuri (`bho`, Devanagari script), selected from the course-approved lower-resource list (Bihari group of Indo-Aryan languages).
+- **Language #1 (Model H):** Hindi (`hi`, Devanagari script), selected as the higher-resource Indian language due to abundant availability of public digital text, governmental archives, and encyclopedic resources.
+- **Language #2 (Model L):** Nepali (`ne`, Devanagari script), selected as Language #2, targeting ~300M tokens with $\ge 20\%$ manually collected data (achieving 258.7M train tokens at 22.77% manual tokens). In addition, Bhojpuri (`bho`, Devanagari script) is preserved as an approved low-resource comparison language and corpus.
 
-The two corpora, tokenizers, vocabulary artifacts, training splits and model weights are independent. Token strings can naturally coincide because both languages use Devanagari; there is no shared embedding table or tokenizer.
+The corpora, tokenizers, vocabulary artifacts, training splits and model weights are independent. Token strings can naturally coincide because both languages use Devanagari; there is no shared embedding table or tokenizer.
 
 ---
 
@@ -261,3 +261,4 @@ All large corpus splits (`train.jsonl.gz`, `validation.jsonl.gz`, `test.jsonl.gz
 1. **Dialectal & Orthographic Variation in Bhojpuri**: Unlike Hindi, which possesses a standardized grammatical and orthographic convention (e.g., standard Devanagari spellings across Central Hindi Directorate guidelines), Bhojpuri exhibits regional orthographic fluidity (e.g., variation between `बाटे`, `बा`, and `हवे` for existential copulas, and alternate spelling of nasal matras). The Unigram tokenizer mitigates this by decomposing rare variants into base stems and inflectional markers.
 2. **Translationese & Synthetic Artifact Avoidance**: A substantial portion of open-source multilingual Indic data originates from translated parallel benchmarks (e.g., FLORES, MultiUN, translated Common Crawl). These was systematically excluded by provenance filtering to prevent models from learning unnatural syntactic patterns ("translationese").
 3. **Low-Resource Data Availability vs. Model Scaling**: The ~23M token corpus for Bhojpuri highlights the fundamental data scarcity for non-scheduled Indian languages. To achieve effective pretraining in Phase 2 without overfitting, Model L will be trained with adjusted epoch counts (3–4 passes) and a compact parameter configuration matching empirical recommendations from Lecture 3.
+4. **Nepali Scale and Agglutinative Morphology**: Scaling the Nepali corpus as Language #2 to 258.7M training tokens (264.3M total tokens) required substantial expansion of manual sources (reaching 149,776 clean Onlinekhabar articles and 24,584 Wikipedia articles), securing 58.92M manual training tokens (22.77% of the training split, exceeding the 20% course threshold with a safety buffer). The 24,000 Unigram tokenizer achieved 1.2844 fertility and 5.063 characters/token, effectively modeling Nepali postpositional case-marker attachments (vibhakti) without excessive subword fragmentation.
