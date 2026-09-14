@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "base_branch": "phase-3",
+  "base_commit": "aac44bdc21ead57275cda9e24ce6d996f67171a3",
+  "language": "hindi",
+  "baseline": {
+    "config": "hindi/configs/phase2.toml",
+    "checkpoint": {
+      "filename": "checkpoint_step_0020300.pt",
+      "size_bytes": 303590517,
+      "sha256": "575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42"
+    },
+    "tokenizer": {
+      "path": "hindi/tokenizer/hindi.model",
+      "sha256": "5a88ca1d2519429e518b104684a59ca62a17ef5015e60ec0bad3a755b156bbb8"
+    }
+  },
+  "ablation": {
+    "config": "hindi/configs/phase2_no_position.toml",
+    "position_encoding": "none",
+    "parameter_count": 25186944
+  },
+  "data": {
+    "train": {
+      "documents": 2237942,
+      "tokens": 336995217,
+      "input_sha256": "20e873c2489030b4d50415754f410b36176e99912bdeda215cd4af2363ccca6b",
+      "token_file_sha256": "6a3a2e414a8e690e970f8611b53989ea38a19b02de8926b5c2f9401b98ebdcfc"
+    },
+    "validation": {
+      "documents": 23033,
+      "tokens": 3479648,
+      "input_sha256": "71d1b9940011ac7998e444380dd82f0037bb65eb3a0a12818684c7066e9594b5",
+      "token_file_sha256": "1d932cc1a31de026733613712119567671f457f4826e691ca9815863d0b89713"
+    },
+    "test": {
+      "documents": 22773,
+      "tokens": 3521023,
+      "input_sha256": "ef94dde8713b0e7a5d8ff7cbad54ff869c51b6336ec7f23cf24ec6915ebfad12",
+      "token_file_sha256": "c89599bab15c8a96eb6108f81c186dc796c9385128f3464a8a282a6cacb61224"
+    }
+  }
+}

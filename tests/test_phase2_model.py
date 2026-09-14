@@ -71,8 +71,18 @@ def test_input_and_output_embedding_weights_are_tied() -> None:
 def test_context_limit_is_enforced() -> None:
     model = DecoderOnlyTransformer(tiny_config(context_length=4))
 
-    with pytest.raises(ValueError, match="learned-position limit"):
+    with pytest.raises(ValueError, match="context limit"):
         model(torch.randint(0, 101, (1, 5)))
+
+
+def test_no_position_model_omits_embedding_and_runs() -> None:
+    config = tiny_config(position_encoding="none")
+    model = DecoderOnlyTransformer(config)
+
+    assert model.position_embeddings is None
+    assert not any(name.startswith("position_embeddings") for name, _ in model.named_parameters())
+    assert model(torch.randint(0, 101, (2, 8))).logits.shape == (2, 8, 101)
+    assert model.parameter_count() == config.expected_parameter_count()
 
 
 def test_model_does_not_use_prebuilt_transformer_modules() -> None:

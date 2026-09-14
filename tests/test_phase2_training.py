@@ -22,7 +22,7 @@ from lma_phase2.training import (
 )
 
 
-def experiment() -> ExperimentConfig:
+def experiment(position_encoding: str = "learned_absolute") -> ExperimentConfig:
     return ExperimentConfig(
         identity=IdentityConfig("tiny", "bho", "Bhojpuri", "tokenizer.model"),
         model=ModelConfig(
@@ -35,6 +35,7 @@ def experiment() -> ExperimentConfig:
             dropout=0.0,
             attention_dropout=0.0,
             embedding_dropout=0.0,
+            position_encoding=position_encoding,
         ),
         training=TrainingConfig(
             seed=3,
@@ -66,8 +67,9 @@ def one_update(model, optimizer, scheduler) -> None:
     optimizer.zero_grad(set_to_none=True)
 
 
-def test_checkpoint_round_trip_restores_all_training_state(tmp_path) -> None:
-    config = experiment()
+@pytest.mark.parametrize("position_encoding", ["learned_absolute", "none"])
+def test_checkpoint_round_trip_restores_all_training_state(tmp_path, position_encoding) -> None:
+    config = experiment(position_encoding)
     model = DecoderOnlyTransformer(config.model)
     optimizer = configure_optimizer(model, config.training)
     scheduler = configure_scheduler(optimizer, config.training)

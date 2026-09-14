@@ -11,6 +11,7 @@ from lma_phase2.config import ModelConfig, load_experiment_config
     ("path", "expected_count"),
     [
         ("hindi/configs/phase2.toml", 25_285_248),
+        ("hindi/configs/phase2_no_position.toml", 25_186_944),
         ("nepali/configs/phase2.toml", 24_870_912),
     ],
 )

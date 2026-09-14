@@ -126,7 +126,11 @@ class DecoderOnlyTransformer(nn.Module):
         config.validate()
         self.config = config
         self.token_embeddings = nn.Embedding(config.vocabulary_size, config.model_dimension)
-        self.position_embeddings = nn.Embedding(config.context_length, config.model_dimension)
+        self.position_embeddings = (
+            nn.Embedding(config.context_length, config.model_dimension)
+            if config.position_encoding == "learned_absolute"
+            else None
+        )
         self.embedding_dropout = nn.Dropout(config.embedding_dropout)
         self.blocks = nn.ModuleList(
             TransformerBlock(config) for _ in range(config.number_of_layers)
@@ -171,15 +175,16 @@ class DecoderOnlyTransformer(nn.Module):
         batch_size, sequence_length = input_ids.shape
         if sequence_length > self.config.context_length:
             raise ValueError(
-                f"Sequence length {sequence_length} exceeds learned-position limit "
+                f"Sequence length {sequence_length} exceeds context limit "
                 f"{self.config.context_length}"
             )
         if targets is not None and targets.shape != input_ids.shape:
             raise ValueError("targets must have the same shape as input_ids")
-        positions = torch.arange(sequence_length, device=input_ids.device)
-        hidden_states = self.embedding_dropout(
-            self.token_embeddings(input_ids) + self.position_embeddings(positions)[None, :, :]
-        )
+        hidden_states = self.token_embeddings(input_ids)
+        if self.position_embeddings is not None:
+            positions = torch.arange(sequence_length, device=input_ids.device)
+            hidden_states = hidden_states + self.position_embeddings(positions)[None, :, :]
+        hidden_states = self.embedding_dropout(hidden_states)
         attention_layers: list[Tensor] = []
         for block in self.blocks:
             hidden_states, attention = block(hidden_states, return_attention=return_attentions)

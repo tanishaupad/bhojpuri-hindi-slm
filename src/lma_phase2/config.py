@@ -51,8 +51,8 @@ class ModelConfig:
             value = getattr(self, name)
             if not 0.0 <= value < 1.0:
                 raise ValueError(f"{name} must be in [0, 1)")
-        if self.position_encoding != "learned_absolute":
-            raise ValueError("Only student-implemented learned_absolute positions are supported")
+        if self.position_encoding not in {"learned_absolute", "none"}:
+            raise ValueError("position_encoding must be learned_absolute or none")
         if self.normalization != "pre_layer_norm":
             raise ValueError("Only pre_layer_norm is supported")
         if self.activation != "gelu":
@@ -68,7 +68,10 @@ class ModelConfig:
         d_model = self.model_dimension
         d_ff = self.feed_forward_dimension
         bias = int(self.use_bias)
-        embeddings = self.vocabulary_size * d_model + self.context_length * d_model
+        position_parameters = (
+            self.context_length * d_model if self.position_encoding == "learned_absolute" else 0
+        )
+        embeddings = self.vocabulary_size * d_model + position_parameters
         attention = 4 * d_model * d_model + bias * 4 * d_model
         feed_forward = 2 * d_model * d_ff + bias * (d_ff + d_model)
         two_layer_norms = 4 * d_model
