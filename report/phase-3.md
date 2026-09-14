@@ -190,3 +190,150 @@ finetuning to reduce forgetting.
 
 Large resume-capable checkpoints and generated dataset files remain outside Git. Their hashes and
 reproduction commands are recorded in the manifests and companion reports.
+
+## 11. Reproduction commands
+
+Run commands from the repository root after installing the package and development dependencies:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -e ".[dev]"
+```
+
+### 11.1 Generate and audit the reasoning releases
+
+The following creates fresh deterministic Hindi and Nepali datasets and compact release evidence.
+Each output directory must be empty or absent. Separate roots preserve the exact independent
+release procedure used for the two experiments.
+
+```bash
+python -m lma_phase3.release \
+  --languages hindi \
+  --output-dir tmp/phase3/reasoning_hindi_v1 \
+  --evidence-dir tmp/phase3/evidence_hindi_v1
+
+python -m lma_phase3.release \
+  --languages nepali \
+  --output-dir tmp/phase3/reasoning_nepali_v1 \
+  --evidence-dir tmp/phase3/evidence_nepali_v1
+```
+
+To generate a separate 50-example-per-language review pilot before release:
+
+```bash
+python -m lma_phase3.generate \
+  --languages hindi nepali \
+  --output-dir tmp/phase3/pilot_hindi_nepali
+```
+
+### 11.2 Finetune Hindi Model H
+
+```bash
+python -m lma_phase3.finetune \
+  --config hindi/configs/phase3.toml \
+  --pretrained-checkpoint /artifact-root/hindi/phase2/runs/pretrain_v1/checkpoint_step_0020300.pt \
+  --train-data tmp/phase3/reasoning_hindi_v1/hindi/train.jsonl.gz \
+  --val-data tmp/phase3/reasoning_hindi_v1/hindi/validation.jsonl.gz \
+  --template-config hindi/configs/phase3_templates.json \
+  --output-dir tmp/phase3/runs/hindi/finetune_v2_full_validation \
+  --device cuda
+```
+
+The historical Hindi main checkpoint can be reproduced with
+`--validation-scope legacy_subset` and a separate output directory. New runs should retain the
+default full-validation selection shown above.
+
+### 11.3 Finetune Nepali Model L
+
+```bash
+python -m lma_phase3.finetune \
+  --config nepali/configs/phase3.toml \
+  --pretrained-checkpoint /artifact-root/nepali/phase2/runs/pretrain_v1/checkpoint_step_0016720.pt \
+  --train-data tmp/phase3/reasoning_nepali_v1/nepali/train.jsonl.gz \
+  --val-data tmp/phase3/reasoning_nepali_v1/nepali/validation.jsonl.gz \
+  --template-config nepali/configs/phase3_templates.json \
+  --output-dir tmp/phase3/runs/nepali/finetune_v1 \
+  --device cuda
+```
+
+Add `--resume` to either command after restoring the corresponding output directory containing
+`latest.json` and its referenced checkpoint.
+
+### 11.4 Evaluate both generation protocols
+
+```bash
+python -m lma_phase3.evaluate_finetuned \
+  --config hindi/configs/phase3.toml \
+  --checkpoint /path/to/hindi/best_checkpoint.pt \
+  --dataset-root tmp/phase3/reasoning_hindi_v1 \
+  --output-dir report/results/generated/phase3/finetuned_v1/hindi \
+  --device cuda --protocols both
+
+python -m lma_phase3.evaluate_finetuned \
+  --config nepali/configs/phase3.toml \
+  --checkpoint tmp/phase3/runs/nepali/finetune_v1/best_checkpoint.pt \
+  --dataset-root tmp/phase3/reasoning_nepali_v1 \
+  --output-dir report/results/generated/phase3/finetuned_v1/nepali \
+  --device cuda --protocols both
+```
+
+Each command evaluates validation, primary test, unseen-name, and unseen-wording splits under the
+16-token original and 96-token explanation protocols.
+
+### 11.5 Run Nepali sample-size ablations and retention scoring
+
+This command trains deterministic 1k, 3k, 5k, 8k, and 12k subsets, then compares those models with
+the pretrained and main 20k checkpoints on the unchanged packed Phase 2 test stream.
+
+```bash
+python scripts/ablation_samples_vs_ppl.py \
+  --languages nepali \
+  --pretrained-checkpoint /artifact-root/nepali/phase2/runs/pretrain_v1/checkpoint_step_0016720.pt \
+  --main-checkpoint tmp/phase3/runs/nepali/finetune_v1/best_checkpoint.pt \
+  --test-manifest /artifact-root/nepali/phase2/tokenized_v1/test.manifest.json \
+  --dataset-root tmp/phase3/reasoning_nepali_v1 \
+  --work-dir tmp/phase3/ablation_nepali \
+  --output-dir report/results/generated/phase3/ablation_nepali \
+  --device cuda
+```
+
+On Kaggle, the main Nepali run, full held-out evaluation, and ablations can be executed together:
+
+```bash
+python kaggle/run_phase3_nepali.py \
+  --artifact-root /kaggle/input/lma-artifacts/LMA_Individual_Project \
+  --dataset-root /kaggle/input/lma-phase3-reasoning/reasoning_v1 \
+  --work-root /kaggle/working/phase3_nepali \
+  --mode all --device cuda
+```
+
+### 11.6 Compare attention before and after finetuning
+
+```bash
+python -m lma_phase3.attention_compare \
+  --config nepali/configs/phase3.toml \
+  --pretrained-checkpoint /artifact-root/nepali/phase2/runs/pretrain_v1/checkpoint_step_0016720.pt \
+  --finetuned-checkpoint tmp/phase3/runs/nepali/finetune_v1/best_checkpoint.pt \
+  --tokenizer nepali/tokenizer/nepali.model \
+  --prompt "अर्जुनको उचाइ 107 सेन्टिमिटर छ। नवीनको उचाइ 173 सेन्टिमिटर छ। अर्जुन र नवीनमध्ये सबैभन्दा अग्लो को छ? पहिले उत्तर लेख्नुहोस्। त्यसपछि कारण: लेखेर छोटो तुलना दिनुहोस्। उत्तर:" \
+  --output-dir report/figures/generated/phase3/attention/nepali \
+  --device cpu --layers 1 8 --heads 0 1 2 \
+  --font-path /path/to/a/Devanagari-capable-font.ttf
+```
+
+Use the corresponding Hindi config, tokenizer, checkpoints, prompt, and output directory to
+reproduce the Hindi comparison.
+
+### 11.7 Verify the repository
+
+```bash
+pytest -q
+ruff check src/ tests/ kaggle/run_phase3_nepali.py \
+  scripts/ablation_samples_vs_ppl.py \
+  scripts/build_ablation_manifest.py \
+  scripts/build_ablation_report.py \
+  scripts/verify_phase3_results.py
+git diff --check
+```
