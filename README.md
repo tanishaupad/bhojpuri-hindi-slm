@@ -258,3 +258,46 @@ Large corpus splits, token streams, and model checkpoints are preserved in Googl
   - `nepali/tokenizers/` — Nepali SentencePiece Unigram candidate models and vocabs (16k, 24k, 32k)
   - `nepali/interim/` — Deduplicated and balanced intermediate checkpoints
   - `manifests/` — Deduplication, audit, and tokenizer evaluation reports
+
+### Checkpoint folders
+
+The links below identify the four checkpoint deliverables directly. Each folder also contains the
+resume metadata or run files belonging to that model. SHA-256 values make the selected files
+unambiguous even if additional checkpoints are retained in the folder.
+
+| Model | Stage | Selected file | SHA-256 | Google Drive |
+|---|---|---|---|---|
+| Hindi Model H | Pretrained | `checkpoint_step_0020300.pt` | `575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42` | [Hindi Phase 2 checkpoint folder](https://drive.google.com/drive/folders/1QS_l1VYF2A_ifCxQuEThoYDgqInpS7BF) |
+| Nepali Model L | Pretrained | `checkpoint_step_0016720.pt` | `bba29e31aeda8f7681fc6929f5bf0f613e2c089e0f6eddcede2e0cc8b2ed6712` | [Nepali Phase 2 artifacts](https://drive.google.com/drive/folders/19ap22UY6jhYfItLkzvVPQ0M0HxhueEoX) |
+| Hindi Model H | Finetuned | `best_checkpoint.pt` | `8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062` | [Hindi Phase 3 checkpoint folder](https://drive.google.com/drive/folders/1sLMoA66JndkIJ_xnI96BYAi1uzfPTuED?usp=share_link) |
+| Nepali Model L | Finetuned | `best_checkpoint.pt` | `ded00eaeaa650f6ecbbb8550b41ff95abe2f0f584962b500baf5cf571a9bb745` | [Nepali Phase 3 artifacts](https://drive.google.com/drive/folders/1odIDgF58syDp48FeAUrwfN95BYdWBrVQ) |
+
+The pretrained hashes are recorded in `report/results/generated/phase2/checkpoint_manifest.json`;
+both selected finetuned checkpoints and their Drive folders are recorded in
+`report/results/generated/phase3/checkpoint_manifest.json`.
+
+### Phase 2 and Phase 3 reproduction
+
+After restoring each language's split files and checkpoints from the linked Drive folders, the
+checked-in Kaggle runners reproduce the GPU workflows without mixing artifacts between languages:
+
+```bash
+# Pack, train, resume, or evaluate either Phase 2 model.
+python kaggle/run_phase2_kaggle.py --language hindi --mode train
+python kaggle/run_phase2_kaggle.py --language nepali --mode train
+
+# Resume by adding --resume-root /path/to/a/saved/phase2_runs directory.
+python kaggle/run_phase2_kaggle.py --language all --mode evaluate
+
+# Reproduce the Nepali Phase 3 main run, evaluation, and ablations.
+python kaggle/run_phase3_nepali.py \
+  --artifact-root /path/to/LMA_Individual_Project \
+  --dataset-root /path/to/reasoning_v1 \
+  --work-root /kaggle/working/phase3_nepali \
+  --mode all --device cuda
+```
+
+The exact standalone commands for generating both reasoning releases, finetuning Hindi and Nepali,
+evaluating both protocols and baselines, measuring retention, and comparing attention are in
+[`report/phase-3.md`](report/phase-3.md#11-reproduction-commands). Phase 2 architecture, optimizer,
+evaluation protocol, and artifact paths are documented in [`report/phase-2.md`](report/phase-2.md).

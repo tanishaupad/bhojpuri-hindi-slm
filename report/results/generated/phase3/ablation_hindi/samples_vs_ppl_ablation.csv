@@ -1,0 +1,8 @@
+language,samples,generic_perplexity,reasoning_val_accuracy_percent,accuracy_protocol,source_commit
+hindi,0,39.572316438058394,0,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a
+hindi,1000,55.30388834350568,49,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a
+hindi,3000,68.89272159585107,52,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a
+hindi,5000,87.37576265843423,40,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a
+hindi,8000,158.49631575109194,52,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a
+hindi,12000,333.86413987510366,41,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a
+hindi,20000,628.1219659752762,85,"first 100 direct-comparison validation examples; greedy; 16 tokens; explicit_answer_v1",912c20a

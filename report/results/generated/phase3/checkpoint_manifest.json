@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "checkpoints": {
+    "hindi": {
+      "model": "model_h_hindi_reasoning",
+      "filename": "best_checkpoint.pt",
+      "training_step": 2500,
+      "sha256": "8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062",
+      "drive_folder": "https://drive.google.com/drive/folders/1sLMoA66JndkIJ_xnI96BYAi1uzfPTuED?usp=share_link",
+      "tracked_in_git": false
+    },
+    "nepali": {
+      "model": "model_l_nepali_reasoning",
+      "filename": "best_checkpoint.pt",
+      "training_step": 2500,
+      "sha256": "ded00eaeaa650f6ecbbb8550b41ff95abe2f0f584962b500baf5cf571a9bb745",
+      "drive_folder": "https://drive.google.com/drive/folders/1odIDgF58syDp48FeAUrwfN95BYdWBrVQ",
+      "tracked_in_git": false
+    }
+  }
+}

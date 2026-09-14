@@ -81,8 +81,11 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 
 > [!NOTE]
 > **Token-Count Reconciliation between Phase 1 and Phase 2**:
-> The token counts in the table above reflect whitespace-normalized SentencePiece encoding (`normalize_tokenizer_input()`), which was used during Phase 1 corpus analysis. In Phase 2, token streams were packed directly from raw text before appending one `<eos>` token per document to form contiguous training and evaluation streams (see [`heldout_recomputation.json`](audits/generated/heldout_recomputation.json)).
-> - **Hindi Test**: Phase 2 packed test stream contains **3,521,023 tokens** = 3,498,250 raw tokens + 22,773 document EOS tokens. Re-encoding the identical decontaminated test split with Phase 1 whitespace normalization yields **3,468,316 tokens** (a 29,934 token difference due to raw vs. normalized whitespace, plus a 95,492 token reconciliation from the preliminary Phase 1 summary count).
+> Phase 1 corpus statistics and Phase 2 packed-stream manifests are reported separately because
+> they were produced from their respective finalized artifact snapshots. Phase 1 counts measure
+> normalized document text without packing separators. Phase 2 counts are the authoritative values
+> for model training and held-out evaluation and include one `<eos>` separator per packed document.
+> No exact arithmetic reconciliation is claimed without the external split and stream artifacts.
 
 #### Justification for Hindi Dataset Size Shortfall
 Hindi's historical training summary was **332.25M tokens**, below the approximately 500M training-token target. The final packed stream contains **336.995M tokens**, including EOS. Filtering, the collected manual-text budget and compute constraints limited the completed experiment; no grading exception is claimed.

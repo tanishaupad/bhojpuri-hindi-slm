@@ -75,6 +75,26 @@ claims, rejects unsupported claims, and requires enough premises to prove the re
 
 ## 5. Main held-out results
 
+### 5.0 Pretrained baseline
+
+The unchanged Phase 2 checkpoints were evaluated under the original 16-token greedy protocol before
+reasoning finetuning. This uses the same released prompts, complete test split, tokenizer, and strict
+whole-continuation exact match used by the frozen baseline evaluator. Both models produced
+noncanonical continuations on every primary-test item. Rescoring their first declared answer with
+the same explicit-answer extractor used after finetuning also gives zero correct answers.
+
+| Complete primary-test comparison | Hindi Model H | Nepali Model L |
+|---|---:|---:|
+| Pretrained strict exact match | 0.00% (0/2,000) | 0.00% (0/2,000) |
+| Pretrained explicit-answer accuracy | 0.00% (0/2,000) | 0.00% (0/2,000) |
+| Finetuned explicit answer, 16-token protocol | 61.55% | 56.30% |
+| Finetuned explicit answer, 96-token protocol | **86.20%** | **78.95%** |
+
+Whole-continuation exact match is deliberately strict; explicit-answer accuracy is the useful
+post-finetune metric because the trained output format includes an explanation. Complete baseline
+predictions, split metrics, hashes, and summaries are committed under
+`report/results/generated/phase3/pretrained_v1/{hindi,nepali}/`.
+
 ### 5.1 Primary test
 
 | Metric | Hindi Model H | Nepali Model L |
@@ -112,6 +132,22 @@ Both models transfer partially to reserved wording but fail to produce verified 
 names. Equality questions use fixed yes/no labels, so aggregate unseen-name answer accuracy can be
 nonzero even when unfamiliar entity names are not generated reliably. Token fragmentation and name
 familiarity are plausible contributors, but this experiment does not isolate their causal effects.
+
+### 5.4 Qualitative error analysis
+
+The first verified and first failed direct-comparison examples in the saved 96-token primary-test
+outputs illustrate the dominant distinction. In Hindi, `hi-test-000000` correctly answers `अशोक`
+and reproduces both ages before stating the supported comparison. `hi-test-000018` instead answers
+`आकाश` when the smaller age belongs to `अरुण`, then reverses the comparison in its explanation.
+In Nepali, `ne-test-000000` correctly answers `नवीन` and supports it with both heights;
+`ne-test-000005` answers `अनिल` instead of `सुमन` and asserts the reverse of the stated ages.
+
+These failures are substantive reasoning/output errors, not punctuation-only exact-match failures:
+the declared answer and comparison are both wrong. By contrast, many 16-token outputs begin with
+the correct answer but truncate the proof, explaining the gap between explicit-answer accuracy and
+joint verification. The unseen-name failures contain missing, fragmented, or substituted entity
+names and therefore receive zero verified-proof credit even when fixed yes/no equality labels raise
+aggregate explicit-answer accuracy.
 
 ## 6. Generic-language retention
 
@@ -177,12 +213,24 @@ less than 20k examples. A follow-up should evaluate the 3k, 5k, and 8k Nepali ch
 four task families and challenges, and should test parameter-efficient or mixed-objective
 finetuning to reduce forgetting.
 
+Across the complete project, Hindi has the larger training corpus (332.25M versus 273.17M tokens)
+and more manual tokens in absolute terms, while both exceed the required 20% manual share. Hindi's
+24k tokenizer gives lower fertility; Nepali's 16k tokenizer has stronger validation-vocabulary
+utilization and leaves more of the fixed parameter budget for Transformer layers. Hindi obtains
+lower token-level Phase 2 perplexity, while Nepali obtains lower BPB, showing why vocabulary-specific
+PPL alone cannot establish a resource-tier advantage. After identical reasoning finetuning, Hindi
+has the higher joint verification score and much less catastrophic forgetting. The evidence points
+to interacting data scale, tokenizer granularity, and optimization sensitivity; the experiments do
+not isolate any single factor causally.
+
 ## 10. Reproducibility artifacts
 
 - Nepali release evidence: `report/audits/generated/phase3/reasoning_nepali_v1/`
+- Pretrained reasoning baselines: `report/results/generated/phase3/pretrained_v1/`
 - Hindi evaluation: `report/results/generated/phase3/finetuned_v1/hindi/`
 - Nepali evaluation: `report/results/generated/phase3/finetuned_v1/nepali/`
 - Nepali ablations: `report/results/generated/phase3/ablation_nepali/`
+- Hindi ablation evidence: `report/results/generated/phase3/ablation_hindi/`
 - Attention tables and heatmaps: `report/figures/generated/phase3/attention/`
 - Nepali training log: `report/logs/generated/phase3/nepali_finetune_training.csv`
 - Nepali checkpoint manifest: `report/results/generated/phase3/nepali_checkpoint_manifest.json`
@@ -262,6 +310,17 @@ Add `--resume` to either command after restoring the corresponding output direct
 `latest.json` and its referenced checkpoint.
 
 ### 11.4 Evaluate both generation protocols
+
+First evaluate the unchanged pretrained checkpoints. The command verifies checkpoint, tokenizer,
+dataset, and frozen-release hashes before writing complete predictions:
+
+```bash
+python -m lma_phase3.evaluate \
+  --artifact-root /artifact-root \
+  --dataset-root tmp/phase3/reasoning_v1 \
+  --output-dir report/results/generated/phase3/pretrained_v1 \
+  --language both --device cuda
+```
 
 ```bash
 python -m lma_phase3.evaluate_finetuned \

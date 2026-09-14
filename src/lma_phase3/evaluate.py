@@ -208,8 +208,11 @@ def main() -> None:
         if directory.exists() and any(directory.iterdir()):
             raise ValueError(f"Refusing to overwrite existing evaluation: {directory}")
         checkpoint_info = checkpoint_manifest["checkpoints"][lang]
+        checkpoint_filename = checkpoint_info.get("filename", checkpoint_info.get("file"))
+        if not checkpoint_filename:
+            raise ValueError(f"Checkpoint manifest has no filename for {lang}")
         checkpoint_path = (
-            args.artifact_root / lang / "phase2/runs/pretrain_v1" / checkpoint_info["file"]
+            args.artifact_root / lang / "phase2/runs/pretrain_v1" / checkpoint_filename
         )
         print(lang, "verifying checkpoint and release hashes", flush=True)
         checkpoint_hash = file_hash(checkpoint_path)
@@ -225,9 +228,14 @@ def main() -> None:
         model.to(device).eval()
         dataset_dir = args.dataset_root / lang
         manifest = json.loads((dataset_dir / "manifest.json").read_text())
-        recorded = json.loads(
-            (root / f"report/audits/generated/phase3/reasoning_v1/{lang}_manifest.json").read_text()
+        evidence_paths = (
+            root / f"report/audits/generated/phase3/reasoning_v1/{lang}_manifest.json",
+            root / f"report/audits/generated/phase3/reasoning_{lang}_v1/{lang}_manifest.json",
         )
+        evidence_path = next((path for path in evidence_paths if path.exists()), None)
+        if evidence_path is None:
+            raise FileNotFoundError(f"No frozen release manifest found for {lang}")
+        recorded = json.loads(evidence_path.read_text())
         if manifest != recorded:
             raise ValueError("Dataset manifest differs from frozen release")
         tokenizer_path = root / lang / "tokenizer" / f"{lang}.model"

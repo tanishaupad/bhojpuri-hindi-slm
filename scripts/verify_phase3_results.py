@@ -32,11 +32,16 @@ def main():
         default=root / "report/results/generated/phase3/finetuned_v1",
     )
     parser.add_argument(
+        "--languages",
+        nargs="+",
+        choices=("hindi", "nepali", "bhojpuri"),
+        default=["hindi", "nepali"],
+        help="Languages to verify (default: hindi nepali)",
+    )
+    parser.add_argument(
         "--model-directories",
-        nargs=2,
-        default=["hindi", "bhojpuri"],
-        metavar=("HINDI_DIR", "BHOJPURI_DIR"),
-        help="Subdirectories for the two languages; use hindi_5k bhojpuri_3k for the auxiliary runs",
+        nargs="+",
+        help="Optional result subdirectories, one per language (defaults to language names)",
     )
     parser.add_argument(
         "--output",
@@ -45,9 +50,12 @@ def main():
     )
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    model_directories = args.model_directories or args.languages
+    if len(model_directories) != len(args.languages):
+        parser.error("--model-directories must contain one value per --languages entry")
     results = {}
     total = 0
-    for lang, model_directory in zip(["hindi", "bhojpuri"], args.model_directories, strict=True):
+    for lang, model_directory in zip(args.languages, model_directories, strict=True):
         base = json.loads((root / lang / "configs/phase3_templates.json").read_text())
         sp = spm.SentencePieceProcessor(model_file=str(root / lang / f"tokenizer/{lang}.model"))
         for proto, limit in [("original", 16), ("explanation", 96)]:

@@ -19,10 +19,11 @@ not be assigned to two splits. The separate cross-language audit found no exact 
 matches against either the Hindi or Bhojpuri corpora. A post-split Nepali near-document audit was
 not run; this is a limitation when interpreting the held-out scores.
 
-The packing pass applies the same `normalize_tokenizer_input` function used by Phase 1 statistics,
-encodes each document with its language tokenizer, appends EOS, and writes little-endian `uint16`
-streams. The extra EOS token per document accounts for the difference between Phase 1 token totals
-and packed stream totals.
+The packing pass applies `normalize_tokenizer_input`, encodes each document with its language
+tokenizer, appends EOS, and writes little-endian `uint16` streams. The packed-stream manifests below
+are the authoritative Phase 2 counts. Phase 1 statistics came from their separately finalized
+artifact snapshots, so this report does not claim that EOS separators alone reconcile the two sets
+of totals.
 
 | Language | Packed train tokens | Validation tokens | Test tokens |
 |---|---:|---:|---:|
@@ -51,6 +52,17 @@ explicit upper-triangular causal mask; the implementation does not call `nn.Tran
 Nepali's smaller vocabulary saves embedding parameters. Its feed-forward width is therefore 1,920
 rather than 1,536, keeping both models near the same total parameter budget while assigning more
 of the Nepali model to Transformer computation.
+
+Learned absolute position vectors are added to token embeddings, which gives the model token-order
+information but fixes the supported sequence length at 256 unless the position table is extended
+and retrained. Each block is pre-normalized: LayerNorm is applied before attention and before the
+feed-forward network, leaving a direct residual path that generally makes gradient flow more stable
+through a deep stack. For each head, tensors are reshaped from `(B,T,384)` to `(B,6,T,64)`; query-key
+scores are divided by `sqrt(64)` so their magnitude does not grow with head width and saturate the
+softmax. An explicit upper-triangular mask sets future-position scores to a very negative value.
+The test suite verifies that changing future tokens leaves earlier logits unchanged. Tying the
+output projection to the token embedding table avoids a second vocabulary-sized parameter matrix,
+which is especially significant under the 25M-parameter budget.
 
 ## 4. Pretraining
 
@@ -120,6 +132,15 @@ For Nepali, temperature 0.5 gives the best observed overlap/repetition compromis
 has substantial phrase repetition. Temperature 1.0 nearly eliminates repeated four-grams and
 increases diversity, while 1.5 often drifts into weakly connected fragments. These overlap metrics
 have limited semantic meaning because open-ended prompts admit many valid continuations.
+
+Representative saved outputs make the metric trade-off concrete. Hindi greedy generation can
+collapse into repetition (`एक साथ` repeated throughout a continuation), while another Hindi sample
+continues a political-news prefix with a grammatical but reference-divergent sentence. Nepali
+greedy samples similarly repeat clauses such as `काठमाडौँ उपत्यकामा सवारी चाप बढेको छ`; sampled
+decoding increases lexical diversity but can weaken topical continuity. All 200 continuations per
+language—50 prefixes under greedy decoding and each of the three temperatures—are committed in
+`report/samples/generated/phase2/{hindi,nepali}_samples.jsonl`. The examples support the repetition
+statistics; they do not make BLEU or ROUGE reliable semantic-quality measures for open continuation.
 
 ## 7. Attention analysis
 
