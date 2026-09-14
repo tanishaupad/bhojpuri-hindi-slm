@@ -1,15 +1,15 @@
 {
   "nepali/data/splits/test.jsonl.gz": {
-    "sha256": "a617d8f65530cd98d2266a96d39c31c44c53656edfdec3f8a093c1b29cd62024",
-    "size_bytes": 8345183
+    "sha256": "d09672ab8846d1dcd0659e75bf3637835bf46fae2f71c90b6666fe9bc80b31df",
+    "size_bytes": 8335767
   },
   "nepali/data/splits/train.jsonl.gz": {
-    "sha256": "e0ebac5e80bef638f4c51c4b8c06afefcc5c8a99dbc747cb3c75cf5deb3967a6",
-    "size_bytes": 791254937
+    "sha256": "d5588d8dba960a760829052a1b3a3faa65463117ae8c14ce7c9275a9e3dfba98",
+    "size_bytes": 790320207
   },
   "nepali/data/splits/validation.jsonl.gz": {
-    "sha256": "4087420ad86baf7cef4629cb834f4a47f09c5ce38d5948850426ba0a28604ba7",
-    "size_bytes": 8519946
+    "sha256": "44d1b255c6e3c20827809d159a12beac2f44a9a45caf2f4c244e0ea8179dece6",
+    "size_bytes": 8510704
   },
   "nepali/tokenizer/nepali.model": {
     "sha256": "8c081037288b0e9cf73d180fa52b3536efbed48e5188568adb52d3e48f7de3ed",

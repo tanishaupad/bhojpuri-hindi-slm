@@ -49,3 +49,8 @@ nepali/data/checkpoints/
 **/tokenizer/runs/
 tmp/
 
+# Local Phase 2 packages, outputs, and large checkpoints
+lma_phase2_outputs*/
+*_phase2_kaggle_bundle/
+*_phase2_kaggle_upload.zip
+*.pt

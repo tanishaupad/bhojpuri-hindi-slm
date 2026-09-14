@@ -1,0 +1,44 @@
+{
+  "identity": {
+    "language": "ne",
+    "language_name": "Nepali",
+    "model_name": "model_l_nepali",
+    "tokenizer": "nepali/tokenizer/nepali.model"
+  },
+  "model": {
+    "activation": "gelu",
+    "attention_dropout": 0.1,
+    "context_length": 256,
+    "dropout": 0.1,
+    "embedding_dropout": 0.1,
+    "feed_forward_dimension": 1920,
+    "model_dimension": 384,
+    "normalization": "pre_layer_norm",
+    "number_of_heads": 6,
+    "number_of_layers": 9,
+    "position_encoding": "learned_absolute",
+    "tie_embeddings": true,
+    "use_bias": true,
+    "vocabulary_size": 16000
+  },
+  "training": {
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "adam_epsilon": 1e-08,
+    "checkpoint_interval": 250,
+    "checkpoint_keep_last": 3,
+    "gradient_accumulation_steps": 8,
+    "gradient_clip_norm": 1.0,
+    "learning_rate": 0.0003,
+    "log_interval": 20,
+    "maximum_steps": 16720,
+    "micro_batch_size": 8,
+    "minimum_learning_rate": 3e-05,
+    "precision": "auto",
+    "seed": 20260914,
+    "validation_batches": 100,
+    "validation_interval": 500,
+    "warmup_steps": 500,
+    "weight_decay": 0.1
+  }
+}

@@ -7,18 +7,18 @@
       "words": 161040286
     },
     "manual": {
-      "characters": 290255501,
+      "characters": 290253715,
       "documents": 160926,
-      "tokens": 63486972,
-      "words": 45421626
+      "tokens": 63486202,
+      "words": 45421407
     }
   },
   "by_source": {
     "nepali_wikipedia": {
-      "characters": 43611050,
+      "characters": 43609264,
       "documents": 22568,
-      "tokens": 11105509,
-      "words": 6499728
+      "tokens": 11104739,
+      "words": 6499509
     },
     "onlinekhabar": {
       "characters": 246644451,
@@ -47,15 +47,15 @@
       "words": 2129750
     },
     "train": {
-      "characters": 1315752602,
+      "characters": 1315750818,
       "documents": 704658,
-      "tokens": 273166599,
-      "words": 202155595
+      "tokens": 273165831,
+      "words": 202155376
     },
     "validation": {
-      "characters": 14143442,
+      "characters": 14143440,
       "documents": 7377,
-      "tokens": 2943224,
+      "tokens": 2943222,
       "words": 2176567
     }
   },
@@ -79,10 +79,10 @@
       "words": 157715284
     },
     "train:manual": {
-      "characters": 283978804,
+      "characters": 283977020,
       "documents": 157595,
-      "tokens": 62107333,
-      "words": 44440311
+      "tokens": 62106565,
+      "words": 44440092
     },
     "validation:downloaded": {
       "characters": 11162993,
@@ -91,19 +91,19 @@
       "words": 1709024
     },
     "validation:manual": {
-      "characters": 2980449,
+      "characters": 2980447,
       "documents": 1648,
-      "tokens": 652871,
+      "tokens": 652869,
       "words": 467543
     }
   },
   "manual_requirement_met": true,
   "overall": {
-    "characters": 1343764285,
+    "characters": 1343762499,
     "documents": 719368,
-    "tokens": 278994851,
-    "words": 206461912
+    "tokens": 278994081,
+    "words": 206461693
   },
   "tokenizer_model": "nepali/tokenizer/nepali.model",
-  "training_manual_token_fraction": 0.22736064082270907
+  "training_manual_token_fraction": 0.22735846856336875
 }

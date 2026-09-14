@@ -86,7 +86,7 @@ _WIKIPEDIA_SOCIAL_HANDLE = re.compile(
     re.IGNORECASE,
 )
 _WIKIPEDIA_INLINE_CATEGORY = re.compile(
-    r"(?:श्रेणी|category)\s*[:ः]", re.IGNORECASE
+    r"(?:[ \t]+|\[\[?|,)(?:श्रेणी|category)\s*[:ः]", re.IGNORECASE
 )
 _WIKIPEDIA_INLINE_MEDIA_PREFIX = re.compile(
     rf"^(?:(?:{_WIKIPEDIA_MEDIA_KEYWORDS})\s*\|\s*)+",
@@ -269,7 +269,7 @@ def clean_wikipedia_article(text: str, language: str = "hi") -> tuple[str, dict[
                 continue
             line = re.sub(r"\{\|.*", "", line)
             line = re.sub(
-                r"(?:\[\[?|,|\(|\b)(?:category|श्रेणी)\s*:[^\]\)\n]*[\]\)]?",
+                r"(?:\[\[?|,|\()?\s*(?:category|श्रेणी)\s*[:ः][^\]\)\n]*[\]\)]?",
                 "",
                 line,
                 flags=re.IGNORECASE,

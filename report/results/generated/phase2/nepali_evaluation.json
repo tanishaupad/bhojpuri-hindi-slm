@@ -1,0 +1,58 @@
+{
+  "attention_csv": "/kaggle/working/phase2_report/nepali_attention_summary.csv",
+  "attention_figure_dir": "/kaggle/working/phase2_report/attention/nepali",
+  "checkpoint": "/kaggle/working/phase2_runs/nepali/checkpoint_step_0016720.pt",
+  "generation": {
+    "greedy": {
+      "bleu_4": 1.7966179708414192,
+      "chrf_plus_plus": 15.665042483552616,
+      "distinct_1": 0.16560958421423538,
+      "distinct_2": 0.2769010043041607,
+      "repeated_4gram_rate": 0.6424851190476191,
+      "rouge_l_f1": 0.10248155311922408
+    },
+    "temperature_0.5": {
+      "bleu_4": 2.218989475728457,
+      "chrf_plus_plus": 18.547394656254244,
+      "distinct_1": 0.3273875882571535,
+      "distinct_2": 0.6274138583869746,
+      "repeated_4gram_rate": 0.16922471467926015,
+      "rouge_l_f1": 0.11702994415192938
+    },
+    "temperature_1.0": {
+      "bleu_4": 1.2088665359544442,
+      "chrf_plus_plus": 19.98817874425248,
+      "distinct_1": 0.5462992630567126,
+      "distinct_2": 0.9338977531748616,
+      "repeated_4gram_rate": 0.001682935038707506,
+      "rouge_l_f1": 0.09494141748349565
+    },
+    "temperature_1.5": {
+      "bleu_4": 0.2348950558806877,
+      "chrf_plus_plus": 16.176484901238183,
+      "distinct_1": 0.7471875,
+      "distinct_2": 0.9936507936507937,
+      "repeated_4gram_rate": 0.0,
+      "rouge_l_f1": 0.029284193246560314
+    }
+  },
+  "generation_protocol": {
+    "bleu": "corpus BLEU-4, whitespace tokenization",
+    "chrf": "chrF++ with character order 6 and word order 2",
+    "continuation_tokens": 64,
+    "example_selection": "smallest SHA-256(seed, document_id) scores",
+    "examples": 50,
+    "prefix_tokens": 32,
+    "rouge": "mean whitespace-token ROUGE-L F1",
+    "sampling_seed": 20260823
+  },
+  "intrinsic": {
+    "bits_per_byte": 0.437722129380279,
+    "cross_entropy": 3.8887688377499705,
+    "perplexity": 48.85070634001515,
+    "tokens_scored": 2892360,
+    "utf8_bytes": 37071530
+  },
+  "model_name": "model_l_nepali",
+  "samples_output": "/kaggle/working/phase2_report/nepali_samples.jsonl"
+}

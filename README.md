@@ -15,13 +15,32 @@ The corpora, tokenizers, vocabulary artifacts, training splits, and model weight
 
 | Criterion | Requirement | Hindi (Model H) | Nepali (Model L) |
 |---|---|---:|---:|
-| **Target Scale** | ~300M – 500M training tokens | 332,246,742 tokens | 273,166,599 tokens |
+| **Target Scale** | ~300M – 500M training tokens | 332,246,742 tokens | 273,165,831 tokens |
 | **Manual Data Share** | $\ge 20\%$ of training tokens | **25.06%** (83.27M tokens) | **22.74%** (62.11M tokens) |
 | **Data Partitioning** | 98% Train / 1% Val / 1% Test | 2,237,951 / 23,033 / 22,773 docs | 704,658 / 7,377 / 7,333 docs |
 | **Selected Tokenizer** | SentencePiece Unigram from scratch | 24,000 vocab (fertility 1.2928) | 16,000 vocab (fertility 1.3522) |
 | **Model Size** | ~25M parameters ($d_{\text{model}}=384$) | 25,285,248 parameters | 24,870,912 parameters |
 | **Embedding Budget** | Balance depth vs. embeddings | 36.45% embedding / 63.55% transformer | 24.70% embedding / 75.30% transformer |
 | **Pipeline Reproducibility**| Deterministic seeds & manifests | Seed `lma-phase-1-2026` | Seed `lma-nepali-phase-1-2026` |
+
+---
+
+## Phase 2 Results
+
+Both independent decoder-only Transformers completed approximately one corpus pass using the same
+384-dimensional, nine-layer, six-head backbone and a 256-token context window.
+
+| Result | Hindi | Nepali |
+|---|---:|---:|
+| Parameters | 25,285,248 | 24,870,912 |
+| Training steps | 20,300 | 16,720 |
+| Tokens processed | 332,595,200 | 273,940,480 |
+| Validation loss / perplexity | 4.0954 / 60.06 | 4.1663 / 64.48 |
+| Test loss / perplexity | 3.6782 / 39.57 | 3.8888 / 48.85 |
+| Test bits per UTF-8 byte | 0.5282 | 0.4377 |
+
+The complete architecture, training protocol, generation metrics, attention analysis, and artifact
+inventory are documented in [`report/phase-2.md`](report/phase-2.md).
 
 ---
 
@@ -37,10 +56,10 @@ All token statistics reflect SentencePiece Unigram encoding with the selected pr
 | Hindi | Validation | 23,033 | 13,678,052 | 2,652,001 | 3,428,944 | 859,881 | 2,569,063 | 25.08% |
 | Hindi | Test | 22,773 | 13,446,801 | 2,608,981 | 3,372,824 | 839,451 | 2,533,373 | 24.89% |
 | **Hindi Total** | | **2,283,757** | **1,354,230,511** | **262,190,123** | **339,048,510** | **84,973,468** | **254,075,042** | **25.06%** |
-| **Nepali** | Train | 704,658 | 1,315,752,602 | 202,155,595 | 273,166,599 | 62,107,333 | 211,059,266 | **22.74%** |
-| Nepali | Validation | 7,377 | 14,143,442 | 2,176,567 | 2,943,224 | 652,871 | 2,290,353 | 22.18% |
+| **Nepali** | Train | 704,658 | 1,315,750,818 | 202,155,376 | 273,165,831 | 62,106,565 | 211,059,266 | **22.74%** |
+| Nepali | Validation | 7,377 | 14,143,440 | 2,176,567 | 2,943,222 | 652,869 | 2,290,353 | 22.18% |
 | Nepali | Test | 7,333 | 13,868,241 | 2,129,750 | 2,885,028 | 726,768 | 2,158,260 | 25.19% |
-| **Nepali Total** | | **719,368** | **1,343,764,285** | **206,461,912** | **278,994,851** | **63,486,972** | **215,507,879** | **22.76%** |
+| **Nepali Total** | | **719,368** | **1,343,762,499** | **206,461,693** | **278,994,081** | **63,486,202** | **215,507,879** | **22.76%** |
 
 ### Clean Training Tokens by Source
 
@@ -51,7 +70,7 @@ All token statistics reflect SentencePiece Unigram encoding with the selected pr
 | Hindi | Hindi Wikisource | Manual | 47,816 | 12,382,392 | CC BY-SA 4.0 |
 | Hindi | Hindi Wikibooks | Manual | 4,212 | 4,151,331 | CC BY-SA 4.0 |
 | Hindi | IndicCorp v2 | Downloaded | 2,035,014 | 248,972,606 | CC0-1.0 |
-| Nepali | Nepali Wikipedia | Manual | 22,091 | 10,836,296 | CC BY-SA 4.0 |
+| Nepali | Nepali Wikipedia | Manual | 22,091 | 10,835,528 | CC BY-SA 4.0 |
 | Nepali | Onlinekhabar | Manual | 135,504 | 51,271,037 | Source rights retained; research |
 | Nepali | Sangraha Verified Web | Downloaded | 149,249 | 61,294,242 | CC BY 4.0 |
 | Nepali | Sangraha Unverified Web | Downloaded | 397,814 | 149,765,024 | CC BY 4.0 |

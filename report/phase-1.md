@@ -21,11 +21,11 @@ The corpora, tokenizers, vocabulary artifacts, training splits and model weights
 | Hindi | Hindi Wikibooks | Manual | MediaWiki Action API | CC BY-SA 4.0 | 4,151,331 |
 | Hindi | IndicCorp v2 (`data/hi-{1,2,3}.txt`) | Downloaded | Hugging Face streaming | CC0-1.0 | 248,972,606 |
 | **Hindi Total** | | | | | **332,246,742** |
-| Nepali | Nepali Wikipedia | Manual | MediaWiki Action API (v2 cleaned) | CC BY-SA 4.0 | 10,836,296 |
+| Nepali | Nepali Wikipedia | Manual | MediaWiki Action API (v2 cleaned) | CC BY-SA 4.0 | 10,835,528 |
 | Nepali | Onlinekhabar | Manual | WordPress REST API | Source rights retained; course research | 51,271,037 |
 | Nepali | Sangraha Verified Web | Downloaded | Hugging Face streaming (`ai4bharat/sangraha`) | CC BY 4.0 | 61,294,242 |
 | Nepali | Sangraha Unverified Web | Downloaded | Hugging Face streaming (`ai4bharat/sangraha`) | CC BY 4.0 | 149,765,024 |
-| **Nepali Total** | | | | | **273,166,599** |
+| **Nepali Total** | | | | | **273,165,831** |
 
 ---
 
@@ -59,7 +59,7 @@ Preprocessing enforces a strict multi-stage filtering cascade:
 Deduplication was conducted in three hierarchical phases, preserving manual document priority:
 1. **Exact Document Deduplication**: SHA-256 hashing of NFC-normalized, whitespace-collapsed, case-folded text. Manual documents were indexed first, dropping identical downloaded copies. (Removed 3,028 duplicates in Hindi; 17,813 exact duplicates and 1,293 near duplicates removed in Nepali across 987,583 examined documents, retaining 968,477 documents: 161,265 manual, 807,212 downloaded).
 2. **Corpus-Wide Exact Paragraph Deduplication**: Paragraphs with $\ge 100$ characters and $\ge 15$ words were indexed in SQLite. If an identical paragraph appeared in an earlier document, it was removed. If paragraph removal reduced the document below 200 characters / 30 words, the document was dropped. (Removed 29,625 duplicate paragraphs and 16,565 empty/short documents in Hindi; 135,681 duplicate paragraphs and 4,961 below-floor documents removed in Nepali, retaining 963,515 documents: 160,926 manual, 802,589 downloaded). An audit of sampled pairs confirmed valid removal of shared boilerplates and cross-source repeats with zero false positives.
-3. **Near-Duplicate Detection & Deterministic Downsampling**: Bottom-k MinHash over word 5-grams was applied to eliminate cross-source near-duplicates. For Nepali, downloaded records were deterministically downsampled using seed `lma-nepali-downsample-2026` to cap downloaded words at 161,040,310, retaining 719,368 documents (160,926 manual, 558,442 downloaded) and achieving an exact manual word fraction of 22.00000% (22.76% manual tokens overall; 22.74% in train).
+3. **Near-Duplicate Detection & Deterministic Downsampling**: The document stage used 64-bit SimHash over word 5-grams with a Hamming-distance threshold of 3 to eliminate near-duplicates. For Nepali, downloaded records were then deterministically downsampled using seed `lma-nepali-downsample-2026` to cap downloaded words at 161,040,310, retaining 719,368 documents (160,926 manual, 558,442 downloaded) and achieving an exact manual word fraction of 22.00000% (22.76% manual tokens overall; 22.74% in train).
 4. **Cross-Lingual Overlap & Leakage Audit**: An automated cross-lingual audit (`scripts/audit_cross_lingual_overlap.py`, recorded in `nepali_cross_lingual_overlap.json`) compared all 719,368 Nepali documents against the complete set of 2,283,757 indexed Hindi documents and 230,687 indexed Bhojpuri documents using exact stable text hashing. Zero exact matches (0 Hindi, 0 Bhojpuri) were found, demonstrating complete cross-lingual isolation and zero train/eval leakage across regional language collections.
 
 ---
@@ -74,10 +74,10 @@ After deterministic downsampling of downloaded records to achieve a $\ge 22\%$ m
 | Hindi | Validation | 23,033 | 3,428,944 | 859,881 | 2,569,063 | 25.08% |
 | Hindi | Test | 22,773 | 3,372,824 | 839,451 | 2,533,373 | 24.89% |
 | **Hindi Overall** | | **2,283,757** | **339,048,510** | **84,973,468** | **254,075,042** | **25.06%** |
-| **Nepali** | Train | 704,658 | 273,166,599 | 62,107,333 | 211,059,266 | **22.74%** |
-| Nepali | Validation | 7,377 | 2,943,224 | 652,871 | 2,290,353 | 22.18% |
+| **Nepali** | Train | 704,658 | 273,165,831 | 62,106,565 | 211,059,266 | **22.74%** |
+| Nepali | Validation | 7,377 | 2,943,222 | 652,869 | 2,290,353 | 22.18% |
 | Nepali | Test | 7,333 | 2,885,028 | 726,768 | 2,158,260 | 25.19% |
-| **Nepali Overall** | | **719,368** | **278,994,851** | **63,486,972** | **215,507,879** | **22.76%** |
+| **Nepali Overall** | | **719,368** | **278,994,081** | **63,486,202** | **215,507,879** | **22.76%** |
 
 > [!NOTE]
 > **Token-Count Reconciliation between Phase 1 and Phase 2**:
@@ -174,7 +174,7 @@ Separate **SentencePiece Unigram** tokenizers were trained from scratch exclusiv
 #### Hindi Pipeline
 
 ```bash
-# 1. Deduplication (Paragraph & MinHash)
+# 1. Deduplication (Document SimHash & Exact Paragraph)
 python -m lma_phase1.paragraph_deduplicate \
   --input LMA_Processing/input/balanced_preparagraph_20pct_v1.jsonl.gz \
   --output LMA_Processing/output/hindi_paragraph_dedup_v1.jsonl.gz \

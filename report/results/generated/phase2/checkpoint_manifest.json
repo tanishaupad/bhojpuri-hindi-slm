@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "checkpoints": {
+    "hindi": {
+      "filename": "checkpoint_step_0020300.pt",
+      "training_step": 20300,
+      "tokens_seen": 332595200,
+      "size_bytes": 303590517,
+      "sha256": "575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42",
+      "tracked_in_git": false
+    },
+    "nepali": {
+      "filename": "checkpoint_step_0016720.pt",
+      "training_step": 16720,
+      "tokens_seen": 273940480,
+      "size_bytes": 298618485,
+      "sha256": "bba29e31aeda8f7681fc6929f5bf0f613e2c089e0f6eddcede2e0cc8b2ed6712",
+      "tracked_in_git": false
+    }
+  }
+}
