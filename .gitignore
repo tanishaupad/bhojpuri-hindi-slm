@@ -57,3 +57,4 @@ lma_phase2_outputs*/
 *_phase2_kaggle_upload.zip
 *.pt
 external_artifacts/
+output/kaggle/*.zip
