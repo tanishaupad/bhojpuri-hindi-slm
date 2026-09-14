@@ -23,7 +23,12 @@ def sha256(path: Path) -> str:
 
 def add_tree(archive: zipfile.ZipFile, source: Path, destination: str) -> None:
     for path in sorted(source.rglob("*")):
-        if path.is_file() and "__pycache__" not in path.parts:
+        excluded = (
+            "__pycache__" in path.parts
+            or any(part.endswith(".egg-info") for part in path.parts)
+            or path.name == ".DS_Store"
+        )
+        if path.is_file() and not excluded:
             archive.write(path, f"lma_bonus_bundle/{destination}/{path.relative_to(source)}")
 
 
@@ -62,6 +67,10 @@ def main() -> None:
         archive.write(
             ROOT / "kaggle/run_bonus_hindi_no_position.py",
             "lma_bonus_bundle/repo/kaggle/run_bonus_hindi_no_position.py",
+        )
+        archive.write(
+            ROOT / "kaggle/bonus_hindi_no_position.ipynb",
+            "bonus_hindi_no_position.ipynb",
         )
         for name in required:
             destination = "baseline" if name.endswith(".pt") else "data/hindi"
