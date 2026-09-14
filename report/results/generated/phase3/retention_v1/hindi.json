@@ -1,0 +1,38 @@
+{
+  "batch_size": 8,
+  "context_length": 256,
+  "delta_after_minus_before": {
+    "bits_per_byte": 0.39700049368880974,
+    "cross_entropy": 2.7646045670044916,
+    "perplexity": 588.5496495372179
+  },
+  "device": "mps",
+  "evaluator_sha256": "5c7a02b7cf7614999d20fe804e87552be34ba87492fb0ff38194842c9f0b0639",
+  "finetuned": {
+    "bits_per_byte": 0.925184293091679,
+    "checkpoint_sha256": "8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062",
+    "cross_entropy": 6.442734360947657,
+    "elapsed_seconds": 203.65135383400047,
+    "perplexity": 628.1219659752762,
+    "tokens_scored": 3521022,
+    "utf8_bytes": 35374088
+  },
+  "language": "hindi",
+  "perplexity_ratio_after_over_before": 15.872762135581842,
+  "precision": "float32",
+  "pretrained": {
+    "bits_per_byte": 0.5281837994028693,
+    "checkpoint_sha256": "575458df89393ca2b5998024f93d04e9a08a1a5228f420da389108cfed870d42",
+    "cross_entropy": 3.6781297939431656,
+    "elapsed_seconds": 159.8127272080019,
+    "perplexity": 39.572316438058394,
+    "tokens_scored": 3521022,
+    "utf8_bytes": 35374088
+  },
+  "protocol": "Non-overlapping 256-target windows including the final partial window; original raw-text packing and EOS likelihood retained. BPB divides by original UTF-8 bytes.",
+  "split": "full_phase2_test",
+  "test_manifest_sha256": "47ba17c6b5ec4f39feb15f7fe413efc38dfebe06872a4fee28a59a0337afa5ba",
+  "token_file_sha256": "c89599bab15c8a96eb6108f81c186dc796c9385128f3464a8a282a6cacb61224",
+  "tokenizer_sha256": "5a88ca1d2519429e518b104684a59ca62a17ef5015e60ec0bad3a755b156bbb8",
+  "torch_version": "2.4.1"
+}

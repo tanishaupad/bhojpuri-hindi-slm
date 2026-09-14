@@ -1,0 +1,16 @@
+{
+  "language": "ne",
+  "seed": 2026092401,
+  "core_names": ["आदित्य", "अमित", "अनिल", "अर्जुन", "अशोक", "दीपक", "दिनेश", "नवीन", "प्रकाश", "बिनोद", "मदन", "रमेश", "राजेश", "सुरेश", "विकास", "आकाश", "अभय", "सञ्जय", "सुमन", "रोशन", "विवेक", "मोहन", "कृष्ण", "विजय"],
+  "challenge_names": ["अविनाश", "कमल", "केशव", "गणेश", "गोपाल", "नरेश", "पवन", "प्रदीप", "मनीष", "महेश", "योगेश", "शेखर"],
+  "core_variants": [0],
+  "challenge_variants": [1],
+  "split_sizes": {
+    "train": 20000,
+    "validation": 2000,
+    "test": 2000,
+    "challenge_names": 500,
+    "challenge_wording": 500
+  },
+  "review_scope": "Nepali templates use distinct held-out names and reserve variant 1 for the wording challenge."
+}

@@ -1,0 +1,74 @@
+{
+  "nepali": [
+    {
+      "language": "nepali",
+      "samples": 0,
+      "generic_perplexity": 48.84691286164442,
+      "generic_cross_entropy": 3.8886911802102344,
+      "generic_bits_per_byte": 0.43771338820149625,
+      "reasoning_val_loss": 2.4357379782061894,
+      "reasoning_val_perplexity": 11.424246448143023,
+      "reasoning_val_accuracy": 0.0
+    },
+    {
+      "language": "nepali",
+      "samples": 1000,
+      "generic_perplexity": 76.18126418310705,
+      "generic_cross_entropy": 4.333115555597817,
+      "generic_bits_per_byte": 0.4877380597774261,
+      "reasoning_val_loss": 0.09940691301798445,
+      "reasoning_val_perplexity": 1.1045156499259472,
+      "reasoning_val_accuracy": 49.0
+    },
+    {
+      "language": "nepali",
+      "samples": 3000,
+      "generic_perplexity": 99.42602671108088,
+      "generic_cross_entropy": 4.599413917528552,
+      "generic_bits_per_byte": 0.5177127615141963,
+      "reasoning_val_loss": 0.050212247543674905,
+      "reasoning_val_perplexity": 1.051494249765008,
+      "reasoning_val_accuracy": 49.0
+    },
+    {
+      "language": "nepali",
+      "samples": 5000,
+      "generic_perplexity": 175.1926562288787,
+      "generic_cross_entropy": 5.165886261121936,
+      "generic_bits_per_byte": 0.5814752248588163,
+      "reasoning_val_loss": 0.04309948279464603,
+      "reasoning_val_perplexity": 1.0440417538758366,
+      "reasoning_val_accuracy": 56.00000000000001
+    },
+    {
+      "language": "nepali",
+      "samples": 8000,
+      "generic_perplexity": 411.35825177622803,
+      "generic_cross_entropy": 6.019464493645237,
+      "generic_bits_per_byte": 0.677554497533953,
+      "reasoning_val_loss": 0.020308006638387013,
+      "reasoning_val_perplexity": 1.02051561720922,
+      "reasoning_val_accuracy": 42.0
+    },
+    {
+      "language": "nepali",
+      "samples": 12000,
+      "generic_perplexity": 1730.7431914601127,
+      "generic_cross_entropy": 7.4563061856836415,
+      "generic_bits_per_byte": 0.8392862515317852,
+      "reasoning_val_loss": 0.01912729570428989,
+      "reasoning_val_perplexity": 1.0193113943210284,
+      "reasoning_val_accuracy": 44.0
+    },
+    {
+      "language": "nepali",
+      "samples": 20000,
+      "generic_perplexity": 23992.86820499392,
+      "generic_cross_entropy": 10.085511907044605,
+      "generic_bits_per_byte": 1.135231208650609,
+      "reasoning_val_loss": 0.01308314072638114,
+      "reasoning_val_perplexity": 1.0131690994730782,
+      "reasoning_val_accuracy": 52.0
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "version": "reasoning-v1",
+  "languages": [
+    "nepali"
+  ],
+  "examples": 25000,
+  "unique_release_worlds": 25000,
+  "cross_language_world_overlap": 0,
+  "cross_split_world_overlap": 0,
+  "pilot_world_overlap": 0,
+  "all_answer_and_length_checks": "passed"
+}

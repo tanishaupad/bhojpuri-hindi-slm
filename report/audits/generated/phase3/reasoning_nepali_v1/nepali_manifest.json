@@ -1,0 +1,493 @@
+{
+  "version": "reasoning-v1",
+  "language": "ne",
+  "split_summaries": {
+    "train": {
+      "examples": 20000,
+      "families": {
+        "direct": {
+          "examples": 5000,
+          "answer_position": {
+            "1": 2500,
+            "0": 2500
+          },
+          "direction": {
+            "smaller": 2500,
+            "greater": 2500
+          },
+          "domain": {
+            "age": 2500,
+            "height": 2500
+          }
+        },
+        "extremum": {
+          "examples": 5000,
+          "answer_position": {
+            "0": 1667,
+            "1": 1667,
+            "2": 1666
+          },
+          "direction": {
+            "smaller": 2500,
+            "greater": 2500
+          },
+          "domain": {
+            "age": 2500,
+            "height": 2500
+          }
+        },
+        "equality": {
+          "examples": 5000,
+          "answer_label": {
+            "True": 2500,
+            "False": 2500
+          },
+          "domain": {
+            "height": 2500,
+            "age": 2500
+          }
+        },
+        "transitivity": {
+          "examples": 5000,
+          "answer_position": {
+            "0": 2500,
+            "1": 2500
+          },
+          "direction": {
+            "smaller": 2500,
+            "greater": 2500
+          },
+          "domain": {
+            "height": 2500,
+            "age": 2500
+          }
+        }
+      },
+      "tokens_including_eos": 707145,
+      "min_tokens": 27,
+      "max_tokens": 52,
+      "mean_tokens": 35.35725,
+      "template_counts": {
+        "ne.direct.age.0": 2500,
+        "ne.direct.height.0": 2500,
+        "ne.extremum.age.0": 2500,
+        "ne.extremum.height.0": 2500,
+        "ne.equality.height.0": 2500,
+        "ne.equality.age.0": 2500,
+        "ne.transitivity.height.0": 2500,
+        "ne.transitivity.age.0": 2500
+      },
+      "independent_answer_check": "passed: numerical sort / exhaustive ranking enumeration",
+      "sha256": "6033e05e13ab49b6fc69e7da203498b9fc3f8c16a53a4558be0871e042aeedae",
+      "size_bytes": 1898785,
+      "rejected": {
+        "duplicate": 765
+      },
+      "seed": 2026092401,
+      "file": "train.jsonl.gz",
+      "wording_variants": [
+        0
+      ]
+    },
+    "validation": {
+      "examples": 2000,
+      "families": {
+        "direct": {
+          "examples": 500,
+          "answer_position": {
+            "1": 250,
+            "0": 250
+          },
+          "direction": {
+            "smaller": 250,
+            "greater": 250
+          },
+          "domain": {
+            "height": 250,
+            "age": 250
+          }
+        },
+        "extremum": {
+          "examples": 500,
+          "answer_position": {
+            "2": 166,
+            "1": 167,
+            "0": 167
+          },
+          "direction": {
+            "greater": 250,
+            "smaller": 250
+          },
+          "domain": {
+            "age": 250,
+            "height": 250
+          }
+        },
+        "equality": {
+          "examples": 500,
+          "answer_label": {
+            "False": 250,
+            "True": 250
+          },
+          "domain": {
+            "age": 250,
+            "height": 250
+          }
+        },
+        "transitivity": {
+          "examples": 500,
+          "answer_position": {
+            "1": 250,
+            "0": 250
+          },
+          "direction": {
+            "smaller": 250,
+            "greater": 250
+          },
+          "domain": {
+            "height": 250,
+            "age": 250
+          }
+        }
+      },
+      "tokens_including_eos": 70617,
+      "min_tokens": 27,
+      "max_tokens": 52,
+      "mean_tokens": 35.3085,
+      "template_counts": {
+        "ne.direct.height.0": 250,
+        "ne.direct.age.0": 250,
+        "ne.extremum.age.0": 250,
+        "ne.extremum.height.0": 250,
+        "ne.equality.age.0": 250,
+        "ne.equality.height.0": 250,
+        "ne.transitivity.height.0": 250,
+        "ne.transitivity.age.0": 250
+      },
+      "independent_answer_check": "passed: numerical sort / exhaustive ranking enumeration",
+      "sha256": "df9f533ff731d8571073128145815e36739e337f13c398a31f6a4643ae37ab2d",
+      "size_bytes": 191787,
+      "rejected": {
+        "duplicate": 167
+      },
+      "seed": 2026192404,
+      "file": "validation.jsonl.gz",
+      "wording_variants": [
+        0
+      ]
+    },
+    "test": {
+      "examples": 2000,
+      "families": {
+        "direct": {
+          "examples": 500,
+          "answer_position": {
+            "1": 250,
+            "0": 250
+          },
+          "direction": {
+            "greater": 250,
+            "smaller": 250
+          },
+          "domain": {
+            "height": 250,
+            "age": 250
+          }
+        },
+        "extremum": {
+          "examples": 500,
+          "answer_position": {
+            "2": 166,
+            "0": 167,
+            "1": 167
+          },
+          "direction": {
+            "greater": 250,
+            "smaller": 250
+          },
+          "domain": {
+            "height": 250,
+            "age": 250
+          }
+        },
+        "equality": {
+          "examples": 500,
+          "answer_label": {
+            "True": 250,
+            "False": 250
+          },
+          "domain": {
+            "age": 250,
+            "height": 250
+          }
+        },
+        "transitivity": {
+          "examples": 500,
+          "answer_position": {
+            "1": 250,
+            "0": 250
+          },
+          "direction": {
+            "greater": 250,
+            "smaller": 250
+          },
+          "domain": {
+            "age": 250,
+            "height": 250
+          }
+        }
+      },
+      "tokens_including_eos": 70566,
+      "min_tokens": 28,
+      "max_tokens": 52,
+      "mean_tokens": 35.283,
+      "template_counts": {
+        "ne.direct.height.0": 250,
+        "ne.direct.age.0": 250,
+        "ne.extremum.height.0": 250,
+        "ne.extremum.age.0": 250,
+        "ne.equality.age.0": 250,
+        "ne.equality.height.0": 250,
+        "ne.transitivity.age.0": 250,
+        "ne.transitivity.height.0": 250
+      },
+      "independent_answer_check": "passed: numerical sort / exhaustive ranking enumeration",
+      "sha256": "86ab5b8163730aa1897ec2b12502837906dcddde35a599fdb3abb98e436d8a19",
+      "size_bytes": 191570,
+      "rejected": {
+        "duplicate": 162
+      },
+      "seed": 2026292407,
+      "file": "test.jsonl.gz",
+      "wording_variants": [
+        0
+      ]
+    },
+    "challenge_names": {
+      "examples": 500,
+      "families": {
+        "direct": {
+          "examples": 125,
+          "answer_position": {
+            "0": 63,
+            "1": 62
+          },
+          "direction": {
+            "smaller": 62,
+            "greater": 63
+          },
+          "domain": {
+            "age": 63,
+            "height": 62
+          }
+        },
+        "extremum": {
+          "examples": 125,
+          "answer_position": {
+            "2": 41,
+            "1": 42,
+            "0": 42
+          },
+          "direction": {
+            "smaller": 62,
+            "greater": 63
+          },
+          "domain": {
+            "height": 62,
+            "age": 63
+          }
+        },
+        "equality": {
+          "examples": 125,
+          "answer_label": {
+            "False": 62,
+            "True": 63
+          },
+          "domain": {
+            "age": 63,
+            "height": 62
+          }
+        },
+        "transitivity": {
+          "examples": 125,
+          "answer_position": {
+            "0": 63,
+            "1": 62
+          },
+          "direction": {
+            "greater": 63,
+            "smaller": 62
+          },
+          "domain": {
+            "age": 63,
+            "height": 62
+          }
+        }
+      },
+      "tokens_including_eos": 18554,
+      "min_tokens": 30,
+      "max_tokens": 52,
+      "mean_tokens": 37.108,
+      "template_counts": {
+        "ne.direct.age.0": 63,
+        "ne.direct.height.0": 62,
+        "ne.extremum.height.0": 62,
+        "ne.extremum.age.0": 63,
+        "ne.equality.age.0": 63,
+        "ne.equality.height.0": 62,
+        "ne.transitivity.age.0": 63,
+        "ne.transitivity.height.0": 62
+      },
+      "independent_answer_check": "passed: numerical sort / exhaustive ranking enumeration",
+      "sha256": "87a1b0601daed0ddbac2272e69c701ecb4fd94886a1f878da6546a44fded8ac3",
+      "size_bytes": 46006,
+      "rejected": {
+        "duplicate": 3
+      },
+      "seed": 2026392410,
+      "file": "challenge_names.jsonl.gz",
+      "wording_variants": [
+        0
+      ]
+    },
+    "challenge_wording": {
+      "examples": 500,
+      "families": {
+        "direct": {
+          "examples": 125,
+          "answer_position": {
+            "1": 62,
+            "0": 63
+          },
+          "direction": {
+            "greater": 63,
+            "smaller": 62
+          },
+          "domain": {
+            "age": 63,
+            "height": 62
+          }
+        },
+        "extremum": {
+          "examples": 125,
+          "answer_position": {
+            "2": 41,
+            "1": 42,
+            "0": 42
+          },
+          "direction": {
+            "greater": 63,
+            "smaller": 62
+          },
+          "domain": {
+            "age": 63,
+            "height": 62
+          }
+        },
+        "equality": {
+          "examples": 125,
+          "answer_label": {
+            "False": 62,
+            "True": 63
+          },
+          "domain": {
+            "age": 63,
+            "height": 62
+          }
+        },
+        "transitivity": {
+          "examples": 125,
+          "answer_position": {
+            "1": 62,
+            "0": 63
+          },
+          "direction": {
+            "greater": 63,
+            "smaller": 62
+          },
+          "domain": {
+            "height": 62,
+            "age": 63
+          }
+        }
+      },
+      "tokens_including_eos": 17849,
+      "min_tokens": 30,
+      "max_tokens": 52,
+      "mean_tokens": 35.698,
+      "template_counts": {
+        "ne.direct.age.1": 63,
+        "ne.direct.height.1": 62,
+        "ne.extremum.age.1": 63,
+        "ne.extremum.height.1": 62,
+        "ne.equality.age.1": 63,
+        "ne.equality.height.1": 62,
+        "ne.transitivity.height.1": 62,
+        "ne.transitivity.age.1": 63
+      },
+      "independent_answer_check": "passed: numerical sort / exhaustive ranking enumeration",
+      "sha256": "de57109b78cc755d6c7b7919cde14014c2e5510d17ea7e8237ca251a17476047",
+      "size_bytes": 49098,
+      "rejected": {
+        "duplicate": 36
+      },
+      "seed": 2026492413,
+      "file": "challenge_wording.jsonl.gz",
+      "wording_variants": [
+        1
+      ]
+    }
+  },
+  "tokenizer_sha256": "8c081037288b0e9cf73d180fa52b3536efbed48e5188568adb52d3e48f7de3ed",
+  "templates_sha256": "5a721c75a30190cd726d31abbb35b5b94cdb772b6e652778267a7c45d1ddca9e",
+  "release_config_sha256": "ab33c13b02d1d925898a56cdc23f1ce8a222ef59e5b580733320a1dab280f370",
+  "review_record_sha256": null,
+  "pilot_records_sha256": {
+    "nepali": "50bc7017c01dd2bf042e3e0fe66d0209acd2f5ef43bbc9cdb2a513494fb793fe"
+  },
+  "excluded_pilot_worlds": 50,
+  "code_sha256": {
+    "__init__.py": "6e1329afe74ffc4e45eb5c6bd64e405970251d0806d2d02001ddcdece9c49b28",
+    "attention_compare.py": "443f93a684b06f307f26f90279a03190fbc12f3b1ee8d6b5ed9c5c3b1cea1ede",
+    "cached_decode.py": "cf2944ca3662f08246e71c44fbd3d60a13f34b6afa4d302cd4b4f7987b5a44ce",
+    "evaluate.py": "3f862b71c286800daf34de69af01d65c1021ddb05f3a664127d23270eeb2f1c1",
+    "evaluate_finetuned.py": "af67678aa4c23ca00773ffc3065c1f46b6145d33cad70d4c8a9efccae0a5d586",
+    "evaluate_proofs.py": "a36fb8a98f8cf06773a2a52ac971d506944fd8246f77e8bf9c15e7da6cec5893",
+    "evaluate_retention.py": "5c7a02b7cf7614999d20fe804e87552be34ba87492fb0ff38194842c9f0b0639",
+    "explicit_answer.py": "d9de828fb39d75bfe25e21c6a7d7a9fed9c007a66e84c387e5f4a844aec1f046",
+    "finetune.py": "c7548ea012528281b479067c4c1c397c863c9c20ab6196f09a5f28384b726580",
+    "finetune_data.py": "6ff9456f38734b5a29951ecc8ac93f5d60a63e709155ca9048d4f3cb4af581d4",
+    "generate.py": "9aeb38f538e2e5949affd23d991d436cab9ec0c93f01beef24dc8bc63069028a",
+    "problems.py": "e4b9e7bbe56d30648c83c8c90f5da6e04b3ff8d695581ab774c03e5b5b2cdfe0",
+    "proof_checker.py": "3461c118018edff903ddc185465558a2545e34a98ef6b5bcad44bc3ed9b894de",
+    "release.py": "c6ad0961a8bbd68a785bafe45a2852d51c0e8d72f6cd95c51df1cfe3db395809",
+    "rescore_explicit_answers.py": "a5135de32e99f64a6c0230345dc071f7eccbf09d89f68673d513eb4e073d8b32",
+    "rescore_semantics.py": "001f81201cf2da772f07be99d53d9347b8478d01537275916369141eb1547c74",
+    "score_answer_presence.py": "802b0d2f8915d7035e51d8c5827de43fbe0a80978b8855322fb89e2d12fd1fd3",
+    "semantic_check.py": "ce78454d0e6cac4c7efa1755266c1c9dbd82e032789aa0e6ee7798dba12c84a9",
+    "summarize_proofs.py": "4b4899d160352f33f40c4a0434f81256f5ba4be69a6a320c5650585b397f2cf6",
+    "summarize_results.py": "b2f34caec7881047e7fae7a22f00d23c68b707fadadca26f20ac3a4459e4c644"
+  },
+  "leakage_checks": {
+    "duplicate_named_worlds": 0,
+    "duplicate_normalized_prompts": 0,
+    "pilot_world_overlap": 0,
+    "core_challenge_name_overlap": 0,
+    "core_challenge_wording_overlap": 0
+  },
+  "limitations": [
+    "Primary splits share task structures by design; this is not unseen-structure evaluation.",
+    "Two reviewed wording variants per domain; only variant 0 in core splits.",
+    "Ages/heights and masculine names only.",
+    "Unknown-token rejection is applied before acceptance and reported in rejections.",
+    "Wording approved collectively by user; not every release example was manually inspected."
+  ],
+  "serialization": "Whitespace-normalized prompt + space + answer, append EOS; context limit 256",
+  "scoring_protocol": {
+    "decoding": "greedy",
+    "maximum_new_tokens": 16,
+    "stop": "EOS or token limit",
+    "exact_match": "Unicode NFC, collapse whitespace and strip surrounding whitespace; compare full continuation to canonical answer. No substring matching or answer extraction.",
+    "reporting": "Per-task and overall primary test accuracy; challenge scores separately; validation only for selection."
+  }
+}

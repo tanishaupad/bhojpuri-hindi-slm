@@ -42,6 +42,19 @@ Both independent decoder-only Transformers completed approximately one corpus pa
 The complete architecture, training protocol, generation metrics, attention analysis, and artifact
 inventory are documented in [`report/phase-2.md`](report/phase-2.md).
 
+## Phase 3: Hindi Model H and Nepali Model L
+
+Phase 3 compares Hindi Model H and Nepali Model L on native-language synthetic relational
+reasoning. It covers direct comparison, largest/smallest selection, equality, and two-hop
+transitivity, with separate unseen-name and unseen-wording challenges. Each language uses 20,000
+training, 2,000 validation, 2,000 test, and two 500-example challenge examples.
+
+The repository includes target-only supervised finetuning, two evaluation protocols, symbolic
+explanation verification, generic-language retention evaluation, before/after attention analysis,
+and balanced 1k/3k/5k/8k/12k sample-size ablations. See the consolidated
+[`report/phase-3.md`](report/phase-3.md) and the
+[`Nepali run notes`](report/phase-3-nepali.md).
+
 ---
 
 ## 2. Dataset & Split Summary

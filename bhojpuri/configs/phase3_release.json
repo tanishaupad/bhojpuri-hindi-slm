@@ -1,0 +1,58 @@
+{
+  "language": "bho",
+  "seed": 2026091902,
+  "core_names": [
+    "बबलू",
+    "पप्पू",
+    "गुड्डू",
+    "बिट्टू",
+    "मुन्ना",
+    "चंदन",
+    "ललन",
+    "भोला",
+    "बिरजू",
+    "किशुन",
+    "नंदू",
+    "बनवारी",
+    "रामू",
+    "श्यामू",
+    "शंकर",
+    "महेश",
+    "गणेश",
+    "हरिहर",
+    "जगदीश",
+    "रामनाथ",
+    "शिवनाथ",
+    "रामेश्वर",
+    "धनेसर",
+    "जोगिंदर"
+  ],
+  "challenge_names": [
+    "गोधन",
+    "जगेसर",
+    "हरखू",
+    "मंगरू",
+    "रघु",
+    "सोहन",
+    "बंसी",
+    "गिरधारी",
+    "बलराम",
+    "रामधन",
+    "जगन",
+    "कन्हैया"
+  ],
+  "core_variants": [
+    0
+  ],
+  "challenge_variants": [
+    1
+  ],
+  "split_sizes": {
+    "train": 20000,
+    "validation": 2000,
+    "test": 2000,
+    "challenge_names": 500,
+    "challenge_wording": 500
+  },
+  "review_scope": "Both pilot wording variants approved; names are substituted into the same approved masculine-name templates. Variant 1 is reserved from training for wording challenge."
+}

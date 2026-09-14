@@ -1,0 +1,8 @@
+language,samples,generic_perplexity,generic_cross_entropy,generic_bits_per_byte,reasoning_val_loss,reasoning_val_perplexity,reasoning_val_accuracy
+nepali,0,48.8469,3.8887,0.4377,2.4357,11.4242,0.00
+nepali,1000,76.1813,4.3331,0.4877,0.0994,1.1045,49.00
+nepali,3000,99.4260,4.5994,0.5177,0.0502,1.0515,49.00
+nepali,5000,175.1927,5.1659,0.5815,0.0431,1.0440,56.00
+nepali,8000,411.3583,6.0195,0.6776,0.0203,1.0205,42.00
+nepali,12000,1730.7432,7.4563,0.8393,0.0191,1.0193,44.00
+nepali,20000,23992.8682,10.0855,1.1352,0.0131,1.0132,52.00

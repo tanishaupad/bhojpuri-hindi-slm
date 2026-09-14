@@ -1,0 +1,32 @@
+{
+  "language": "ne",
+  "seed": 2026091401,
+  "names": ["आदित्य", "अमित", "अनिल", "अर्जुन", "अशोक", "दीपक", "दिनेश", "नवीन", "प्रकाश", "बिनोद", "मदन", "रमेश"],
+  "answer_cue": "उत्तर:",
+  "yes": "हो",
+  "no": "होइन",
+  "domains": {
+    "age": {
+      "range": [5, 80],
+      "fact": "{name}को उमेर {value} वर्ष छ।",
+      "relation": "{left}को उमेर {right}को भन्दा बढी छ।",
+      "questions": {
+        "greater": ["{choices}मध्ये कसको उमेर सबैभन्दा बढी छ?", "{choices}मध्ये सबैभन्दा बढी उमेर कसको छ?"],
+        "smaller": ["{choices}मध्ये कसको उमेर सबैभन्दा कम छ?", "{choices}मध्ये सबैभन्दा कम उमेर कसको छ?"],
+        "equality": ["के {left} र {right}को उमेर बराबर छ?", "के {left}को उमेर {right}को उमेर बराबर छ?"]
+      }
+    },
+    "height": {
+      "range": [80, 200],
+      "fact": "{name}को उचाइ {value} सेन्टिमिटर छ।",
+      "relation": "{left}को उचाइ {right}को भन्दा बढी छ।",
+      "questions": {
+        "greater": ["{choices}मध्ये सबैभन्दा अग्लो को छ?", "{choices}मध्ये कसको उचाइ सबैभन्दा बढी छ?"],
+        "smaller": ["{choices}मध्ये कसको उचाइ सबैभन्दा कम छ?", "{choices}मध्ये सबैभन्दा होचो को छ?"],
+        "equality": ["के {left} र {right}को उचाइ बराबर छ?", "के {left}को उचाइ {right}को उचाइ बराबर छ?"]
+      }
+    }
+  },
+  "join_two": " र ",
+  "review_status": "Native Nepali templates for deterministic Phase 3 generation"
+}

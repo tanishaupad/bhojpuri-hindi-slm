@@ -1,0 +1,24 @@
+{
+  "language": "nepali",
+  "model": "model_l_nepali_reasoning",
+  "pretrained_step": 16720,
+  "finetuned_step": 2500,
+  "selection_protocol": "full_validation_v1",
+  "best_validation_loss": 0.0131,
+  "best_checkpoint": {
+    "file": "tmp/phase3/runs/nepali/finetune_v1/best_checkpoint.pt",
+    "sha256": "ded00eaeaa650f6ecbbb8550b41ff95abe2f0f584962b500baf5cf571a9bb745"
+  },
+  "final_checkpoint": {
+    "file": "tmp/phase3/runs/nepali/finetune_v1/checkpoint_step_0002500.pt",
+    "sha256": "4cc3aee7b2272cc8d047574dd0cf1196433dec2b922f36c9b05e93b88900fdda"
+  },
+  "evaluation_summary": {
+    "file": "report/results/generated/phase3/finetuned_v1/nepali/evaluation_summary.json",
+    "sha256": "f177490c06406655f9f6196c84407d49d44b4c357ab0e7f756ffed5e183367db"
+  },
+  "ablation_summary": {
+    "file": "report/results/generated/phase3/ablation_nepali/samples_vs_ppl_ablation.json",
+    "sha256": "21d031ca5c2e3fdaed76efcf64626d1d8ebbafaefef1387e611d4dc15c5d1c65"
+  }
+}
