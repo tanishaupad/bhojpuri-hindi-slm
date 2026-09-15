@@ -106,4 +106,4 @@ its model state was exported tensor-for-tensor as `checkpoint_step_0020300.safet
 `8abac7de6c47cd1978bc9b7d980020f5dbf358fe48bebc0ad2c843940b155c86`. The SafeTensors file is
 non-executable and reloads directly through the evaluation script. Its JSON sidecar records the
 complete config, training step, token count, and source-checkpoint hash. Large checkpoint files
-remain outside Git and are stored under `hindi/bonus_no_position/` in the linked project Drive.
+remain outside Git and are stored under `hindi/hindi_no_position/` in the linked project Drive.

@@ -16,7 +16,7 @@
     "contents": "exact model weights; non-executable SafeTensors serialization",
     "metadata": "checkpoint_step_0020300.metadata.json"
   },
-  "drive_directory": "hindi/bonus_no_position/",
+  "drive_directory": "hindi/hindi_no_position/",
   "drive_parent_url": "https://drive.google.com/drive/folders/1JpEtcu5-Wj8hCgdTp2y-uC7zTQ0DJkXU",
   "tracked_in_git": false
 }
