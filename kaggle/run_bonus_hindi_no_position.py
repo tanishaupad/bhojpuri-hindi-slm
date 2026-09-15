@@ -27,6 +27,12 @@ def evaluate(
     name: str,
     device: str,
 ) -> None:
+    test_jsonl = next(
+        (path for path in (data / "test.jsonl.gz", data / "test.jsonl") if path.is_file()),
+        None,
+    )
+    if test_jsonl is None:
+        raise FileNotFoundError(f"Missing test.jsonl.gz or test.jsonl under {data}")
     run(
         [
             sys.executable,
@@ -39,7 +45,7 @@ def evaluate(
             "--test-manifest",
             str(data / "test.manifest.json"),
             "--test-jsonl",
-            str(data / "test.jsonl.gz"),
+            str(test_jsonl),
             "--tokenizer-model",
             str(repo / "hindi/tokenizer/hindi.model"),
             "--output",
