@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "language": "hindi",
+  "model_name": "model_h_hindi_no_position",
+  "position_encoding": "none",
+  "filename": "checkpoint_step_0020300.pt",
+  "training_step": 20300,
+  "tokens_seen": 332595200,
+  "parameter_count": 25186944,
+  "size_bytes": 302409585,
+  "sha256": "e39b6c2d6fce3ae9411d395ac7924318fc5be6b8545eb878b5e0cba2f88d72b1",
+  "drive_directory": "hindi/bonus_no_position/",
+  "drive_parent_url": "https://drive.google.com/drive/folders/1JpEtcu5-Wj8hCgdTp2y-uC7zTQ0DJkXU",
+  "tracked_in_git": false
+}

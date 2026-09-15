@@ -1,0 +1,8 @@
+{
+  "autocast_dtype": "torch.bfloat16",
+  "device": "cuda",
+  "parameter_count": 25186944,
+  "torch_version": "2.10.0+cu128",
+  "train_manifest": "/kaggle/input/datasets/tanishaupad/bonus-lma/lma_bonus_bundle/data/hindi/train.manifest.json",
+  "validation_manifest": "/kaggle/input/datasets/tanishaupad/bonus-lma/lma_bonus_bundle/data/hindi/validation.manifest.json"
+}

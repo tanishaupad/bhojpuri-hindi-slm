@@ -40,6 +40,7 @@ nepali/data/checkpoints/
 *.jsonl.gz
 # Compact model-output evidence is graded report material, not corpus data.
 !report/results/generated/phase3/pretrained_v1/**/*.jsonl
+!report/results/generated/bonus/**/*.jsonl
 *.parquet
 *.arrow
 *.sqlite

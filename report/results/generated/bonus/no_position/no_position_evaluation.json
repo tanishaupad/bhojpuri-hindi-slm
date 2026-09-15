@@ -1,0 +1,58 @@
+{
+  "attention_csv": "/kaggle/working/hindi_no_position/report/no_position_attention.csv",
+  "attention_figure_dir": "/kaggle/working/hindi_no_position/report/attention/no_position",
+  "checkpoint": "/kaggle/working/hindi_no_position/run/checkpoint_step_0020300.pt",
+  "generation": {
+    "greedy": {
+      "bleu_4": 0.8226785962236793,
+      "chrf_plus_plus": 8.416880407914357,
+      "distinct_1": 0.13980681240467718,
+      "distinct_2": 0.2644757433489828,
+      "repeated_4gram_rate": 0.6437980241492866,
+      "rouge_l_f1": 0.08997824852607066
+    },
+    "temperature_0.5": {
+      "bleu_4": 0.5874867396427751,
+      "chrf_plus_plus": 11.243138456199338,
+      "distinct_1": 0.22587064676616916,
+      "distinct_2": 0.4816326530612245,
+      "repeated_4gram_rate": 0.3088471849865952,
+      "rouge_l_f1": 0.10044854565481573
+    },
+    "temperature_1.0": {
+      "bleu_4": 0.45783047766068985,
+      "chrf_plus_plus": 15.56659047065985,
+      "distinct_1": 0.45740072202166066,
+      "distinct_2": 0.8716911764705882,
+      "repeated_4gram_rate": 0.0064761904761904765,
+      "rouge_l_f1": 0.10027770397315777
+    },
+    "temperature_1.5": {
+      "bleu_4": 0.18211359428018953,
+      "chrf_plus_plus": 14.233438683209773,
+      "distinct_1": 0.7600889736256753,
+      "distinct_2": 0.996125282531482,
+      "repeated_4gram_rate": 0.0,
+      "rouge_l_f1": 0.044783659307301604
+    }
+  },
+  "generation_protocol": {
+    "bleu": "corpus BLEU-4, whitespace tokenization",
+    "chrf": "chrF++ with character order 6 and word order 2",
+    "continuation_tokens": 64,
+    "example_selection": "smallest SHA-256(seed, document_id) scores",
+    "examples": 50,
+    "prefix_tokens": 32,
+    "rouge": "mean whitespace-token ROUGE-L F1",
+    "sampling_seed": 20260823
+  },
+  "intrinsic": {
+    "bits_per_byte": 0.5336351749830086,
+    "cross_entropy": 3.716091705993389,
+    "perplexity": 41.103435466162175,
+    "tokens_scored": 3521022,
+    "utf8_bytes": 35374088
+  },
+  "model_name": "model_h_hindi_no_position",
+  "samples_output": "/kaggle/working/hindi_no_position/report/no_position_samples.jsonl"
+}

@@ -1,0 +1,58 @@
+{
+  "attention_csv": "/kaggle/working/hindi_no_position/report/baseline_attention.csv",
+  "attention_figure_dir": "/kaggle/working/hindi_no_position/report/attention/baseline",
+  "checkpoint": "/kaggle/input/datasets/tanishaupad/bonus-lma/lma_bonus_bundle/baseline/checkpoint_step_0020300.pt",
+  "generation": {
+    "greedy": {
+      "bleu_4": 1.0164704597882084,
+      "chrf_plus_plus": 9.340915587196116,
+      "distinct_1": 0.15292897874546396,
+      "distinct_2": 0.2825971261309207,
+      "repeated_4gram_rate": 0.6356502242152466,
+      "rouge_l_f1": 0.1017131135778195
+    },
+    "temperature_0.5": {
+      "bleu_4": 1.416743977379539,
+      "chrf_plus_plus": 12.441683153651613,
+      "distinct_1": 0.23529411764705882,
+      "distinct_2": 0.5363855421686747,
+      "repeated_4gram_rate": 0.21515151515151515,
+      "rouge_l_f1": 0.11456748870764166
+    },
+    "temperature_1.0": {
+      "bleu_4": 0.41653160939794,
+      "chrf_plus_plus": 13.354065803961928,
+      "distinct_1": 0.49289297658862874,
+      "distinct_2": 0.8970964987190435,
+      "repeated_4gram_rate": 0.001784121320249777,
+      "rouge_l_f1": 0.09169327148217352
+    },
+    "temperature_1.5": {
+      "bleu_4": 0.11174142308908437,
+      "chrf_plus_plus": 14.14531256423679,
+      "distinct_1": 0.7672496025437202,
+      "distinct_2": 0.9977382875605816,
+      "repeated_4gram_rate": 0.0,
+      "rouge_l_f1": 0.04166787797642066
+    }
+  },
+  "generation_protocol": {
+    "bleu": "corpus BLEU-4, whitespace tokenization",
+    "chrf": "chrF++ with character order 6 and word order 2",
+    "continuation_tokens": 64,
+    "example_selection": "smallest SHA-256(seed, document_id) scores",
+    "examples": 50,
+    "prefix_tokens": 32,
+    "rouge": "mean whitespace-token ROUGE-L F1",
+    "sampling_seed": 20260823
+  },
+  "intrinsic": {
+    "bits_per_byte": 0.5281930472021058,
+    "cross_entropy": 3.678194193127576,
+    "perplexity": 39.57486494502225,
+    "tokens_scored": 3521022,
+    "utf8_bytes": 35374088
+  },
+  "model_name": "model_h_hindi",
+  "samples_output": "/kaggle/working/hindi_no_position/report/baseline_samples.jsonl"
+}
