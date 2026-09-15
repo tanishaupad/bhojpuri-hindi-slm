@@ -16,6 +16,7 @@ dependencies = [
   "numpy>=1.26,<3",
   "requests>=2.32,<3",
   "sacrebleu>=2.4,<3",
+  "safetensors>=0.4,<1",
   "sentencepiece>=0.2,<1",
   "torch>=2.4,<3",
 ]

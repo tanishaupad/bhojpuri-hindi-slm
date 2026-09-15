@@ -100,6 +100,10 @@ shifts toward shorter distances.
 - Complete compact results: `report/results/generated/bonus/no_position/`
 - Heatmaps and curve: `report/figures/generated/bonus/no_position/`
 
-The selected ablated checkpoint is `checkpoint_step_0020300.pt`, SHA-256
-`e39b6c2d6fce3ae9411d395ac7924318fc5be6b8545eb878b5e0cba2f88d72b1`. Large checkpoints remain
-outside Git and are stored under `hindi/bonus_no_position/` in the linked project Drive.
+The original resume checkpoint is `checkpoint_step_0020300.pt`, SHA-256
+`e39b6c2d6fce3ae9411d395ac7924318fc5be6b8545eb878b5e0cba2f88d72b1`. For safe distribution,
+its model state was exported tensor-for-tensor as `checkpoint_step_0020300.safetensors`, SHA-256
+`8abac7de6c47cd1978bc9b7d980020f5dbf358fe48bebc0ad2c843940b155c86`. The SafeTensors file is
+non-executable and reloads directly through the evaluation script. Its JSON sidecar records the
+complete config, training step, token count, and source-checkpoint hash. Large checkpoint files
+remain outside Git and are stored under `hindi/bonus_no_position/` in the linked project Drive.

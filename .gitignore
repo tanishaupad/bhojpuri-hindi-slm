@@ -57,5 +57,6 @@ lma_phase2_outputs*/
 *_phase2_kaggle_bundle/
 *_phase2_kaggle_upload.zip
 *.pt
+*.safetensors
 external_artifacts/
 output/kaggle/*.zip

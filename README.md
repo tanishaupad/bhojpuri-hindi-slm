@@ -271,7 +271,7 @@ unambiguous even if additional checkpoints are retained in the folder.
 | Nepali Model L | Pretrained | `checkpoint_step_0016720.pt` | `bba29e31aeda8f7681fc6929f5bf0f613e2c089e0f6eddcede2e0cc8b2ed6712` | [Nepali Phase 2 artifacts](https://drive.google.com/drive/folders/19ap22UY6jhYfItLkzvVPQ0M0HxhueEoX) |
 | Hindi Model H | Finetuned | `best_checkpoint.pt` | `8ac1b2c96642901f4025976ff597ac3d9abfc591820646572857972d176cc062` | [Hindi Phase 3 checkpoint folder](https://drive.google.com/drive/folders/1sLMoA66JndkIJ_xnI96BYAi1uzfPTuED?usp=share_link) |
 | Nepali Model L | Finetuned | `best_checkpoint.pt` | `ded00eaeaa650f6ecbbb8550b41ff95abe2f0f584962b500baf5cf571a9bb745` | [Nepali Phase 3 artifacts](https://drive.google.com/drive/folders/1odIDgF58syDp48FeAUrwfN95BYdWBrVQ) |
-| Hindi no-position bonus | Pretrained ablation | `checkpoint_step_0020300.pt` | `e39b6c2d6fce3ae9411d395ac7924318fc5be6b8545eb878b5e0cba2f88d72b1` | [Hindi artifacts](https://drive.google.com/drive/folders/1JpEtcu5-Wj8hCgdTp2y-uC7zTQ0DJkXU) (`bonus_no_position/`) |
+| Hindi no-position bonus | Pretrained ablation | `checkpoint_step_0020300.safetensors` | `8abac7de6c47cd1978bc9b7d980020f5dbf358fe48bebc0ad2c843940b155c86` | [Hindi artifacts](https://drive.google.com/drive/folders/1JpEtcu5-Wj8hCgdTp2y-uC7zTQ0DJkXU) (`bonus_no_position/`) |
 
 The pretrained hashes are recorded in `report/results/generated/phase2/checkpoint_manifest.json`;
 both selected finetuned checkpoints and their Drive folders are recorded in

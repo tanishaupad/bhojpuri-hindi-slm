@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import sentencepiece as spm
 import torch
 from matplotlib.font_manager import FontProperties
+from safetensors.torch import load_model as load_safetensors_model
 
 from lma_phase1.io import atomic_write_json, iter_jsonl
 from lma_phase2.config import load_experiment_config
@@ -29,11 +30,18 @@ from lma_phase2.training import precision_context, select_device
 
 def load_model(config_path: Path, checkpoint_path: Path, device: torch.device):
     experiment = load_experiment_config(config_path)
-    checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
-    if checkpoint["config"] != experiment.to_dict():
-        raise ValueError("Checkpoint and evaluation config differ")
     model = DecoderOnlyTransformer(experiment.model).to(device)
-    model.load_state_dict(checkpoint["model_state"])
+    if checkpoint_path.suffix == ".safetensors":
+        metadata_path = checkpoint_path.with_suffix(".metadata.json")
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if metadata["config"] != experiment.to_dict():
+            raise ValueError("Checkpoint and evaluation config differ")
+        load_safetensors_model(model, checkpoint_path, strict=True, device=str(device))
+    else:
+        checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
+        if checkpoint["config"] != experiment.to_dict():
+            raise ValueError("Checkpoint and evaluation config differ")
+        model.load_state_dict(checkpoint["model_state"])
     model.eval()
     return experiment, model
 

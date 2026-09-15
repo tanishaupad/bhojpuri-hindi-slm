@@ -9,6 +9,13 @@
   "parameter_count": 25186944,
   "size_bytes": 302409585,
   "sha256": "e39b6c2d6fce3ae9411d395ac7924318fc5be6b8545eb878b5e0cba2f88d72b1",
+  "safe_distribution": {
+    "filename": "checkpoint_step_0020300.safetensors",
+    "size_bytes": 100759800,
+    "sha256": "8abac7de6c47cd1978bc9b7d980020f5dbf358fe48bebc0ad2c843940b155c86",
+    "contents": "exact model weights; non-executable SafeTensors serialization",
+    "metadata": "checkpoint_step_0020300.metadata.json"
+  },
   "drive_directory": "hindi/bonus_no_position/",
   "drive_parent_url": "https://drive.google.com/drive/folders/1JpEtcu5-Wj8hCgdTp2y-uC7zTQ0DJkXU",
   "tracked_in_git": false
